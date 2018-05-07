@@ -31,8 +31,9 @@ import edu.montana.gsoc.msusel.codetree.CodeTree;
 import edu.montana.gsoc.msusel.codetree.node.CodeNode;
 import edu.montana.gsoc.msusel.codetree.node.type.ClassNode;
 import edu.montana.gsoc.msusel.grimeinject.GrimeInjector;
+import edu.montana.gsoc.msusel.inject.select.SelectInternalClasses;
+import edu.montana.gsoc.msusel.inject.transform.*;
 import edu.montana.gsoc.msusel.rbml.model.Pattern;
-import edu.montana.gsoc.msusel.source.*;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;

@@ -28,9 +28,10 @@ package edu.montana.gsoc.msusel.grimeinject;
 import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode;
 import edu.montana.gsoc.msusel.codetree.CodeTree;
 import edu.montana.gsoc.msusel.codetree.node.CodeNode;
+import edu.montana.gsoc.msusel.inject.TransformInvoker;
 import edu.montana.gsoc.msusel.rbml.model.Pattern;
-import edu.montana.gsoc.msusel.source.Selector;
-import edu.montana.gsoc.msusel.source.SourceTransform;
+import edu.montana.gsoc.msusel.inject.select.Selector;
+import edu.montana.gsoc.msusel.inject.transform.SourceTransform;
 
 import java.util.List;
 

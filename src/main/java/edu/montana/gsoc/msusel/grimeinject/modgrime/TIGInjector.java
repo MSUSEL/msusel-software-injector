@@ -30,8 +30,8 @@ import edu.montana.gsoc.msusel.codetree.CodeTree;
 import edu.montana.gsoc.msusel.codetree.node.CodeNode;
 import edu.montana.gsoc.msusel.codetree.node.type.ClassNode;
 import edu.montana.gsoc.msusel.grimeinject.GrimeInjector;
-import edu.montana.gsoc.msusel.source.InvalidTransformException;
-import edu.montana.gsoc.msusel.source.SourceTransform;
+import edu.montana.gsoc.msusel.inject.transform.InvalidTransformException;
+import edu.montana.gsoc.msusel.inject.transform.SourceTransform;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;

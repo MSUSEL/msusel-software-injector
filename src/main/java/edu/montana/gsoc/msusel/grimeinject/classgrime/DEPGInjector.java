@@ -31,7 +31,7 @@ package edu.montana.gsoc.msusel.grimeinject.classgrime;
 import edu.montana.gsoc.msusel.codetree.CodeTree;
 import edu.montana.gsoc.msusel.codetree.node.CodeNode;
 import edu.montana.gsoc.msusel.grimeinject.GrimeInjector;
-import edu.montana.gsoc.msusel.source.SourceTransform;
+import edu.montana.gsoc.msusel.inject.transform.SourceTransform;
 
 import java.util.List;
 
