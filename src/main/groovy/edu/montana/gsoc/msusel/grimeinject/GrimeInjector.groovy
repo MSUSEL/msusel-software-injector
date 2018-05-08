@@ -26,41 +26,37 @@
 package edu.montana.gsoc.msusel.grimeinject
 
 import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
-import edu.montana.gsoc.msusel.codetree.node.CodeNode
+import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
-import edu.montana.gsoc.msusel.inject.select.Selector
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 import edu.montana.gsoc.msusel.rbml.model.Pattern
-
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
 abstract class GrimeInjector {
 
-    private String type
-    protected Selector selector
     protected PatternNode pattern
     protected Pattern rbml
 
-    GrimeInjector(String type, PatternNode pattern, Pattern rbml, Selector selector)
+    GrimeInjector(PatternNode pattern, Pattern rbml)
     {
-        this.type = type
         this.pattern = pattern
         this.rbml = rbml
-        this.selector = selector
     }
 
     void inject(InjectorContext context) {
-        // 1. Select the nodes to inject into
-        List<CodeNode> nodes = selector.select(tree, binding)
-
         // 2. Create transforms
-        List<SourceTransform> transforms = createTransforms(context, nodes)
+        List<SourceTransform> transforms = createTransforms(context)
 
         // 3. add transforms to invoker
         invoker.submitAll(transforms)
     }
 
-    abstract List<SourceTransform> createTransforms(InjectorContext context, List<CodeNode> nodes)
+    abstract List<SourceTransform> createTransforms(InjectorContext context)
+TypeNode selectPatternClass() {
+    List<TypeNode> types = pattern.types()
+    Random rand = new Random()
+    types[rand.nextInt(types.size())]
+}
 }

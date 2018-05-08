@@ -27,14 +27,12 @@ package edu.montana.gsoc.msusel.grimeinject
 
 import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
 import edu.montana.gsoc.msusel.codetree.node.Accessibility
-import edu.montana.gsoc.msusel.codetree.node.CodeNode
 import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
 import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
 import edu.montana.gsoc.msusel.codetree.node.member.ParameterNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.codetree.typeref.PrimitiveTypeRef
 import edu.montana.gsoc.msusel.inject.InjectorContext
-import edu.montana.gsoc.msusel.inject.select.Selector
 import edu.montana.gsoc.msusel.inject.transform.*
 import edu.montana.gsoc.msusel.rbml.model.Pattern
 import groovy.transform.builder.Builder
@@ -50,18 +48,18 @@ class ClassGrimeInjector extends GrimeInjector {
     protected boolean pair
 
     @Builder(buildMethodName = "create")
-    ClassGrimeInjector(String type, PatternNode pattern, Pattern rbml, Selector selector, boolean direct, boolean internal, boolean pair) {
-        super(type, pattern, rbml, selector)
+    ClassGrimeInjector(PatternNode pattern, Pattern rbml, boolean direct, boolean internal, boolean pair) {
+        super(pattern, rbml)
         this.direct = direct
         this.internal = internal
         this.pair = pair
     }
 
     @Override
-    List<SourceTransform> createTransforms(InjectorContext context, List<CodeNode> nodes) {
+    List<SourceTransform> createTransforms(InjectorContext context) {
         List<SourceTransform> transforms = []
         TypeNode clazz = selectPatternClass()
-        FieldNode field = selectField(clazz)
+        FieldNode field = createField("test", clazz, transforms)
 
         MethodNode method1
         MethodNode method2
@@ -78,17 +76,53 @@ class ClassGrimeInjector extends GrimeInjector {
 
         if (direct) {
             createFieldUse(transforms, clazz, field, method1)
-            if (pair) {
+            if (method2) {
                 createFieldUse(transforms, clazz, field, method2)
             }
         } else {
             MethodNode mutator = createGetter(clazz, field, transforms)
             createMethodCall(clazz, method1, mutator, transforms)
-            if (pair) {
+            if (method2) {
                 createMethodCall(clazz, method2, mutator, transforms)
             }
         }
         transforms
+    }
+
+    MethodNode selectOrCreateMethod(TypeNode type) {
+        List<MethodNode> methods = type.methods()
+        if (methods.size() >= 1) {
+            Random rand = new Random()
+            int count = 0
+            int max = rand.nextInt(methods.size()) + 1
+            for (MethodNode method : methods) {
+                // TODO Fix This
+                if (count >= max) {
+                    return method
+                }
+                break
+            }
+        } else {
+            return createMethod(type, "testMethod1", transforms)
+        }
+    }
+
+    MethodNode selectPatternMethod(TypeNode type) {
+        List<MethodNode> methods = type.methods()
+        if (methods.size() >= 1) {
+            Random rand = new Random()
+            int count = 0
+            int max = rand.nextInt(methods.size()) + 1
+            for (MethodNode method : methods) {
+                // TODO Fix This
+                if (count >= max) {
+                    return method
+                }
+                break
+            }
+        } else {
+            return methods[0]
+        }
     }
 
     protected FieldNode createField(String fieldName, TypeNode type, List<SourceTransform> transforms) {

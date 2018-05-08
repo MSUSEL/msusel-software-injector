@@ -25,11 +25,14 @@
  */
 package edu.montana.gsoc.msusel.grimeinject
 
+import com.google.common.collect.Lists
 import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
-import edu.montana.gsoc.msusel.codetree.node.CodeNode
+import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
-import edu.montana.gsoc.msusel.inject.select.Selector
+import edu.montana.gsoc.msusel.inject.transform.AddAssociation
+import edu.montana.gsoc.msusel.inject.transform.AddInheritance
+import edu.montana.gsoc.msusel.inject.transform.AddRealization
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 import edu.montana.gsoc.msusel.rbml.model.Pattern
 import groovy.transform.builder.Builder
@@ -44,58 +47,78 @@ class ModularGrimeInjector extends GrimeInjector {
     protected boolean efferent
     protected boolean persistent
 
+    enum RelationType {
+        ASSOC, GEN, REAL, USE_VAR, USE_PARAM, USE_RET
+    }
+
     @Builder(buildMethodName = "create")
-    ModularGrimeInjector(String type, PatternNode pattern, Pattern rbml, Selector selector, boolean persistent, boolean external, boolean efferent) {
-        super(type, pattern, rbml, selector)
+    ModularGrimeInjector(PatternNode pattern, Pattern rbml, boolean persistent, boolean external, boolean efferent) {
+        super(pattern, rbml)
         this.persistent = persistent
         this.external = external
         this.efferent = efferent
     }
 
     @Override
-    List<SourceTransform> createTransforms(InjectorContext context, List<CodeNode> nodes) {
+    List<SourceTransform> createTransforms(InjectorContext context) {
         List<SourceTransform> transforms = []
         TypeNode src
         TypeNode dest
 
         if (external) {
             if (efferent) {
-                src = selectExternClass()
+                src = selectExternClass(context)
                 dest = selectPatternClass()
             } else {
                 src = selectPatternClass()
-                dest = selectExternClass()
+                dest = selectExternClass(context)
             }
         } else {
             (src, dest) = select2PatternClass()
         }
 
         if (persistent) {
-            rel = selectPersistentRel()
+            rel = selectPersistentRel(context, src, dest)
         } else {
-            rel = selectTemporaryRel()
+            rel = selectTemporaryRel(context, src, dest)
         }
 
-        createRelationship(src, dest, rel, transforms)
+        createRelationship(context, rel, src, dest, transforms)
     }
 
-    TypeNode selectPatternClass() {
-        null
+    TypeNode selectExternClass(InjectorContext context) {
+        List<TypeNode> types = Lists.newArrayList(context.tree.utils.types)
+        types.removeAll(pattern.types())
+
+        Random rand = new Random()
+        types[rand.nextInt(types.size())]
     }
 
-    TypeNode selectExternClass() {
-        null
-    }
-
-    def selectPersistentRel() {
-
-    }
-
-    def selectTemporaryRel() {
+    RelationType selectPersistentRel(InjectorContext context, TypeNode src, TypeNode dest) {
 
     }
 
-    List<SourceTransform> createRelationship(TypeNode src, TypeNode dest, rel, ArrayList<SourceTransform> sourceTransforms) {
-        null
+    RelationType selectTemporaryRel(InjectorContext context, TypeNode src, TypeNode dest) {
+
+    }
+
+    void createRelationship(InjectorContext context, FileNode file, RelationType rel, TypeNode src, TypeNode dest, ArrayList<SourceTransform> sourceTransforms) {
+        switch (rel) {
+            case RelationType.ASSOC:
+                transforms << AddAssociation.builder().context(context).file(file).bidirect(false).from(src).fromName().to(dest).toName().create()
+                break
+            case RelationType.GEN:
+                transforms << AddInheritance.builder().context(context).file(file).node(src).gen(dest).create()
+                break
+            case RelationType.REAL:
+                transforms << AddRealization.builder().context(context).file(file).node(src).real(dest).create()
+                break
+            case RelationType.USE_PARAM:
+                break
+            case RelationType.USE_RET:
+                break
+            case RelationType.USE_VAR:
+                break
+        }
     }
 }
