@@ -23,25 +23,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.inject
-
-import edu.montana.gsoc.msusel.grimeinject.GrimeInjector
-import edu.montana.gsoc.msusel.grimeinject.mod.PIGInjector
-import edu.montana.gsoc.msusel.grimeinject.mod.TIGInjector
+package edu.montana.gsoc.msusel.grimeinject;
 
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-@Singleton
-class InjectorFactory {
+interface OrgGrimeTypes {
 
-    GrimeInjector createInjector(String injector) {
-        switch(injector) {
-            case 'PIG':
-                return new PIGInjector()
-            case 'TIG':
-                return new TIGInjector()
-        }
-    }
+    String MPECG = "MPECG"
+    String MPEUG = "MPEUG"
+    String MPICG = "MPICG"
+    String MPIUG = "MPIUG"
+    String MTECG = "MTECG"
+    String MTEUG = "MTEUG"
+    String MTICG = "MTICG"
+    String MTIUG = "MTIUG"
+    String PECG = "PECG"
+    String PERG = "PERG"
+    String PICG = "PICG"
+    String PIRG = "PIRG"
 }

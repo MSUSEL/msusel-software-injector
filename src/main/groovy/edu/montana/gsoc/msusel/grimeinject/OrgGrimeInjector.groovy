@@ -23,25 +23,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.inject
+package edu.montana.gsoc.msusel.grimeinject
 
-import edu.montana.gsoc.msusel.grimeinject.GrimeInjector
-import edu.montana.gsoc.msusel.grimeinject.mod.PIGInjector
-import edu.montana.gsoc.msusel.grimeinject.mod.TIGInjector
+import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
+import edu.montana.gsoc.msusel.codetree.node.CodeNode
+import edu.montana.gsoc.msusel.inject.InjectorContext
+import edu.montana.gsoc.msusel.inject.select.Selector
+import edu.montana.gsoc.msusel.inject.transform.SourceTransform
+import edu.montana.gsoc.msusel.rbml.model.Pattern
 
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-@Singleton
-class InjectorFactory {
+class OrgGrimeInjector extends GrimeInjector {
 
-    GrimeInjector createInjector(String injector) {
-        switch(injector) {
-            case 'PIG':
-                return new PIGInjector()
-            case 'TIG':
-                return new TIGInjector()
-        }
+    OrgGrimeInjector(String type, PatternNode pattern, Pattern rbml, Selector selector) {
+        super(type, pattern, rbml, selector)
+    }
+
+    @Override
+    List<SourceTransform> createTransforms(InjectorContext context, List<CodeNode> nodes) {
+        return null
     }
 }

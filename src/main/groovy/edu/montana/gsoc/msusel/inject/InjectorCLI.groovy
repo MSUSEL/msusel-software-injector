@@ -25,6 +25,10 @@
  */
 package edu.montana.gsoc.msusel.inject
 
+/**
+ * @author Isaac Griffith
+ * @version 1.2.0
+ */
 class InjectorCLI {
 
     static void main(String[] args) {

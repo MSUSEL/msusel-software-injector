@@ -25,7 +25,11 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
+import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
+import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
 /**
@@ -34,18 +38,30 @@ import groovy.transform.builder.Builder
  */
 class AddFieldUse extends AbstractSourceTransform {
 
+    TypeNode type
+    FieldNode field
+    MethodNode method
+
     @Builder(buildMethodName = "create")
-    private AddFieldUse(InjectorContext context, FileNode file) {
+    private AddFieldUse(InjectorContext context, FileNode file, TypeNode type, FieldNode field, MethodNode method) {
         super(context, file)
+        this.type = type
+        this.field = field
+        this.method = method
     }
 
     @Override
     void execute() {
+        FileOperations ops = context.controller.getOps(file)
+        int line = findStatementInsertionPoint(method)
 
+        content = "        System.out.println(${field.name()});\n"
+        int length = ops.inject(line, content)
+
+        updatedContainingAndFollowing(line, length)
     }
 
     @Override
     void initializeConditions() {
-
     }
 }

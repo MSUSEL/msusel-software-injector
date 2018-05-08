@@ -28,6 +28,10 @@ package edu.montana.gsoc.msusel.inject
 import com.google.common.collect.Queues
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 
+/**
+ * @author Isaac Griffith
+ * @version 1.2.0
+ */
 class TransformInvoker {
 
     private Queue<SourceTransform> transforms
@@ -40,6 +44,8 @@ class TransformInvoker {
         transforms.each {
             it.execute()
         }
+
+        transforms.clear()
     }
 
     void submit(SourceTransform transform) {

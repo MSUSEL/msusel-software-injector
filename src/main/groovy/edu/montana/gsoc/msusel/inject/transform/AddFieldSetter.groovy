@@ -37,7 +37,7 @@ import groovy.transform.builder.Builder
 class AddFieldSetter extends FieldMutatorTransform {
 
     @Builder(buildMethodName = "create")
-    private AddFieldSetter(InjectorContext context, FileNode file, TypeNode type, FieldNode node) {
+    private AddFieldSetter(InjectorContext context, FileNode file, TypeNode type, FieldNode field) {
         super(context, file, type, node)
     }
 

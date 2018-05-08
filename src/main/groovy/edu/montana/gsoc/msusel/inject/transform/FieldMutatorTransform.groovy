@@ -26,6 +26,7 @@
 package edu.montana.gsoc.msusel.inject.transform
 
 import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
+import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.FileOperations
@@ -39,6 +40,7 @@ abstract class FieldMutatorTransform extends AbstractSourceTransform {
 
     FieldNode node
     TypeNode type
+    MethodNode method
 
     FieldMutatorTransform(InjectorContext context, FileNode file, TypeNode type, FieldNode node) {
         super(context, file)
@@ -56,6 +58,10 @@ abstract class FieldMutatorTransform extends AbstractSourceTransform {
         generateContent(builder)
 
         int length = ops.inject(line, builder.toString())
+        method.start = line
+        method.end = line + length
+        type.children << method
+
         updateAllFollowing(line, length)
         updateImports(node.type)
     }

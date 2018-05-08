@@ -30,6 +30,10 @@ import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
 import edu.montana.gsoc.msusel.rbml.model.Pattern
 
+/**
+ * @author Isaac Griffith
+ * @version 1.2.0
+ */
 class InjectionController {
 
     Map<FileNode, FileOperations> opsMap = [:]

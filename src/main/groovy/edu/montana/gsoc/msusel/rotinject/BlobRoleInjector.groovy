@@ -23,25 +23,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.inject
-
-import edu.montana.gsoc.msusel.grimeinject.GrimeInjector
-import edu.montana.gsoc.msusel.grimeinject.mod.PIGInjector
-import edu.montana.gsoc.msusel.grimeinject.mod.TIGInjector
+package edu.montana.gsoc.msusel.rotinject;
 
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-@Singleton
-class InjectorFactory {
-
-    GrimeInjector createInjector(String injector) {
-        switch(injector) {
-            case 'PIG':
-                return new PIGInjector()
-            case 'TIG':
-                return new TIGInjector()
-        }
-    }
+class BlobRoleInjector {
 }

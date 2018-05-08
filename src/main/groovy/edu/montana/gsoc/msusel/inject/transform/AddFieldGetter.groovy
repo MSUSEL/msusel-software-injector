@@ -30,7 +30,6 @@ import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
-
 /**
  * @author Isaac Griffith
  * @version 1.2.0
@@ -38,8 +37,8 @@ import groovy.transform.builder.Builder
 class AddFieldGetter extends FieldMutatorTransform {
 
     @Builder(buildMethodName = "create")
-    private AddFieldGetter(InjectorContext context, FileNode file, TypeNode type, FieldNode node) {
-        super(context, file, type, node)
+    private AddFieldGetter(InjectorContext context, FileNode file, TypeNode type, FieldNode field) {
+        super(context, file, type, field)
     }
 
     @Override
