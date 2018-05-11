@@ -36,7 +36,7 @@ import groovy.transform.builder.Builder
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class AddField extends AbstractSourceTransform {
+class AddField extends AddMember {
 
     TypeNode type
     FieldNode field

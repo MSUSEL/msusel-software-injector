@@ -47,10 +47,6 @@ class ModularGrimeInjector extends GrimeInjector {
     protected boolean efferent
     protected boolean persistent
 
-    enum RelationType {
-        ASSOC, GEN, REAL, USE_VAR, USE_PARAM, USE_RET
-    }
-
     @Builder(buildMethodName = "create")
     ModularGrimeInjector(PatternNode pattern, Pattern rbml, boolean persistent, boolean external, boolean efferent) {
         super(pattern, rbml)

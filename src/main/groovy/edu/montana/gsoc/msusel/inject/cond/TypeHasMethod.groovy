@@ -36,6 +36,12 @@ class TypeHasMethod implements Condition {
 
     TypeNode type
     MethodNode method
+    String name
+
+    TypeHasMethod(TypeNode type, String name) {
+        this.type = type
+        this.name = name
+    }
 
     TypeHasMethod(TypeNode type, MethodNode method) {
         this.type = type
@@ -44,8 +50,15 @@ class TypeHasMethod implements Condition {
 
     @Override
     boolean check() {
-        MethodNode mnode = type.methods().find { MethodNode m ->
-            m.signature() == method.signature()
+        MethodNode mnode = null
+        if (method) {
+            mnode = type.methods().find { MethodNode m ->
+                m.signature() == method.signature()
+            }
+        } else if (name) {
+            mnode = type.methods().find { MethodNode m ->
+                m.name() == name
+            }
         }
 
         mnode == null

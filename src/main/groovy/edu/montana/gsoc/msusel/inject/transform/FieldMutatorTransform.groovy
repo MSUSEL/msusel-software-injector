@@ -36,7 +36,7 @@ import edu.montana.gsoc.msusel.inject.InjectorContext
  * @author Isaac Griffith
  * @version 1.2.0
  */
-abstract class FieldMutatorTransform extends AbstractSourceTransform {
+abstract class FieldMutatorTransform extends AddMember {
 
     FieldNode node
     TypeNode type

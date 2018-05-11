@@ -171,4 +171,12 @@ abstract class AbstractSourceTransform implements SourceTransform {
         conditions.each { val = val && it.check() }
         val
     }
+
+    int findStatementInsertionPoint(MethodNode methodNode) {
+        0
+    }
+
+    def updateContainingAndAllFollowing(int line, int length) {
+
+    }
 }

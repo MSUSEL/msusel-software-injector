@@ -25,6 +25,7 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
+import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 
 /**
@@ -32,6 +33,14 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
  * @version 1.2.0
  */
 class TypeExists implements Condition {
+
+    FileNode file
+    TypeNode type
+
+    TypeExists(FileNode file, TypeNode type) {
+        this.file = file
+        this.type = type
+    }
 
     @Override
     boolean check() {

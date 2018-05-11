@@ -32,7 +32,7 @@ import groovy.transform.builder.Builder
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class AddUseDep extends AbstractSourceTransform {
+class AddUseDep extends AddRelation {
 
     @Builder(buildMethodName = "create")
     private AddUseDep(InjectorContext context, FileNode file) {

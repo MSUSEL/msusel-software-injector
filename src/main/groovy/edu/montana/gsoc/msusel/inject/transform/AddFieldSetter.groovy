@@ -29,6 +29,7 @@ import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
+import edu.montana.gsoc.msusel.inject.cond.TypeHasMethod
 import groovy.transform.builder.Builder
 /**
  * @author Isaac Griffith
@@ -52,6 +53,6 @@ class AddFieldSetter extends FieldMutatorTransform {
 
     @Override
     void initializeConditions() {
-
+        conditions << new TypeHasMethod(type, "set${capitalizedName}")
     }
 }

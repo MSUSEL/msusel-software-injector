@@ -32,12 +32,13 @@ import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
+import edu.montana.gsoc.msusel.inject.cond.TypeHasConstructor
 import groovy.transform.builder.Builder
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class AddConstructor extends AbstractSourceTransform {
+class AddConstructor extends AddMember {
 
     TypeNode type
     ConstructorNode node
@@ -101,6 +102,6 @@ class AddConstructor extends AbstractSourceTransform {
 
     @Override
     void initializeConditions() {
-
+        conditions << new TypeHasConstructor(type, node)
     }
 }

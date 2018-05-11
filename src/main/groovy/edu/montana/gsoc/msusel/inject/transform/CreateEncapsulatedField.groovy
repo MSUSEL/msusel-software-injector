@@ -32,6 +32,7 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.codetree.typeref.TypeRef
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
+
 /**
  * @author Isaac Griffith
  * @version 1.2.0

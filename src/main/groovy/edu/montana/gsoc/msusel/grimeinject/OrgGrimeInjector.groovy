@@ -26,23 +26,14 @@
 package edu.montana.gsoc.msusel.grimeinject
 
 import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
-import edu.montana.gsoc.msusel.inject.InjectorContext
-import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 import edu.montana.gsoc.msusel.rbml.model.Pattern
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class OrgGrimeInjector extends GrimeInjector {
+abstract class OrgGrimeInjector extends GrimeInjector {
 
     OrgGrimeInjector(PatternNode pattern, Pattern rbml) {
         super(pattern, rbml)
-    }
-
-    @Override
-    List<SourceTransform> createTransforms(InjectorContext context) {
-        List<SourceTransform> transforms = []
-
-        transforms
     }
 }

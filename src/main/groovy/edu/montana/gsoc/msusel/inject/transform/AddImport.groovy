@@ -35,7 +35,7 @@ import groovy.transform.builder.Builder
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class AddImport extends AbstractSourceTransform {
+class AddImport extends BasicSourceTransform {
 
     ImportNode node
 
@@ -48,16 +48,27 @@ class AddImport extends AbstractSourceTransform {
     @Override
     void execute() {
         FileOperations ops = context.controller.getOps(file)
-        // 1. Find last import line
+
         int line = findImportInsertionPoint()
-
-        // 2.
         String content = "import ${node.key};\n"
-
-        // 3.
         int delta = ops.inject(line, content)
 
         updateAllFollowing(line, delta)
+    }
+
+    int findImportInsertionPoint() {
+        int line = 1
+
+        FileOperations ops = context.controller.getOps(file)
+        Map<String, Integer> importMap = [:]
+        ops.getLines().each {
+            if (it.startsWith("import ")) {
+                importsMap[it] = line
+            }
+            line += 1
+        }
+
+        return line + 1
     }
 
     @Override

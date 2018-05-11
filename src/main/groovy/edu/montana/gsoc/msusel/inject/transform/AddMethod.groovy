@@ -32,12 +32,13 @@ import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
+import edu.montana.gsoc.msusel.inject.cond.TypeHasMethod
 import groovy.transform.builder.Builder
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class AddMethod extends AbstractSourceTransform {
+class AddMethod extends AddMember {
 
     TypeNode type
     MethodNode node
@@ -116,6 +117,6 @@ class AddMethod extends AbstractSourceTransform {
 
     @Override
     void initializeConditions() {
-
+        conditions << new TypeHasMethod(type, node)
     }
 }

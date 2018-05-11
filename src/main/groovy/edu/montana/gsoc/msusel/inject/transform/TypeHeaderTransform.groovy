@@ -31,11 +31,12 @@ import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.InterfaceNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
+
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-abstract class TypeHeaderTransform extends AbstractSourceTransform {
+abstract class TypeHeaderTransform extends BasicSourceTransform {
 
     TypeNode type
     List<SourceTransform> transforms = []

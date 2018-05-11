@@ -27,6 +27,7 @@ package edu.montana.gsoc.msusel.inject.transform
 
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
+import edu.montana.gsoc.msusel.inject.cond.FileExists
 import groovy.transform.builder.Builder
 
 import java.nio.file.Paths
@@ -34,7 +35,7 @@ import java.nio.file.Paths
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class CreateFile extends AbstractSourceTransform {
+class CreateFile extends CreateStructure {
 
     @Builder(buildMethodName = "create")
     private CreateFile(InjectorContext context, FileNode file) {
@@ -87,6 +88,6 @@ class CreateFile extends AbstractSourceTransform {
 
     @Override
     void initializeConditions() {
-
+        conditions << new FileExists(file)
     }
 }

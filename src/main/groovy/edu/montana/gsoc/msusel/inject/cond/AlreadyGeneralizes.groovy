@@ -25,11 +25,22 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
+import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.montana.gsoc.msusel.inject.InjectorContext
+
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class AlreadyGeneralizes implements Condition {
+class AlreadyGeneralizes extends TypeHeaderCondition {
+
+    private final TypeNode gen
+
+    AlreadyGeneralizes(InjectorContext context, FileNode file, TypeNode node, TypeNode gen) {
+        super(context, file, node)
+        this.gen = gen
+    }
 
     @Override
     boolean check() {

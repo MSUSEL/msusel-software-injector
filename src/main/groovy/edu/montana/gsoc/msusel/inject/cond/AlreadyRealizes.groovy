@@ -25,13 +25,22 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
+import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.InterfaceNode
-
+import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.montana.gsoc.msusel.inject.InjectorContext
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class AlreadyRealizes implements Condition {
+class AlreadyRealizes extends TypeHeaderCondition {
+
+    private final TypeNode real
+
+    AlreadyRealizes(InjectorContext context, FileNode file, TypeNode node, TypeNode real) {
+        super(context, file, node)
+        this.real = real
+    }
 
     @Override
     boolean check() {

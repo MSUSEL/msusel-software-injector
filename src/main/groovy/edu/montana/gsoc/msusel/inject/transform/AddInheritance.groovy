@@ -28,6 +28,7 @@ package edu.montana.gsoc.msusel.inject.transform
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
+import edu.montana.gsoc.msusel.inject.cond.AlreadyGeneralizes
 import groovy.transform.builder.Builder
 /**
  * @author Isaac Griffith
@@ -47,10 +48,13 @@ class AddInheritance extends TypeHeaderTransform {
     void execute() {
         // 1. find type name check if already extends something, if so throw an exception, else add extends
         String header = getTypeHeader()
-        String afterName = header.split("${node.name()}")[1]
+        String afterName = header.split("${type.name()}")[1]
         afterName = "extends ${gen.name()} ${afterName}"
-        content.replace("${node.name()}", "${node.name()} ${afterName}")
+        content.replace("${type.name()}", "${type.name()} ${afterName}")
         context.tree.addGeneralizes(type, gen)
+
+        // TODO need to do the actual injection
+
         // 2. check the package to determine if an import is needed
         // 3. if an import is needed, check if it already exists, if not add the type to the import list
         updateImports(gen)
@@ -61,6 +65,6 @@ class AddInheritance extends TypeHeaderTransform {
 
     @Override
     void initializeConditions() {
-
+        conditions << new AlreadyGeneralizes(context, file, type, gen)
     }
 }

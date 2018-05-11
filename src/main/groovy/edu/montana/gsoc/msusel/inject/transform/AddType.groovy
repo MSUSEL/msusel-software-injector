@@ -32,12 +32,13 @@ import edu.montana.gsoc.msusel.codetree.node.type.InterfaceNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
+import edu.montana.gsoc.msusel.inject.cond.TypeExists
 import groovy.transform.builder.Builder
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class AddType extends AbstractSourceTransform {
+class AddType extends CreateStructure {
 
     TypeNode type
 
@@ -131,6 +132,6 @@ class AddType extends AbstractSourceTransform {
 
     @Override
     void initializeConditions() {
-
+        conditions << new TypeExists(file, type)
     }
 }

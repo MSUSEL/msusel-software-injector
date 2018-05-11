@@ -61,7 +61,7 @@ class AddAssociation extends CompositeSourceTransform {
             transforms << CreateEncapsulatedField.builder().context(context).file(file).type(from).fieldType(to).fieldName(fromName).create()
             transforms << CreateEncapsulatedField.builder().context(context).file(toFile).type(to).fieldType(from).fieldName(toName).create()
         }
-
+        // TODO add association to tree
         context.invoker.submitAll(transforms)
     }
 

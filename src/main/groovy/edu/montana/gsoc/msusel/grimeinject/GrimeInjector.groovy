@@ -30,6 +30,7 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 import edu.montana.gsoc.msusel.rbml.model.Pattern
+
 /**
  * @author Isaac Griffith
  * @version 1.2.0
@@ -39,8 +40,7 @@ abstract class GrimeInjector {
     protected PatternNode pattern
     protected Pattern rbml
 
-    GrimeInjector(PatternNode pattern, Pattern rbml)
-    {
+    GrimeInjector(PatternNode pattern, Pattern rbml) {
         this.pattern = pattern
         this.rbml = rbml
     }
@@ -53,10 +53,9 @@ abstract class GrimeInjector {
         invoker.submitAll(transforms)
     }
 
-    abstract List<SourceTransform> createTransforms(InjectorContext context)
-TypeNode selectPatternClass() {
-    List<TypeNode> types = pattern.types()
-    Random rand = new Random()
-    types[rand.nextInt(types.size())]
-}
+    TypeNode selectPatternClass() {
+        List<TypeNode> types = pattern.types()
+        Random rand = new Random()
+        types[rand.nextInt(types.size())]
+    }
 }

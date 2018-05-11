@@ -36,7 +36,7 @@ import groovy.transform.builder.Builder
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class AddFieldUse extends AbstractSourceTransform {
+class AddFieldUse extends AddRelation {
 
     TypeNode type
     FieldNode field
@@ -52,13 +52,22 @@ class AddFieldUse extends AbstractSourceTransform {
 
     @Override
     void execute() {
+        TypeNode fieldOwner = findOwningType(field)
         FileOperations ops = context.controller.getOps(file)
         int line = findStatementInsertionPoint(method)
 
+        if (field.hasModifier("static")) {
+
+        } else if (fieldOwner == type) {
+
+        } else {
+
+        }
         content = "        System.out.println(${field.name()});\n"
         int length = ops.inject(line, content)
 
-        updatedContainingAndFollowing(line, length)
+        // TODO add use dependency to tree
+        updateContainingAndAllFollowing(line, length)
     }
 
     @Override

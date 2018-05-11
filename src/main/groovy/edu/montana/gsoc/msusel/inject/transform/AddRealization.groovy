@@ -28,6 +28,7 @@ package edu.montana.gsoc.msusel.inject.transform
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
+import edu.montana.gsoc.msusel.inject.cond.AlreadyRealizes
 import groovy.transform.builder.Builder
 /**
  * @author Isaac Griffith
@@ -62,6 +63,7 @@ class AddRealization extends TypeHeaderTransform {
         }
 
         context.tree.addRealizes(type, real)
+        // TODO need to define line and start
         int delta = ops.replaceRange(start, line, content)
         updateAllFollowing(type.start, delta)
 
@@ -75,11 +77,6 @@ class AddRealization extends TypeHeaderTransform {
 
     @Override
     void initializeConditions() {
-
-    }
-
-    @Override
-    boolean checkConditions() {
-
+        conditions << new AlreadyRealizes(context, file, type, real)
     }
 }
