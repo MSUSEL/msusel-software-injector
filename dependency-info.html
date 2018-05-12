@@ -30,7 +30,10 @@
                                                                                                 <img src="images/msusel-logo.png"  alt="MSUSEL"/>
                 </a>
                       </div>
-        <div class="pull-right">  </div>
+        <div class="pull-right">                  <a href="https://msusel.github.io/msusel-software-injector" id="bannerRight">
+                                                                                                <img src="images/injector.png"  alt="msusel-software-injector"/>
+                </a>
+      </div>
         <div class="clear"><hr/></div>
       </div>
 
@@ -52,7 +55,15 @@
                 
                     
                 <ul class="nav nav-list">
-                    <li class="nav-header">Project Documentation</li>
+                    <li class="nav-header">API Docs</li>
+                              
+      <li>
+  
+                          <a href="groovydoc/index.html" title="GroovyDocs">
+          <span class="none"></span>
+        GroovyDocs</a>
+            </li>
+                              <li class="nav-header">Project Documentation</li>
                                                                                                                                                                                     
       <li>
   
@@ -102,7 +113,7 @@
             </li>
               </ul>
         </li>
-                                                                                                      
+                                                                  
       <li>
   
                           <a href="project-reports.html" title="Project Reports">
@@ -135,32 +146,32 @@
 <div class="section">
 <h3>Apache Maven<a name="Apache_Maven"></a></h3><a name="Apache_Maven"></a>
 <div class="source"><pre class="prettyprint">&lt;dependency&gt;
-  &lt;groupId&gt;edu.montana.gsoc.msusel.parsers&lt;/groupId&gt;
-  &lt;artifactId&gt;msusel-java-parser&lt;/artifactId&gt;
+  &lt;groupId&gt;edu.montana.gsoc.msusel&lt;/groupId&gt;
+  &lt;artifactId&gt;msusel-software-injector&lt;/artifactId&gt;
   &lt;version&gt;1.2.0-idg&lt;/version&gt;
 &lt;/dependency&gt;</pre></div></div>
 <div class="section">
 <h3>Apache Buildr<a name="Apache_Buildr"></a></h3><a name="Apache_Buildr"></a>
-<div class="source"><pre class="prettyprint">'edu.montana.gsoc.msusel.parsers:msusel-java-parser:jar:1.2.0-idg'</pre></div></div>
+<div class="source"><pre class="prettyprint">'edu.montana.gsoc.msusel:msusel-software-injector:jar:1.2.0-idg'</pre></div></div>
 <div class="section">
 <h3>Apache Ivy<a name="Apache_Ivy"></a></h3><a name="Apache_Ivy"></a>
-<div class="source"><pre class="prettyprint">&lt;dependency org=&quot;edu.montana.gsoc.msusel.parsers&quot; name=&quot;msusel-java-parser&quot; rev=&quot;1.2.0-idg&quot;&gt;
-  &lt;artifact name=&quot;msusel-java-parser&quot; type=&quot;jar&quot; /&gt;
+<div class="source"><pre class="prettyprint">&lt;dependency org=&quot;edu.montana.gsoc.msusel&quot; name=&quot;msusel-software-injector&quot; rev=&quot;1.2.0-idg&quot;&gt;
+  &lt;artifact name=&quot;msusel-software-injector&quot; type=&quot;jar&quot; /&gt;
 &lt;/dependency&gt;</pre></div></div>
 <div class="section">
 <h3>Groovy Grape<a name="Groovy_Grape"></a></h3><a name="Groovy_Grape"></a>
 <div class="source"><pre class="prettyprint">@Grapes(
-@Grab(group='edu.montana.gsoc.msusel.parsers', module='msusel-java-parser', version='1.2.0-idg')
+@Grab(group='edu.montana.gsoc.msusel', module='msusel-software-injector', version='1.2.0-idg')
 )</pre></div></div>
 <div class="section">
 <h3>Gradle/Grails<a name="GradleGrails"></a></h3><a name="GradleGrails"></a>
-<div class="source"><pre class="prettyprint">compile 'edu.montana.gsoc.msusel.parsers:msusel-java-parser:1.2.0-idg'</pre></div></div>
+<div class="source"><pre class="prettyprint">compile 'edu.montana.gsoc.msusel:msusel-software-injector:1.2.0-idg'</pre></div></div>
 <div class="section">
 <h3>Scala SBT<a name="Scala_SBT"></a></h3><a name="Scala_SBT"></a>
-<div class="source"><pre class="prettyprint">libraryDependencies += &quot;edu.montana.gsoc.msusel.parsers&quot; % &quot;msusel-java-parser&quot; % &quot;1.2.0-idg&quot;</pre></div></div>
+<div class="source"><pre class="prettyprint">libraryDependencies += &quot;edu.montana.gsoc.msusel&quot; % &quot;msusel-software-injector&quot; % &quot;1.2.0-idg&quot;</pre></div></div>
 <div class="section">
 <h3>Leiningen<a name="Leiningen"></a></h3><a name="Leiningen"></a>
-<div class="source"><pre class="prettyprint">[edu.montana.gsoc.msusel.parsers/msusel-java-parser &quot;1.2.0-idg&quot;]</pre></div></div></div>
+<div class="source"><pre class="prettyprint">[edu.montana.gsoc.msusel/msusel-software-injector &quot;1.2.0-idg&quot;]</pre></div></div></div>
                   </div>
             </div>
           </div>
