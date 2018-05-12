@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="1262" branches-covered="0" branches-valid="954" complexity="0.0" version="1.9.4.1" timestamp="1526122722146">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="1262" branches-covered="0" branches-valid="954" complexity="0.0" version="1.9.4.1" timestamp="1526131496821">
 	<sources>
 		<source>/home/git/msusel/msusel-software-injector/src/main/java</source>
 		<source>--source</source>
