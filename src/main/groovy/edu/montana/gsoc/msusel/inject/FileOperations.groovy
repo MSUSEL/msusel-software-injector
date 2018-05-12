@@ -35,14 +35,25 @@ import java.nio.file.Paths
 import java.nio.file.StandardOpenOption
 
 /**
+ * Container for contents of files currently under modification. This class acts as the receiver
+ * of the transforms.
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class FileOperations {
 
+    /**
+     * The string representation of the path for the file to be modified
+     */
     String file
+    /**
+     * List containing the string contents of the file under modification
+     */
     List<String> lines
 
+    /**
+     * Saves the file, if it already exists this method will delete and rewrite the file.
+     */
     void save() {
         Path path = Paths.get(file)
         try {
@@ -64,7 +75,16 @@ class FileOperations {
         }
     }
 
+    /**
+     * Opens the file at the location specified in the key of the provided FileNode
+     * @param node Node representation of the file
+     * @throws IllegalArgumentException if the provided FileNode is null
+     */
     void open(FileNode node) {
+        if (file == null) {
+            throw new IllegalArgumentException("No FileOperations can be defined for a null FileNode")
+        }
+
         file = node.getKey()
 
         Path path = Paths.get(file)
@@ -75,31 +95,70 @@ class FileOperations {
         }
     }
 
+    /**
+     * Injects the contents of the provided string at the provided location
+     * @param line Location for the injection
+     * @param content Content to be injected
+     * @return the length of the injected content, in lines
+     * @throws IllegalArgumentException if line is outside the bounds of the file or if the content is null
+     */
     int inject(int line, String content) {
+        if (line - 1 < 0 || line - 1 >= lines.size())
+            throw new IllegalArgumentException("No such line as ${line} in file ${file}")
+        if (content == null)
+            throw new IllegalArgumentException("Cannot inject null content")
+
         String[] newLines = content.split(/\n/)
 
-        lines.addAll(line, Arrays.asList(newLines))
+        lines.addAll(line - 1, Arrays.asList(newLines))
 
         return newLines.length
     }
 
+    /**
+     * Retrieves the content at the line provided
+     * @param line index of the line of content (assumed to start at 1)
+     * @return The actual content of the at that line in the file
+     * @throws IllegalArgumentException if the line is outside the bounds of the file
+     */
     String contentAt(int line) {
-        return lines[line]
+        if (line - 1 < 0 || line - 1 >= lines.size())
+            throw new IllegalArgumentException("No such line as ${line} in file ${file}")
+        return lines[line - 1]
     }
 
+    /**
+     * Retrieves the content in the file between the start and end lines of the provided code node (inclusive)
+     * @param node Node whose content is requested
+     * @return List of strings covering the lines in the region requested
+     * @throws IllegalArgumentException if the provide node is null
+     */
     List<String> contentRegion(CodeNode node) {
+        if (node == null) {
+            throw new IllegalArgumentException("Cannot retrieve content region of a null CodeNode")
+        }
         try {
-            lines.subList(node.start, node.end)
+            lines.subList(node.start - 1, node.end - 1)
         } catch (IndexOutOfBoundsException e) {
             []
         }
     }
 
+    /**
+     * Injects the provided string at the very end of the file
+     * @param s The content to be injected
+     * @return The length of the injected content in lines
+     * @throws IllegalArgumentException if the content provided is null
+     */
     int injectAtEnd(String s) {
+        if (s == null) {
+            throw new IllegalArgumentException("Cannot inject null content")
+        }
         int start = lines.size()
 
-        lines.addAll(s.split(/\n/))
+        def newLines = s.split(/\n/)
+        lines.addAll(newLines)
 
-        start
+        newLines.size()
     }
 }

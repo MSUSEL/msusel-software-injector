@@ -29,17 +29,28 @@ import com.google.common.collect.Queues
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 
 /**
+ * This represents the command invoker which collects a queue of Transforms and when ready will execute them in the proper order (FIFO)
+ *
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class TransformInvoker {
 
+    /**
+     * The queue of transforms to be executed to construct software artifacts
+     */
     private Queue<SourceTransform> transforms
 
+    /**
+     * Constructs a new TransformInvoker with an empty concurrent queue
+     */
     TransformInvoker() {
         transforms = Queues.newConcurrentLinkedQueue()
     }
 
+    /**
+     * Executes the current queued transforms
+     */
     void executeTransforms() {
         transforms.each {
             it.execute()
@@ -48,6 +59,10 @@ class TransformInvoker {
         transforms.clear()
     }
 
+    /**
+     * Submits the provided transform to the queue for later execution
+     * @param transform Transform to be executed, if null nothing is submitted
+     */
     void submit(SourceTransform transform) {
         if (!transform)
             return
@@ -55,7 +70,13 @@ class TransformInvoker {
         transforms << transform
     }
 
+    /**
+     * Submits the list of transforms in order to the transform queue
+     * @param list List of transforms
+     */
     void submitAll(List<SourceTransform> list) {
+        if (!list)
+            return
         transforms += list
     }
 }

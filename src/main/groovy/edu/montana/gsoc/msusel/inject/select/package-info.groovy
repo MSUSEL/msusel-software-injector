@@ -23,30 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.inject
-
-import edu.montana.gsoc.msusel.inject.transform.SourceTransform
-
 /**
- * A base injector which does simply nothing, following the NullObject pattern.
- * @author Isaac Griffith
- * @version 1.2.0
+ * Package containing those Grime Injectors and their necessary classes
  */
-class NullInjector implements SourceInjector {
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    List<SourceTransform> createTransforms(InjectorContext context) {
-        return []
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    void inject(InjectorContext context) {
-
-    }
-}
+package edu.montana.gsoc.msusel.inject.select

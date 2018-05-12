@@ -26,6 +26,7 @@
 package edu.montana.gsoc.msusel.inject.grime;
 
 /**
+ * Interface containing the constants for Organizational Grime Types
  * @author Isaac Griffith
  * @version 1.2.0
  */

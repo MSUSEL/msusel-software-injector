@@ -38,6 +38,7 @@ import edu.montana.gsoc.msusel.rbml.model.Pattern
 import groovy.transform.builder.Builder
 
 /**
+ * GrimeInjector for ClassGrime
  * @author Isaac Griffith
  * @version 1.2.0
  */

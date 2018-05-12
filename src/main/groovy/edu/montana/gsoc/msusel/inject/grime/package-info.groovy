@@ -24,6 +24,6 @@
  * SOFTWARE.
  */
 /**
- * Package containing those Injectors for Class Grime
+ * Package containing those Grime Injectors and their necessary classes
  */
 package edu.montana.gsoc.msusel.inject.grime

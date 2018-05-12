@@ -31,11 +31,17 @@ import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
 import edu.montana.gsoc.msusel.rbml.model.Pattern
 
 /**
+ * Class to control the basic operation of an injector. Maintains a list of open FileOperations,
+ * while also providing a means to ensure that any open FileOperations save, and that the invoker
+ * executes collected Transforms
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class InjectionController {
 
+    /**
+     * Map of current FileOperations linked to their respective FileNodes
+     */
     Map<FileNode, FileOperations> opsMap = [:]
 
     void process(CodeTree tree, PatternNode node, Pattern rbml) {
@@ -47,7 +53,18 @@ class InjectionController {
         complete()
     }
 
+    /**
+     * Retrieves the current FileOperations for a given FileNode, if no such FileOperation exists,
+     * then one is created
+     * @param file FileNode
+     * @return FileOperation for the file
+     * @throws IllegalArgumentException if the provided FileNode is null
+     */
     FileOperations getOps(FileNode file) {
+        if (file == null) {
+            throw new IllegalArgumentException("No FileOperations can be defined for a null FileNode")
+        }
+
         if (!opsMap[file]) {
             opsMap[file] = new FileOperations()
             opsMap[file].open(file)
