@@ -24,6 +24,7 @@
  * SOFTWARE.
  */
 /**
- * Package containing those Grime Injectors and their necessary classes
+ * Contains the transforms which modify source code and the code tree in order to produce
+ * small artifact based changes within a software project.
  */
-package edu.montana.gsoc.msusel.inject.cond
+package edu.montana.gsoc.msusel.inject.transform;

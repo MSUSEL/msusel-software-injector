@@ -33,15 +33,32 @@ import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
+ * Base class for field mutator transforms
  * @author Isaac Griffith
  * @version 1.2.0
  */
 abstract class FieldMutatorTransform extends AddMember {
 
+    /**
+     * The Field for which a mutator will be created
+     */
     FieldNode node
+    /**
+     * Type into which the mutator will be inserted
+     */
     TypeNode type
+    /**
+     * Method representing the mutator
+     */
     MethodNode method
 
+    /**
+     * Constructs a new FieldMutator transform
+     * @param context the current InjectorContext
+     * @param file the file to be modified
+     * @param type the type into which the mutator will be inserted
+     * @param node the method representing the mutator
+     */
     FieldMutatorTransform(InjectorContext context, FileNode file, TypeNode type, FieldNode node) {
         super(context, file)
         this.node = node
@@ -69,16 +86,29 @@ abstract class FieldMutatorTransform extends AddMember {
         updateImports(node.type)
     }
 
+    /**
+     * Generates the content of the mutator
+     * @param builder StringBuilder to which the content will be added
+     */
     protected abstract void generateContent(StringBuilder builder)
 
+    /**
+     * @return name of the mutator
+     */
     def name() {
         node.name().toString()
     }
 
+    /**
+     * @return return type of the mutator
+     */
     def type() {
         node.type.name()
     }
 
+    /**
+     * @return a correctly capitalized name of the method
+     */
     def capitalizedName() {
         node.name().toString().capitalize()
     }

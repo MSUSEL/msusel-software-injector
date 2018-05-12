@@ -29,11 +29,17 @@ import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
 /**
+ * Transform which creates a new use dependency between two types
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class AddUseDep extends AddRelation {
 
+    /**
+     * Constructs a new AddUseDep transform
+     * @param context current InjectorContext
+     * @param file file to be modified
+     */
     @Builder(buildMethodName = "create")
     private AddUseDep(InjectorContext context, FileNode file) {
         super(context, file)

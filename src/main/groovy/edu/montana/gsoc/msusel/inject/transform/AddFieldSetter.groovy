@@ -31,15 +31,24 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.TypeHasMethod
 import groovy.transform.builder.Builder
+
 /**
+ * Transform which adds a Setter method for a field to a given type
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class AddFieldSetter extends FieldMutatorTransform {
 
+    /**
+     * Constructs a new AddFieldSetter transform
+     * @param context the current InjectorContext
+     * @param file File to be modified
+     * @param type The type to which the setter will be added
+     * @param field The field the setter is for
+     */
     @Builder(buildMethodName = "create")
     private AddFieldSetter(InjectorContext context, FileNode file, TypeNode type, FieldNode field) {
-        super(context, file, type, node)
+        super(context, file, type, field)
     }
 
     /**

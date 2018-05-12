@@ -34,14 +34,25 @@ import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.TypeExists
 import groovy.transform.builder.Builder
+
 /**
+ * Transform which injects a new Type into a given File
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class CreateType extends CreateStructure {
 
+    /**
+     * Type to be injected
+     */
     TypeNode type
 
+    /**
+     * Constructs a new CreateType transform
+     * @param context the current InjectorContext
+     * @param file the file to be modified
+     * @param type the type to be added
+     */
     @Builder(buildMethodName = "create")
     private CreateType(InjectorContext context, FileNode file, TypeNode type) {
         super(context, file)
@@ -87,10 +98,16 @@ class CreateType extends CreateStructure {
         conditions << new TypeExists(file, type)
     }
 
+    /**
+     * @return String representation of the type's accessibility
+     */
     String accessibilityString() {
         type.accessibility.toString().toLowerCase()
     }
 
+    /**
+     * @return String representation of the modifiers for the type
+     */
     String modifierString() {
         StringBuilder builder = new StringBuilder()
         type.modifiers.each {
@@ -102,6 +119,9 @@ class CreateType extends CreateStructure {
         builder.toString()
     }
 
+    /**
+     * @return String representation for the type to be injected
+     */
     String typeString() {
         if (type instanceof ClassNode)
             return "class"
@@ -113,10 +133,16 @@ class CreateType extends CreateStructure {
         ""
     }
 
+    /**
+     * @return name of the type to be injected
+     */
     String nameString() {
         type.name()
     }
 
+    /**
+     * @return String representation of the generalization section of the type header
+     */
     String generalizes() {
         def gen = context.tree?.getGeneralizedFrom(type)
         if (!gen?.empty)
@@ -125,6 +151,9 @@ class CreateType extends CreateStructure {
             ""
     }
 
+    /**
+     * @return String representation of the realization section of the type header
+     */
     String realizes() {
         def real = context.tree?.getRealizedFrom(type)
         StringBuilder builder = new StringBuilder()
@@ -141,6 +170,10 @@ class CreateType extends CreateStructure {
         }
     }
 
+    /**
+     * Finds the insertion point in the file for the new type
+     * @return line number at which the new type is to be inserted
+     */
     int findTypeInsertionPoint() {
         int line = 0
 

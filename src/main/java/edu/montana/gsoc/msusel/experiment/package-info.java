@@ -24,6 +24,6 @@
  * SOFTWARE.
  */
 /**
- * Package containing those Grime Injectors and their necessary classes
+ * Contains those classes used in the experimentation process concerning research into grime and rot.
  */
-package edu.montana.gsoc.msusel.inject.select
+package edu.montana.gsoc.msusel.experiment;

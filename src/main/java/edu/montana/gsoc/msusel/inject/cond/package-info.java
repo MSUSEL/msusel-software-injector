@@ -24,6 +24,6 @@
  * SOFTWARE.
  */
 /**
- * Package containing those Grime Injectors and their necessary classes
+ * Contains the classes used to check conditions necessary prior to performing a transform
  */
-package edu.montana.gsoc.msusel.inject.rot
+package edu.montana.gsoc.msusel.inject.cond;

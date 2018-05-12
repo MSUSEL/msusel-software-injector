@@ -30,14 +30,26 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.AlreadyRealizes
 import groovy.transform.builder.Builder
+
 /**
+ * Transform which modifies a type's header information to contain a new interface to realize
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class AddRealization extends TypeHeaderTransform {
 
+    /**
+     * The inteface to realize
+     */
     TypeNode real
 
+    /**
+     * Constructs a new AddRealization transform
+     * @param context the current InjectorContext
+     * @param file the file to be modified
+     * @param node the Type whose header is to be modified
+     * @param real the new Type to be realized
+     */
     @Builder(buildMethodName = "create")
     private AddRealization(InjectorContext context, FileNode file, TypeNode node, TypeNode real) {
         super(context, file, node)

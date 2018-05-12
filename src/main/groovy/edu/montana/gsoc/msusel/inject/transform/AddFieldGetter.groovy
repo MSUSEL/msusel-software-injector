@@ -31,12 +31,21 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.TypeHasMethod
 import groovy.transform.builder.Builder
+
 /**
+ * Transform to add a Getter method for a Field to a Type
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class AddFieldGetter extends FieldMutatorTransform {
 
+    /**
+     * Constructs a new AddFieldGetter transform
+     * @param context Current InjectorContext
+     * @param file File to be modified
+     * @param type Type to add the getter to
+     * @param field Field for which the getter will be constructed
+     */
     @Builder(buildMethodName = "create")
     private AddFieldGetter(InjectorContext context, FileNode file, TypeNode type, FieldNode field) {
         super(context, file, type, field)

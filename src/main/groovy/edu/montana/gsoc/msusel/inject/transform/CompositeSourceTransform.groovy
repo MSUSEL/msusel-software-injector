@@ -29,13 +29,23 @@ import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
+ * The base class for the composite transforms in the Transform Composite design pattern implementation. These transforms
+ * contain and generate a list of sub-transforms which when completed form the composite.
  * @author Isaac Griffith
  * @version 1.2.0
  */
 abstract class CompositeSourceTransform extends AbstractSourceTransform {
 
+    /**
+     * List of transforms necessary to complete this transform's execution
+     */
     List<SourceTransform> transforms = []
 
+    /**
+     * Constructs a new CompositeSourceTransform
+     * @param context the current InjectorContext
+     * @param file the file to be modified
+     */
     CompositeSourceTransform(InjectorContext context, FileNode file) {
         super(context, file)
     }

@@ -34,13 +34,22 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 /**
+ * Transform which constructs new namespace, and any physical artifacts it requires
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class CreateNamespace extends CreateStructure {
 
+    /**
+     * Namespace to be constructed
+     */
     NamespaceNode namespace
 
+    /**
+     * Constructs a new CreateNamespace transform
+     * @param context current InjectorContext
+     * @param namespace the namespace to be created
+     */
     @Builder(buildMethodName = "create")
     private CreateNamespace(InjectorContext context, NamespaceNode namespace) {
         super(context, null)

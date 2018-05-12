@@ -35,6 +35,11 @@ import edu.montana.gsoc.msusel.inject.InjectorContext
  */
 abstract class Merge extends AbstractSourceTransform {
 
+    /**
+     * Constructs a new Merge transfrom
+     * @param context the current InjectorContext
+     * @param file the file to be modified
+     */
     Merge(InjectorContext context, FileNode file) {
         super(context, file)
     }

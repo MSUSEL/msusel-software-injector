@@ -24,6 +24,6 @@
  * SOFTWARE.
  */
 /**
- * Package containing those Grime Injectors and their necessary classes
+ * Contains those Injectors and their necessary classes for injecting design pattern grime
  */
-package edu.montana.gsoc.msusel.inject.grime
+package edu.montana.gsoc.msusel.inject.grime;

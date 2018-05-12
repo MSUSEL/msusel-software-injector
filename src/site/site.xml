@@ -1,0 +1,20 @@
+<project name="msusel-software-injector">
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.4</version>
+    </skin>
+
+    <bannerLeft>
+        <name>msusel-software-injector</name>
+        <src>images/injector.png</src>
+        <href>https://msusel.github.io/msusel-software-injector</href>
+    </bannerLeft>
+
+    <body>
+        <menu name="API Docs">
+            <item title="GroovyDocs" name="GroovyDocs" href="groovydoc/index.html" />
+        </menu>
+        <menu ref="reports"/>
+    </body>
+</project>

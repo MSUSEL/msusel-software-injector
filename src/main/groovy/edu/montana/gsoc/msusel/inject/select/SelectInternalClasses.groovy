@@ -28,6 +28,7 @@ package edu.montana.gsoc.msusel.inject.select
 import edu.montana.gsoc.msusel.codetree.node.CodeNode
 
 /**
+ * A Selector for Classes Internal to a Design Pattern
  * @author Isaac Griffith
  * @version 1.2.0
  */

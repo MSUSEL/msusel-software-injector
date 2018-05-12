@@ -34,15 +34,26 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
+ * Base transform class for those transforms which add a member to a type
  * @author Isaac Griffith
  * @version 1.2.0
  */
 abstract class AddMember extends BasicSourceTransform {
 
+    /**
+     * Constructs a new AddMember transform
+     * @param context current InjectorContext
+     * @param file the file which will be modified
+     */
     AddMember(InjectorContext context, FileNode file) {
         super(context, file)
     }
 
+    /**
+     * Identifies the insertion point for a new method
+     * @param type Type to be modified
+     * @return line number where a new method can be inserted
+     */
     int findMethodInsertionPoint(TypeNode type) {
         int line = 0
 
@@ -54,6 +65,11 @@ abstract class AddMember extends BasicSourceTransform {
         return line
     }
 
+    /**
+     * Identifies the insertion point for a new field
+     * @param type Type to be modified
+     * @return line number where a new field can be inserted
+     */
     int findFieldInsertionPoint(TypeNode type) {
         int line = 0
 
@@ -78,10 +94,20 @@ abstract class AddMember extends BasicSourceTransform {
         return line + 1
     }
 
+    /**
+     * Identifies the insertion point for a new enum literal
+     * @param enumNode The Enum to be modified
+     * @return line number where a new enum literal can be inserted
+     */
     int findEnumItemInsertionPoint(EnumNode enumNode) {
         return 0
     }
 
+    /**
+     * Identifies the insertion point for a new constructor
+     * @param type Type to be modified
+     * @return line number where a new constructor can be inserted
+     */
     int findConstructorInsertionPoint(TypeNode type) {
         int line
 

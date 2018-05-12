@@ -27,9 +27,6 @@ package edu.montana.gsoc.msusel.inject
 
 import edu.montana.gsoc.msusel.codetree.CodeTree
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
-import edu.montana.gsoc.msusel.rbml.model.Pattern
-
 /**
  * Class to control the basic operation of an injector. Maintains a list of open FileOperations,
  * while also providing a means to ensure that any open FileOperations save, and that the invoker
@@ -44,7 +41,7 @@ class InjectionController {
      */
     Map<FileNode, FileOperations> opsMap = [:]
 
-    void process(CodeTree tree, PatternNode node, Pattern rbml) {
+    void process(CodeTree tree/*, PatternNode node, Pattern rbml*/) {
 //        RBMLBinding binding = RBMLBinding.between(rbml, node)
 //
 //        injector.inject(tree, binding, invoker)

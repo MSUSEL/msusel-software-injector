@@ -36,6 +36,11 @@ import groovy.transform.builder.Builder
  */
 class MergeFiles extends Merge {
 
+    /**
+     * Constructs a new MergeFiles transform
+     * @param context current InjectorContext
+     * @param file the file to be modified
+     */
     @Builder(buildMethodName = "create")
     private MergeFiles(InjectorContext context, FileNode file) {
         super(context, file)

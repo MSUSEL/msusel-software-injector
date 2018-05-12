@@ -30,15 +30,26 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
+ * Base transform for the creation of structural components, such as Files, Types, and Namespaces
  * @author Isaac Griffith
  * @version 1.2.0
  */
 abstract class CreateStructure extends BasicSourceTransform {
 
+    /**
+     * Constructs a new CreateStructure transform
+     * @param context current InjectorContext
+     * @param file the file to be modified
+     */
     CreateStructure(InjectorContext context, FileNode file) {
         super(context, file)
     }
 
+    /**
+     * Finds the insertion point for a new inner type of an existing type
+     * @param type containing type into which another type will be inserted
+     * @return line number in which a new type can be inserted
+     */
     int findInnerTypeInsertionPoint(TypeNode type) {
         return type.getEnd() - 1
     }

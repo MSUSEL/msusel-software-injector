@@ -32,16 +32,35 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
+
 /**
+ * Transform which adds a field use line to a method.
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class AddFieldUse extends AddRelation {
 
+    /**
+     * Type containing the method to which the field use is to be added
+     */
     TypeNode type
+    /**
+     * Field which is to be used
+     */
     FieldNode field
+    /**
+     * Method in which the field use will be inserted
+     */
     MethodNode method
 
+    /**
+     * Constructs a new AddFieldUse transform
+     * @param context the current InjectorContext
+     * @param file File which is to be modified
+     * @param type The type containing the method in which the field use is to be added
+     * @param field The Field which is to be referenced
+     * @param method The method in which the code is to be injected
+     */
     @Builder(buildMethodName = "create")
     private AddFieldUse(InjectorContext context, FileNode file, TypeNode type, FieldNode field, MethodNode method) {
         super(context, file)

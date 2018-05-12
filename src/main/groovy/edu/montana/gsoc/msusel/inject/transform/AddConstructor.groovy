@@ -35,15 +35,32 @@ import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.TypeHasConstructor
 import groovy.transform.builder.Builder
 /**
+ * Transform to inject a constructor into a given Type
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class AddConstructor extends AddMember {
 
+    /**
+     * Type which will contain the new constructor
+     */
     TypeNode type
+    /**
+     * Node representing the new constructor
+     */
     ConstructorNode node
+    /**
+     * List of potential imports to be added to the file
+     */
     private List<AbstractTypeRef> imports
 
+    /**
+     * Constructs a new AddConstructor transform
+     * @param context Current InjectorContext
+     * @param file File which is to be modified
+     * @param type Type in which the constructor is to be injected
+     * @param node The constructor
+     */
     @Builder(buildMethodName = "create")
     private AddConstructor(InjectorContext context, FileNode file, TypeNode type, ConstructorNode node) {
         super(context, file)
@@ -51,6 +68,9 @@ class AddConstructor extends AddMember {
         this.node = node
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         FileOperations ops = context.controller.getOps(file)
@@ -73,10 +93,25 @@ class AddConstructor extends AddMember {
         updateImports(imports)
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void initializeConditions() {
+        conditions << new TypeHasConstructor(type, node)
+    }
+
+    /**
+     * Generates the body content of the constructor
+     * @return String representing the body content
+     */
     def body() {
 
     }
 
+    /**
+     * return the string representation of the parameter list
+     */
     def paramList() {
         StringBuilder builder = new StringBuilder()
         node.params.each {
@@ -89,22 +124,20 @@ class AddConstructor extends AddMember {
         builder.toString()
     }
 
+    /**
+     * @return The name of the constructor
+     */
     def name() {
         node.name()
     }
 
+    /**
+     * @return String representation of the constructor's accessibility
+     */
     def accessibility() {
         if (node.accessibility != Accessibility.DEFAULT)
             node.accessibility.toString().toLowerCase()
         else
             ""
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    void initializeConditions() {
-        conditions << new TypeHasConstructor(type, node)
     }
 }

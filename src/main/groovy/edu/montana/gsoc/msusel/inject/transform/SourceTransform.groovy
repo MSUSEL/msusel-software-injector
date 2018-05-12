@@ -26,12 +26,20 @@
 package edu.montana.gsoc.msusel.inject.transform
 
 /**
+ * Interface defining the contract for all transforms
  * @author Isaac Griffith
  * @version 1.2.0
  */
 interface SourceTransform {
 
+    /**
+     * Method which executes each transform and generates both the changes to the source file via calls to FileOperations
+     */
     void execute()
 
+    /**
+     * Method which checks all pre-conditions of the current source transform
+     * @return true if all preconditions are met, false otherwise
+     */
     boolean checkConditions()
 }

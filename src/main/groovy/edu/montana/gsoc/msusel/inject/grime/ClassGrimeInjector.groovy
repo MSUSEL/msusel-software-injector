@@ -25,7 +25,6 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
 import edu.montana.gsoc.msusel.codetree.node.Accessibility
 import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
 import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
@@ -34,11 +33,10 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.codetree.typeref.PrimitiveTypeRef
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.transform.*
-import edu.montana.gsoc.msusel.rbml.model.Pattern
 import groovy.transform.builder.Builder
 
 /**
- * GrimeInjector for ClassGrime
+ * Injection Strategy for Class Grime
  * @author Isaac Griffith
  * @version 1.2.0
  */
@@ -49,8 +47,8 @@ class ClassGrimeInjector extends GrimeInjector {
     protected boolean pair
 
     @Builder(buildMethodName = "create")
-    ClassGrimeInjector(PatternNode pattern, Pattern rbml, boolean direct, boolean internal, boolean pair) {
-        super(pattern, rbml)
+    ClassGrimeInjector(/*PatternNode pattern, Pattern rbml,*/ boolean direct, boolean internal, boolean pair) {
+//        super(pattern, rbml)
         this.direct = direct
         this.internal = internal
         this.pair = pair

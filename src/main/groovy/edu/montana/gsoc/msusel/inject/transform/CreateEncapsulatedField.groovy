@@ -34,15 +34,33 @@ import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
 
 /**
+ * A composite transform which constructs a fully encapsulated field
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class CreateEncapsulatedField extends AbstractSourceTransform {
+class CreateEncapsulatedField extends CompositeSourceTransform {
 
+    /**
+     * name of the field to be created
+     */
     String fieldName
+    /**
+     * Type into which the field is to be added
+     */
     TypeNode type
+    /**
+     * The type of the field to be added
+     */
     TypeNode fieldType
 
+    /**
+     * Constructs a new CreateEncapsulatedField transform
+     * @param context the current InjectorContext
+     * @param file the file to be modified
+     * @param type the type into which the field is to be added
+     * @param fieldType the type of the field
+     * @param fieldName the name of the field
+     */
     @Builder(buildMethodName = "create")
     private CreateEncapsulatedField(InjectorContext context, FileNode file, TypeNode type, TypeNode fieldType, String fieldName) {
         super(context, file)
@@ -51,10 +69,12 @@ class CreateEncapsulatedField extends AbstractSourceTransform {
         this.fieldType = fieldType
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         // 1. Determine if a field already exists, with either the given name or the given type, if so throw an exception.
-
         // 2. If no such field exists, then create the field
         FieldNode fld = FieldNode.builder()
                 .key("${type.key}#${fieldName}")
@@ -63,15 +83,18 @@ class CreateEncapsulatedField extends AbstractSourceTransform {
                 .create()
 
         // 3. Create the AddField transform
-        AddField.builder().file(file).type(from).field(fld).tree(tree).ops(ops).create()
+        transforms << AddField.builder().context(context).file(file).type(from).field(fld).create()
 
         // 4. Check if a method called get<FieldName> exists, if so throw an exception, else create the transform
-        AddFieldGetter.builder().file(file).type(from).node(fld).tree(tree).ops(ops).create()
+        transforms << AddFieldGetter.builder().context(context).file(file).type(from).field(fld).create()
 
         // 5. Check if a method called set<FieldName> exists, if so throw an exception, else create the transform
-        AddFieldSetter.builder().file(file).type(type).node(fld).tree(tree).ops(ops).create()
+        transforms << AddFieldSetter.builder().context(context).file(file).type(type).field(fld).create()
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void initializeConditions() {
 

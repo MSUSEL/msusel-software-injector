@@ -33,19 +33,31 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
+ * Base class for type header modifying transforms
  * @author Isaac Griffith
  * @version 1.2.0
  */
-abstract class TypeHeaderTransform extends BasicSourceTransform {
+abstract class TypeHeaderTransform extends CompositeSourceTransform {
 
+    /**
+     * TypeNode whose header will be modified
+     */
     TypeNode type
-    List<SourceTransform> transforms = []
 
+    /**
+     * Constructs a new TypeHeaderTransform
+     * @param context the current InjectorContext
+     * @param file the file to be modified
+     * @param type the type whose header is to be modified
+     */
     TypeHeaderTransform(InjectorContext context, FileNode file, TypeNode type) {
         super(context, file)
         this.type = type
     }
 
+    /**
+     * @return the complete type header
+     */
     String getTypeHeader() {
         StringBuilder header = new StringBuilder()
         int current = type.start
@@ -58,13 +70,17 @@ abstract class TypeHeaderTransform extends BasicSourceTransform {
         header.toString()
     }
 
+    /**
+     * constructs the transforms necessary to implement any abstract methods not already implemented
+     * @param other the type from which to gather abstract methods
+     */
     void implementAbstractMethods(TypeNode other) {
         if (!type.isAbstract()) {
             if (other instanceof InterfaceNode) {
                 other.methods().each { MethodNode m ->
                     if (!m.modifiers.contains(Modifiers.STATIC) && !m.modifiers.contains(Modifiers.FINAL)) {
                         MethodNode copy = MethodNode.builder().type(m.type).accessibility(m.accessibility).params(m.params).create()
-                        transforms << AddMethod.builder().ops(ops).file(file).type(type).node(copy).tree(tree).create()
+                        transforms << AddMethod.builder().context(context).file(file).type(type).node(copy).create()
                     }
                 }
             }
@@ -72,7 +88,7 @@ abstract class TypeHeaderTransform extends BasicSourceTransform {
                 other.methods().each { MethodNode m ->
                     if (m.isAbstract()) {
                         MethodNode copy = MethodNode.builder().type(m.type).accessibility(m.accessibility).params(m.params).create()
-                        transforms << AddMethod.builder().ops(ops).file(file).type(type).node(copy).tree(tree).create()
+                        transforms << AddMethod.builder().context(context).file(file).type(type).node(copy).create()
                     }
                 }
             }

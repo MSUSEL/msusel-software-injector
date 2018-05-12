@@ -32,15 +32,30 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.TypeHasField
 import groovy.transform.builder.Builder
+
 /**
+ * Transform to add a new Type to a given file
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class AddField extends AddMember {
 
+    /**
+     * Type to which the field will be added
+     */
     TypeNode type
+    /**
+     * Field to add
+     */
     FieldNode field
 
+    /**
+     * Constructs a new Add Field transform
+     * @param context Current InjectorContext
+     * @param file File to be modified
+     * @param type Type to add field to
+     * @param field Field to be added
+     */
     @Builder(buildMethodName = "create")
     private AddField(InjectorContext context, FileNode file, TypeNode type, FieldNode field) {
         super(context, file)
@@ -75,12 +90,18 @@ class AddField extends AddMember {
         conditions << new TypeHasField(type, field)
     }
 
+    /**
+     * @return String representation of the Accessibility
+     */
     private String getAccessibility() {
         if (field.accessibility != Accessibility.DEFAULT)
             return field.getAccessibility().toString().toLowerCase()
         return ""
     }
 
+    /**
+     * @return String representation of the modifiers for the field
+     */
     private String getModifierString() {
         StringBuilder builder = new StringBuilder()
         field.modifiers.each {
@@ -92,10 +113,16 @@ class AddField extends AddMember {
         builder.toString()
     }
 
+    /**
+     * @return String representation of the Type of the field
+     */
     private String getTypeString() {
         field.type.name()
     }
 
+    /**
+     * @return Name of the field
+     */
     private String getName() {
         field.name()
     }

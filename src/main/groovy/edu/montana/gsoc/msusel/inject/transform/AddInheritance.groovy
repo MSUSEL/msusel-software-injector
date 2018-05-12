@@ -31,13 +31,24 @@ import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.AlreadyGeneralizes
 import groovy.transform.builder.Builder
 /**
+ * Transform which modifies the TypeHeader information and injects inheritance
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class AddInheritance extends TypeHeaderTransform {
 
+    /**
+     * Type from which the modified type will inherit
+     */
     TypeNode gen
 
+    /**
+     * Constructs a new AddInheritance transform
+     * @param context current InjectorContext
+     * @param file The file to be modified
+     * @param node The type whose header is to be modified
+     * @param gen The type which is to be inherited from
+     */
     @Builder(buildMethodName = "create")
     private AddInheritance(InjectorContext context, FileNode file, TypeNode node, TypeNode gen) {
         super(context, file, node)

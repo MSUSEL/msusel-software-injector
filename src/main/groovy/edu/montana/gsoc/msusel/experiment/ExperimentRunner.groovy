@@ -26,13 +26,10 @@
 package edu.montana.gsoc.msusel.experiment
 
 import edu.montana.gsoc.msusel.inject.grime.GrimeInjector
-import edu.montana.gsoc.msusel.grimeinject.clazz.*
 import groovy.util.logging.Slf4j
 
 import java.util.concurrent.RecursiveTask
 import java.util.logging.Level
-
-import static edu.montana.gsoc.msusel.inject.grime.ClassGrimeTypes.*
 /**
  * @author Isaac Griffith
  * @version 1.2.0
@@ -59,26 +56,6 @@ class ExperimentRunner extends RecursiveTask<DataHolder> {
      */
     private GrimeInjector initInjector(String injectType)
     {
-        switch (injectType)
-        {
-        case DEPG:
-            return new DEPGInjector()
-        case DIPG:
-            return new DIPGInjector()
-        case DESG:
-            return new DESGInjector()
-        case DISG:
-            return new DISGInjector()
-        case IEPG:
-            return new IEPGInjector()
-        case IIPG:
-            return new IIPGInjector()
-        case IESG:
-            return new IESGInjector()
-        case IISG:
-            return new IISGInjector()
-        }
-
         return null
     }
 
@@ -89,44 +66,45 @@ class ExperimentRunner extends RecursiveTask<DataHolder> {
     @Override
     protected DataHolder compute()
     {
-        SystemEntity sys = new SystemEntity(node.getSystem(), "", node.getSystem(), node.getInstanceLoc())
-        PatternEntity pattern = new PatternEntity(node.getPatternType(), "pattern: " + node.getPatternType())
-        logger.logp(Level.INFO, "", "", "Anaylyzing System: " + sys.getName() + " Version: " + sys.getVersion())
-        logger.logp(Level.INFO, "", "", "Source Directory: " + sys.getSourceDirectory())
-        logger.logp(Level.INFO, "", "", "Building Model")
-
-        final List<SystemEntity> systems = new LinkedList<>()
-        systems.add(sys)
-        final CodeGraph graph = new CodeGraph()
-        final CodeGraphBuilder cgb = new CodeGraphBuilder(new Java7GraphParser())
-        cgb.process(systems, graph)
-        graph.addPattern(pattern)
-        for (ClassOrInterfaceEntity cie : sys.getClasses())
-        {
-            pattern.addClass(cie)
-        }
-
-        logger.logp(Level.INFO, "", "", "Initiating Metrics Controller")
-        MetricsController controller = new MetricsController(graph)
-        logger.logp(Level.INFO, "", "", "Measuring Classes")
-        controller.measureClasses()
-        logger.logp(Level.INFO, "", "", "Measuring System")
-        controller.measureSystems()
-        logger.logp(Level.INFO, "", "", "Measuring Before Quality Aspects")
-        QualityModel model = new QMOODModel()
-        model.generateModel()
-        Map<String, Double> beforeValues = model.measureAspects(graph, sys)
-
-        logger.logp(Level.INFO, "", "", "Injecting " + node.getInjectType())
-        injector.inject(graph, pattern)
-
-        logger.logp(Level.INFO, "", "", "Measuring After Quality Aspects")
-        controller.measureClasses()
-        controller.measureSystems()
-        Map<String, Double> afterValues = model.measureAspects(graph, sys)
-
-        int rep = node.getRep()
-        return createDataHolder(rep, beforeValues, afterValues)
+//        SystemEntity sys = new SystemEntity(node.getSystem(), "", node.getSystem(), node.getInstanceLoc())
+//        PatternEntity pattern = new PatternEntity(node.getPatternType(), "pattern: " + node.getPatternType())
+//        logger.logp(Level.INFO, "", "", "Anaylyzing System: " + sys.getName() + " Version: " + sys.getVersion())
+//        logger.logp(Level.INFO, "", "", "Source Directory: " + sys.getSourceDirectory())
+//        logger.logp(Level.INFO, "", "", "Building Model")
+//
+//        final List<SystemEntity> systems = new LinkedList<>()
+//        systems.add(sys)
+//        final CodeGraph graph = new CodeGraph()
+//        final CodeGraphBuilder cgb = new CodeGraphBuilder(new Java7GraphParser())
+//        cgb.process(systems, graph)
+//        graph.addPattern(pattern)
+//        for (ClassOrInterfaceEntity cie : sys.getClasses())
+//        {
+//            pattern.addClass(cie)
+//        }
+//
+//        logger.logp(Level.INFO, "", "", "Initiating Metrics Controller")
+//        MetricsController controller = new MetricsController(graph)
+//        logger.logp(Level.INFO, "", "", "Measuring Classes")
+//        controller.measureClasses()
+//        logger.logp(Level.INFO, "", "", "Measuring System")
+//        controller.measureSystems()
+//        logger.logp(Level.INFO, "", "", "Measuring Before Quality Aspects")
+//        QualityModel model = new QMOODModel()
+//        model.generateModel()
+//        Map<String, Double> beforeValues = model.measureAspects(graph, sys)
+//
+//        logger.logp(Level.INFO, "", "", "Injecting " + node.getInjectType())
+//        injector.inject(graph, pattern)
+//
+//        logger.logp(Level.INFO, "", "", "Measuring After Quality Aspects")
+//        controller.measureClasses()
+//        controller.measureSystems()
+//        Map<String, Double> afterValues = model.measureAspects(graph, sys)
+//
+//        int rep = node.getRep()
+//        return createDataHolder(rep, beforeValues, afterValues)
+        return null
     }
 
     /**

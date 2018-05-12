@@ -31,14 +31,25 @@ import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.FileHasImport
 import groovy.transform.builder.Builder
+
 /**
+ * Transform to add an import to a File
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class AddImport extends BasicSourceTransform {
 
+    /**
+     * The import to be added
+     */
     ImportNode node
 
+    /**
+     * Constructs a new AddImport transform
+     * @param context the current InjectorContext
+     * @param file The file to be modified
+     * @param node The import to be added
+     */
     @Builder(buildMethodName = "create")
     private AddImport(InjectorContext context, FileNode file, ImportNode node) {
         super(context, file)
@@ -67,6 +78,10 @@ class AddImport extends BasicSourceTransform {
         conditions << new FileHasImport(file, node)
     }
 
+    /**
+     * Selects the line into which the import will be injected
+     * @return Line at which the import should be injected
+     */
     int findImportInsertionPoint() {
         int line = 1
 

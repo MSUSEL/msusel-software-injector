@@ -26,6 +26,7 @@
 package edu.montana.gsoc.msusel.inject.transform
 
 /**
+ * Exception thrown when a transform is determined to no longer be valid.
  * @author Isaac Griffith
  * @version 1.2.0
  */

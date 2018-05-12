@@ -25,26 +25,23 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.SourceInjector
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
-import edu.montana.gsoc.msusel.rbml.model.Pattern
-
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
 abstract class GrimeInjector implements SourceInjector {
 
-    protected PatternNode pattern
-    protected Pattern rbml
+//    protected PatternNode pattern
+//    protected Pattern rbml
 
-    GrimeInjector(PatternNode pattern, Pattern rbml) {
-        this.pattern = pattern
-        this.rbml = rbml
-    }
+//    GrimeInjector(PatternNode pattern, Pattern rbml) {
+//        this.pattern = pattern
+//        this.rbml = rbml
+//    }
 
     /**
      * {@inheritDoc}
@@ -59,7 +56,8 @@ abstract class GrimeInjector implements SourceInjector {
     }
 
     TypeNode selectPatternClass() {
-        List<TypeNode> types = pattern.types()
+        //List<TypeNode> types = pattern.types()
+        def types = []
         Random rand = new Random()
         types[rand.nextInt(types.size())]
     }

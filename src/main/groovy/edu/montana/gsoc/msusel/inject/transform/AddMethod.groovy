@@ -34,16 +34,34 @@ import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.TypeHasMethod
 import groovy.transform.builder.Builder
+
 /**
+ * Transform which adds a method to a given type
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class AddMethod extends AddMember {
 
+    /**
+     * Type to which a method will be added
+     */
     TypeNode type
+    /**
+     * The method to be added
+     */
     MethodNode node
+    /**
+     * List of possible imports to add
+     */
     private List<AbstractTypeRef> imports
 
+    /**
+     * Constructs a new AddMethod transform
+     * @param context the current InjectorContext
+     * @param file the file to be modified
+     * @param type the type to which a method will be added
+     * @param node the method to add
+     */
     @Builder(buildMethodName = "create")
     private AddMethod(InjectorContext context, FileNode file, TypeNode type, MethodNode node) {
         super(context, file)
@@ -86,7 +104,11 @@ class AddMethod extends AddMember {
         conditions << new TypeHasMethod(type, node)
     }
 
-    def body(StringBuilder builder) {
+    /**
+     * Constructs the the method body
+     * @param builder StringBuilder to which the method contents will be added
+     */
+    void body(StringBuilder builder) {
         if (node.isAbstract())
             builder << ";\n\n"
         else {
@@ -98,11 +120,16 @@ class AddMethod extends AddMember {
         }
     }
 
-
+    /**
+     * @return String representing the contents of the body of the method
+     */
     def bodyContent() {
         ""
     }
 
+    /**
+     * @return String representation of the method parameter list
+     */
     def paramList() {
         StringBuilder builder = new StringBuilder()
         node.params.each {
@@ -115,10 +142,16 @@ class AddMethod extends AddMember {
         builder.toString()
     }
 
+    /**
+     * @return method name
+     */
     def name() {
         node.name()
     }
 
+    /**
+     * @return String representation of the method accessibility
+     */
     def accessibility() {
         if (node.accessibility != Accessibility.DEFAULT)
             node.accessibility.toString().toLowerCase()

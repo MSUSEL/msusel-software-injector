@@ -30,18 +30,48 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
 /**
+ * Transform which adds an association in one Type to another Type
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class AddAssociation extends CompositeSourceTransform {
 
+    /**
+     * Type in which the association is added
+     */
     TypeNode from
+    /**
+     * Type of the association's field
+     */
     TypeNode to
+    /**
+     * Name of the to side of the association (as a field in the From type)
+     */
     String toName
+    /**
+     * Name of the from side of the association (as a field in the To type, if bidirectional)
+     */
     String fromName
+    /**
+     * boolean indicating whether the association is bidirectional or not
+     */
     boolean bidirect
+    /**
+     * File which contains the To Type
+     */
     FileNode toFile
 
+    /**
+     * Constructs a new AddAssociation
+     * @param context The current Injector Context
+     * @param file The file in which modifications will occur
+     * @param from The from Type
+     * @param toFile the To File
+     * @param to the To side type
+     * @param toName the name of the to reference
+     * @param fromName the name of the from reference
+     * @param bidirect boolean flag indicating bidirectionality
+     */
     @Builder(buildMethodName = "create")
     private AddAssociation(InjectorContext context, FileNode file, TypeNode from, FileNode toFile, TypeNode to, String toName, String fromName, boolean bidirect) {
         super(context, file)

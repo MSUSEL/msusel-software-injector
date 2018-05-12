@@ -26,7 +26,6 @@
 package edu.montana.gsoc.msusel.inject.grime
 
 import com.google.common.collect.Lists
-import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
@@ -34,9 +33,7 @@ import edu.montana.gsoc.msusel.inject.transform.AddAssociation
 import edu.montana.gsoc.msusel.inject.transform.AddInheritance
 import edu.montana.gsoc.msusel.inject.transform.AddRealization
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
-import edu.montana.gsoc.msusel.rbml.model.Pattern
 import groovy.transform.builder.Builder
-
 /**
  * @author Isaac Griffith
  * @version 1.2.0
@@ -48,8 +45,8 @@ class ModularGrimeInjector extends GrimeInjector {
     protected boolean persistent
 
     @Builder(buildMethodName = "create")
-    ModularGrimeInjector(PatternNode pattern, Pattern rbml, boolean persistent, boolean external, boolean efferent) {
-        super(pattern, rbml)
+    ModularGrimeInjector(/*PatternNode pattern, Pattern rbml,*/ boolean persistent, boolean external, boolean efferent) {
+//        super(pattern, rbml)
         this.persistent = persistent
         this.external = external
         this.efferent = efferent

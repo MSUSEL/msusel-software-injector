@@ -43,116 +43,116 @@ class DataHolder {
 
     void addBefore(int rep, String pattern, String inject, String quality, double value)
     {
-        if (data.containsKey(pattern))
-        {
-            Map<Integer, Map<String, Map<String, Pair<Double, Double>>>> reps = data.get(pattern)
-            if (reps.containsKey(rep))
-            {
-                Map<String, Map<String, Pair<Double, Double>>> injects = reps.get(rep)
-                if (injects.containsKey(inject))
-                {
-                    Map<String, Pair<Double, Double>> qualVals = injects.get(inject)
-                    if (qualVals.containsKey(quality))
-                    {
-                        Pair<Double, Double> pair = qualVals.get(quality)
-                        pair.setFirst(value)
-                    }
-                    else
-                    {
-                        Pair<Double, Double> values = new Pair<>()
-                        values.setFirst(value)
-                        qualVals.put(quality, values)
-                    }
-                }
-                else
-                {
-                    Map<String, Pair<Double, Double>> qualVals = Maps.newConcurrentMap()
-                    Pair<Double, Double> pair = new Pair<>()
-                    pair.setFirst(value)
-                    qualVals.put(quality, pair)
-                    injects.put(inject, qualVals)
-                }
-            }
-            else
-            {
-                Map<String, Map<String, Pair<Double, Double>>> injects = Maps.newConcurrentMap()
-                Map<String, Pair<Double, Double>> qualVals = Maps.newConcurrentMap()
-                Pair<Double, Double> pair = new Pair<>()
-                pair.setFirst(value)
-                qualVals.put(quality, pair)
-                injects.put(inject, qualVals)
-                reps.put(rep, injects)
-            }
-        }
-        else
-        {
-            Map<Integer, Map<String, Map<String, Pair<Double, Double>>>> reps = Maps.newConcurrentMap()
-            Map<String, Map<String, Pair<Double, Double>>> injects = Maps.newConcurrentMap()
-            Map<String, Pair<Double, Double>> qualVals = Maps.newConcurrentMap()
-            Pair<Double, Double> pair = new Pair<>()
-            pair.setFirst(value)
-            qualVals.put(quality, pair)
-            injects.put(inject, qualVals)
-            reps.put(rep, injects)
-            data.put(pattern, reps)
-        }
+//        if (data.containsKey(pattern))
+//        {
+//            Map<Integer, Map<String, Map<String, Pair<Double, Double>>>> reps = data.get(pattern)
+//            if (reps.containsKey(rep))
+//            {
+//                Map<String, Map<String, Pair<Double, Double>>> injects = reps.get(rep)
+//                if (injects.containsKey(inject))
+//                {
+//                    Map<String, Pair<Double, Double>> qualVals = injects.get(inject)
+//                    if (qualVals.containsKey(quality))
+//                    {
+//                        Pair<Double, Double> pair = qualVals.get(quality)
+//                        pair.setFirst(value)
+//                    }
+//                    else
+//                    {
+//                        Pair<Double, Double> values = new Pair<>()
+//                        values.setFirst(value)
+//                        qualVals.put(quality, values)
+//                    }
+//                }
+//                else
+//                {
+//                    Map<String, Pair<Double, Double>> qualVals = Maps.newConcurrentMap()
+//                    Pair<Double, Double> pair = new Pair<>()
+//                    pair.setFirst(value)
+//                    qualVals.put(quality, pair)
+//                    injects.put(inject, qualVals)
+//                }
+//            }
+//            else
+//            {
+//                Map<String, Map<String, Pair<Double, Double>>> injects = Maps.newConcurrentMap()
+//                Map<String, Pair<Double, Double>> qualVals = Maps.newConcurrentMap()
+//                Pair<Double, Double> pair = new Pair<>()
+//                pair.setFirst(value)
+//                qualVals.put(quality, pair)
+//                injects.put(inject, qualVals)
+//                reps.put(rep, injects)
+//            }
+//        }
+//        else
+//        {
+//            Map<Integer, Map<String, Map<String, Pair<Double, Double>>>> reps = Maps.newConcurrentMap()
+//            Map<String, Map<String, Pair<Double, Double>>> injects = Maps.newConcurrentMap()
+//            Map<String, Pair<Double, Double>> qualVals = Maps.newConcurrentMap()
+//            Pair<Double, Double> pair = new Pair<>()
+//            pair.setFirst(value)
+//            qualVals.put(quality, pair)
+//            injects.put(inject, qualVals)
+//            reps.put(rep, injects)
+//            data.put(pattern, reps)
+//        }
     }
 
     void addAfter(int rep, String pattern, String inject, String quality, double value)
     {
-        if (data.containsKey(pattern))
-        {
-            Map<Integer, Map<String, Map<String, Pair<Double, Double>>>> reps = data.get(pattern)
-            if (reps.containsKey(rep))
-            {
-                Map<String, Map<String, Pair<Double, Double>>> injects = reps.get(rep)
-                if (injects.containsKey(inject))
-                {
-                    Map<String, Pair<Double, Double>> qualVals = injects.get(inject)
-                    if (qualVals.containsKey(quality))
-                    {
-                        Pair<Double, Double> pair = qualVals.get(quality)
-                        pair.setLast(value)
-                    }
-                    else
-                    {
-                        Pair<Double, Double> values = new Pair<>()
-                        values.setLast(value)
-                        qualVals.put(quality, values)
-                    }
-                }
-                else
-                {
-                    Map<String, Pair<Double, Double>> qualVals = Maps.newConcurrentMap()
-                    Pair<Double, Double> pair = new Pair<>()
-                    pair.setLast(value)
-                    qualVals.put(quality, pair)
-                    injects.put(inject, qualVals)
-                }
-            }
-            else
-            {
-                Map<String, Map<String, Pair<Double, Double>>> injects = Maps.newConcurrentMap()
-                Map<String, Pair<Double, Double>> qualVals = Maps.newConcurrentMap()
-                Pair<Double, Double> pair = new Pair<>()
-                pair.setLast(value)
-                qualVals.put(quality, pair)
-                injects.put(inject, qualVals)
-                reps.put(rep, injects)
-            }
-        }
-        else
-        {
-            Map<Integer, Map<String, Map<String, Pair<Double, Double>>>> reps = Maps.newConcurrentMap()
-            Map<String, Map<String, Pair<Double, Double>>> injects = Maps.newConcurrentMap()
-            Map<String, Pair<Double, Double>> qualVals = Maps.newConcurrentMap()
-            Pair<Double, Double> pair = new Pair<>()
-            pair.setLast(value)
-            qualVals.put(quality, pair)
-            injects.put(inject, qualVals)
-            reps.put(rep, injects)
-            data.put(pattern, reps)
-        }
+//        if (data.containsKey(pattern))
+//        {
+//            Map<Integer, Map<String, Map<String, Pair<Double, Double>>>> reps = data.get(pattern)
+//            if (reps.containsKey(rep))
+//            {
+//                Map<String, Map<String, Pair<Double, Double>>> injects = reps.get(rep)
+//                if (injects.containsKey(inject))
+//                {
+//                    Map<String, Pair<Double, Double>> qualVals = injects.get(inject)
+//                    if (qualVals.containsKey(quality))
+//                    {
+//                        Pair<Double, Double> pair = qualVals.get(quality)
+//                        pair.setLast(value)
+//                    }
+//                    else
+//                    {
+//                        Pair<Double, Double> values = new Pair<>()
+//                        values.setLast(value)
+//                        qualVals.put(quality, values)
+//                    }
+//                }
+//                else
+//                {
+//                    Map<String, Pair<Double, Double>> qualVals = Maps.newConcurrentMap()
+//                    Pair<Double, Double> pair = new Pair<>()
+//                    pair.setLast(value)
+//                    qualVals.put(quality, pair)
+//                    injects.put(inject, qualVals)
+//                }
+//            }
+//            else
+//            {
+//                Map<String, Map<String, Pair<Double, Double>>> injects = Maps.newConcurrentMap()
+//                Map<String, Pair<Double, Double>> qualVals = Maps.newConcurrentMap()
+//                Pair<Double, Double> pair = new Pair<>()
+//                pair.setLast(value)
+//                qualVals.put(quality, pair)
+//                injects.put(inject, qualVals)
+//                reps.put(rep, injects)
+//            }
+//        }
+//        else
+//        {
+//            Map<Integer, Map<String, Map<String, Pair<Double, Double>>>> reps = Maps.newConcurrentMap()
+//            Map<String, Map<String, Pair<Double, Double>>> injects = Maps.newConcurrentMap()
+//            Map<String, Pair<Double, Double>> qualVals = Maps.newConcurrentMap()
+//            Pair<Double, Double> pair = new Pair<>()
+//            pair.setLast(value)
+//            qualVals.put(quality, pair)
+//            injects.put(inject, qualVals)
+//            reps.put(rep, injects)
+//            data.put(pattern, reps)
+//        }
     }
 
     void mergeInto(DataHolder holder)

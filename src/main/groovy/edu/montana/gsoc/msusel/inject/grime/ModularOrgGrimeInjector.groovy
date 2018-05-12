@@ -25,13 +25,10 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
 import edu.montana.gsoc.msusel.codetree.node.structural.NamespaceNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
-import edu.montana.gsoc.msusel.rbml.model.Pattern
 import groovy.transform.builder.Builder
-
 /**
  * @author Isaac Griffith
  * @version 1.2.0
@@ -43,8 +40,8 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
     protected boolean cyclical
 
     @Builder(buildMethodName = "create")
-    private ModularOrgGrimeInjector(PatternNode pattern, Pattern rbml, boolean persistent, boolean internal, boolean cyclical) {
-        super(pattern, rbml)
+    private ModularOrgGrimeInjector(/*PatternNode pattern, Pattern rbml,*/ boolean persistent, boolean internal, boolean cyclical) {
+//        super(pattern, rbml)
         this.persistent = persistent
         this.internal = internal
         this.cyclical = cyclical

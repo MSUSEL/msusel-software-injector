@@ -24,6 +24,6 @@
  * SOFTWARE.
  */
 /**
- * Package containing those Grime Injectors and their necessary classes
+ * Contains the selectos which are used to select items in which to inject artifacts
  */
-package edu.montana.gsoc.msusel.inject.transform
+package edu.montana.gsoc.msusel.inject.select;

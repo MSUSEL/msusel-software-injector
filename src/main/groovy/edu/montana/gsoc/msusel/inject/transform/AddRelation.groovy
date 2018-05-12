@@ -31,15 +31,26 @@ import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
+ * Base class for those transforms which construct relationships between two types
  * @author Isaac Griffith
  * @version 1.2.0
  */
 abstract class AddRelation extends BasicSourceTransform {
 
+    /**
+     * Constructs a new AddRelation transform
+     * @param context current InjectorContext
+     * @param file the file to be modified
+     */
     AddRelation(InjectorContext context, FileNode file) {
         super(context, file)
     }
 
+    /**
+     * finds the line into which a statement may be injected within a method
+     * @param methodNode Method into which the statement is to be injected
+     * @return the line number for the injection
+     */
     int findStatementInsertionPoint(MethodNode methodNode) {
         FileOperations ops = context.getController().getOps(file)
         List<String> content = ops.contentRegion(methodNode)
