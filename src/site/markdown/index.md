@@ -1,5 +1,7 @@
-MSUSEL Software Injector
+MSUSEL Software Injector 
 ========================
+
+[![Build Status](https://travis-ci.org/MSUSEL/msusel-software-injector.svg?branch=master)](https://travis-ci.org/MSUSEL/msusel-software-injector)
 
 The _msusel software injector_ is designed to provide the basis for conducting
 empirical studies concerning software design disharmonies. This is done by providing
