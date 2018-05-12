@@ -38,16 +38,19 @@ import groovy.transform.builder.Builder
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class AddType extends CreateStructure {
+class CreateType extends CreateStructure {
 
     TypeNode type
 
     @Builder(buildMethodName = "create")
-    private AddType(InjectorContext context, FileNode file, TypeNode type) {
+    private CreateType(InjectorContext context, FileNode file, TypeNode type) {
         super(context, file)
         this.type = type
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         FileOperations ops = context.controller.getOps(file)
@@ -74,6 +77,14 @@ class AddType extends CreateStructure {
         file.addChild(type)
 
         updateAllFollowing(line, length)
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void initializeConditions() {
+        conditions << new TypeExists(file, type)
     }
 
     String accessibilityString() {
@@ -130,8 +141,14 @@ class AddType extends CreateStructure {
         }
     }
 
-    @Override
-    void initializeConditions() {
-        conditions << new TypeExists(file, type)
+    int findTypeInsertionPoint() {
+        int line = 0
+
+        for (TypeNode type : (List<TypeNode>) file.types()) {
+            if (type.getEnd() > line)
+                line = type.getEnd()
+        }
+
+        return line
     }
 }

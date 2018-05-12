@@ -23,11 +23,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.rotinject;
+package edu.montana.gsoc.msusel.inject.rot
 
-/**
- * @author Isaac Griffith
- * @version 1.2.0
- */
-class BlobRoleInjector {
+import edu.montana.gsoc.msusel.inject.SourceInjector
+
+abstract class RotInjector implements SourceInjector {
 }

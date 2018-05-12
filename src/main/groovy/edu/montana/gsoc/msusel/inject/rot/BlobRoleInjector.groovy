@@ -23,11 +23,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.rotinject;
+package edu.montana.gsoc.msusel.inject.rot
+
+import edu.montana.gsoc.msusel.inject.InjectorContext
+import edu.montana.gsoc.msusel.inject.transform.SourceTransform;
 
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class InappropriateDependencyInjector {
+class BlobRoleInjector extends RotInjector {
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void inject(InjectorContext context) {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    List<SourceTransform> createTransforms(InjectorContext context) {
+        return null
+    }
 }

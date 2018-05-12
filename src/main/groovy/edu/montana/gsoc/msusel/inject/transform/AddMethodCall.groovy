@@ -33,6 +33,7 @@ import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.codetree.typeref.PrimitiveTypeRef
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
+
 /**
  * @author Isaac Griffith
  * @version 1.2.0
@@ -47,6 +48,9 @@ class AddMethodCall extends AddRelation {
         super(context, file)
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         TypeNode calleeOwner = getMethodOwner(callee)
@@ -57,11 +61,9 @@ class AddMethodCall extends AddRelation {
         String content
         if (callee.hasModifier("static")) {
             content = "        ${calleeOwner.name()}.${callee.name()}(${params(callee)});\n"
-        }
-        else if (sameContainingType(callerOwner, calleeOwner)) {
+        } else if (sameContainingType(callerOwner, calleeOwner)) {
             content = "        this.${callee.name()}(${params(callee)});\n"
-        }
-        else {
+        } else {
             if (hasLocalVar(caller, calleeOwner)) {
                 String var = selectVariable(caller, calleeOwner)
                 content = "        ${var}.${callee.name()}(${params(callee)});\n"
@@ -83,6 +85,29 @@ class AddMethodCall extends AddRelation {
         updateContainingAndAllFollowing(line, length)
         addUseDep(callerOwner, calleeOwner)
         updateImports(calleeOwner)
+    }
+
+    // TODO Finish This
+    FieldNode selectField(TypeNode callerOwner, TypeNode calleeOwner) {
+
+    }
+
+    // TODO Finish this
+    ParameterNode selectParameter(MethodNode caller, TypeNode calleeOwner) {
+        null
+    }
+
+    // TODO Finish this
+    String selectVariable(MethodNode methodNode, TypeNode typeNode) {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void initializeConditions() {
+
     }
 
     boolean sameContainingType(TypeNode callerOwner, TypeNode calleeOwner) {
@@ -109,7 +134,7 @@ class AddMethodCall extends AddRelation {
         StringBuilder builder = new StringBuilder()
 
         methodNode.params.each {
-            switch(it.type) {
+            switch (it.type) {
                 case PrimitiveTypeRef:
                     switch (it.type.name()) {
                         case "int":
@@ -143,10 +168,5 @@ class AddMethodCall extends AddRelation {
 
     TypeNode getMethodOwner(MethodNode method) {
         context.tree.utils.findType(method.key.split(/#/)[0])
-    }
-
-    @Override
-    void initializeConditions() {
-
     }
 }

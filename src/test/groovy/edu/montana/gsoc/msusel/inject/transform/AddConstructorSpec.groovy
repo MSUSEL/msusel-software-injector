@@ -46,7 +46,7 @@ class AddConstructorSpec extends BaseTransformSpec {
         TypeNode tn = ClassNode.builder().key("Test").accessibility(Accessibility.PUBLIC).create()
 
         new CreateFile(ops, fn, tree).execute()
-        AddType.builder().ops(ops).file(fn).tree(tree).type(tn).create().execute()
+        CreateType.builder().ops(ops).file(fn).tree(tree).type(tn).create().execute()
 
         ConstructorNode cn = ConstructorNode.builder().key(tn.getKey() + "#" + tn.name()).accessibility(Accessibility.PUBLIC).create()
 

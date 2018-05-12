@@ -23,51 +23,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.inject.cond
+package edu.montana.gsoc.msusel.inject.transform
 
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.InterfaceNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
- * A condition used to check if a class already realizes some interface
+ * Base class for Merge Transforms, meant for Rot research
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class AlreadyRealizes extends TypeHeaderCondition {
+abstract class Merge extends AbstractSourceTransform {
 
-    /**
-     * Potential interface the type will realize
-     */
-    private final TypeNode real
-
-    /**
-     * Construts a new AlreadyRealizes condition
-     * @param context current InjectorContext
-     * @param file The file containing the type
-     * @param node The type in question
-     * @param real The interface to realize
-     */
-    AlreadyRealizes(InjectorContext context, FileNode file, TypeNode node, TypeNode real) {
-        super(context, file, node)
-        this.real = real
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    boolean check() {
-        String header = getTypeHeader()
-        if (!(real instanceof InterfaceNode))
-            return false
-        else if (header.contains("implements")) {
-            String impl = header.trim().split("implements")[1]
-            impl = impl.replaceAll(/\w/, "")
-            impl = impl.replaceAll(/\{/, "")
-            List<String> impls = Arrays.asList(impl.split(","))
-            return impls.contains(real.name())
-        }
+    Merge(InjectorContext context, FileNode file) {
+        super(context, file)
     }
 }

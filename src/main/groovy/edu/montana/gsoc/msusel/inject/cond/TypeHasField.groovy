@@ -29,19 +29,34 @@ import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 
 /**
+ * A condition which checks whether a matching field with the same name already exists in the type.
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class TypeHasField implements Condition {
 
+    /**
+     * The type which will contain the field
+     */
     TypeNode type
+    /**
+     * The field that will be added
+     */
     FieldNode field
 
+    /**
+     * Constructs a new TypeHasField condition
+     * @param type Type that will contain the field
+     * @param field The field
+     */
     TypeHasField(TypeNode type, FieldNode field) {
         this.type = type
         this.field = field
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     boolean check() {
         FieldNode f = type.fields().find { FieldNode f ->

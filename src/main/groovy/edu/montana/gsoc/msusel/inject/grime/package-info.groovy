@@ -23,18 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.grimeinject;
-
 /**
- * @author Isaac Griffith
- * @version 1.2.0
+ * Package containing those Injectors for Class Grime
  */
-interface ModularGrimeTypes {
-
-    String PEAG = "PEAG"
-    String PEEG = "PEEG"
-    String PIG = "PIG"
-    String TEAG = "TEAG"
-    String TEEG = "TEEG"
-    String TIG = "TIG"
-}
+package edu.montana.gsoc.msusel.inject.grime

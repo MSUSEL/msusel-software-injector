@@ -25,7 +25,9 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
+import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
@@ -36,5 +38,19 @@ abstract class AddRelation extends BasicSourceTransform {
 
     AddRelation(InjectorContext context, FileNode file) {
         super(context, file)
+    }
+
+    int findStatementInsertionPoint(MethodNode methodNode) {
+        FileOperations ops = context.getController().getOps(file)
+        List<String> content = ops.contentRegion(methodNode)
+
+        if (content.last().trim() == "}") {
+            if (content[-2].trim().startsWith("return "))
+                return content.size() - 2
+            else
+                return content.size() - 1
+        } else {
+            return content.size() - 1
+        }
     }
 }

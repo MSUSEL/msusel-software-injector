@@ -29,25 +29,48 @@ import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 
 /**
+ * A condition which determines whether a type already contains a method with a matching signature
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class TypeHasMethod implements Condition {
 
+    /**
+     * The type that will contain the method
+     */
     TypeNode type
+    /**
+     * A method node representing the method to be added
+     */
     MethodNode method
+    /**
+     * A string name of the new method to be created
+     */
     String name
 
+    /**
+     * Constructs a new TypeHasMethod condition for the given type and a method with the provided name
+     * @param type Type to which the method will be added
+     * @param name String name of the method
+     */
     TypeHasMethod(TypeNode type, String name) {
         this.type = type
         this.name = name
     }
 
+    /**
+     * Constructs a new TypeHasMethod condition for the given type and Method
+     * @param type Type to which the method will be added
+     * @param method The method to be added
+     */
     TypeHasMethod(TypeNode type, MethodNode method) {
         this.type = type
         this.method = method
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     boolean check() {
         MethodNode mnode = null

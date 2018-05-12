@@ -23,27 +23,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.inject.select
-
-import edu.montana.gsoc.msusel.codetree.node.CodeNode
+package edu.montana.gsoc.msusel.inject.grime;
 
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class SelectInternalClasses extends Selector {
+interface ClassGrimeTypes {
 
-    private int num
-
-    SelectInternalClasses(int num) {
-        this.num = num
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    List<CodeNode> select(tree, binding) {
-        return null
-    }
+    String DIPG = "DIPG";
+    String DISG = "DISG";
+    String DEPG = "DEPG";
+    String DESG = "DESG";
+    String IISG = "IISG";
+    String IESG = "IESG";
+    String IIPG = "IIPG";
+    String IEPG = "IEPG";
 }

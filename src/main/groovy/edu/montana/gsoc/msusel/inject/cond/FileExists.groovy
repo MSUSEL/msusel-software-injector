@@ -29,19 +29,29 @@ import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 
 import java.nio.file.Files
 import java.nio.file.Paths
-
 /**
+ * A Condition to determine if a file that is to be created already exists
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class FileExists implements Condition {
 
+    /**
+     * The potential file to be created
+     */
     FileNode file
 
+    /**
+     * Constructs a new FileExists condition
+     * @param file The file to be created
+     */
     FileExists(FileNode file) {
         this.file = file
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     boolean check() {
         !Files.exists(Paths.get(file.key))

@@ -23,11 +23,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.grimeinject
+package edu.montana.gsoc.msusel.inject.grime
 
 import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
 import edu.montana.gsoc.msusel.codetree.node.structural.NamespaceNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 import edu.montana.gsoc.msusel.rbml.model.Pattern
@@ -37,69 +36,95 @@ import groovy.transform.builder.Builder
  * @author Isaac Griffith
  * @version 1.2.0
  */
-class PackageOrgGrimeInjector extends OrgGrimeInjector {
+class ModularOrgGrimeInjector extends OrgGrimeInjector {
 
+    protected boolean persistent
     protected boolean internal
-    protected boolean closure
+    protected boolean cyclical
 
     @Builder(buildMethodName = "create")
-    private PackageOrgGrimeInjector(PatternNode pattern, Pattern rbml, boolean internal, boolean closure) {
+    private ModularOrgGrimeInjector(PatternNode pattern, Pattern rbml, boolean persistent, boolean internal, boolean cyclical) {
         super(pattern, rbml)
+        this.persistent = persistent
         this.internal = internal
-        this.closure = closure
+        this.cyclical = cyclical
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     List<SourceTransform> createTransforms(InjectorContext context) {
         List<SourceTransform> transforms = []
 
-        NamespaceNode pkg = selectPatternNamespaces()
-        NamespaceNode other
-        TypeNode type, dest
+        List<NamespaceNode> pkgs = findPatternNamespaces()
+        NamespaceNode ns1, ns2
+        RelationType rel
 
         if (internal) {
-            type = selectPatternClass(pkg)
+            if (pkgs.size() > 1) {
+                (ns1, ns2) = selectNamespaces(pkgs)
+            } else {
+                ns1 = selectNamespace(pkgs)
+                (ns1, ns2) = splitNamespace(ns1)
+            }
         } else {
-            type = selectOrCreateExternalClass(pkg)
+            ns1 = selectPatternNamespace()
+            ns2 = selectOrCreateExternNamespace()
         }
 
-        RelationType rel = selectRelationship()
-
-        if (closure) {
-            other = selectUnreachableNamespace(pkg)
+        if (persistent) {
+            rel = selectPersistentRelationship()
         } else {
-            other = selectNamespace()
+            rel = selectTempRelationship()
         }
-        dest = selectExternalClass(other)
 
-        if (other && dest) {
-            createRelationship(type, dest, rel)
+        if (cyclical) {
+            createCyclicalDependency(ns1, ns2, rel)
+        } else {
+            addInstability(ns1, ns2, rel)
         }
 
         transforms
     }
 
-    RelationType selectRelationship() {
-        null
-    }
-
-    void createRelationship(TypeNode src, TypeNode dest, RelationType rel) {
+    def addInstability(NamespaceNode srcNs, NamespaceNode destNs, RelationType rel) {
 
     }
 
-    TypeNode selectExternalClass(NamespaceNode ns) {
+    def createCyclicalDependency(NamespaceNode srcNs, NamespaceNode destNs, RelationType rel) {
+
+    }
+
+    RelationType selectTempRelationship() {
+
+    }
+
+    RelationType selectPersistentRelationship() {
+
+    }
+
+    NamespaceNode selectOrCreateExternNamespace() {
         null
     }
 
-    NamespaceNode selectNamespace() {
+    NamespaceNode selectPatternNamespace() {
         null
     }
 
-    NamespaceNode selectUnreachableNamespace(NamespaceNode ns) {
+    def splitNamespace(NamespaceNode namespaceNode) {
+
+    }
+
+    NamespaceNode selectNamespace(List<NamespaceNode> namespaceNodes) {
         null
     }
 
-    TypeNode selectOrCreateExternalClass(NamespaceNode ns) {
-        null
+    def selectNamespaces(List<NamespaceNode> namespaceNodes) {
+
+    }
+
+    List<NamespaceNode> findPatternNamespaces() {
+
     }
 }

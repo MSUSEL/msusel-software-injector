@@ -31,6 +31,7 @@ import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
+ * A Base Condition class for TypeHeader modification conditions
  * @author Isaac Griffith
  * @version 1.2.0
  */
@@ -40,12 +41,22 @@ abstract class TypeHeaderCondition implements Condition {
     protected final TypeNode node
     protected final InjectorContext context
 
+    /**
+     * Constructs a new TypeHeaderCondition
+     * @param context The current InjectorContext
+     * @param file The File containing the type
+     * @param node The actual type to be modified
+     */
     TypeHeaderCondition(InjectorContext context, FileNode file, TypeNode node) {
         this.context = context
         this.file = file
         this.node = node
     }
 
+    /**
+     * Method to collect the header for the type, for examination prior to modification
+     * @return The entire Type header
+     */
     String getTypeHeader() {
         FileOperations ops = context.controller.getOps(file)
         StringBuilder header = new StringBuilder()

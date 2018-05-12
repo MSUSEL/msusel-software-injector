@@ -26,6 +26,7 @@
 package edu.montana.gsoc.msusel.inject.transform
 
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
@@ -36,5 +37,9 @@ abstract class CreateStructure extends BasicSourceTransform {
 
     CreateStructure(InjectorContext context, FileNode file) {
         super(context, file)
+    }
+
+    int findInnerTypeInsertionPoint(TypeNode type) {
+        return type.getEnd() - 1
     }
 }

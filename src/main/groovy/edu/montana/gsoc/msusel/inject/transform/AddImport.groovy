@@ -45,6 +45,9 @@ class AddImport extends BasicSourceTransform {
         this.node = node
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         FileOperations ops = context.controller.getOps(file)
@@ -56,6 +59,14 @@ class AddImport extends BasicSourceTransform {
         updateAllFollowing(line, delta)
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void initializeConditions() {
+        conditions << new FileHasImport(file, node)
+    }
+
     int findImportInsertionPoint() {
         int line = 1
 
@@ -63,16 +74,11 @@ class AddImport extends BasicSourceTransform {
         Map<String, Integer> importMap = [:]
         ops.getLines().each {
             if (it.startsWith("import ")) {
-                importsMap[it] = line
+                importMap[it] = line
             }
             line += 1
         }
 
         return line + 1
-    }
-
-    @Override
-    void initializeConditions() {
-        conditions << new FileHasImport(file, node)
     }
 }

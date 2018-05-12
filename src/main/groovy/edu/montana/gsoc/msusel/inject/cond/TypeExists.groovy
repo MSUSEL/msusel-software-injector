@@ -29,19 +29,34 @@ import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 
 /**
+ * A Condition that checks whether a given type already exists in a given type
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class TypeExists implements Condition {
 
+    /**
+     * The file in which the type will be added
+     */
     FileNode file
+    /**
+     * The type to check
+     */
     TypeNode type
 
+    /**
+     * Constructs a new TypeExists condition
+     * @param file The file to which the type will be added
+     * @param type The type to add
+     */
     TypeExists(FileNode file, TypeNode type) {
         this.file = file
         this.type = type
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     boolean check() {
         TypeNode t = file.types().find { it.name() == type.name() }

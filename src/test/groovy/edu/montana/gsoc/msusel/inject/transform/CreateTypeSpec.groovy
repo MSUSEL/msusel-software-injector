@@ -33,7 +33,7 @@ import edu.montana.gsoc.msusel.codetree.node.structural.NamespaceNode
 import edu.montana.gsoc.msusel.codetree.node.type.ClassNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 
-class AddTypeSpec extends BaseTransformSpec {
+class CreateTypeSpec extends BaseTransformSpec {
 
     def testExecute() {
         deleteDir(new File('testdata'))
@@ -45,8 +45,8 @@ class AddTypeSpec extends BaseTransformSpec {
 
         new CreateFile(fn, tree).execute()
 
-        when: "Create the new AddType transform"
-        SourceTransform trans = new AddType(fn, tree, tn)
+        when: "Create the new CreateType transform"
+        SourceTransform trans = new CreateType(fn, tree, tn)
         trans.tree = new DefaultCodeTree()
 
         then: "Execute the transform"
@@ -67,8 +67,8 @@ class AddTypeSpec extends BaseTransformSpec {
 
         new CreateFile(fn).execute()
 
-        when: 'Create the new AddType transform'
-        SourceTransform trans = new AddType(fn, tn)
+        when: 'Create the new CreateType transform'
+        SourceTransform trans = new CreateType(fn, tn)
         trans.tree = new DefaultCodeTree()
 
         then: 'Execute the transform'

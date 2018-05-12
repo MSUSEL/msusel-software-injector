@@ -23,29 +23,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.grimeinject
+package edu.montana.gsoc.msusel.inject
 
-import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
-import edu.montana.gsoc.msusel.inject.InjectorContext
-import edu.montana.gsoc.msusel.inject.SourceInjector
-import edu.montana.gsoc.msusel.inject.select.Selector
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
-import edu.montana.gsoc.msusel.rbml.model.Pattern
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class NullInjector implements SourceInjector {
 
-    NullInjector(String type, PatternNode pattern, Pattern rbml, Selector selector) {
-        super(type, pattern, rbml, selector)
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     List<SourceTransform> createTransforms(InjectorContext context) {
         return []
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void inject(InjectorContext context) {
 

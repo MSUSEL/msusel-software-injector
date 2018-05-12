@@ -42,6 +42,9 @@ class CreateFile extends CreateStructure {
         super(context, file)
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         def treeBuilder = new FileTreeBuilder()
@@ -86,6 +89,9 @@ class CreateFile extends CreateStructure {
         context.controller.getOps(file)
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void initializeConditions() {
         conditions << new FileExists(file)

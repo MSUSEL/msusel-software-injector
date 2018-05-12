@@ -50,6 +50,9 @@ class AddFieldUse extends AddRelation {
         this.method = method
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         TypeNode fieldOwner = findOwningType(field)
@@ -70,6 +73,9 @@ class AddFieldUse extends AddRelation {
         updateContainingAndAllFollowing(line, length)
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void initializeConditions() {
     }

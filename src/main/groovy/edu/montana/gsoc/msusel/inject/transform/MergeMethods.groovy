@@ -23,12 +23,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.grimeinject
+package edu.montana.gsoc.msusel.inject.transform
+
+import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.montana.gsoc.msusel.inject.InjectorContext
+import groovy.transform.builder.Builder
 
 /**
+ * Merges two methods (one on top of the other) into a single method
  * @author Isaac Griffith
  * @version 1.2.0
  */
-enum RelationType {
-    ASSOC, GEN, REAL, USE_VAR, USE_PARAM, USE_RET
+class MergeMethods extends Merge {
+
+    @Builder(buildMethodName = "create")
+    MergeMethods(InjectorContext context, FileNode file) {
+        super(context, file)
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void initializeConditions() {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void execute() {
+
+    }
 }

@@ -23,20 +23,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.grimeinject;
+package edu.montana.gsoc.msusel.inject.rot
+
+import edu.montana.gsoc.msusel.inject.InjectorContext
+import edu.montana.gsoc.msusel.inject.transform.SourceTransform;
 
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
-interface ClassGrimeTypes {
+class InappropriateInversionInjector extends RotInjector {
 
-    String DIPG = "DIPG";
-    String DISG = "DISG";
-    String DEPG = "DEPG";
-    String DESG = "DESG";
-    String IISG = "IISG";
-    String IESG = "IESG";
-    String IIPG = "IIPG";
-    String IEPG = "IEPG";
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void inject(InjectorContext context) {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    List<SourceTransform> createTransforms(InjectorContext context) {
+        return null
+    }
 }

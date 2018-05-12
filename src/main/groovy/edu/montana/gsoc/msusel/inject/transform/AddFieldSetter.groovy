@@ -42,6 +42,9 @@ class AddFieldSetter extends FieldMutatorTransform {
         super(context, file, type, node)
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void generateContent(StringBuilder builder) {
         builder << "    public void set${capitalizedName()}(${type()} ${name()}) {"
@@ -51,6 +54,9 @@ class AddFieldSetter extends FieldMutatorTransform {
         builder << "    }"
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void initializeConditions() {
         conditions << new TypeHasMethod(type, "set${capitalizedName}")

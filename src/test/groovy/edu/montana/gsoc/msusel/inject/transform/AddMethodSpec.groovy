@@ -46,7 +46,7 @@ class AddMethodSpec extends BaseTransformSpec {
         TypeNode tn = ClassNode.builder().key("Test").accessibility(Accessibility.PUBLIC).create()
 
         new CreateFile(ops, fn, tree).execute()
-        new AddType(ops, fn, tree, tn).execute()
+        new CreateType(ops, fn, tree, tn).execute()
 
         MethodNode cn = MethodNode.builder().key(tn.getKey() + "#" + tn.name()).accessibility(Accessibility.PUBLIC).create()
 

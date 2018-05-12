@@ -44,6 +44,9 @@ class AddRealization extends TypeHeaderTransform {
         this.real = real
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         // 1. find realization list for the type to add to
@@ -75,6 +78,9 @@ class AddRealization extends TypeHeaderTransform {
         implementAbstractMethods(real)
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void initializeConditions() {
         conditions << new AlreadyRealizes(context, file, type, real)

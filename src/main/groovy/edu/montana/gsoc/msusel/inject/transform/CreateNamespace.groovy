@@ -25,11 +25,13 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.structural.NamespaceNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.NamespaceExists
 import groovy.transform.builder.Builder
+
+import java.nio.file.Path
+import java.nio.file.Paths
 
 /**
  * @author Isaac Griffith
@@ -40,16 +42,24 @@ class CreateNamespace extends CreateStructure {
     NamespaceNode namespace
 
     @Builder(buildMethodName = "create")
-    private CreateNamespace(InjectorContext context, FileNode file, NamespaceNode namespace) {
-        super(context, file)
+    private CreateNamespace(InjectorContext context, NamespaceNode namespace) {
+        super(context, null)
         this.namespace = namespace
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
-
+        Path base = Paths.get(namespace.name().replaceAll(".", "/")).parent
+        def treeBuilder = new FileTreeBuilder(baseDir: new File(base.toString()))
+        treeBuilder.dir(namespace.name().split(/\./).last())
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void initializeConditions() {
         conditions << new NamespaceExists(context, namespace)

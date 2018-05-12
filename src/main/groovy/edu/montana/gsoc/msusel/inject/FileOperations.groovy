@@ -25,6 +25,7 @@
  */
 package edu.montana.gsoc.msusel.inject
 
+import edu.montana.gsoc.msusel.codetree.node.CodeNode
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 
 import java.nio.charset.StandardCharsets
@@ -84,6 +85,14 @@ class FileOperations {
 
     String contentAt(int line) {
         return lines[line]
+    }
+
+    List<String> contentRegion(CodeNode node) {
+        try {
+            lines.subList(node.start, node.end)
+        } catch (IndexOutOfBoundsException e) {
+            []
+        }
     }
 
     int injectAtEnd(String s) {

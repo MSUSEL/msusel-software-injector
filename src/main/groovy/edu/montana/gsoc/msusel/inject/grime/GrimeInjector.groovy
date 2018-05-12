@@ -23,11 +23,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.grimeinject
+package edu.montana.gsoc.msusel.inject.grime
 
 import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
+import edu.montana.gsoc.msusel.inject.SourceInjector
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 import edu.montana.gsoc.msusel.rbml.model.Pattern
 
@@ -35,7 +36,7 @@ import edu.montana.gsoc.msusel.rbml.model.Pattern
  * @author Isaac Griffith
  * @version 1.2.0
  */
-abstract class GrimeInjector {
+abstract class GrimeInjector implements SourceInjector {
 
     protected PatternNode pattern
     protected Pattern rbml
@@ -45,6 +46,10 @@ abstract class GrimeInjector {
         this.rbml = rbml
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     void inject(InjectorContext context) {
         // 2. Create transforms
         List<SourceTransform> transforms = createTransforms(context)

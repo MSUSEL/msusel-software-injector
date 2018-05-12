@@ -26,10 +26,15 @@
 package edu.montana.gsoc.msusel.inject.cond
 
 /**
+ * An interface representing a condition to be checked prior to transforming the code
  * @author Isaac Griffith
  * @version 1.2.0
  */
 interface Condition {
 
+    /**
+     * Embodies the logic of the condition
+     * @return true if the condition is satisfied, false otherwise
+     */
     boolean check()
 }

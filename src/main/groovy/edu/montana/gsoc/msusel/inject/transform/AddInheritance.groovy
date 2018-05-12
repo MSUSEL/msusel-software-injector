@@ -44,6 +44,9 @@ class AddInheritance extends TypeHeaderTransform {
         this.gen = gen
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         // 1. find type name check if already extends something, if so throw an exception, else add extends
@@ -63,6 +66,9 @@ class AddInheritance extends TypeHeaderTransform {
         implementAbstractMethods(gen)
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void initializeConditions() {
         conditions << new AlreadyGeneralizes(context, file, type, gen)

@@ -25,7 +25,7 @@
  */
 package edu.montana.gsoc.msusel.experiment
 
-import edu.montana.gsoc.msusel.grimeinject.GrimeInjector
+import edu.montana.gsoc.msusel.inject.grime.GrimeInjector
 
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files

@@ -51,6 +51,9 @@ class AddMethod extends AddMember {
         this.node = node
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         FileOperations ops = context.controller.getOps(file)
@@ -75,6 +78,14 @@ class AddMethod extends AddMember {
         updateImports(imports)
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void initializeConditions() {
+        conditions << new TypeHasMethod(type, node)
+    }
+
     def body(StringBuilder builder) {
         if (node.isAbstract())
             builder << ";\n\n"
@@ -87,10 +98,10 @@ class AddMethod extends AddMember {
         }
     }
 
+
     def bodyContent() {
         ""
     }
-
 
     def paramList() {
         StringBuilder builder = new StringBuilder()
@@ -113,10 +124,5 @@ class AddMethod extends AddMember {
             node.accessibility.toString().toLowerCase()
         else
             ""
-    }
-
-    @Override
-    void initializeConditions() {
-        conditions << new TypeHasMethod(type, node)
     }
 }

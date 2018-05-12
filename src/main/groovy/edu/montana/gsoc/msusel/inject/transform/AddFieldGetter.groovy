@@ -42,6 +42,9 @@ class AddFieldGetter extends FieldMutatorTransform {
         super(context, file, type, field)
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void generateContent(StringBuilder builder) {
         builder << "    public ${type()} get${capitalizedName()}() {"
@@ -51,6 +54,9 @@ class AddFieldGetter extends FieldMutatorTransform {
         builder << "    }"
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void initializeConditions() {
         conditions << new TypeHasMethod(type, "get${capitalizedName}")

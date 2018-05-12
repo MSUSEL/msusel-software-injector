@@ -39,11 +39,17 @@ class AddUseDep extends AddRelation {
         super(context, file)
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void initializeConditions() {
 

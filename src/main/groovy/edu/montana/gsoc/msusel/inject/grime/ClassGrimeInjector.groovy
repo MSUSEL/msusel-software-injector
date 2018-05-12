@@ -23,7 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.grimeinject
+package edu.montana.gsoc.msusel.inject.grime
 
 import edu.montana.gsoc.msusel.arc.impl.pattern4.codetree.PatternNode
 import edu.montana.gsoc.msusel.codetree.node.Accessibility
@@ -55,6 +55,9 @@ class ClassGrimeInjector extends GrimeInjector {
         this.pair = pair
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     List<SourceTransform> createTransforms(InjectorContext context) {
         List<SourceTransform> transforms = []

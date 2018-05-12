@@ -29,19 +29,34 @@ import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.structural.ImportNode
 
 /**
+ * A condition to determine if the file already has the given import
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class FileHasImport implements Condition {
 
+    /**
+     * The File in question
+     */
     FileNode file
+    /**
+     * The import to be added
+     */
     ImportNode imp
 
+    /**
+     * Constructs a new FileHasImport condition for the given file and import
+     * @param file The file
+     * @param imp The new import
+     */
     FileHasImport(FileNode file, ImportNode imp) {
         this.file = file
         this.imp = imp
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     boolean check() {
         file.imports().find { it.key == imp.key } == null

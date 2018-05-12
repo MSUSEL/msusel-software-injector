@@ -45,7 +45,7 @@ class AddFieldSpec extends BaseTransformSpec {
         TypeNode tn = ClassNode.builder().key('Test').accessibility(Accessibility.PUBLIC).create()
 
         new CreateFile(fn, tree).execute()
-        new AddType(fn, tree, tn).execute()
+        new CreateType(fn, tree, tn).execute()
         FieldNode fld = FieldNode.builder().key("Test#field").type(PrimitiveTypeRef.getInstance("int")).create()
 
         when: "We create a new Transform"

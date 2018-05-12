@@ -100,6 +100,9 @@ class AddConstructor extends AddMember {
             ""
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void initializeConditions() {
         conditions << new TypeHasConstructor(type, node)

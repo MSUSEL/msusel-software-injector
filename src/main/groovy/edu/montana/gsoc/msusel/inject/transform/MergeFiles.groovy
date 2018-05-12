@@ -23,7 +23,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package edu.montana.gsoc.msusel.inject.transform
+
+import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.montana.gsoc.msusel.inject.InjectorContext
+import groovy.transform.builder.Builder
+
 /**
- * Package containing those Injectors for Class Grime
+ * Merges two files together into a single file, meant for rot research
+ * @author Isaac Griffith
+ * @version 1.2.0
  */
-package edu.montana.gsoc.msusel.grimeinject
+class MergeFiles extends Merge {
+
+    @Builder(buildMethodName = "create")
+    private MergeFiles(InjectorContext context, FileNode file) {
+        super(context, file)
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void initializeConditions() {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void execute() {
+
+    }
+}

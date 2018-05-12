@@ -53,6 +53,9 @@ class AddAssociation extends CompositeSourceTransform {
         this.toFile = toFile
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         if (!bidirect) {
@@ -65,6 +68,9 @@ class AddAssociation extends CompositeSourceTransform {
         context.invoker.submitAll(transforms)
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void initializeConditions() {
 

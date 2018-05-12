@@ -25,14 +25,14 @@
  */
 package edu.montana.gsoc.msusel.experiment
 
-import edu.montana.gsoc.msusel.grimeinject.GrimeInjector
+import edu.montana.gsoc.msusel.inject.grime.GrimeInjector
 import edu.montana.gsoc.msusel.grimeinject.clazz.*
 import groovy.util.logging.Slf4j
 
 import java.util.concurrent.RecursiveTask
 import java.util.logging.Level
 
-import static edu.montana.gsoc.msusel.grimeinject.ClassGrimeTypes.*
+import static edu.montana.gsoc.msusel.inject.grime.ClassGrimeTypes.*
 /**
  * @author Isaac Griffith
  * @version 1.2.0

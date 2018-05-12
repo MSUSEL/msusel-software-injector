@@ -48,6 +48,9 @@ class AddField extends AddMember {
         this.field = field
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         // 1. find line of last field in type
@@ -62,6 +65,14 @@ class AddField extends AddMember {
         updateAllFollowing(line, length)
         // 4. check if an import is needed
         updateImports(field.type)
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void initializeConditions() {
+        conditions << new TypeHasField(type, field)
     }
 
     private String getAccessibility() {
@@ -87,10 +98,5 @@ class AddField extends AddMember {
 
     private String getName() {
         field.name()
-    }
-
-    @Override
-    void initializeConditions() {
-        conditions << new TypeHasField(type, field)
     }
 }

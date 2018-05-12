@@ -48,6 +48,9 @@ abstract class FieldMutatorTransform extends AddMember {
         this.type = type
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     void execute() {
         FileOperations ops = context.controller.getOps(file)
