@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="1262" branches-covered="0" branches-valid="954" complexity="0.0" version="1.9.4.1" timestamp="1526137432457">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="1291" branches-covered="0" branches-valid="970" complexity="0.0" version="1.9.4.1" timestamp="1526139311814">
 	<sources>
 		<source>/home/git/msusel/msusel-software-injector/src/main/java</source>
 		<source>--source</source>
@@ -4887,11 +4887,13 @@
 								<line number="51" hits="0" branch="false"/>
 								<line number="52" hits="0" branch="false"/>
 								<line number="53" hits="0" branch="false"/>
+								<line number="61" hits="0" branch="false"/>
+								<line number="62" hits="0" branch="false"/>
+								<line number="63" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="execute" signature="()V" line-rate="0.0" branch-rate="0.0">
 							<lines>
-								<line number="62" hits="0" branch="false"/>
 								<line number="64" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
@@ -4910,6 +4912,24 @@
 								<line number="68" hits="0" branch="false"/>
 								<line number="70" hits="0" branch="false"/>
 								<line number="72" hits="0" branch="false"/>
+								<line number="74" hits="0" branch="true" condition-coverage="0% (0/4)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="75" hits="0" branch="false"/>
+								<line number="76" hits="0" branch="false"/>
+								<line number="77" hits="0" branch="true" condition-coverage="0% (0/6)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+										<condition number="2" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="78" hits="0" branch="false"/>
+								<line number="80" hits="0" branch="false"/>
+								<line number="82" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getAccessibility" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="0.0">
@@ -4921,29 +4941,40 @@
 								</line>
 								<line number="85" hits="0" branch="false"/>
 								<line number="86" hits="0" branch="false"/>
+								<line number="97" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="98" hits="0" branch="false"/>
+								<line number="99" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getModifierString" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="90" hits="0" branch="false"/>
 								<line number="91" hits="0" branch="false"/>
 								<line number="95" hits="0" branch="false"/>
-								<line number="97" hits="0" branch="false"/>
+								<line number="106" hits="0" branch="false"/>
+								<line number="107" hits="0" branch="false"/>
+								<line number="111" hits="0" branch="false"/>
+								<line number="113" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getName" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0">
 							<lines>
 								<line number="105" hits="0" branch="false"/>
+								<line number="127" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getTypeString" signature="()Ljava/lang/String;" line-rate="0.0" branch-rate="1.0">
 							<lines>
 								<line number="101" hits="0" branch="false"/>
+								<line number="120" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="initializeConditions" signature="()V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="80" hits="0" branch="false"/>
+								<line number="90" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -4951,7 +4982,9 @@
 						<line number="51" hits="0" branch="false"/>
 						<line number="52" hits="0" branch="false"/>
 						<line number="53" hits="0" branch="false"/>
+						<line number="61" hits="0" branch="false"/>
 						<line number="62" hits="0" branch="false"/>
+						<line number="63" hits="0" branch="false"/>
 						<line number="64" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
@@ -4970,7 +5003,24 @@
 						<line number="68" hits="0" branch="false"/>
 						<line number="70" hits="0" branch="false"/>
 						<line number="72" hits="0" branch="false"/>
+						<line number="74" hits="0" branch="true" condition-coverage="0% (0/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="75" hits="0" branch="false"/>
+						<line number="76" hits="0" branch="false"/>
+						<line number="77" hits="0" branch="true" condition-coverage="0% (0/6)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+								<condition number="2" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="78" hits="0" branch="false"/>
 						<line number="80" hits="0" branch="false"/>
+						<line number="82" hits="0" branch="false"/>
 						<line number="84" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
@@ -4981,9 +5031,21 @@
 						<line number="90" hits="0" branch="false"/>
 						<line number="91" hits="0" branch="false"/>
 						<line number="95" hits="0" branch="false"/>
-						<line number="97" hits="0" branch="false"/>
+						<line number="97" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="98" hits="0" branch="false"/>
+						<line number="99" hits="0" branch="false"/>
 						<line number="101" hits="0" branch="false"/>
 						<line number="105" hits="0" branch="false"/>
+						<line number="106" hits="0" branch="false"/>
+						<line number="107" hits="0" branch="false"/>
+						<line number="111" hits="0" branch="false"/>
+						<line number="113" hits="0" branch="false"/>
+						<line number="120" hits="0" branch="false"/>
+						<line number="127" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.transform.AddField$AddFieldBuilder" filename="edu/montana/gsoc/msusel/inject/transform/AddField.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
@@ -4998,12 +5060,16 @@
 							<lines>
 								<line number="92" hits="0" branch="false"/>
 								<line number="93" hits="0" branch="false"/>
+								<line number="108" hits="0" branch="false"/>
+								<line number="109" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
 						<line number="92" hits="0" branch="false"/>
 						<line number="93" hits="0" branch="false"/>
+						<line number="108" hits="0" branch="false"/>
+						<line number="109" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.transform.AddFieldGetter" filename="edu/montana/gsoc/msusel/inject/transform/AddFieldGetter.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
@@ -5011,20 +5077,25 @@
 						<method name="&lt;init&gt;" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;Ledu/montana/gsoc/msusel/codetree/node/structural/FileNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/member/FieldNode;)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
 								<line number="42" hits="0" branch="false"/>
+								<line number="51" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="generateContent" signature="(Ljava/lang/StringBuilder;)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
 								<line number="50" hits="0" branch="false"/>
-								<line number="51" hits="0" branch="false"/>
 								<line number="52" hits="0" branch="false"/>
 								<line number="53" hits="0" branch="false"/>
 								<line number="54" hits="0" branch="false"/>
+								<line number="59" hits="0" branch="false"/>
+								<line number="60" hits="0" branch="false"/>
+								<line number="61" hits="0" branch="false"/>
+								<line number="62" hits="0" branch="false"/>
+								<line number="63" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="initializeConditions" signature="()V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="62" hits="0" branch="false"/>
+								<line number="71" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -5035,7 +5106,12 @@
 						<line number="52" hits="0" branch="false"/>
 						<line number="53" hits="0" branch="false"/>
 						<line number="54" hits="0" branch="false"/>
+						<line number="59" hits="0" branch="false"/>
+						<line number="60" hits="0" branch="false"/>
+						<line number="61" hits="0" branch="false"/>
 						<line number="62" hits="0" branch="false"/>
+						<line number="63" hits="0" branch="false"/>
+						<line number="71" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.transform.AddFieldGetter$AddFieldGetterBuilder" filename="edu/montana/gsoc/msusel/inject/transform/AddFieldGetter.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
@@ -5090,6 +5166,7 @@
 								<line number="48" hits="0" branch="false"/>
 								<line number="49" hits="0" branch="false"/>
 								<line number="50" hits="0" branch="false"/>
+								<line number="51" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="execute" signature="()V" line-rate="0.0" branch-rate="0.0">
@@ -5097,7 +5174,13 @@
 								<line number="58" hits="0" branch="false"/>
 								<line number="59" hits="0" branch="false"/>
 								<line number="60" hits="0" branch="false"/>
+								<line number="61" hits="0" branch="false"/>
 								<line number="62" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="63" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
@@ -5107,9 +5190,16 @@
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
+								<line number="65" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
 								<line number="69" hits="0" branch="false"/>
 								<line number="70" hits="0" branch="false"/>
+								<line number="71" hits="0" branch="false"/>
 								<line number="73" hits="0" branch="false"/>
+								<line number="74" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
@@ -5118,10 +5208,17 @@
 						<line number="48" hits="0" branch="false"/>
 						<line number="49" hits="0" branch="false"/>
 						<line number="50" hits="0" branch="false"/>
+						<line number="51" hits="0" branch="false"/>
 						<line number="58" hits="0" branch="false"/>
 						<line number="59" hits="0" branch="false"/>
 						<line number="60" hits="0" branch="false"/>
+						<line number="61" hits="0" branch="false"/>
 						<line number="62" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="63" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
@@ -5131,9 +5228,16 @@
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
+						<line number="65" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
 						<line number="69" hits="0" branch="false"/>
 						<line number="70" hits="0" branch="false"/>
+						<line number="71" hits="0" branch="false"/>
 						<line number="73" hits="0" branch="false"/>
+						<line number="74" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.transform.AddFieldUse$AddFieldUseBuilder" filename="edu/montana/gsoc/msusel/inject/transform/AddFieldUse.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
