@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="1284" branches-covered="0" branches-valid="846" complexity="0.0" version="1.9.4.1" timestamp="1526208613843">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="1337" branches-covered="0" branches-valid="882" complexity="0.0" version="1.9.4.1" timestamp="1526228877624">
 	<sources>
 		<source>/home/git/msusel/msusel-software-injector/src/main/java</source>
 		<source>--source</source>
@@ -2726,270 +2726,270 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;ZZZ)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="52" hits="0" branch="false"/>
-								<line number="53" hits="0" branch="false"/>
-								<line number="54" hits="0" branch="false"/>
-								<line number="55" hits="0" branch="false"/>
+								<line number="68" hits="0" branch="false"/>
+								<line number="69" hits="0" branch="false"/>
+								<line number="70" hits="0" branch="false"/>
+								<line number="71" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createField" signature="(Ljava/lang/String;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ljava/util/List;)Ledu/montana/gsoc/msusel/codetree/node/member/FieldNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="132" hits="0" branch="false"/>
-								<line number="137" hits="0" branch="false"/>
-								<line number="144" hits="0" branch="false"/>
+								<line number="165" hits="0" branch="false"/>
+								<line number="170" hits="0" branch="false"/>
+								<line number="177" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="createFieldUse" signature="(Ljava/util/List;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/member/FieldNode;Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;)Ljava/util/List;" line-rate="0.0" branch-rate="1.0">
+						<method name="createFieldUse" signature="(Ljava/util/List;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/member/FieldNode;Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="153" hits="0" branch="false"/>
+								<line number="201" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createGetter" signature="(Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/member/FieldNode;Ljava/util/List;)Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="163" hits="0" branch="false"/>
-								<line number="165" hits="0" branch="false"/>
-								<line number="169" hits="0" branch="false"/>
-								<line number="176" hits="0" branch="false"/>
+								<line number="218" hits="0" branch="false"/>
+								<line number="220" hits="0" branch="false"/>
+								<line number="224" hits="0" branch="false"/>
+								<line number="231" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createMethod" signature="(Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ljava/lang/String;Ljava/util/List;)Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="198" hits="0" branch="false"/>
-								<line number="200" hits="0" branch="false"/>
-								<line number="204" hits="0" branch="false"/>
-								<line number="210" hits="0" branch="false"/>
+								<line number="267" hits="0" branch="false"/>
+								<line number="269" hits="0" branch="false"/>
+								<line number="273" hits="0" branch="false"/>
+								<line number="279" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createMethodCall" signature="(Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;Ljava/util/List;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="213" hits="0" branch="false"/>
+								<line number="289" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createMethodWithFieldUse" signature="(Ljava/lang/String;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ljava/util/List;Ledu/montana/gsoc/msusel/codetree/node/member/FieldNode;)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="148" hits="0" branch="false"/>
-								<line number="149" hits="0" branch="false"/>
+								<line number="188" hits="0" branch="false"/>
+								<line number="189" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createSetter" signature="(Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/member/FieldNode;Ljava/util/List;)Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="180" hits="0" branch="false"/>
-								<line number="182" hits="0" branch="false"/>
-								<line number="183" hits="0" branch="false"/>
-								<line number="184" hits="0" branch="false"/>
-								<line number="187" hits="0" branch="false"/>
-								<line number="194" hits="0" branch="false"/>
+								<line number="242" hits="0" branch="false"/>
+								<line number="244" hits="0" branch="false"/>
+								<line number="245" hits="0" branch="false"/>
+								<line number="246" hits="0" branch="false"/>
+								<line number="249" hits="0" branch="false"/>
+								<line number="256" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createTransforms" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;)Ljava/util/List;" line-rate="0.0" branch-rate="0.0">
 							<lines>
-								<line number="63" hits="0" branch="false"/>
-								<line number="64" hits="0" branch="false"/>
-								<line number="65" hits="0" branch="false"/>
-								<line number="67" hits="0" branch="false"/>
-								<line number="68" hits="0" branch="false"/>
-								<line number="70" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="71" hits="0" branch="false"/>
-								<line number="73" hits="0" branch="false"/>
-								<line number="76" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="77" hits="0" branch="false"/>
-								<line number="80" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
+								<line number="79" hits="0" branch="false"/>
+								<line number="80" hits="0" branch="false"/>
 								<line number="81" hits="0" branch="false"/>
-								<line number="82" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
 								<line number="83" hits="0" branch="false"/>
-								<line number="86" hits="0" branch="false"/>
-								<line number="87" hits="0" branch="false"/>
-								<line number="88" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="84" hits="0" branch="false"/>
+								<line number="86" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
+								<line number="87" hits="0" branch="false"/>
 								<line number="89" hits="0" branch="false"/>
-								<line number="92" hits="0" branch="false"/>
+								<line number="92" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="93" hits="0" branch="false"/>
+								<line number="96" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="97" hits="0" branch="false"/>
+								<line number="98" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="99" hits="0" branch="false"/>
+								<line number="102" hits="0" branch="false"/>
+								<line number="103" hits="0" branch="false"/>
+								<line number="104" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="105" hits="0" branch="false"/>
+								<line number="108" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectOrCreateMethod" signature="(Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;" line-rate="0.0" branch-rate="0.0">
 							<lines>
-								<line number="96" hits="0" branch="false"/>
-								<line number="97" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="117" hits="0" branch="false"/>
+								<line number="118" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="98" hits="0" branch="false"/>
-								<line number="99" hits="0" branch="false"/>
-								<line number="100" hits="0" branch="false"/>
-								<line number="101" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="119" hits="0" branch="false"/>
+								<line number="120" hits="0" branch="false"/>
+								<line number="121" hits="0" branch="false"/>
+								<line number="122" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="103" hits="0" branch="true" condition-coverage="0% (0/4)">
+								<line number="124" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 										<condition number="1" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="104" hits="0" branch="false"/>
-								<line number="106" hits="0" branch="false"/>
-								<line number="109" hits="0" branch="false"/>
+								<line number="125" hits="0" branch="false"/>
+								<line number="127" hits="0" branch="false"/>
+								<line number="130" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectPatternMethod" signature="(Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;" line-rate="0.0" branch-rate="0.0">
 							<lines>
-								<line number="114" hits="0" branch="false"/>
-								<line number="115" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="140" hits="0" branch="false"/>
+								<line number="141" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="116" hits="0" branch="false"/>
-								<line number="117" hits="0" branch="false"/>
-								<line number="118" hits="0" branch="false"/>
-								<line number="119" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="142" hits="0" branch="false"/>
+								<line number="143" hits="0" branch="false"/>
+								<line number="144" hits="0" branch="false"/>
+								<line number="145" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="121" hits="0" branch="true" condition-coverage="0% (0/4)">
+								<line number="147" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 										<condition number="1" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="122" hits="0" branch="false"/>
-								<line number="124" hits="0" branch="false"/>
-								<line number="127" hits="0" branch="false"/>
+								<line number="148" hits="0" branch="false"/>
+								<line number="150" hits="0" branch="false"/>
+								<line number="153" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="52" hits="0" branch="false"/>
-						<line number="53" hits="0" branch="false"/>
-						<line number="54" hits="0" branch="false"/>
-						<line number="55" hits="0" branch="false"/>
-						<line number="63" hits="0" branch="false"/>
-						<line number="64" hits="0" branch="false"/>
-						<line number="65" hits="0" branch="false"/>
-						<line number="67" hits="0" branch="false"/>
 						<line number="68" hits="0" branch="false"/>
-						<line number="70" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
+						<line number="69" hits="0" branch="false"/>
+						<line number="70" hits="0" branch="false"/>
 						<line number="71" hits="0" branch="false"/>
-						<line number="73" hits="0" branch="false"/>
-						<line number="76" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="77" hits="0" branch="false"/>
-						<line number="80" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
+						<line number="79" hits="0" branch="false"/>
+						<line number="80" hits="0" branch="false"/>
 						<line number="81" hits="0" branch="false"/>
-						<line number="82" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
 						<line number="83" hits="0" branch="false"/>
-						<line number="86" hits="0" branch="false"/>
+						<line number="84" hits="0" branch="false"/>
+						<line number="86" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
 						<line number="87" hits="0" branch="false"/>
-						<line number="88" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
 						<line number="89" hits="0" branch="false"/>
-						<line number="92" hits="0" branch="false"/>
-						<line number="96" hits="0" branch="false"/>
-						<line number="97" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="92" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="98" hits="0" branch="false"/>
+						<line number="93" hits="0" branch="false"/>
+						<line number="96" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="97" hits="0" branch="false"/>
+						<line number="98" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
 						<line number="99" hits="0" branch="false"/>
-						<line number="100" hits="0" branch="false"/>
-						<line number="101" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="102" hits="0" branch="false"/>
+						<line number="103" hits="0" branch="false"/>
+						<line number="104" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="103" hits="0" branch="true" condition-coverage="0% (0/4)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-								<condition number="1" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="104" hits="0" branch="false"/>
-						<line number="106" hits="0" branch="false"/>
-						<line number="109" hits="0" branch="false"/>
-						<line number="114" hits="0" branch="false"/>
-						<line number="115" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="116" hits="0" branch="false"/>
+						<line number="105" hits="0" branch="false"/>
+						<line number="108" hits="0" branch="false"/>
 						<line number="117" hits="0" branch="false"/>
-						<line number="118" hits="0" branch="false"/>
-						<line number="119" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="118" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="121" hits="0" branch="true" condition-coverage="0% (0/4)">
+						<line number="119" hits="0" branch="false"/>
+						<line number="120" hits="0" branch="false"/>
+						<line number="121" hits="0" branch="false"/>
+						<line number="122" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="124" hits="0" branch="true" condition-coverage="0% (0/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 								<condition number="1" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="122" hits="0" branch="false"/>
-						<line number="124" hits="0" branch="false"/>
+						<line number="125" hits="0" branch="false"/>
 						<line number="127" hits="0" branch="false"/>
-						<line number="132" hits="0" branch="false"/>
-						<line number="137" hits="0" branch="false"/>
+						<line number="130" hits="0" branch="false"/>
+						<line number="140" hits="0" branch="false"/>
+						<line number="141" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="142" hits="0" branch="false"/>
+						<line number="143" hits="0" branch="false"/>
 						<line number="144" hits="0" branch="false"/>
+						<line number="145" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="147" hits="0" branch="true" condition-coverage="0% (0/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
 						<line number="148" hits="0" branch="false"/>
-						<line number="149" hits="0" branch="false"/>
+						<line number="150" hits="0" branch="false"/>
 						<line number="153" hits="0" branch="false"/>
-						<line number="163" hits="0" branch="false"/>
 						<line number="165" hits="0" branch="false"/>
-						<line number="169" hits="0" branch="false"/>
-						<line number="176" hits="0" branch="false"/>
-						<line number="180" hits="0" branch="false"/>
-						<line number="182" hits="0" branch="false"/>
-						<line number="183" hits="0" branch="false"/>
-						<line number="184" hits="0" branch="false"/>
-						<line number="187" hits="0" branch="false"/>
-						<line number="194" hits="0" branch="false"/>
-						<line number="198" hits="0" branch="false"/>
-						<line number="200" hits="0" branch="false"/>
-						<line number="204" hits="0" branch="false"/>
-						<line number="210" hits="0" branch="false"/>
-						<line number="213" hits="0" branch="false"/>
+						<line number="170" hits="0" branch="false"/>
+						<line number="177" hits="0" branch="false"/>
+						<line number="188" hits="0" branch="false"/>
+						<line number="189" hits="0" branch="false"/>
+						<line number="201" hits="0" branch="false"/>
+						<line number="218" hits="0" branch="false"/>
+						<line number="220" hits="0" branch="false"/>
+						<line number="224" hits="0" branch="false"/>
+						<line number="231" hits="0" branch="false"/>
+						<line number="242" hits="0" branch="false"/>
+						<line number="244" hits="0" branch="false"/>
+						<line number="245" hits="0" branch="false"/>
+						<line number="246" hits="0" branch="false"/>
+						<line number="249" hits="0" branch="false"/>
+						<line number="256" hits="0" branch="false"/>
+						<line number="267" hits="0" branch="false"/>
+						<line number="269" hits="0" branch="false"/>
+						<line number="273" hits="0" branch="false"/>
+						<line number="279" hits="0" branch="false"/>
+						<line number="289" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.grime.ClassGrimeInjector$ClassGrimeInjectorBuilder" filename="edu/montana/gsoc/msusel/inject/grime/ClassGrimeInjector.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
@@ -3008,32 +3008,32 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="43" hits="0" branch="false"/>
-								<line number="44" hits="0" branch="false"/>
+								<line number="51" hits="0" branch="false"/>
+								<line number="52" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="inject" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="53" hits="0" branch="false"/>
-								<line number="56" hits="0" branch="false"/>
+								<line number="61" hits="0" branch="false"/>
+								<line number="64" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectPatternClass" signature="()Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="61" hits="0" branch="false"/>
-								<line number="62" hits="0" branch="false"/>
-								<line number="63" hits="0" branch="false"/>
+								<line number="73" hits="0" branch="false"/>
+								<line number="74" hits="0" branch="false"/>
+								<line number="75" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="43" hits="0" branch="false"/>
-						<line number="44" hits="0" branch="false"/>
-						<line number="53" hits="0" branch="false"/>
-						<line number="56" hits="0" branch="false"/>
+						<line number="51" hits="0" branch="false"/>
+						<line number="52" hits="0" branch="false"/>
 						<line number="61" hits="0" branch="false"/>
-						<line number="62" hits="0" branch="false"/>
-						<line number="63" hits="0" branch="false"/>
+						<line number="64" hits="0" branch="false"/>
+						<line number="73" hits="0" branch="false"/>
+						<line number="74" hits="0" branch="false"/>
+						<line number="75" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.grime.GrimeInjectorFactory" filename="edu/montana/gsoc/msusel/inject/grime/GrimeInjectorFactory.groovy" line-rate="0.0" branch-rate="0.0" complexity="0.0">
@@ -3574,182 +3574,184 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;ZZZ)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="51" hits="0" branch="false"/>
-								<line number="52" hits="0" branch="false"/>
-								<line number="53" hits="0" branch="false"/>
-								<line number="54" hits="0" branch="false"/>
+								<line number="68" hits="0" branch="false"/>
+								<line number="69" hits="0" branch="false"/>
+								<line number="70" hits="0" branch="false"/>
+								<line number="71" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="createRelationship" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;Ledu/montana/gsoc/msusel/codetree/node/structural/FileNode;Ledu/montana/gsoc/msusel/inject/grime/RelationType;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ljava/util/ArrayList;)V" line-rate="0.0" branch-rate="0.0">
+						<method name="createRelationship" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;Ledu/montana/gsoc/msusel/codetree/node/structural/FileNode;Ledu/montana/gsoc/msusel/inject/grime/RelationType;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ljava/util/List;)V" line-rate="0.0" branch-rate="0.0">
 							<lines>
-								<line number="104" hits="0" branch="false"/>
-								<line number="105" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="152" hits="0" branch="false"/>
+								<line number="153" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="106" hits="0" branch="false"/>
-								<line number="107" hits="0" branch="false"/>
-								<line number="108" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="154" hits="0" branch="false"/>
+								<line number="155" hits="0" branch="false"/>
+								<line number="156" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="109" hits="0" branch="false"/>
-								<line number="110" hits="0" branch="false"/>
-								<line number="111" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="157" hits="0" branch="false"/>
+								<line number="158" hits="0" branch="false"/>
+								<line number="159" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="112" hits="0" branch="false"/>
-								<line number="113" hits="0" branch="false"/>
-								<line number="114" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="160" hits="0" branch="false"/>
+								<line number="161" hits="0" branch="false"/>
+								<line number="162" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="115" hits="0" branch="false"/>
-								<line number="116" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="163" hits="0" branch="false"/>
+								<line number="164" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="117" hits="0" branch="false"/>
-								<line number="118" hits="0" branch="true" condition-coverage="0% (0/2)">
+								<line number="165" hits="0" branch="false"/>
+								<line number="166" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="119" hits="0" branch="false"/>
+								<line number="167" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createTransforms" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;)Ljava/util/List;" line-rate="0.0" branch-rate="0.0">
 							<lines>
-								<line number="62" hits="0" branch="false"/>
-								<line number="63" hits="0" branch="false"/>
-								<line number="64" hits="0" branch="false"/>
-								<line number="66" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="67" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="68" hits="0" branch="false"/>
-								<line number="69" hits="0" branch="false"/>
-								<line number="71" hits="0" branch="false"/>
-								<line number="72" hits="0" branch="false"/>
-								<line number="75" hits="0" branch="false"/>
-								<line number="78" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
 								<line number="79" hits="0" branch="false"/>
+								<line number="80" hits="0" branch="false"/>
 								<line number="81" hits="0" branch="false"/>
-								<line number="84" hits="0" branch="false"/>
+								<line number="83" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="84" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="85" hits="0" branch="false"/>
+								<line number="86" hits="0" branch="false"/>
+								<line number="88" hits="0" branch="false"/>
+								<line number="89" hits="0" branch="false"/>
+								<line number="92" hits="0" branch="false"/>
+								<line number="95" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="96" hits="0" branch="false"/>
+								<line number="98" hits="0" branch="false"/>
+								<line number="101" hits="0" branch="false"/>
+								<line number="103" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectExternClass" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;)Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="88" hits="0" branch="false"/>
-								<line number="89" hits="0" branch="false"/>
-								<line number="91" hits="0" branch="false"/>
-								<line number="92" hits="0" branch="false"/>
+								<line number="112" hits="0" branch="false"/>
+								<line number="113" hits="0" branch="false"/>
+								<line number="115" hits="0" branch="false"/>
+								<line number="116" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectPersistentRel" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Ledu/montana/gsoc/msusel/inject/grime/RelationType;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="95" hits="0" branch="false"/>
+								<line number="126" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectTemporaryRel" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Ledu/montana/gsoc/msusel/inject/grime/RelationType;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="99" hits="0" branch="false"/>
+								<line number="137" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="51" hits="0" branch="false"/>
-						<line number="52" hits="0" branch="false"/>
-						<line number="53" hits="0" branch="false"/>
-						<line number="54" hits="0" branch="false"/>
-						<line number="62" hits="0" branch="false"/>
-						<line number="63" hits="0" branch="false"/>
-						<line number="64" hits="0" branch="false"/>
-						<line number="66" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="67" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
 						<line number="68" hits="0" branch="false"/>
 						<line number="69" hits="0" branch="false"/>
+						<line number="70" hits="0" branch="false"/>
 						<line number="71" hits="0" branch="false"/>
-						<line number="72" hits="0" branch="false"/>
-						<line number="75" hits="0" branch="false"/>
-						<line number="78" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="79" hits="0" branch="false"/>
+						<line number="80" hits="0" branch="false"/>
+						<line number="81" hits="0" branch="false"/>
+						<line number="83" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="79" hits="0" branch="false"/>
-						<line number="81" hits="0" branch="false"/>
-						<line number="84" hits="0" branch="false"/>
+						<line number="84" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="85" hits="0" branch="false"/>
+						<line number="86" hits="0" branch="false"/>
 						<line number="88" hits="0" branch="false"/>
 						<line number="89" hits="0" branch="false"/>
-						<line number="91" hits="0" branch="false"/>
 						<line number="92" hits="0" branch="false"/>
-						<line number="95" hits="0" branch="false"/>
-						<line number="99" hits="0" branch="false"/>
-						<line number="104" hits="0" branch="false"/>
-						<line number="105" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="95" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="106" hits="0" branch="false"/>
-						<line number="107" hits="0" branch="false"/>
-						<line number="108" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="109" hits="0" branch="false"/>
-						<line number="110" hits="0" branch="false"/>
-						<line number="111" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
+						<line number="96" hits="0" branch="false"/>
+						<line number="98" hits="0" branch="false"/>
+						<line number="101" hits="0" branch="false"/>
+						<line number="103" hits="0" branch="false"/>
 						<line number="112" hits="0" branch="false"/>
 						<line number="113" hits="0" branch="false"/>
-						<line number="114" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
 						<line number="115" hits="0" branch="false"/>
-						<line number="116" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="116" hits="0" branch="false"/>
+						<line number="126" hits="0" branch="false"/>
+						<line number="137" hits="0" branch="false"/>
+						<line number="152" hits="0" branch="false"/>
+						<line number="153" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="117" hits="0" branch="false"/>
-						<line number="118" hits="0" branch="true" condition-coverage="0% (0/2)">
+						<line number="154" hits="0" branch="false"/>
+						<line number="155" hits="0" branch="false"/>
+						<line number="156" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="119" hits="0" branch="false"/>
+						<line number="157" hits="0" branch="false"/>
+						<line number="158" hits="0" branch="false"/>
+						<line number="159" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="160" hits="0" branch="false"/>
+						<line number="161" hits="0" branch="false"/>
+						<line number="162" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="163" hits="0" branch="false"/>
+						<line number="164" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="165" hits="0" branch="false"/>
+						<line number="166" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="167" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.grime.ModularGrimeInjector$ModularGrimeInjectorBuilder" filename="edu/montana/gsoc/msusel/inject/grime/ModularGrimeInjector.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
@@ -3768,59 +3770,40 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;ZZZ)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="45" hits="0" branch="false"/>
-								<line number="46" hits="0" branch="false"/>
-								<line number="47" hits="0" branch="false"/>
-								<line number="48" hits="0" branch="false"/>
+								<line number="62" hits="0" branch="false"/>
+								<line number="63" hits="0" branch="false"/>
+								<line number="64" hits="0" branch="false"/>
+								<line number="65" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="addInstability" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;Ledu/montana/gsoc/msusel/inject/grime/RelationType;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="89" hits="0" branch="false"/>
+								<line number="112" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createCyclicalDependency" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;Ledu/montana/gsoc/msusel/inject/grime/RelationType;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="93" hits="0" branch="false"/>
+								<line number="122" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createTransforms" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;)Ljava/util/List;" line-rate="0.0" branch-rate="0.0">
 							<lines>
-								<line number="56" hits="0" branch="false"/>
-								<line number="58" hits="0" branch="true" condition-coverage="0% (0/4)">
+								<line number="73" hits="0" branch="false"/>
+								<line number="75" hits="0" branch="true" condition-coverage="0% (0/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 										<condition number="1" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="59" hits="0" branch="false"/>
-								<line number="60" hits="0" branch="false"/>
-								<line number="62" hits="0" branch="true" condition-coverage="0% (0/6)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-										<condition number="1" type="jump" coverage="0%"/>
-										<condition number="2" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="63" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="64" hits="0" branch="false"/>
-								<line number="66" hits="0" branch="false"/>
-								<line number="67" hits="0" branch="false"/>
-								<line number="70" hits="0" branch="false"/>
-								<line number="71" hits="0" branch="false"/>
-								<line number="74" hits="0" branch="true" condition-coverage="0% (0/6)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-										<condition number="1" type="jump" coverage="0%"/>
-										<condition number="2" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="75" hits="0" branch="false"/>
+								<line number="76" hits="0" branch="false"/>
 								<line number="77" hits="0" branch="false"/>
+								<line number="79" hits="0" branch="true" condition-coverage="0% (0/6)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+										<condition number="2" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
 								<line number="80" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
@@ -3828,90 +3811,90 @@
 								</line>
 								<line number="81" hits="0" branch="false"/>
 								<line number="83" hits="0" branch="false"/>
-								<line number="86" hits="0" branch="false"/>
+								<line number="84" hits="0" branch="false"/>
+								<line number="87" hits="0" branch="false"/>
+								<line number="88" hits="0" branch="false"/>
+								<line number="91" hits="0" branch="true" condition-coverage="0% (0/6)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+										<condition number="2" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="92" hits="0" branch="false"/>
+								<line number="94" hits="0" branch="false"/>
+								<line number="97" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="98" hits="0" branch="false"/>
+								<line number="100" hits="0" branch="false"/>
+								<line number="103" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="findPatternNamespaces" signature="()Ljava/util/List;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="125" hits="0" branch="false"/>
+								<line number="189" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectNamespace" signature="(Ljava/util/List;)Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="118" hits="0" branch="false"/>
+								<line number="173" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectNamespaces" signature="(Ljava/util/List;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="121" hits="0" branch="false"/>
+								<line number="181" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectOrCreateExternNamespace" signature="()Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="106" hits="0" branch="false"/>
+								<line number="147" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectPatternNamespace" signature="()Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="110" hits="0" branch="false"/>
+								<line number="155" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectPersistentRelationship" signature="()Ledu/montana/gsoc/msusel/inject/grime/RelationType;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="101" hits="0" branch="false"/>
+								<line number="138" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectTempRelationship" signature="()Ledu/montana/gsoc/msusel/inject/grime/RelationType;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="97" hits="0" branch="false"/>
+								<line number="130" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="splitNamespace" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="113" hits="0" branch="false"/>
+								<line number="163" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="45" hits="0" branch="false"/>
-						<line number="46" hits="0" branch="false"/>
-						<line number="47" hits="0" branch="false"/>
-						<line number="48" hits="0" branch="false"/>
-						<line number="56" hits="0" branch="false"/>
-						<line number="58" hits="0" branch="true" condition-coverage="0% (0/4)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-								<condition number="1" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="59" hits="0" branch="false"/>
-						<line number="60" hits="0" branch="false"/>
-						<line number="62" hits="0" branch="true" condition-coverage="0% (0/6)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-								<condition number="1" type="jump" coverage="0%"/>
-								<condition number="2" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="63" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
+						<line number="62" hits="0" branch="false"/>
+						<line number="63" hits="0" branch="false"/>
 						<line number="64" hits="0" branch="false"/>
-						<line number="66" hits="0" branch="false"/>
-						<line number="67" hits="0" branch="false"/>
-						<line number="70" hits="0" branch="false"/>
-						<line number="71" hits="0" branch="false"/>
-						<line number="74" hits="0" branch="true" condition-coverage="0% (0/6)">
+						<line number="65" hits="0" branch="false"/>
+						<line number="73" hits="0" branch="false"/>
+						<line number="75" hits="0" branch="true" condition-coverage="0% (0/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="76" hits="0" branch="false"/>
+						<line number="77" hits="0" branch="false"/>
+						<line number="79" hits="0" branch="true" condition-coverage="0% (0/6)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 								<condition number="1" type="jump" coverage="0%"/>
 								<condition number="2" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="75" hits="0" branch="false"/>
-						<line number="77" hits="0" branch="false"/>
 						<line number="80" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
@@ -3919,17 +3902,36 @@
 						</line>
 						<line number="81" hits="0" branch="false"/>
 						<line number="83" hits="0" branch="false"/>
-						<line number="86" hits="0" branch="false"/>
-						<line number="89" hits="0" branch="false"/>
-						<line number="93" hits="0" branch="false"/>
-						<line number="97" hits="0" branch="false"/>
-						<line number="101" hits="0" branch="false"/>
-						<line number="106" hits="0" branch="false"/>
-						<line number="110" hits="0" branch="false"/>
-						<line number="113" hits="0" branch="false"/>
-						<line number="118" hits="0" branch="false"/>
-						<line number="121" hits="0" branch="false"/>
-						<line number="125" hits="0" branch="false"/>
+						<line number="84" hits="0" branch="false"/>
+						<line number="87" hits="0" branch="false"/>
+						<line number="88" hits="0" branch="false"/>
+						<line number="91" hits="0" branch="true" condition-coverage="0% (0/6)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+								<condition number="2" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="92" hits="0" branch="false"/>
+						<line number="94" hits="0" branch="false"/>
+						<line number="97" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="98" hits="0" branch="false"/>
+						<line number="100" hits="0" branch="false"/>
+						<line number="103" hits="0" branch="false"/>
+						<line number="112" hits="0" branch="false"/>
+						<line number="122" hits="0" branch="false"/>
+						<line number="130" hits="0" branch="false"/>
+						<line number="138" hits="0" branch="false"/>
+						<line number="147" hits="0" branch="false"/>
+						<line number="155" hits="0" branch="false"/>
+						<line number="163" hits="0" branch="false"/>
+						<line number="173" hits="0" branch="false"/>
+						<line number="181" hits="0" branch="false"/>
+						<line number="189" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.grime.ModularOrgGrimeInjector$ModularOrgGrimeInjectorBuilder" filename="edu/montana/gsoc/msusel/inject/grime/ModularOrgGrimeInjector.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
@@ -3960,122 +3962,122 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;ZZ)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="45" hits="0" branch="false"/>
-								<line number="46" hits="0" branch="false"/>
-								<line number="47" hits="0" branch="false"/>
+								<line number="58" hits="0" branch="false"/>
+								<line number="59" hits="0" branch="false"/>
+								<line number="60" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="createTransforms" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;)Ljava/util/List;" line-rate="0.0" branch-rate="0.0">
 							<lines>
-								<line number="55" hits="0" branch="false"/>
-								<line number="57" hits="0" branch="false"/>
-								<line number="58" hits="0" branch="false"/>
-								<line number="59" hits="0" branch="false"/>
-								<line number="61" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="62" hits="0" branch="false"/>
-								<line number="64" hits="0" branch="false"/>
-								<line number="67" hits="0" branch="true" condition-coverage="0% (0/4)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-										<condition number="1" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="69" hits="0" branch="true" condition-coverage="0% (0/6)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-										<condition number="1" type="jump" coverage="0%"/>
-										<condition number="2" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
+								<line number="68" hits="0" branch="false"/>
 								<line number="70" hits="0" branch="false"/>
+								<line number="71" hits="0" branch="false"/>
 								<line number="72" hits="0" branch="false"/>
-								<line number="74" hits="0" branch="false"/>
-								<line number="76" hits="0" branch="true" condition-coverage="0% (0/6)">
+								<line number="74" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="75" hits="0" branch="false"/>
+								<line number="77" hits="0" branch="false"/>
+								<line number="80" hits="0" branch="true" condition-coverage="0% (0/4)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="82" hits="0" branch="true" condition-coverage="0% (0/6)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 										<condition number="1" type="jump" coverage="0%"/>
 										<condition number="2" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="77" hits="0" branch="false"/>
-								<line number="80" hits="0" branch="false"/>
+								<line number="83" hits="0" branch="false"/>
+								<line number="85" hits="0" branch="false"/>
+								<line number="87" hits="0" branch="false"/>
+								<line number="89" hits="0" branch="true" condition-coverage="0% (0/6)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+										<condition number="2" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="90" hits="0" branch="false"/>
+								<line number="93" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectExternalClass" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;)Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="92" hits="0" branch="false"/>
+								<line number="120" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectNamespace" signature="()Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="96" hits="0" branch="false"/>
+								<line number="128" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectOrCreateExternalClass" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;)Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="104" hits="0" branch="false"/>
+								<line number="146" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectRelationship" signature="()Ledu/montana/gsoc/msusel/inject/grime/RelationType;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="84" hits="0" branch="false"/>
+								<line number="101" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectUnreachableNamespace" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;)Ledu/montana/gsoc/msusel/codetree/node/structural/NamespaceNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="100" hits="0" branch="false"/>
+								<line number="137" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="45" hits="0" branch="false"/>
-						<line number="46" hits="0" branch="false"/>
-						<line number="47" hits="0" branch="false"/>
-						<line number="55" hits="0" branch="false"/>
-						<line number="57" hits="0" branch="false"/>
 						<line number="58" hits="0" branch="false"/>
 						<line number="59" hits="0" branch="false"/>
-						<line number="61" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="62" hits="0" branch="false"/>
-						<line number="64" hits="0" branch="false"/>
-						<line number="67" hits="0" branch="true" condition-coverage="0% (0/4)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-								<condition number="1" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="69" hits="0" branch="true" condition-coverage="0% (0/6)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-								<condition number="1" type="jump" coverage="0%"/>
-								<condition number="2" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
+						<line number="60" hits="0" branch="false"/>
+						<line number="68" hits="0" branch="false"/>
 						<line number="70" hits="0" branch="false"/>
+						<line number="71" hits="0" branch="false"/>
 						<line number="72" hits="0" branch="false"/>
-						<line number="74" hits="0" branch="false"/>
-						<line number="76" hits="0" branch="true" condition-coverage="0% (0/6)">
+						<line number="74" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="75" hits="0" branch="false"/>
+						<line number="77" hits="0" branch="false"/>
+						<line number="80" hits="0" branch="true" condition-coverage="0% (0/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="82" hits="0" branch="true" condition-coverage="0% (0/6)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 								<condition number="1" type="jump" coverage="0%"/>
 								<condition number="2" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="77" hits="0" branch="false"/>
-						<line number="80" hits="0" branch="false"/>
-						<line number="84" hits="0" branch="false"/>
-						<line number="92" hits="0" branch="false"/>
-						<line number="96" hits="0" branch="false"/>
-						<line number="100" hits="0" branch="false"/>
-						<line number="104" hits="0" branch="false"/>
+						<line number="83" hits="0" branch="false"/>
+						<line number="85" hits="0" branch="false"/>
+						<line number="87" hits="0" branch="false"/>
+						<line number="89" hits="0" branch="true" condition-coverage="0% (0/6)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+								<condition number="2" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="90" hits="0" branch="false"/>
+						<line number="93" hits="0" branch="false"/>
+						<line number="101" hits="0" branch="false"/>
+						<line number="120" hits="0" branch="false"/>
+						<line number="128" hits="0" branch="false"/>
+						<line number="137" hits="0" branch="false"/>
+						<line number="146" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.grime.PackageOrgGrimeInjector$PackageOrgGrimeInjectorBuilder" filename="edu/montana/gsoc/msusel/inject/grime/PackageOrgGrimeInjector.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
@@ -4092,57 +4094,275 @@
 				</class>
 			</classes>
 		</package>
-		<package name="edu.montana.gsoc.msusel.inject.rot" line-rate="0.0" branch-rate="1.0" complexity="0.0">
+		<package name="edu.montana.gsoc.msusel.inject.rot" line-rate="0.0" branch-rate="0.0" complexity="0.0">
 			<classes>
 				<class name="edu.montana.gsoc.msusel.inject.rot.BlobRoleInjector" filename="edu/montana/gsoc/msusel/inject/rot/BlobRoleInjector.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
 					<methods>
+						<method name="&lt;init&gt;" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;)V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="46" hits="0" branch="false"/>
+							</lines>
+						</method>
 						<method name="createTransforms" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;)Ljava/util/List;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="50" hits="0" branch="false"/>
+								<line number="62" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="50" hits="0" branch="false"/>
+						<line number="46" hits="0" branch="false"/>
+						<line number="62" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="edu.montana.gsoc.msusel.inject.rot.BlobRoleInjector$BlobRoleInjectorBuilder" filename="edu/montana/gsoc/msusel/inject/rot/BlobRoleInjector.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+					</methods>
+					<lines>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.rot.InappropriateDependencyInjector" filename="edu/montana/gsoc/msusel/inject/rot/InappropriateDependencyInjector.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
 					<methods>
+						<method name="&lt;init&gt;" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;)V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="46" hits="0" branch="false"/>
+							</lines>
+						</method>
 						<method name="createTransforms" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;)Ljava/util/List;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="50" hits="0" branch="false"/>
+								<line number="62" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="50" hits="0" branch="false"/>
+						<line number="46" hits="0" branch="false"/>
+						<line number="62" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="edu.montana.gsoc.msusel.inject.rot.InappropriateDependencyInjector$InappropriateDependencyInjectorBuilder" filename="edu/montana/gsoc/msusel/inject/rot/InappropriateDependencyInjector.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+					</methods>
+					<lines>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.rot.InappropriateInversionInjector" filename="edu/montana/gsoc/msusel/inject/rot/InappropriateInversionInjector.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
 					<methods>
+						<method name="&lt;init&gt;" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;)V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="46" hits="0" branch="false"/>
+							</lines>
+						</method>
 						<method name="createTransforms" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;)Ljava/util/List;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="50" hits="0" branch="false"/>
+								<line number="62" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="50" hits="0" branch="false"/>
+						<line number="46" hits="0" branch="false"/>
+						<line number="62" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="edu.montana.gsoc.msusel.inject.rot.InappropriateInversionInjector$InappropriateInversionInjectorBuilder" filename="edu/montana/gsoc/msusel/inject/rot/InappropriateInversionInjector.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+					</methods>
+					<lines>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.rot.MissingRoleInjector" filename="edu/montana/gsoc/msusel/inject/rot/MissingRoleInjector.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
 					<methods>
+						<method name="&lt;init&gt;" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;)V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="48" hits="0" branch="false"/>
+							</lines>
+						</method>
 						<method name="createTransforms" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;)Ljava/util/List;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="50" hits="0" branch="false"/>
+								<line number="64" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="50" hits="0" branch="false"/>
+						<line number="48" hits="0" branch="false"/>
+						<line number="64" hits="0" branch="false"/>
 					</lines>
 				</class>
-				<class name="edu.montana.gsoc.msusel.inject.rot.RotInjector" filename="edu/montana/gsoc/msusel/inject/rot/RotInjector.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
+				<class name="edu.montana.gsoc.msusel.inject.rot.MissingRoleInjector$MissingRoleInjectorBuilder" filename="edu/montana/gsoc/msusel/inject/rot/MissingRoleInjector.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+					</methods>
+					<lines>
+					</lines>
+				</class>
+				<class name="edu.montana.gsoc.msusel.inject.rot.RotInjector" filename="edu/montana/gsoc/msusel/inject/rot/RotInjector.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;)V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="47" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="47" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="edu.montana.gsoc.msusel.inject.rot.RotInjectorFactory" filename="edu/montana/gsoc/msusel/inject/rot/RotInjectorFactory.groovy" line-rate="0.0" branch-rate="0.0" complexity="0.0">
+					<methods>
+						<method name="create" signature="(Ljava/lang/String;Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;)Ledu/montana/gsoc/msusel/inject/SourceInjector;" line-rate="0.0" branch-rate="0.0">
+							<lines>
+								<line number="47" hits="0" branch="false"/>
+								<line number="48" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="49" hits="0" branch="false"/>
+								<line number="50" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="51" hits="0" branch="false"/>
+								<line number="52" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="53" hits="0" branch="false"/>
+								<line number="54" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="55" hits="0" branch="false"/>
+								<line number="57" hits="0" branch="true" condition-coverage="0% (0/4)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+							</lines>
+						</method>
+						<method name="createBlobRole" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;)Ledu/montana/gsoc/msusel/inject/rot/RotInjector;" line-rate="0.0" branch-rate="0.0">
+							<lines>
+								<line number="75" hits="0" branch="true" condition-coverage="0% (0/4)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="76" hits="0" branch="false"/>
+								<line number="77" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="createInappropriateDep" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;)Ledu/montana/gsoc/msusel/inject/rot/RotInjector;" line-rate="0.0" branch-rate="0.0">
+							<lines>
+								<line number="87" hits="0" branch="true" condition-coverage="0% (0/4)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="88" hits="0" branch="false"/>
+								<line number="89" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="createInappropriateInv" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;)Ledu/montana/gsoc/msusel/inject/rot/RotInjector;" line-rate="0.0" branch-rate="0.0">
+							<lines>
+								<line number="99" hits="0" branch="true" condition-coverage="0% (0/4)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="100" hits="0" branch="false"/>
+								<line number="101" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="createMissingRole" signature="(Ledu/montana/gsoc/msusel/codetree/node/structural/PatternNode;)Ledu/montana/gsoc/msusel/inject/rot/RotInjector;" line-rate="0.0" branch-rate="0.0">
+							<lines>
+								<line number="111" hits="0" branch="true" condition-coverage="0% (0/4)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+										<condition number="1" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="112" hits="0" branch="false"/>
+								<line number="113" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="createNullInjector" signature="()Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="65" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="47" hits="0" branch="false"/>
+						<line number="48" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="49" hits="0" branch="false"/>
+						<line number="50" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="51" hits="0" branch="false"/>
+						<line number="52" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="53" hits="0" branch="false"/>
+						<line number="54" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="55" hits="0" branch="false"/>
+						<line number="57" hits="0" branch="true" condition-coverage="0% (0/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="65" hits="0" branch="false"/>
+						<line number="75" hits="0" branch="true" condition-coverage="0% (0/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="76" hits="0" branch="false"/>
+						<line number="77" hits="0" branch="false"/>
+						<line number="87" hits="0" branch="true" condition-coverage="0% (0/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="88" hits="0" branch="false"/>
+						<line number="89" hits="0" branch="false"/>
+						<line number="99" hits="0" branch="true" condition-coverage="0% (0/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="100" hits="0" branch="false"/>
+						<line number="101" hits="0" branch="false"/>
+						<line number="111" hits="0" branch="true" condition-coverage="0% (0/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+								<condition number="1" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="112" hits="0" branch="false"/>
+						<line number="113" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="edu.montana.gsoc.msusel.inject.rot.RotTypes" filename="edu/montana/gsoc/msusel/inject/rot/RotTypes.groovy" line-rate="1.0" branch-rate="1.0" complexity="0.0">
 					<methods>
 					</methods>
 					<lines>
@@ -5874,148 +6094,268 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Ledu/montana/gsoc/msusel/inject/InjectorContext;Ledu/montana/gsoc/msusel/codetree/node/structural/FileNode;)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="49" hits="0" branch="false"/>
+								<line number="50" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="addUseDep" signature="(Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)V" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="157" hits="0" branch="false"/>
+								<line number="193" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="findStatementInsertionPoint" signature="(Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;)I" line-rate="0.0" branch-rate="0.0">
 							<lines>
-								<line number="58" hits="0" branch="false"/>
 								<line number="59" hits="0" branch="false"/>
-								<line number="61" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
+								<line number="60" hits="0" branch="false"/>
 								<line number="62" hits="0" branch="true" condition-coverage="0% (0/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="0%"/>
 									</conditions>
 								</line>
-								<line number="63" hits="0" branch="false"/>
-								<line number="65" hits="0" branch="false"/>
-								<line number="67" hits="0" branch="false"/>
+								<line number="63" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="64" hits="0" branch="false"/>
+								<line number="66" hits="0" branch="false"/>
+								<line number="68" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getMethodOwner" signature="(Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;)Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="148" hits="0" branch="false"/>
+								<line number="184" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="hasField" signature="(Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Z" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="88" hits="0" branch="false"/>
+								<line number="89" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="hasLocalVar" signature="(Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Z" line-rate="0.0" branch-rate="1.0">
+						<method name="hasLocalVar" signature="(Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Z" line-rate="0.0" branch-rate="0.0">
 							<lines>
-								<line number="129" hits="0" branch="false"/>
+								<line number="147" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="148" hits="0" branch="false"/>
+								<line number="149" hits="0" branch="false"/>
+								<line number="150" hits="0" branch="false"/>
+								<line number="151" hits="0" branch="false"/>
+								<line number="160" hits="0" branch="false"/>
+								<line number="165" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="hasParam" signature="(Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Z" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="108" hits="0" branch="false"/>
+								<line number="109" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="sameContainingType" signature="(Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Z" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="139" hits="0" branch="false"/>
+								<line number="175" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectField" signature="(Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Ledu/montana/gsoc/msusel/codetree/node/member/FieldNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="78" hits="0" branch="false"/>
+								<line number="79" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="selectParameter" signature="(Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Ledu/montana/gsoc/msusel/codetree/node/member/ParameterNode;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="98" hits="0" branch="false"/>
+								<line number="99" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="selectVariable" signature="(Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Ljava/lang/String;" line-rate="0.0" branch-rate="1.0">
+						<method name="selectVariable" signature="(Ledu/montana/gsoc/msusel/codetree/node/member/MethodNode;Ledu/montana/gsoc/msusel/codetree/node/type/TypeNode;)Ljava/lang/String;" line-rate="0.0" branch-rate="0.0">
 							<lines>
-								<line number="117" hits="0" branch="false"/>
+								<line number="119" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="120" hits="0" branch="false"/>
+								<line number="121" hits="0" branch="false"/>
+								<line number="122" hits="0" branch="false"/>
+								<line number="123" hits="0" branch="false"/>
+								<line number="132" hits="0" branch="false"/>
+								<line number="137" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="49" hits="0" branch="false"/>
-						<line number="58" hits="0" branch="false"/>
+						<line number="50" hits="0" branch="false"/>
 						<line number="59" hits="0" branch="false"/>
-						<line number="61" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
+						<line number="60" hits="0" branch="false"/>
 						<line number="62" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="63" hits="0" branch="false"/>
-						<line number="65" hits="0" branch="false"/>
-						<line number="67" hits="0" branch="false"/>
-						<line number="78" hits="0" branch="false"/>
-						<line number="88" hits="0" branch="false"/>
-						<line number="98" hits="0" branch="false"/>
-						<line number="108" hits="0" branch="false"/>
-						<line number="117" hits="0" branch="false"/>
-						<line number="129" hits="0" branch="false"/>
-						<line number="139" hits="0" branch="false"/>
+						<line number="63" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="64" hits="0" branch="false"/>
+						<line number="66" hits="0" branch="false"/>
+						<line number="68" hits="0" branch="false"/>
+						<line number="79" hits="0" branch="false"/>
+						<line number="89" hits="0" branch="false"/>
+						<line number="99" hits="0" branch="false"/>
+						<line number="109" hits="0" branch="false"/>
+						<line number="119" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="120" hits="0" branch="false"/>
+						<line number="121" hits="0" branch="false"/>
+						<line number="122" hits="0" branch="false"/>
+						<line number="123" hits="0" branch="false"/>
+						<line number="132" hits="0" branch="false"/>
+						<line number="137" hits="0" branch="false"/>
+						<line number="147" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
 						<line number="148" hits="0" branch="false"/>
-						<line number="157" hits="0" branch="false"/>
+						<line number="149" hits="0" branch="false"/>
+						<line number="150" hits="0" branch="false"/>
+						<line number="151" hits="0" branch="false"/>
+						<line number="160" hits="0" branch="false"/>
+						<line number="165" hits="0" branch="false"/>
+						<line number="175" hits="0" branch="false"/>
+						<line number="184" hits="0" branch="false"/>
+						<line number="193" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.transform.AddRelation$_hasField_closure2" filename="edu/montana/gsoc/msusel/inject/transform/AddRelation.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
 					<methods>
 						<method name="doCall" signature="(Ljava/lang/Object;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="88" hits="0" branch="false"/>
+								<line number="89" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="88" hits="0" branch="false"/>
+						<line number="89" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="edu.montana.gsoc.msusel.inject.transform.AddRelation$_hasLocalVar_closure7" filename="edu/montana/gsoc/msusel/inject/transform/AddRelation.groovy" line-rate="0.0" branch-rate="0.0" complexity="0.0">
+					<methods>
+						<method name="doCall" signature="(Ljava/lang/Object;)Ljava/lang/Object;" line-rate="0.0" branch-rate="0.0">
+							<lines>
+								<line number="152" hits="0" branch="false"/>
+								<line number="153" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="154" hits="0" branch="false"/>
+								<line number="155" hits="0" branch="false"/>
+								<line number="156" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="152" hits="0" branch="false"/>
+						<line number="153" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="154" hits="0" branch="false"/>
+						<line number="155" hits="0" branch="false"/>
+						<line number="156" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="edu.montana.gsoc.msusel.inject.transform.AddRelation$_hasLocalVar_closure8" filename="edu/montana/gsoc/msusel/inject/transform/AddRelation.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+						<method name="doCall" signature="(Lorg/apache/commons/lang3/tuple/Pair;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="161" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="161" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.transform.AddRelation$_hasParam_closure4" filename="edu/montana/gsoc/msusel/inject/transform/AddRelation.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
 					<methods>
 						<method name="doCall" signature="(Ljava/lang/Object;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="108" hits="0" branch="false"/>
+								<line number="109" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="108" hits="0" branch="false"/>
+						<line number="109" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.transform.AddRelation$_selectField_closure1" filename="edu/montana/gsoc/msusel/inject/transform/AddRelation.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
 					<methods>
 						<method name="doCall" signature="(Ljava/lang/Object;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="78" hits="0" branch="false"/>
+								<line number="79" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="78" hits="0" branch="false"/>
+						<line number="79" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.transform.AddRelation$_selectParameter_closure3" filename="edu/montana/gsoc/msusel/inject/transform/AddRelation.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
 					<methods>
 						<method name="doCall" signature="(Ljava/lang/Object;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0">
 							<lines>
-								<line number="98" hits="0" branch="false"/>
+								<line number="99" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="98" hits="0" branch="false"/>
+						<line number="99" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="edu.montana.gsoc.msusel.inject.transform.AddRelation$_selectVariable_closure5" filename="edu/montana/gsoc/msusel/inject/transform/AddRelation.groovy" line-rate="0.0" branch-rate="0.0" complexity="0.0">
+					<methods>
+						<method name="doCall" signature="(Ljava/lang/Object;)Ljava/lang/Object;" line-rate="0.0" branch-rate="0.0">
+							<lines>
+								<line number="124" hits="0" branch="false"/>
+								<line number="125" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="126" hits="0" branch="false"/>
+								<line number="127" hits="0" branch="false"/>
+								<line number="128" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="124" hits="0" branch="false"/>
+						<line number="125" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="126" hits="0" branch="false"/>
+						<line number="127" hits="0" branch="false"/>
+						<line number="128" hits="0" branch="false"/>
+					</lines>
+				</class>
+				<class name="edu.montana.gsoc.msusel.inject.transform.AddRelation$_selectVariable_closure6" filename="edu/montana/gsoc/msusel/inject/transform/AddRelation.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
+					<methods>
+						<method name="doCall" signature="(Lorg/apache/commons/lang3/tuple/Pair;)Ljava/lang/Object;" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="133" hits="0" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="133" hits="0" branch="false"/>
 					</lines>
 				</class>
 				<class name="edu.montana.gsoc.msusel.inject.transform.BasicSourceTransform" filename="edu/montana/gsoc/msusel/inject/transform/BasicSourceTransform.groovy" line-rate="0.0" branch-rate="1.0" complexity="0.0">
