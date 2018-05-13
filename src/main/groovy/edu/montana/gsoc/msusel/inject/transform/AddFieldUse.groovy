@@ -25,8 +25,10 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
+import edu.montana.gsoc.msusel.codetree.node.Modifiers
 import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
 import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
+import edu.montana.gsoc.msusel.codetree.node.member.ParameterNode
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.FileOperations
@@ -78,18 +80,31 @@ class AddFieldUse extends AddRelation {
         FileOperations ops = context.controller.getOps(file)
         int line = findStatementInsertionPoint(method)
 
-        if (field.hasModifier("static")) {
-
-        } else if (fieldOwner == type) {
-
+        if (field.hasModifier(Modifiers.STATIC)) {
+            content = "        ${fieldOwner.name()}.${field.name()};\n"
+        } else if (sameContainingType(fieldOwner, type)) {
+            content = "        this.${field.name()};\n"
         } else {
-
+            if (hasLocalVar(method, fieldOwner)) {
+                String var = selectVariable(method, fieldOwner)
+                content = "        ${var}.${field.name()};\n"
+            } else if (hasParam(method, fieldOwner)) {
+                ParameterNode p = selectParameter(method, fieldOwner)
+                content = "        ${p.name()}.${field.name()};\n"
+            } else if (hasField(type, fieldOwner)) {
+                FieldNode f = selectField(type, fieldOwner)
+                content = "        ${f.name()}.${field.name()};\n"
+            } else {
+                StringBuilder builder = new StringBuilder()
+                builder << "        ${type.name()} ${fieldOwner.name().toLowerCase()} = new ${fieldOwner.name()}();\n"
+                builder << "        ${type.name().toLowerCase()}.${field.name()};\n"
+                content = builder.toString()
+            }
         }
-        content = "        System.out.println(${field.name()});\n"
         int length = ops.inject(line, content)
-
-        // TODO add use dependency to tree
         updateContainingAndAllFollowing(line, length)
+        addUseDep(type, fieldOwner)
+        updateImports(fieldOwner)
     }
 
     /**

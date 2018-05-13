@@ -54,6 +54,10 @@ class AddMethod extends AddMember {
      * List of possible imports to add
      */
     private List<AbstractTypeRef> imports
+    /**
+     * The parameterizable body content
+     */
+    private String bodyContent
 
     /**
      * Constructs a new AddMethod transform
@@ -63,10 +67,11 @@ class AddMethod extends AddMember {
      * @param node the method to add
      */
     @Builder(buildMethodName = "create")
-    private AddMethod(InjectorContext context, FileNode file, TypeNode type, MethodNode node) {
+    private AddMethod(InjectorContext context, FileNode file, TypeNode type, MethodNode node, String bodyContent) {
         super(context, file)
         this.type = type
         this.node = node
+        this.bodyContent = bodyContent
     }
 
     /**
@@ -80,9 +85,9 @@ class AddMethod extends AddMember {
         // 1. find line of last method in type
         int line = findMethodInsertionPoint()
         // 2. construct method header
-        builder << "    ${accessibility()}${name()}(${paramList()})"
+        builder << "    ${accessibility()}${type()} ${name()}(${paramList()})"
         // 3. construct method body
-        body(builder)
+        body(builder, bodyContent)
         // 4. Conduct Injection
         int length = ops.inject(line, builder.toString())
         type.children << node
@@ -105,48 +110,14 @@ class AddMethod extends AddMember {
     }
 
     /**
-     * Constructs the the method body
-     * @param builder StringBuilder to which the method contents will be added
-     */
-    void body(StringBuilder builder) {
-        if (node.isAbstract())
-            builder << ";\n\n"
-        else {
-            builder << " {"
-            builder << "\n"
-            builder << "    ${bodyContent()}"
-            builder << "\n"
-            builder << "    }\n\n"
-        }
-    }
-
-    /**
-     * @return String representing the contents of the body of the method
-     */
-    def bodyContent() {
-        ""
-    }
-
-    /**
-     * @return String representation of the method parameter list
-     */
-    def paramList() {
-        StringBuilder builder = new StringBuilder()
-        node.params.each {
-            builder << it.type.name()
-            builder << " "
-            builder << it.name()
-            if (node.params.last() != it)
-                builder << ", "
-        }
-        builder.toString()
-    }
-
-    /**
      * @return method name
      */
     def name() {
         node.name()
+    }
+
+    def type() {
+        node.type.name()
     }
 
     /**

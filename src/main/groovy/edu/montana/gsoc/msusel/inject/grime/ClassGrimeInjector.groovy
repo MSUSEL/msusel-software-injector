@@ -29,6 +29,7 @@ import edu.montana.gsoc.msusel.codetree.node.Accessibility
 import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
 import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
 import edu.montana.gsoc.msusel.codetree.node.member.ParameterNode
+import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.codetree.typeref.PrimitiveTypeRef
 import edu.montana.gsoc.msusel.inject.InjectorContext
@@ -42,13 +43,29 @@ import groovy.transform.builder.Builder
  */
 class ClassGrimeInjector extends GrimeInjector {
 
+    /**
+     * Flag indicating direct (true) and indirect (false) class grime
+     */
     protected boolean direct
+    /**
+     * Flag indicating internal (true) and external (false) class grime
+     */
     protected boolean internal
+    /**
+     * Flag indicating pair (true) and singular (false) class grime
+     */
     protected boolean pair
 
+    /**
+     * Constructs a new ClassGrimeInjector for the given pattern and parameterized by the given flags
+     * @param pattern Pattern instance to be injected with class grime
+     * @param direct Flag indicating either direct or indirect grime
+     * @param internal Flag indicating either internal or external grime
+     * @param pair Flag indicating either pair or singular grime
+     */
     @Builder(buildMethodName = "create")
-    ClassGrimeInjector(/*PatternNode pattern, Pattern rbml,*/ boolean direct, boolean internal, boolean pair) {
-//        super(pattern, rbml)
+    private ClassGrimeInjector(PatternNode pattern, boolean direct, boolean internal, boolean pair) {
+        super(pattern)
         this.direct = direct
         this.internal = internal
         this.pair = pair
@@ -91,6 +108,11 @@ class ClassGrimeInjector extends GrimeInjector {
         transforms
     }
 
+    /**
+     * Selects or creates a method for grime injection from/in the given type
+     * @param type Type to inject grime into
+     * @return A method that was either selected/created from/in the given type
+     */
     MethodNode selectOrCreateMethod(TypeNode type) {
         List<MethodNode> methods = type.methods()
         if (methods.size() >= 1) {
@@ -109,6 +131,11 @@ class ClassGrimeInjector extends GrimeInjector {
         }
     }
 
+    /**
+     * Selects a method from the given type that is specified by the pattern definition or used by such a method
+     * @param type Type
+     * @return a method that is part of the pattern and is found within the given type
+     */
     MethodNode selectPatternMethod(TypeNode type) {
         List<MethodNode> methods = type.methods()
         if (methods.size() >= 1) {
@@ -127,6 +154,13 @@ class ClassGrimeInjector extends GrimeInjector {
         }
     }
 
+    /**
+     * Constructs a new field with the given name, in the given type
+     * @param fieldName Name of the new field to create
+     * @param type Type in which the new field will be contained
+     * @param transforms list of transforms for this injector
+     * @return The field node to be created
+     */
     protected FieldNode createField(String fieldName, TypeNode type, List<SourceTransform> transforms) {
         FieldNode field = FieldNode.builder()
                 .key("${type.key}#${fieldName}")
@@ -143,12 +177,27 @@ class ClassGrimeInjector extends GrimeInjector {
         field
     }
 
+    /**
+     * Constructs a new method with a field use for the specified field in the given type
+     * @param methodName Name of the method to be created
+     * @param type Type which will contain the new method and which already contains the field to be used
+     * @param transforms List of current transforms for this injector
+     * @param field the field to be referenced
+     */
     protected void createMethodWithFieldUse(String methodName, TypeNode type, List<SourceTransform> transforms, FieldNode field) {
         MethodNode extMethod = createMethod(type, methodName, transforms)
         createFieldUse(transforms, type, field, extMethod)
     }
 
-    protected List<SourceTransform> createFieldUse(List<SourceTransform> transforms, TypeNode type, FieldNode field, MethodNode extMethod) {
+    /**
+     * Constructs a new field use
+     * @param transforms List of current transforms for this injector
+     * @param type The type to be modified
+     * @param field The field to be referenced
+     * @param extMethod The method in which the field use will be created
+     * @return List of transforms
+     */
+    protected void createFieldUse(List<SourceTransform> transforms, TypeNode type, FieldNode field, MethodNode extMethod) {
         transforms << AddFieldUse.builder()
                 .file(file)
                 .context(context)
@@ -158,6 +207,13 @@ class ClassGrimeInjector extends GrimeInjector {
                 .create()
     }
 
+    /**
+     * Constructs a getter method contained in the given type and for the given field
+     * @param type Type to contain the getter method
+     * @param field Field the getter is for
+     * @param transforms List of current transforms for this Injector
+     * @return the newly constructed getter method
+     */
     protected MethodNode createGetter(TypeNode type, FieldNode field, List<SourceTransform> transforms) {
         method = MethodNode.builder()
                 .accessibility(Accessibility.PUBLIC)
@@ -175,6 +231,13 @@ class ClassGrimeInjector extends GrimeInjector {
         method
     }
 
+    /**
+     * Constructs a setter method contained in the given type and for the given field
+     * @param type Type to contain the getter method
+     * @param field Field the setter is for
+     * @param transforms List of current transforms for this Injector
+     * @return the newly constructed setter method
+     */
     protected MethodNode createSetter(TypeNode type, FieldNode field, List<SourceTransform> transforms) {
         method = MethodNode.builder()
                 .accessibility(Accessibility.PUBLIC)
@@ -193,6 +256,13 @@ class ClassGrimeInjector extends GrimeInjector {
         method
     }
 
+    /**
+     * Constructs a new method contained in the given type with the given name
+     * @param type Type to contain the new method
+     * @param methodName name of the new method
+     * @param transforms current list of transforms for this injector
+     * @return the newly created method
+     */
     protected MethodNode createMethod(TypeNode type, String methodName, List<SourceTransform> transforms) {
         MethodNode extMethod = MethodNode.builder()
                 .key("${type.key}#${methodName}")
@@ -209,7 +279,14 @@ class ClassGrimeInjector extends GrimeInjector {
         extMethod
     }
 
+    /**
+     *
+     * @param typeNode
+     * @param callee
+     * @param call
+     * @param transforms
+     */
     def createMethodCall(TypeNode typeNode, MethodNode callee, MethodNode call, List<SourceTransform> transforms) {
-
+        // TODO Finish This
     }
 }

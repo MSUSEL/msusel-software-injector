@@ -27,6 +27,7 @@ package edu.montana.gsoc.msusel.inject.grime
 
 import com.google.common.collect.Lists
 import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
 import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.transform.AddAssociation
@@ -34,19 +35,37 @@ import edu.montana.gsoc.msusel.inject.transform.AddInheritance
 import edu.montana.gsoc.msusel.inject.transform.AddRealization
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 import groovy.transform.builder.Builder
+
 /**
+ * A source injector to inject modular grime into a design pattern instance
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class ModularGrimeInjector extends GrimeInjector {
 
+    /**
+     * Flag indicating whether the grime to inject is external (true), or internal (false).
+     */
     protected boolean external
+    /**
+     * Flag indicating whether the grime to inject is efferent (true), or afferent (false).
+     */
     protected boolean efferent
+    /**
+     * Flag indicating whether the grime to inject is persistent (true), or temporary (false).
+     */
     protected boolean persistent
 
+    /**
+     * Constructs a new ModularGrimeInjector for the given pattern, and parameterized by the three Boolean flags
+     * @param pattern Pattern instance into which the grime is to be injected
+     * @param persistent flag indicating whether the injected grime is persistent (true), or temporary (false)
+     * @param external flag indicating whether the injected grime is external (true), or internal (false)
+     * @param efferent flag indicating whether the injected grime is efferent (true), or afferent (false)
+     */
     @Builder(buildMethodName = "create")
-    ModularGrimeInjector(/*PatternNode pattern, Pattern rbml,*/ boolean persistent, boolean external, boolean efferent) {
-//        super(pattern, rbml)
+    private ModularGrimeInjector(PatternNode pattern, boolean persistent, boolean external, boolean efferent) {
+        super(pattern)
         this.persistent = persistent
         this.external = external
         this.efferent = efferent
@@ -79,9 +98,16 @@ class ModularGrimeInjector extends GrimeInjector {
             rel = selectTemporaryRel(context, src, dest)
         }
 
-        createRelationship(context, rel, src, dest, transforms)
+        FileNode file = context.tree.utils.findParentFile(src)
+
+        createRelationship(context, file, rel, src, dest, transforms)
     }
 
+    /**
+     * Selects a type external to the pattern definition
+     * @param context current InjectorContext
+     * @return the Type selected
+     */
     TypeNode selectExternClass(InjectorContext context) {
         List<TypeNode> types = Lists.newArrayList(context.tree.utils.types)
         types.removeAll(pattern.types())
@@ -90,15 +116,39 @@ class ModularGrimeInjector extends GrimeInjector {
         types[rand.nextInt(types.size())]
     }
 
+    /**
+     * Selects a persistent relationship to inject between src and dest
+     * @param context current InjectorContext
+     * @param src the source side of the relationship
+     * @param dest the destination side of the relationship
+     * @return the relationship type to inject
+     */
     RelationType selectPersistentRel(InjectorContext context, TypeNode src, TypeNode dest) {
-
+        // TODO Finish This
     }
 
+    /**
+     * Selects a temporary relationship to inject between src and dest
+     * @param context current InjectorContext
+     * @param src the source side of the relationship
+     * @param dest the destination side of the relationship
+     * @return the relationship type to inject
+     */
     RelationType selectTemporaryRel(InjectorContext context, TypeNode src, TypeNode dest) {
-
+        // TODO Finish This
     }
 
-    void createRelationship(InjectorContext context, FileNode file, RelationType rel, TypeNode src, TypeNode dest, ArrayList<SourceTransform> sourceTransforms) {
+    /**
+     * method which actually constructs the transform which will inject the grime relationship into the pattern instance
+     * @param context current InjectorContext
+     * @param file File to be modified
+     * @param rel type of relationship to generate
+     * @param src source type of the relationship
+     * @param dest destination type of the relationship
+     * @param sourceTransforms List transforms to add this relationship to
+     */
+    void createRelationship(InjectorContext context, FileNode file, RelationType rel, TypeNode src, TypeNode dest, List<SourceTransform> sourceTransforms) {
+        // TODO Finish This
         switch (rel) {
             case RelationType.ASSOC:
                 transforms << AddAssociation.builder().context(context).file(file).bidirect(false).from(src).fromName().to(dest).toName().create()

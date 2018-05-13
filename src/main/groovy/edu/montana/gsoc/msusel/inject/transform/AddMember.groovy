@@ -144,4 +144,52 @@ abstract class AddMember extends BasicSourceTransform {
 
         line
     }
+
+    /**
+     * Constructs the the method body
+     * @param builder StringBuilder to which the method contents will be added
+     * @param bodyContent Parameterized string containing the body content
+     */
+    void body(StringBuilder builder, String bodyContent) {
+        if (node.isAbstract())
+            builder << ";\n\n"
+        else {
+            builder << " {"
+            builder << "\n"
+            builder << "    ${generateBodyContent(bodyContent)}"
+            builder << "\n"
+            builder << "    }\n\n"
+        }
+    }
+
+    /**
+     * @param bodyContent Parameterized string containing the body content
+     * @return String representing the contents of the body of the method
+     */
+    def generateBodyContent(String bodyContent) {
+        int count = 1
+        String content = bodyContent
+
+        node.params.each {
+            content = content.replaceAll(/\[param${count}\]/, it.name())
+            count += 1
+        }
+
+        content
+    }
+
+    /**
+     * @return String representation of the method parameter list
+     */
+    def paramList() {
+        StringBuilder builder = new StringBuilder()
+        node.params.each {
+            builder << it.type.name()
+            builder << " "
+            builder << it.name()
+            if (node.params.last() != it)
+                builder << ", "
+        }
+        builder.toString()
+    }
 }

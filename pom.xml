@@ -12,7 +12,7 @@
     <artifactId>msusel-software-injector</artifactId>
     <packaging>jar</packaging>
     <version>1.2.0-idg</version>
-    <name>msusel-software-injector</name>
+    <name>Source Injector</name>
     <url>https://github.com/MSUSEL/msusel-software-injector</url>
 
     <developers>
@@ -55,9 +55,9 @@
                             <!-- The commit message -->
                             <message>Building site for project</message>
                             <!-- The location where the site is uploaded -->
-                            <path></path>
+                            <path/>
                             <!-- Use merge or override the content -->
-                            <merge>false</merge>
+                            <merge>true</merge>
                         </configuration>
                     </execution>
                 </executions>
@@ -176,12 +176,6 @@
             <artifactId>groovy-all</artifactId>
             <version>2.4.8</version>
         </dependency>
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <version>1.1-groovy-2.4-rc-3</version>
-            <scope>test</scope>
-        </dependency>
         <!-- MSUSEL Projects -->
         <!--<dependency>-->
             <!--<groupId>edu.montana.gsoc.msusel</groupId>-->
@@ -192,6 +186,12 @@
             <groupId>edu.montana.gsoc.msusel</groupId>
             <artifactId>msusel-codetree</artifactId>
             <version>1.2.0-idg</version>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>1.1-groovy-2.4-rc-3</version>
+            <scope>test</scope>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>edu.montana.gsoc.msusel</groupId>-->

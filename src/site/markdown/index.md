@@ -1,5 +1,4 @@
-MSUSEL Software Injector 
-========================
+# MSUSEL Software Injector 
 
 [![Build Status](https://travis-ci.org/MSUSEL/msusel-software-injector.svg?branch=master)](https://travis-ci.org/MSUSEL/msusel-software-injector)
 

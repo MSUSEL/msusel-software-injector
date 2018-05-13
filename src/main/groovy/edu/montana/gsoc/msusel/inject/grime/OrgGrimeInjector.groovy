@@ -24,13 +24,16 @@
  * SOFTWARE.
  */
 package edu.montana.gsoc.msusel.inject.grime
+
+import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
+
 /**
  * @author Isaac Griffith
  * @version 1.2.0
  */
 abstract class OrgGrimeInjector extends GrimeInjector {
 
-    OrgGrimeInjector(/*PatternNode pattern, Pattern rbml*/) {
-//        super(pattern, rbml)
+    OrgGrimeInjector(PatternNode pattern) {
+        super(pattern)
     }
 }

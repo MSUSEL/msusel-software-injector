@@ -25,6 +25,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
+import edu.montana.gsoc.msusel.codetree.node.Modifiers
 import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
 import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
 import edu.montana.gsoc.msusel.codetree.node.member.ParameterNode
@@ -35,6 +36,7 @@ import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
 
 /**
+ * Transform that injects a method call into an existing method's body
  * @author Isaac Griffith
  * @version 1.2.0
  */
@@ -43,9 +45,18 @@ class AddMethodCall extends AddRelation {
     MethodNode caller
     MethodNode callee
 
+    /**
+     * Constructs a new AddMethodCall transform
+     * @param context the current InjectorContext
+     * @param file the file to be modified
+     * @param caller the method making the call
+     * @param callee the method being called
+     */
     @Builder(buildMethodName = "create")
-    private AddMethodCall(InjectorContext context, FileNode file) {
+    private AddMethodCall(InjectorContext context, FileNode file, MethodNode caller, MethodNode callee) {
         super(context, file)
+        this.caller = caller
+        this.callee = callee
     }
 
     /**
@@ -59,7 +70,7 @@ class AddMethodCall extends AddRelation {
         context.controller.getOps(file)
         int line = findStatementInsertionPoint(caller)
         String content
-        if (callee.hasModifier("static")) {
+        if (callee.hasModifier(Modifiers.STATIC)) {
             content = "        ${calleeOwner.name()}.${callee.name()}(${params(callee)});\n"
         } else if (sameContainingType(callerOwner, calleeOwner)) {
             content = "        this.${callee.name()}(${params(callee)});\n"
@@ -80,26 +91,10 @@ class AddMethodCall extends AddRelation {
                 content = builder.toString()
             }
         }
-
         int length = context.getController().getOps(file).inject(line, content)
         updateContainingAndAllFollowing(line, length)
         addUseDep(callerOwner, calleeOwner)
         updateImports(calleeOwner)
-    }
-
-    // TODO Finish This
-    FieldNode selectField(TypeNode callerOwner, TypeNode calleeOwner) {
-
-    }
-
-    // TODO Finish this
-    ParameterNode selectParameter(MethodNode caller, TypeNode calleeOwner) {
-        null
-    }
-
-    // TODO Finish this
-    String selectVariable(MethodNode methodNode, TypeNode typeNode) {
-
     }
 
     /**
@@ -110,26 +105,11 @@ class AddMethodCall extends AddRelation {
 
     }
 
-    boolean sameContainingType(TypeNode callerOwner, TypeNode calleeOwner) {
-        callerOwner == calleeOwner
-    }
-
-    boolean hasField(TypeNode owner, TypeNode calleeOwner) {
-        owner.fields().find { it.type.name() == calleeOwner.name() } != null
-    }
-
-    boolean hasParam(MethodNode methodNode, TypeNode typeNode) {
-        methodNode.params.find { it.type.name() == typeNode.name() }
-    }
-
-    def addUseDep(TypeNode src, TypeNode dest) {
-        context.tree.addUse(src, dest)
-    }
-
-    boolean hasLocalVar(MethodNode methodNode, TypeNode typeNode) {
-        false
-    }
-
+    /**
+     * Generates the string for the actual parameters of the method call
+     * @param methodNode Method to be called
+     * @return A string of the actual parameters to the method call, uses null for object, 0 or 0.0 for numbers, '' for char, and false for boolean
+     */
     String params(MethodNode methodNode) {
         StringBuilder builder = new StringBuilder()
 
@@ -164,9 +144,5 @@ class AddMethodCall extends AddRelation {
         }
 
         builder.toString()
-    }
-
-    TypeNode getMethodOwner(MethodNode method) {
-        context.tree.utils.findType(method.key.split(/#/)[0])
     }
 }

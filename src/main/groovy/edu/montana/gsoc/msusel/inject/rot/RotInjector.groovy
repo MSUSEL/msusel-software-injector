@@ -25,7 +25,25 @@
  */
 package edu.montana.gsoc.msusel.inject.rot
 
+import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
 import edu.montana.gsoc.msusel.inject.SourceInjector
 
+/**
+ * @author Isaac Griffith
+ * @version 1.2.0
+ */
 abstract class RotInjector implements SourceInjector {
+
+    /**
+     * The pattern instance into which rot will be injected
+     */
+    PatternNode pattern
+
+    /**
+     * Constructs a new Rot Injector for the provided pattern instance
+     * @param pattern Pattern instance into which rot will be injected
+     */
+    RotInjector(PatternNode pattern) {
+        this.pattern = pattern
+    }
 }

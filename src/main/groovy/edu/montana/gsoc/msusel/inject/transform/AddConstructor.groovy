@@ -53,6 +53,10 @@ class AddConstructor extends AddMember {
      * List of potential imports to be added to the file
      */
     private List<AbstractTypeRef> imports
+    /**
+     * The parameterizable body content
+     */
+    private String bodyContent
 
     /**
      * Constructs a new AddConstructor transform
@@ -62,10 +66,11 @@ class AddConstructor extends AddMember {
      * @param node The constructor
      */
     @Builder(buildMethodName = "create")
-    private AddConstructor(InjectorContext context, FileNode file, TypeNode type, ConstructorNode node) {
+    private AddConstructor(InjectorContext context, FileNode file, TypeNode type, ConstructorNode node, String bodyContent) {
         super(context, file)
         this.type = type
         this.node = node
+        this.bodyContent = bodyContent
     }
 
     /**
@@ -78,11 +83,8 @@ class AddConstructor extends AddMember {
 
         StringBuilder builder = new StringBuilder()
 
-        builder << "    ${accessibility()}${name()}(${paramList()}) {"
-        builder << "\n"
-        builder << "    ${body()}"
-        builder << "\n"
-        builder << "    }"
+        builder << "    ${accessibility()}${name()}(${paramList()})"
+        body(builder, bodyContent)
 
         int length = ops.inject(line, builder.toString())
         type.children << node
@@ -99,29 +101,6 @@ class AddConstructor extends AddMember {
     @Override
     void initializeConditions() {
         conditions << new TypeHasConstructor(type, node)
-    }
-
-    /**
-     * Generates the body content of the constructor
-     * @return String representing the body content
-     */
-    def body() {
-
-    }
-
-    /**
-     * return the string representation of the parameter list
-     */
-    def paramList() {
-        StringBuilder builder = new StringBuilder()
-        node.params.each {
-            builder << it.type.name()
-            builder << " "
-            builder << it.name()
-            if (node.params.last() != it)
-                builder << ", "
-        }
-        builder.toString()
     }
 
     /**

@@ -25,14 +25,26 @@
  */
 package edu.montana.gsoc.msusel.inject.rot
 
+import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
-import edu.montana.gsoc.msusel.inject.transform.SourceTransform;
+import edu.montana.gsoc.msusel.inject.transform.SourceTransform
+import groovy.transform.builder.Builder
 
 /**
+ *
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class InappropriateDependencyInjector extends RotInjector {
+
+    /**
+     * Constructs a new Rot Injector for the provided pattern instance
+     * @param pattern Pattern instance into which rot will be injected
+     */
+    @Builder(buildMethodName = "create")
+    private InappropriateDependencyInjector(PatternNode pattern) {
+        super(pattern)
+    }
 
     /**
      * {@inheritDoc}

@@ -25,193 +25,320 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
+import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
 import edu.montana.gsoc.msusel.inject.NullInjector
 
 /**
+ * Factory for constructing instances of Grime Injectors
  * @author Isaac Griffith
  * @version 1.2.0
  */
 @Singleton
 class GrimeInjectorFactory {
 
-    def createClassGrimeInjector(String type) {
+    /**
+     * Factory method for creating class grime injectors
+     * @param type String representation of the type, found in ClassGrimeTypes
+     * @param pattern Pattern instance
+     * @return a ClassGrimeInjector, or a NullInjector if the type was unknown
+     */
+    def createClassGrimeInjector(String type, PatternNode pattern) {
         switch (type) {
             case ClassGrimeTypes.DEPG:
-                return createDEPGInjector()
+                return createDEPGInjector(pattern)
             case ClassGrimeTypes.DESG:
-                return createDESGInjector()
+                return createDESGInjector(pattern)
             case ClassGrimeTypes.DIPG:
-                return createDIPGInjector()
+                return createDIPGInjector(pattern)
             case ClassGrimeTypes.DISG:
-                return createDISGInjector()
+                return createDISGInjector(pattern)
             case ClassGrimeTypes.IEPG:
-                return createIEPGInjector()
+                return createIEPGInjector(pattern)
             case ClassGrimeTypes.IESG:
-                return createIESGInjector()
+                return createIESGInjector(pattern)
             case ClassGrimeTypes.IIPG:
-                return createIIPGInjector()
+                return createIIPGInjector(pattern)
             case ClassGrimeTypes.IISG:
-                return createIISGInjector()
+                return createIISGInjector(pattern)
             default:
                 return createNullInjector()
         }
     }
 
+    /**
+     * @return New instance of a NullInjector
+     */
     private def createNullInjector() {
-        return new NullInjector(null, null, null, null)
+        return new NullInjector()
     }
 
-    private def createDEPGInjector() {
-        return ClassGrimeInjector.builder().direct(true).internal(false).pair(true).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A DEPG grime injector to inject grime into the provided pattern
+     */
+    private def createDEPGInjector(PatternNode pattern) {
+        return ClassGrimeInjector.builder().pattern(pattern).direct(true).internal(false).pair(true).create()
     }
 
-    private def createDESGInjector() {
-        return ClassGrimeInjector.builder().direct(true).internal(false).pair(false).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A DESG grime injector to inject grime into the provided pattern
+     */
+    private def createDESGInjector(PatternNode pattern) {
+        return ClassGrimeInjector.builder().pattern(pattern).direct(true).internal(false).pair(false).create()
     }
 
-    private def createDIPGInjector() {
-        return ClassGrimeInjector.builder().direct(true).internal(true).pair(true).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A DIPG grime injector to inject grime into the provided pattern
+     */
+    private def createDIPGInjector(PatternNode pattern) {
+        return ClassGrimeInjector.builder().pattern(pattern).direct(true).internal(true).pair(true).create()
     }
 
-    private def createDISGInjector() {
-        return ClassGrimeInjector.builder().direct(true).internal(true).pair(false).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A DISG grime injector to inject grime into the provided pattern
+     */
+    private def createDISGInjector(PatternNode pattern) {
+        return ClassGrimeInjector.builder().pattern(pattern).direct(true).internal(true).pair(false).create()
     }
 
-    private def createIEPGInjector() {
-        return ClassGrimeInjector.builder().direct(false).internal(false).pair(true).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A IEPG grime injector to inject grime into the provided pattern
+     */
+    private def createIEPGInjector(PatternNode pattern) {
+        return ClassGrimeInjector.builder().pattern(pattern).direct(false).internal(false).pair(true).create()
     }
 
-    private def createIESGInjector() {
-        return ClassGrimeInjector.builder().direct(false).internal(false).pair(false).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A IESG grime injector to inject grime into the provided pattern
+     */
+    private def createIESGInjector(PatternNode pattern) {
+        return ClassGrimeInjector.builder().pattern(pattern).direct(false).internal(false).pair(false).create()
     }
 
-    private def createIIPGInjector() {
-        return ClassGrimeInjector.builder().direct(false).internal(true).pair(true).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A IIPG grime injector to inject grime into the provided pattern
+     */
+    private def createIIPGInjector(PatternNode pattern) {
+        return ClassGrimeInjector.builder().pattern(pattern).direct(false).internal(true).pair(true).create()
     }
 
-    private def createIISGInjector() {
-        return ClassGrimeInjector.builder().direct(false).internal(true).pair(false).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A IISG grime injector to inject grime into the provided pattern
+     */
+    private def createIISGInjector(PatternNode pattern) {
+        return ClassGrimeInjector.builder().pattern(pattern).direct(false).internal(true).pair(false).create()
     }
 
-    def createModGrimeInjector(String type) {
+    /**
+     * Factory method for creating modular grime injectors
+     * @param type String representation of the type, found in ModularGrimeTypes
+     * @param pattern Pattern instance
+     * @return a ModularGrimeInjector, or a NullInjector if the type was unknown
+     */
+    def createModGrimeInjector(String type, PatternNode pattern) {
         switch (type) {
             case ModularGrimeTypes.PIG:
-                return createPIGInjector()
+                return createPIGInjector(pattern)
             case ModularGrimeTypes.TIG:
-                return createTIGInjector()
+                return createTIGInjector(pattern)
             case ModularGrimeTypes.PEEG:
-                return createPEEGInjector()
+                return createPEEGInjector(pattern)
             case ModularGrimeTypes.PEAG:
-                return createPEAGInjector()
+                return createPEAGInjector(pattern)
             case ModularGrimeTypes.TEEG:
-                return createTEEGInjector()
+                return createTEEGInjector(pattern)
             case ModularGrimeTypes.TEAG:
-                return createTEAGInjector()
+                return createTEAGInjector(pattern)
             default:
                 return createNullInjector()
         }
     }
 
-    private def createPIGInjector() {
-        return ModularGrimeInjector.builder().persistent(true).external(false).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A PIG grime injector to inject grime into the provided pattern
+     */
+    private def createPIGInjector(PatternNode pattern) {
+        return ModularGrimeInjector.builder().pattern(pattern).persistent(true).external(false).create()
     }
 
-    private def createTIGInjector() {
-        return ModularGrimeInjector.builder().persistent(false).external(false).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A TIG grime injector to inject grime into the provided pattern
+     */
+    private def createTIGInjector(PatternNode pattern) {
+        return ModularGrimeInjector.builder().pattern(pattern).persistent(false).external(false).create()
     }
 
-    private def createPEEGInjector() {
-        return ModularGrimeInjector.builder().persistent(true).external(true).efferent(true).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A PEEG grime injector to inject grime into the provided pattern
+     */
+    private def createPEEGInjector(PatternNode pattern) {
+        return ModularGrimeInjector.builder().pattern(pattern).persistent(true).external(true).efferent(true).create()
     }
 
-    private def createPEAGInjector() {
-        return ModularGrimeInjector.builder().persistent(true).external(true).efferent(false).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A PEAG grime injector to inject grime into the provided pattern
+     */
+    private def createPEAGInjector(PatternNode pattern) {
+        return ModularGrimeInjector.builder().pattern(pattern).persistent(true).external(true).efferent(false).create()
     }
 
-    private def createTEEGInjector() {
-        return ModularGrimeInjector.builder().persistent(false).external(true).efferent(true).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A TEEG grime injector to inject grime into the provided pattern
+     */
+    private def createTEEGInjector(PatternNode pattern) {
+        return ModularGrimeInjector.builder().pattern(pattern).persistent(false).external(true).efferent(true).create()
     }
 
-    private def createTEAGInjector() {
-        return ModularGrimeInjector.builder().persistent(false).external(true).efferent(false).create()
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A TEAG grime injector to inject grime into the provided pattern
+     */
+    private def createTEAGInjector(PatternNode pattern) {
+        return ModularGrimeInjector.builder().pattern(pattern).persistent(false).external(true).efferent(false).create()
     }
 
-    def createOrgGrimeInjector(String type) {
+    /**
+     * Factory method for creating organizational grime injectors
+     * @param type String representation of the type, found in OrgGrimeTypes
+     * @param pattern Pattern instance
+     * @return a OrgGrimeInjector, or a NullInjector if the type was unknown
+     */
+    def createOrgGrimeInjector(String type, PatternNode pattern) {
         switch (type) {
             case OrgGrimeTypes.MPECG:
-                return createMPECGInjector()
+                return createMPECGInjector(pattern)
             case OrgGrimeTypes.MPEUG:
-                return createMPEUGInjector()
+                return createMPEUGInjector(pattern)
             case OrgGrimeTypes.MPICG:
-                return createMPICGInjector()
+                return createMPICGInjector(pattern)
             case OrgGrimeTypes.MPIUG:
-                return createMPIUGInjector()
+                return createMPIUGInjector(pattern)
             case OrgGrimeTypes.MTECG:
-                return createMTECGInjector()
+                return createMTECGInjector(pattern)
             case OrgGrimeTypes.MTEUG:
-                return createMTEUGInjector()
+                return createMTEUGInjector(pattern)
             case OrgGrimeTypes.MTICG:
-                return createMTICGInjector()
+                return createMTICGInjector(pattern)
             case OrgGrimeTypes.MTIUG:
-                return createMTIUGInjector()
+                return createMTIUGInjector(pattern)
             case OrgGrimeTypes.PECG:
-                return createPECGInjector()
+                return createPECGInjector(pattern)
             case OrgGrimeTypes.PERG:
-                return createPERGInjector()
+                return createPERGInjector(pattern)
             case OrgGrimeTypes.PICG:
-                return createPICGInjector()
+                return createPICGInjector(pattern)
             case OrgGrimeTypes.PIRG:
-                return createPIRGInjector()
+                return createPIRGInjector(pattern)
             default:
                 return createNullInjector()
         }
     }
 
-    def createMPECGInjector() {
-
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A MPECG grime injector to inject grime into the provided pattern
+     */
+    def createMPECGInjector(PatternNode pattern) {
+        return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(true).internal(false).cyclical(true).create()
     }
 
-    def createMPEUGInjector() {
-
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A MPEUG grime injector to inject grime into the provided pattern
+     */
+    def createMPEUGInjector(PatternNode pattern) {
+        return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(true).internal(false).cyclical(false).create()
     }
 
-    def createMPICGInjector() {
-
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A MPICG grime injector to inject grime into the provided pattern
+     */
+    def createMPICGInjector(PatternNode pattern) {
+        return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(true).internal(true).cyclical(true).create()
     }
 
-    def createMPIUGInjector() {
-
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A MPIUG grime injector to inject grime into the provided pattern
+     */
+    def createMPIUGInjector(PatternNode pattern) {
+        return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(true).internal(true).cyclical(false).create()
     }
 
-    def createMTECGInjector() {
-
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A MTECG grime injector to inject grime into the provided pattern
+     */
+    def createMTECGInjector(PatternNode pattern) {
+        return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(false).internal(false).cyclical(true).create()
     }
 
-    def createMTEUGInjector() {
-
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A MTEUG grime injector to inject grime into the provided pattern
+     */
+    def createMTEUGInjector(PatternNode pattern) {
+        return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(false).internal(false).cyclical(false).create()
     }
 
-    def createMTICGInjector() {
-
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A MTICG grime injector to inject grime into the provided pattern
+     */
+    def createMTICGInjector(PatternNode pattern) {
+        return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(false).internal(true).cyclical(true).create()
     }
 
-    def createMTIUGInjector() {
-
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A MTIUG grime injector to inject grime into the provided pattern
+     */
+    def createMTIUGInjector(PatternNode pattern) {
+        return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(false).internal(true).cyclical(false).create()
     }
 
-    def createPECGInjector() {
-
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A PECG grime injector to inject grime into the provided pattern
+     */
+    def createPECGInjector(PatternNode pattern) {
+        return PackageOrgGrimeInjector.builder().pattern(pattern).internal(false).closure(true).create()
     }
 
-    def createPERGInjector() {
-
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A PERG grime injector to inject grime into the provided pattern
+     */
+    def createPERGInjector(PatternNode pattern) {
+        return PackageOrgGrimeInjector.builder().pattern(pattern).internal(false).closure(false).create()
     }
 
-    def createPICGInjector() {
-
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A PICG grime injector to inject grime into the provided pattern
+     */
+    def createPICGInjector(PatternNode pattern) {
+        return PackageOrgGrimeInjector.builder().pattern(pattern).internal(true).closure(true).create()
     }
 
-    def createPIRGInjector() {
-
+    /**
+     * @param pattern Pattern to be injected with grime
+     * @return A PIRG grime injector to inject grime into the provided pattern
+     */
+    def createPIRGInjector(PatternNode pattern) {
+        return PackageOrgGrimeInjector.builder().pattern(pattern).internal(true).closure(false).create()
     }
 }

@@ -25,14 +25,28 @@
  */
 package edu.montana.gsoc.msusel.inject.rot
 
+import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
 import edu.montana.gsoc.msusel.inject.InjectorContext
-import edu.montana.gsoc.msusel.inject.transform.SourceTransform;
+import edu.montana.gsoc.msusel.inject.transform.SourceTransform
+import groovy.transform.builder.Builder
 
 /**
+ * Rot Injector which identifies a required role of a pattern instance and moves its behavior to another role, thus
+ * removing all instances of the required role.
+ *
  * @author Isaac Griffith
  * @version 1.2.0
  */
 class MissingRoleInjector extends RotInjector {
+
+    /**
+     * Constructs a new Rot Injector for the provided pattern instance
+     * @param pattern Pattern instance into which rot will be injected
+     */
+    @Builder(buildMethodName = "create")
+    private MissingRoleInjector(PatternNode patten) {
+        super(patten)
+    }
 
     /**
      * {@inheritDoc}
