@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.structural.NamespaceNode
+import edu.isu.isuese.datamodel.Namespace
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.NamespaceExists
 import groovy.transform.builder.Builder
@@ -37,14 +37,14 @@ import java.nio.file.Paths
 /**
  * Transform which constructs new namespace, and any physical artifacts it requires
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class CreateNamespace extends CreateStructure {
 
     /**
      * Namespace to be constructed
      */
-    NamespaceNode namespace
+    Namespace namespace
 
     /**
      * Constructs a new CreateNamespace transform
@@ -52,7 +52,7 @@ class CreateNamespace extends CreateStructure {
      * @param namespace the namespace to be created
      */
     @Builder(buildMethodName = "create")
-    private CreateNamespace(InjectorContext context, NamespaceNode namespace) {
+    private CreateNamespace(InjectorContext context, Namespace namespace) {
         super(context, null)
         this.namespace = namespace
     }

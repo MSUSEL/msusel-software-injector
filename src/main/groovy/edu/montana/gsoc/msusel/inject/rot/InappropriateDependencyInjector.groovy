@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.rot
 
-import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
+import edu.isu.isuese.datamodel.Pattern
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 import groovy.transform.builder.Builder
@@ -34,7 +34,7 @@ import groovy.transform.builder.Builder
 /**
  *
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class InappropriateDependencyInjector extends RotInjector {
 
@@ -43,7 +43,7 @@ class InappropriateDependencyInjector extends RotInjector {
      * @param pattern Pattern instance into which rot will be injected
      */
     @Builder(buildMethodName = "create")
-    private InappropriateDependencyInjector(PatternNode pattern) {
+    private InappropriateDependencyInjector(Pattern pattern) {
         super(pattern)
     }
 

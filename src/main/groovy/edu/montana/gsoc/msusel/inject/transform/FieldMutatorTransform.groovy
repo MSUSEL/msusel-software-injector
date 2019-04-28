@@ -26,32 +26,32 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
-import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.Field
+import edu.isu.isuese.datamodel.Method
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
  * Base class for field mutator transforms
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 abstract class FieldMutatorTransform extends AddMember {
 
     /**
      * The Field for which a mutator will be created
      */
-    FieldNode node
+    Field node
     /**
      * Type into which the mutator will be inserted
      */
-    TypeNode type
+    Type type
     /**
      * Method representing the mutator
      */
-    MethodNode method
+    Method method
 
     /**
      * Constructs a new FieldMutator transform
@@ -60,7 +60,7 @@ abstract class FieldMutatorTransform extends AddMember {
      * @param type the type into which the mutator will be inserted
      * @param node the method representing the mutator
      */
-    FieldMutatorTransform(InjectorContext context, FileNode file, TypeNode type, FieldNode node) {
+    FieldMutatorTransform(InjectorContext context, File file, Type type, Field node) {
         super(context, file)
         this.node = node
         this.type = type

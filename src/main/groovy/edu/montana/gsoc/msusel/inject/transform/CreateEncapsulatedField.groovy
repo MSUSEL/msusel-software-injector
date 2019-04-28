@@ -26,18 +26,18 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.Accessibility
-import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
-import edu.montana.gsoc.msusel.codetree.typeref.TypeRef
+import edu.isu.isuese.datamodel.Accessibility
+import edu.isu.isuese.datamodel.Field
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
+import edu.isu.isuese.datamodel.TypeRef
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
 
 /**
  * A composite transform which constructs a fully encapsulated field
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class CreateEncapsulatedField extends CompositeSourceTransform {
 
@@ -48,11 +48,11 @@ class CreateEncapsulatedField extends CompositeSourceTransform {
     /**
      * Type into which the field is to be added
      */
-    TypeNode type
+    Type type
     /**
      * The type of the field to be added
      */
-    TypeNode fieldType
+    Type fieldType
 
     /**
      * Constructs a new CreateEncapsulatedField transform
@@ -63,7 +63,7 @@ class CreateEncapsulatedField extends CompositeSourceTransform {
      * @param fieldName the name of the field
      */
     @Builder(buildMethodName = "create")
-    private CreateEncapsulatedField(InjectorContext context, FileNode file, TypeNode type, TypeNode fieldType, String fieldName) {
+    private CreateEncapsulatedField(InjectorContext context, File file, Type type, Type fieldType, String fieldName) {
         super(context, file)
         this.type = type
         this.fieldName = fieldName
@@ -77,7 +77,7 @@ class CreateEncapsulatedField extends CompositeSourceTransform {
     void execute() {
         // 1. Determine if a field already exists, with either the given name or the given type, if so throw an exception.
         // 2. If no such field exists, then create the field
-        FieldNode fld = FieldNode.builder()
+        Field fld = Field.builder()
                 .key("${type.key}#${fieldName}")
                 .accessibility(Accessibility.PRIVATE)
                 .type(TypeRef.builder().type(fieldType.key).typeName(fieldType.name()).create())

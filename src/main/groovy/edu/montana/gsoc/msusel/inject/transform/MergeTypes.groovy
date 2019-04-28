@@ -26,14 +26,14 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.isu.isuese.datamodel.File
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
 
 /**
  * Merges two types together, even if from different files
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class MergeTypes extends Merge {
 
@@ -43,7 +43,7 @@ class MergeTypes extends Merge {
      * @param file the file to be modified
      */
     @Builder(buildMethodName = "create")
-    private MergeTypes(InjectorContext context, FileNode file) {
+    private MergeTypes(InjectorContext context, File file) {
         super(context, file)
     }
 

@@ -26,13 +26,13 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.CodeTree
-import edu.montana.gsoc.msusel.codetree.DefaultCodeTree
-import edu.montana.gsoc.msusel.codetree.node.Accessibility
-import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.ClassNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.Project
+import edu.isu.isuese.datamodel.DefaultCodeTree
+import edu.isu.isuese.datamodel.Accessibility
+import edu.isu.isuese.datamodel.Method
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Class
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.FileOperations
 
 class AddMethodSpec extends BaseTransformSpec {
@@ -40,16 +40,16 @@ class AddMethodSpec extends BaseTransformSpec {
     def testExecute() {
         deleteDir(new File('testdata'))
 
-        given: 'Empty FileNode and new TypeNode'
+        given: 'Empty File and new Type'
         FileOperations ops = new FileOperations()
-        CodeTree tree = new DefaultCodeTree()
-        FileNode fn = FileNode.builder().key('testdata/Test.java').create()
-        TypeNode tn = ClassNode.builder().key("Test").accessibility(Accessibility.PUBLIC).create()
+        Project proj = new Project()
+        File fn = File.builder().key('testdata/Test.java').create()
+        Type tn = Class.builder().key("Test").accessibility(Accessibility.PUBLIC).create()
 
         new CreateFile(ops, fn, tree).execute()
         new CreateType(ops, fn, tree, tn).execute()
 
-        MethodNode cn = MethodNode.builder().key(tn.getKey() + "#" + tn.name()).accessibility(Accessibility.PUBLIC).create()
+        Method cn = Method.builder().key(tn.getKey() + "#" + tn.name()).accessibility(Accessibility.PUBLIC).create()
 
         when: "Create the new AddMethod transform"
         SourceTransform trans = new AddMethod(ops, fn, tree, tn, cn)

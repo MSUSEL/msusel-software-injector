@@ -26,24 +26,24 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.Method
+import edu.isu.isuese.datamodel.Type
 
 /**
  * A condition which determines whether a type already contains a method with a matching signature
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class TypeHasMethod implements Condition {
 
     /**
      * The type that will contain the method
      */
-    TypeNode type
+    Type type
     /**
      * A method node representing the method to be added
      */
-    MethodNode method
+    Method method
     /**
      * A string name of the new method to be created
      */
@@ -54,7 +54,7 @@ class TypeHasMethod implements Condition {
      * @param type Type to which the method will be added
      * @param name String name of the method
      */
-    TypeHasMethod(TypeNode type, String name) {
+    TypeHasMethod(Type type, String name) {
         this.type = type
         this.name = name
     }
@@ -64,7 +64,7 @@ class TypeHasMethod implements Condition {
      * @param type Type to which the method will be added
      * @param method The method to be added
      */
-    TypeHasMethod(TypeNode type, MethodNode method) {
+    TypeHasMethod(Type type, Method method) {
         this.type = type
         this.method = method
     }
@@ -74,13 +74,13 @@ class TypeHasMethod implements Condition {
      */
     @Override
     boolean check() {
-        MethodNode mnode = null
+        Method mnode = null
         if (method) {
-            mnode = type.methods().find { MethodNode m ->
+            mnode = type.methods().find { Method m ->
                 m.signature() == method.signature()
             }
         } else if (name) {
-            mnode = type.methods().find { MethodNode m ->
+            mnode = type.methods().find { Method m ->
                 m.name() == name
             }
         }

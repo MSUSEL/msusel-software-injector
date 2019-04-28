@@ -26,11 +26,11 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.AbstractTypeRef
-import edu.montana.gsoc.msusel.codetree.node.CodeNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.structural.ImportNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.TypeRef
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Import
+import edu.isu.isuese.datamodel.Type
+import edu.isu.isuese.datamodel.Component
 import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.Condition
@@ -38,14 +38,14 @@ import edu.montana.gsoc.msusel.inject.cond.Condition
 /**
  * Base class on which all transforms are built
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 abstract class AbstractSourceTransform implements SourceTransform {
 
     /**
      * File containing the component on which this transform operates
      */
-    FileNode file
+    File file
     /**
      * List of pre-conditions which must be true prior to this transform executing
      */
@@ -60,7 +60,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * @param context The current InjectorContext
      * @param file The filenode to be transformed
      */
-    AbstractSourceTransform(InjectorContext context, FileNode file) {
+    AbstractSourceTransform(InjectorContext context, File file) {
         this.file = file
         this.context = context
         initializeConditions()
@@ -87,7 +87,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * @param length The offset to update following items by
      */
     void updateAllFollowing(int line, int length) {
-        file.following(line).each { CodeNode c ->
+        file.following(line).each { Component c ->
             if (c.start < line) {
                 c.setEnd(c.end + length)
             } else if (c.start >= line) {
@@ -100,7 +100,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * Updates the file's list of imports with those items in the provided list
      * @param imports List of imports to update with
      */
-    void updateImports(List<AbstractTypeRef> imports) {
+    void updateImports(List<TypeRef> imports) {
         List<String> keys = []
         imports.each { keys << it.type() }
         addImports(keys)
@@ -110,7 +110,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * Updates the file's list of imports with the provide type ref
      * @param imp TypeRef
      */
-    void updateImports(AbstractTypeRef imp) {
+    void updateImports(TypeRef imp) {
         addImports([imp.type()])
     }
 
@@ -118,7 +118,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * Updates the file's list of imports with the provided Type
      * @param typ Type
      */
-    void updateImports(TypeNode typ) {
+    void updateImports(Type typ) {
         addImports([typ.key])
     }
 
@@ -143,7 +143,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
 
         List<SourceTransform> trans = []
         missing.each {
-            ImportNode imp = ImportNode.builder().key(it).create()
+            Import imp = Import.builder().key(it).create()
             trans << AddImport.builder().context(context).file(file).node(imp).create()
         }
         context.invoker.submitAll(trans)

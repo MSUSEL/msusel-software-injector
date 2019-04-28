@@ -26,16 +26,16 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-import edu.montana.gsoc.msusel.codetree.node.structural.NamespaceNode
-import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.Namespace
+import edu.isu.isuese.datamodel.Pattern
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 import groovy.transform.builder.Builder
 /**
  * Injector strategy for Package type Organizational Grime
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class PackageOrgGrimeInjector extends OrgGrimeInjector {
 
@@ -55,7 +55,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      * @param closure Flag indicating closure (true), or reuse (false) grime
      */
     @Builder(buildMethodName = "create")
-    private PackageOrgGrimeInjector(PatternNode pattern, boolean internal, boolean closure) {
+    private PackageOrgGrimeInjector(Pattern pattern, boolean internal, boolean closure) {
         super(pattern)
         this.internal = internal
         this.closure = closure
@@ -68,9 +68,9 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
     List<SourceTransform> createTransforms(InjectorContext context) {
         List<SourceTransform> transforms = []
 
-        NamespaceNode pkg = selectPatternNamespaces()
-        NamespaceNode other
-        TypeNode type, dest
+        Namespace pkg = selectPatternNamespaces()
+        Namespace other
+        Type type, dest
 
         if (internal) {
             type = selectPatternClass(pkg)
@@ -108,7 +108,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      * @param dest Dest side of the relationship
      * @param rel type of relationship
      */
-    void createRelationship(TypeNode src, TypeNode dest, RelationType rel) {
+    void createRelationship(Type src, Type dest, RelationType rel) {
 
     }
 
@@ -117,7 +117,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      * @param ns Namespace
      * @return An external to the pattern instance type
      */
-    TypeNode selectExternalClass(NamespaceNode ns) {
+    Type selectExternalClass(Namespace ns) {
         null
     }
 
@@ -125,7 +125,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      * Selects a namespace form the namespaces covered by the pattern instance
      * @return A namespace for use in grime injection
      */
-    NamespaceNode selectNamespace() {
+    Namespace selectNamespace() {
         null
     }
 
@@ -134,7 +134,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      * @param ns Namespace used for reachability calculations
      * @return A namespace currently unreachable from the provided namespace
      */
-    NamespaceNode selectUnreachableNamespace(NamespaceNode ns) {
+    Namespace selectUnreachableNamespace(Namespace ns) {
         null
     }
 
@@ -143,7 +143,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      * @param ns Namespace that currently contains or will contain the type returned
      * @return A type external to the pattern instance but contained within the given namespace
      */
-    TypeNode selectOrCreateExternalClass(NamespaceNode ns) {
+    Type selectOrCreateExternalClass(Namespace ns) {
         null
     }
 }

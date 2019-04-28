@@ -26,11 +26,11 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.AbstractTypeRef
-import edu.montana.gsoc.msusel.codetree.node.Accessibility
-import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.TypeRef
+import edu.isu.isuese.datamodel.Accessibility
+import edu.isu.isuese.datamodel.Method
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.TypeHasMethod
@@ -39,22 +39,22 @@ import groovy.transform.builder.Builder
 /**
  * Transform which adds a method to a given type
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class AddMethod extends AddMember {
 
     /**
      * Type to which a method will be added
      */
-    TypeNode type
+    Type type
     /**
      * The method to be added
      */
-    MethodNode node
+    Method node
     /**
      * List of possible imports to add
      */
-    private List<AbstractTypeRef> imports
+    private List<TypeRef> imports
     /**
      * The parameterizable body content
      */
@@ -68,7 +68,7 @@ class AddMethod extends AddMember {
      * @param node the method to add
      */
     @Builder(buildMethodName = "create")
-    private AddMethod(InjectorContext context, FileNode file, TypeNode type, MethodNode node, String bodyContent) {
+    private AddMethod(InjectorContext context, File file, Type type, Method node, String bodyContent) {
         super(context, file)
         this.type = type
         this.node = node

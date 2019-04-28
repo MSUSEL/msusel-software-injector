@@ -26,13 +26,13 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.isu.isuese.datamodel.File
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
  * Base class for leaf transforms in the Transform Composite design pattern implementation
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 abstract class BasicSourceTransform extends AbstractSourceTransform {
 
@@ -41,7 +41,7 @@ abstract class BasicSourceTransform extends AbstractSourceTransform {
      * @param context the current InjectorContext
      * @param file the file to be modified
      */
-    BasicSourceTransform(InjectorContext context, FileNode file) {
+    BasicSourceTransform(InjectorContext context, File file) {
         super(context, file)
     }
 }

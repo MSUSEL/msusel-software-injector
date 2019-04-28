@@ -26,20 +26,20 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.montana.gsoc.msusel.codetree.node.structural.NamespaceNode
+import edu.isu.isuese.datamodel.Namespace
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
  * A condition to check whether a particular namespace already exists
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class NamespaceExists implements Condition {
 
     /**
      * The new namespace to be created
      */
-    NamespaceNode namespace
+    Namespace namespace
     /**
      * The current injector context
      */
@@ -50,7 +50,7 @@ class NamespaceExists implements Condition {
      * @param context The current injector context
      * @param namespace The namespace to be constructed
      */
-    NamespaceExists(InjectorContext context, NamespaceNode namespace) {
+    NamespaceExists(InjectorContext context, Namespace namespace) {
         this.context = context
         this.namespace = namespace
     }

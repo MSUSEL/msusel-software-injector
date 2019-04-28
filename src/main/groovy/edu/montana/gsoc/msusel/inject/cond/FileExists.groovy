@@ -26,27 +26,27 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.isu.isuese.datamodel.File
 
 import java.nio.file.Files
 import java.nio.file.Paths
 /**
  * A Condition to determine if a file that is to be created already exists
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class FileExists implements Condition {
 
     /**
      * The potential file to be created
      */
-    FileNode file
+    File file
 
     /**
      * Constructs a new FileExists condition
      * @param file The file to be created
      */
-    FileExists(FileNode file) {
+    FileExists(File file) {
         this.file = file
     }
 

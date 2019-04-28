@@ -26,25 +26,25 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.Modifiers
-import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
-import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
-import edu.montana.gsoc.msusel.codetree.node.member.ParameterNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
-import edu.montana.gsoc.msusel.codetree.typeref.PrimitiveTypeRef
+import edu.isu.isuese.datamodel.Modifier
+import edu.isu.isuese.datamodel.Field
+import edu.isu.isuese.datamodel.Method
+import edu.isu.isuese.datamodel.Parameter
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
+import edu.isu.isuese.datamodel.TypeRef
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
 
 /**
  * Transform that injects a method call into an existing method's body
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class AddMethodCall extends AddRelation {
 
-    MethodNode caller
-    MethodNode callee
+    Method caller
+    Method callee
 
     /**
      * Constructs a new AddMethodCall transform
@@ -54,7 +54,7 @@ class AddMethodCall extends AddRelation {
      * @param callee the method being called
      */
     @Builder(buildMethodName = "create")
-    private AddMethodCall(InjectorContext context, FileNode file, MethodNode caller, MethodNode callee) {
+    private AddMethodCall(InjectorContext context, File file, Method caller, Method callee) {
         super(context, file)
         this.caller = caller
         this.callee = callee
@@ -65,13 +65,13 @@ class AddMethodCall extends AddRelation {
      */
     @Override
     void execute() {
-        TypeNode calleeOwner = getMethodOwner(callee)
-        TypeNode callerOwner = getMethodOwner(caller)
+        Type calleeOwner = getMethodOwner(callee)
+        Type callerOwner = getMethodOwner(caller)
 
         context.controller.getOps(file)
         int line = findStatementInsertionPoint(caller)
         String content
-        if (callee.hasModifier(Modifiers.STATIC)) {
+        if (callee.hasModifier(Modifier.STATIC)) {
             content = "        ${calleeOwner.name()}.${callee.name()}(${params(callee)});\n"
         } else if (sameContainingType(callerOwner, calleeOwner)) {
             content = "        this.${callee.name()}(${params(callee)});\n"
@@ -80,10 +80,10 @@ class AddMethodCall extends AddRelation {
                 String var = selectVariable(caller, calleeOwner)
                 content = "        ${var}.${callee.name()}(${params(callee)});\n"
             } else if (hasParam(caller, calleeOwner)) {
-                ParameterNode p = selectParameter(caller, calleeOwner)
+                Parameter p = selectParameter(caller, calleeOwner)
                 content = "        ${p.name()}.${callee.name()}(${params(callee)});\n"
             } else if (hasField(callerOwner, calleeOwner)) {
-                FieldNode f = selectField(callerOwner, calleeOwner)
+                Field f = selectField(callerOwner, calleeOwner)
                 content = "        ${f.name()}.${callee.name()}(${params(callee)});\n"
             } else {
                 StringBuilder builder = new StringBuilder()
@@ -111,12 +111,12 @@ class AddMethodCall extends AddRelation {
      * @param methodNode Method to be called
      * @return A string of the actual parameters to the method call, uses null for object, 0 or 0.0 for numbers, '' for char, and false for boolean
      */
-    String params(MethodNode methodNode) {
+    String params(Method methodNode) {
         StringBuilder builder = new StringBuilder()
 
         methodNode.params.each {
             switch (it.type) {
-                case PrimitiveTypeRef:
+                case TypeRef:
                     switch (it.type.name()) {
                         case "int":
                         case "byte":

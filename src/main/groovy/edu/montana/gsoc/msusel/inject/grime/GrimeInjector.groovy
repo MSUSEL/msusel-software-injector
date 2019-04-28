@@ -26,8 +26,8 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.Pattern
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.SourceInjector
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
@@ -35,20 +35,20 @@ import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 /**
  * Base class for Design Pattern Grime injectors
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 abstract class GrimeInjector implements SourceInjector {
 
     /**
      * The pattern into which the grime will be injected
      */
-    protected PatternNode pattern
+    protected Pattern pattern
 
     /**
      * Constructs a new GrimeInjector for the provided pattern instance
      * @param pattern Pattern instance into which grime will be injected
      */
-    GrimeInjector(PatternNode pattern) {
+    GrimeInjector(Pattern pattern) {
         this.pattern = pattern
         this.rbml = rbml
     }
@@ -69,8 +69,8 @@ abstract class GrimeInjector implements SourceInjector {
      * Selects a type from the pattern instance, as the focus for the injection event
      * @return Type into which grime will be injected
      */
-    TypeNode selectPatternClass() {
-        //List<TypeNode> types = pattern.types()
+    Type selectPatternClass() {
+        //List<Type> types = pattern.types()
         def types = []
         Random rand = new Random()
         types[rand.nextInt(types.size())]

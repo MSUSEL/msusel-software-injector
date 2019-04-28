@@ -33,7 +33,7 @@ import java.util.concurrent.RecursiveTask
 import java.util.logging.Level
 /**
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 @Slf4j
 class ExperimentRunner extends RecursiveTask<DataHolder> {

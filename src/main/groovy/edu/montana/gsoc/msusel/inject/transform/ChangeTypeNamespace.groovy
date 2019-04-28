@@ -26,9 +26,13 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.isu.isuese.datamodel.File
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class ChangeTypeNamespace extends AbstractSourceTransform {
 
     /**
@@ -36,7 +40,7 @@ class ChangeTypeNamespace extends AbstractSourceTransform {
      * @param context The current InjectorContext
      * @param file The filenode to be transformed
      */
-    ChangeTypeNamespace(InjectorContext context, FileNode file) {
+    ChangeTypeNamespace(InjectorContext context, File file) {
         super(context, file)
     }
 

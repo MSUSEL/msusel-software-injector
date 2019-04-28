@@ -31,7 +31,7 @@ import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 /**
  * A base injector which does simply nothing, following the NullObject pattern.
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class NullInjector implements SourceInjector {
 

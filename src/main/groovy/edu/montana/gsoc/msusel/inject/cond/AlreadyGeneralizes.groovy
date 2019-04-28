@@ -26,21 +26,21 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
  * Condition to determine if a class already generalizes another class
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class AlreadyGeneralizes extends TypeHeaderCondition {
 
     /**
      * The Type to be inherited from
      */
-    private final TypeNode gen
+    private final Type gen
 
     /**
      * Constructs a new AlreadyGeneralizes condition
@@ -49,7 +49,7 @@ class AlreadyGeneralizes extends TypeHeaderCondition {
      * @param node The type
      * @param gen The type the given type will be inheriting from
      */
-    AlreadyGeneralizes(InjectorContext context, FileNode file, TypeNode node, TypeNode gen) {
+    AlreadyGeneralizes(InjectorContext context, File file, Type node, Type gen) {
         super(context, file, node)
         this.gen = gen
     }

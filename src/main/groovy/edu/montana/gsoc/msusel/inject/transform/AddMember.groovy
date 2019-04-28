@@ -26,18 +26,18 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.member.ConstructorNode
-import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
-import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.EnumNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.Constructor
+import edu.isu.isuese.datamodel.Field
+import edu.isu.isuese.datamodel.Method
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Enum
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
  * Base transform class for those transforms which add a member to a type
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 abstract class AddMember extends BasicSourceTransform {
 
@@ -46,7 +46,7 @@ abstract class AddMember extends BasicSourceTransform {
      * @param context current InjectorContext
      * @param file the file which will be modified
      */
-    AddMember(InjectorContext context, FileNode file) {
+    AddMember(InjectorContext context, File file) {
         super(context, file)
     }
 
@@ -55,10 +55,10 @@ abstract class AddMember extends BasicSourceTransform {
      * @param type Type to be modified
      * @return line number where a new method can be inserted
      */
-    int findMethodInsertionPoint(TypeNode type) {
+    int findMethodInsertionPoint(Type type) {
         int line = 0
 
-        for (MethodNode method : (List<MethodNode>) type.methods()) {
+        for (Method method : (List<Method>) type.methods()) {
             if (method.getEnd() > line)
                 line = method.getEnd()
         }
@@ -71,16 +71,16 @@ abstract class AddMember extends BasicSourceTransform {
      * @param type Type to be modified
      * @return line number where a new field can be inserted
      */
-    int findFieldInsertionPoint(TypeNode type) {
+    int findFieldInsertionPoint(Type type) {
         int line = 0
 
-        for (FieldNode field : (List<FieldNode>) type.fields()) {
+        for (Field field : (List<Field>) type.fields()) {
             if (field.getEnd() > line)
                 line = field.getEnd()
         }
 
         int mstart = Integer.MAX_VALUE;
-        for (MethodNode method : (List<MethodNode>) type.methods()) {
+        for (Method method : (List<Method>) type.methods()) {
             if (method.getStart() < mstart)
                 mstart = method.getStart()
         }
@@ -97,10 +97,10 @@ abstract class AddMember extends BasicSourceTransform {
 
     /**
      * Identifies the insertion point for a new enum literal
-     * @param enumNode The Enum to be modified
+     * @param Enum The Enum to be modified
      * @return line number where a new enum literal can be inserted
      */
-    int findEnumItemInsertionPoint(EnumNode enumNode) {
+    int findEnumItemInsertionPoint(Enum Enum) {
         return 0
     }
 
@@ -109,13 +109,13 @@ abstract class AddMember extends BasicSourceTransform {
      * @param type Type to be modified
      * @return line number where a new constructor can be inserted
      */
-    int findConstructorInsertionPoint(TypeNode type) {
+    int findConstructorInsertionPoint(Type type) {
         int line
 
         if (!type.methods().isEmpty()) {
             if (!type.constructors().isEmpty()) {
                 int lastLine = 0
-                type.constructors().each { ConstructorNode c ->
+                type.constructors().each { Constructor c ->
                     if (c.end >= lastLine)
                         lastLine = c.end
                 }
@@ -123,7 +123,7 @@ abstract class AddMember extends BasicSourceTransform {
             }
             else {
                 int lastLine = type.end
-                type.methods().each { MethodNode m ->
+                type.methods().each { Method m ->
                     if (m.start <= lastLine)
                         lastLine = m.start
                 }
@@ -132,7 +132,7 @@ abstract class AddMember extends BasicSourceTransform {
         } else {
             if (!type.fields().isEmpty()) {
                 int lastLine = 0
-                type.fields().each { FieldNode fld ->
+                type.fields().each { Field fld ->
                     if (fld.end >= lastLine)
                         lastLine = fld.end
                 }

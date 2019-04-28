@@ -27,9 +27,9 @@
 package edu.montana.gsoc.msusel.inject.grime
 
 import com.google.common.collect.Lists
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Pattern
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.transform.AddAssociation
 import edu.montana.gsoc.msusel.inject.transform.AddInheritance
@@ -40,7 +40,7 @@ import groovy.transform.builder.Builder
 /**
  * A source injector to inject modular grime into a design pattern instance
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class ModularGrimeInjector extends GrimeInjector {
 
@@ -65,7 +65,7 @@ class ModularGrimeInjector extends GrimeInjector {
      * @param efferent flag indicating whether the injected grime is efferent (true), or afferent (false)
      */
     @Builder(buildMethodName = "create")
-    private ModularGrimeInjector(PatternNode pattern, boolean persistent, boolean external, boolean efferent) {
+    private ModularGrimeInjector(Pattern pattern, boolean persistent, boolean external, boolean efferent) {
         super(pattern)
         this.persistent = persistent
         this.external = external
@@ -78,8 +78,8 @@ class ModularGrimeInjector extends GrimeInjector {
     @Override
     List<SourceTransform> createTransforms(InjectorContext context) {
         List<SourceTransform> transforms = []
-        TypeNode src
-        TypeNode dest
+        Type src
+        Type dest
 
         if (external) {
             if (efferent) {
@@ -99,7 +99,7 @@ class ModularGrimeInjector extends GrimeInjector {
             rel = selectTemporaryRel(context, src, dest)
         }
 
-        FileNode file = context.tree.utils.findParentFile(src)
+        File file = context.tree.utils.findParentFile(src)
 
         createRelationship(context, file, rel, src, dest, transforms)
     }
@@ -109,8 +109,8 @@ class ModularGrimeInjector extends GrimeInjector {
      * @param context current InjectorContext
      * @return the Type selected
      */
-    TypeNode selectExternClass(InjectorContext context) {
-        List<TypeNode> types = Lists.newArrayList(context.tree.utils.types)
+    Type selectExternClass(InjectorContext context) {
+        List<Type> types = Lists.newArrayList(context.tree.utils.types)
         types.removeAll(pattern.types())
 
         Random rand = new Random()
@@ -124,7 +124,7 @@ class ModularGrimeInjector extends GrimeInjector {
      * @param dest the destination side of the relationship
      * @return the relationship type to inject
      */
-    RelationType selectPersistentRel(InjectorContext context, TypeNode src, TypeNode dest) {
+    RelationType selectPersistentRel(InjectorContext context, Type src, Type dest) {
         // TODO Finish This
     }
 
@@ -135,7 +135,7 @@ class ModularGrimeInjector extends GrimeInjector {
      * @param dest the destination side of the relationship
      * @return the relationship type to inject
      */
-    RelationType selectTemporaryRel(InjectorContext context, TypeNode src, TypeNode dest) {
+    RelationType selectTemporaryRel(InjectorContext context, Type src, Type dest) {
         // TODO Finish This
     }
 
@@ -148,7 +148,7 @@ class ModularGrimeInjector extends GrimeInjector {
      * @param dest destination type of the relationship
      * @param sourceTransforms List transforms to add this relationship to
      */
-    void createRelationship(InjectorContext context, FileNode file, RelationType rel, TypeNode src, TypeNode dest, List<SourceTransform> sourceTransforms) {
+    void createRelationship(InjectorContext context, File file, RelationType rel, Type src, Type dest, List<SourceTransform> sourceTransforms) {
         // TODO Finish This
         switch (rel) {
             case RelationType.ASSOC:

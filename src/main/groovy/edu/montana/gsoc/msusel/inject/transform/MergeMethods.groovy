@@ -26,14 +26,14 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.isu.isuese.datamodel.File
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
 
 /**
  * Merges two methods (one on top of the other) into a single method
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class MergeMethods extends Merge {
 
@@ -43,7 +43,7 @@ class MergeMethods extends Merge {
      * @param file the file to be modified
      */
     @Builder(buildMethodName = "create")
-    MergeMethods(InjectorContext context, FileNode file) {
+    MergeMethods(InjectorContext context, File file) {
         super(context, file)
     }
 

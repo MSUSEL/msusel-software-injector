@@ -31,7 +31,7 @@ import org.apache.commons.lang3.tuple.Pair
 
 /**
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class DataHolder {
 

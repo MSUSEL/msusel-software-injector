@@ -26,11 +26,11 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.ClassNode
-import edu.montana.gsoc.msusel.codetree.node.type.EnumNode
-import edu.montana.gsoc.msusel.codetree.node.type.InterfaceNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Class
+import edu.isu.isuese.datamodel.Enum
+import edu.isu.isuese.datamodel.Interface
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.TypeExists
@@ -39,14 +39,14 @@ import groovy.transform.builder.Builder
 /**
  * Transform which injects a new Type into a given File
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class CreateType extends CreateStructure {
 
     /**
      * Type to be injected
      */
-    TypeNode type
+    Type type
 
     /**
      * Constructs a new CreateType transform
@@ -55,7 +55,7 @@ class CreateType extends CreateStructure {
      * @param type the type to be added
      */
     @Builder(buildMethodName = "create")
-    private CreateType(InjectorContext context, FileNode file, TypeNode type) {
+    private CreateType(InjectorContext context, File file, Type type) {
         super(context, file)
         this.type = type
     }
@@ -124,11 +124,11 @@ class CreateType extends CreateStructure {
      * @return String representation for the type to be injected
      */
     String typeString() {
-        if (type instanceof ClassNode)
+        if (type instanceof Class)
             return "class"
-        if (type instanceof InterfaceNode)
+        if (type instanceof Interface)
             return "interface"
-        if (type instanceof EnumNode)
+        if (type instanceof Enum)
             return "enum"
 
         ""
@@ -178,7 +178,7 @@ class CreateType extends CreateStructure {
     int findTypeInsertionPoint() {
         int line = 0
 
-        for (TypeNode type : (List<TypeNode>) file.types()) {
+        for (Type type : (List<Type>) file.types()) {
             if (type.getEnd() > line)
                 line = type.getEnd()
         }

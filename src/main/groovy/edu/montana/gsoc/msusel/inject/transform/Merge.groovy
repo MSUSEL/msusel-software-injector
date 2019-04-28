@@ -26,13 +26,13 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.isu.isuese.datamodel.File
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
  * Base class for Merge Transforms, meant for Rot research
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 abstract class Merge extends AbstractSourceTransform {
 
@@ -41,7 +41,7 @@ abstract class Merge extends AbstractSourceTransform {
      * @param context the current InjectorContext
      * @param file the file to be modified
      */
-    Merge(InjectorContext context, FileNode file) {
+    Merge(InjectorContext context, File file) {
         super(context, file)
     }
 }

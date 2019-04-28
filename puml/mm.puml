@@ -7,7 +7,7 @@ abstract class BasicSourceTransform
 abstract class CompositeSourceTransform
 interface Condition
 class FileNode
-class CodeTree
+class Project
 class InjectionController
 class InjectionContext
 class FileOperations
@@ -22,7 +22,7 @@ AbstractSourceTransform "1" --> "1" FileNode
 AbstractSourceTransform -l-> InjectionContext
 InjectionController "1" o--> "*" FileNode
 InjectionController "1" o--> "*" FileOperations
-InjectionContext "1" -r-> "1" CodeTree
+InjectionContext "1" -r-> "1" Project
 InjectionContext "1" -l-> "1" InjectionController
 InjectionContext "1" -d-> "1" TransformInvoker
 BasicSourceTransform ..> FileOperations

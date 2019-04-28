@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.isu.isuese.datamodel.File
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.FileExists
 import groovy.transform.builder.Builder
@@ -36,7 +36,7 @@ import java.nio.file.Paths
 /**
  * Transform which constructs a new file, including any physical artifacts it requires
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class CreateFile extends CreateStructure {
 
@@ -46,7 +46,7 @@ class CreateFile extends CreateStructure {
      * @param file the file to be created
      */
     @Builder(buildMethodName = "create")
-    private CreateFile(InjectorContext context, FileNode file) {
+    private CreateFile(InjectorContext context, File file) {
         super(context, file)
     }
 

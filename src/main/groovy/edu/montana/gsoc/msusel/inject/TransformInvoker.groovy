@@ -33,7 +33,7 @@ import edu.montana.gsoc.msusel.inject.transform.SourceTransform
  * This represents the command invoker which collects a queue of Transforms and when ready will execute them in the proper order (FIFO)
  *
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class TransformInvoker {
 

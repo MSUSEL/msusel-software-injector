@@ -26,6 +26,10 @@
  */
 package edu.montana.gsoc.msusel.inject.rot
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 interface RotTypes {
 
     String BLOB = "BlobRole"

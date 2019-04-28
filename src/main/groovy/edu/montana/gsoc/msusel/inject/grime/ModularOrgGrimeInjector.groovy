@@ -26,15 +26,15 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-import edu.montana.gsoc.msusel.codetree.node.structural.NamespaceNode
-import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
+import edu.isu.isuese.datamodel.Namespace
+import edu.isu.isuese.datamodel.Pattern
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 import groovy.transform.builder.Builder
 /**
  * Injector strategy for Modular type Organizational Grime
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class ModularOrgGrimeInjector extends OrgGrimeInjector {
 
@@ -59,7 +59,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * @param cyclical Flag indicating cyclical (true) or unstable (false) org grime
      */
     @Builder(buildMethodName = "create")
-    private ModularOrgGrimeInjector(PatternNode pattern, boolean persistent, boolean internal, boolean cyclical) {
+    private ModularOrgGrimeInjector(Pattern pattern, boolean persistent, boolean internal, boolean cyclical) {
         super(pattern)
         this.persistent = persistent
         this.internal = internal
@@ -73,8 +73,8 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
     List<SourceTransform> createTransforms(InjectorContext context) {
         List<SourceTransform> transforms = []
 
-        List<NamespaceNode> pkgs = findPatternNamespaces()
-        NamespaceNode ns1, ns2
+        List<Namespace> pkgs = findPatternNamespaces()
+        Namespace ns1, ns2
         RelationType rel
 
         if (internal) {
@@ -110,7 +110,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * @param destNs Destination namespace from which a class is selected as the destination of the relationship to be created
      * @param rel type of relationship to generate
      */
-    def addInstability(NamespaceNode srcNs, NamespaceNode destNs, RelationType rel) {
+    def addInstability(Namespace srcNs, Namespace destNs, RelationType rel) {
 
     }
 
@@ -120,7 +120,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * @param destNs Destination namespace from which a class is selected as the destination of the relationship to be created
      * @param rel type of relationship to generate
      */
-    def createCyclicalDependency(NamespaceNode srcNs, NamespaceNode destNs, RelationType rel) {
+    def createCyclicalDependency(Namespace srcNs, Namespace destNs, RelationType rel) {
 
     }
 
@@ -144,7 +144,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * Selects or creates an external namespace for use by the injector
      * @return the namespace selected or created
      */
-    NamespaceNode selectOrCreateExternNamespace() {
+    Namespace selectOrCreateExternNamespace() {
         null
     }
 
@@ -152,7 +152,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * Selects a pattern namespace, one containing a patter or subsumed by a pattern, for use in injection
      * @return the namespace selected
      */
-    NamespaceNode selectPatternNamespace() {
+    Namespace selectPatternNamespace() {
         null
     }
 
@@ -161,7 +161,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * @param namespaceNode Namespace to be split
      * @return a pair of namespaces split from the provided one
      */
-    def splitNamespace(NamespaceNode namespaceNode) {
+    def splitNamespace(Namespace namespaceNode) {
 
     }
 
@@ -170,7 +170,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * @param namespaceNodes list from which the selection is to occur
      * @return A selected namespace
      */
-    NamespaceNode selectNamespace(List<NamespaceNode> namespaceNodes) {
+    Namespace selectNamespace(List<Namespace> namespaceNodes) {
         null
     }
 
@@ -179,7 +179,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * @param namespaceNodes list of namespaces from which a selection is to occur
      * @return a collection of selected namespaces
      */
-    def selectNamespaces(List<NamespaceNode> namespaceNodes) {
+    def selectNamespaces(List<Namespace> namespaceNodes) {
 
     }
 
@@ -187,7 +187,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * Finds those namespaces in the codetree which are pattern namespaces
      * @return List of pattern namespaces
      */
-    List<NamespaceNode> findPatternNamespaces() {
+    List<Namespace> findPatternNamespaces() {
 
     }
 }

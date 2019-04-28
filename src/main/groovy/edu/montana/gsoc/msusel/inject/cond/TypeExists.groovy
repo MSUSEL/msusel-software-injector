@@ -26,31 +26,31 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
 
 /**
  * A Condition that checks whether a given type already exists in a given type
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class TypeExists implements Condition {
 
     /**
      * The file in which the type will be added
      */
-    FileNode file
+    File file
     /**
      * The type to check
      */
-    TypeNode type
+    Type type
 
     /**
      * Constructs a new TypeExists condition
      * @param file The file to which the type will be added
      * @param type The type to add
      */
-    TypeExists(FileNode file, TypeNode type) {
+    TypeExists(File file, Type type) {
         this.file = file
         this.type = type
     }
@@ -60,7 +60,7 @@ class TypeExists implements Condition {
      */
     @Override
     boolean check() {
-        TypeNode t = file.types().find { it.name() == type.name() }
+        Type t = file.types().find { it.name() == type.name() }
         t == null
     }
 }

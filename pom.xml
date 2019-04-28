@@ -5,13 +5,13 @@
     <parent>
         <groupId>edu.montana.gsoc.msusel</groupId>
         <artifactId>msusel-parent</artifactId>
-        <version>1.2.0-idg</version>
+        <version>1.3.0-idg</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>msusel-software-injector</artifactId>
     <packaging>jar</packaging>
-    <version>1.2.0-idg</version>
+    <version>1.3.0-idg</version>
     <name>Source Injector</name>
     <url>https://github.com/MSUSEL/msusel-software-injector</url>
 
@@ -184,8 +184,8 @@
         <!--</dependency>-->
         <dependency>
             <groupId>edu.montana.gsoc.msusel</groupId>
-            <artifactId>msusel-codetree</artifactId>
-            <version>1.2.0-idg</version>
+            <artifactId>msusel-datamodel</artifactId>
+            <version>1.3.0-idg</version>
         </dependency>
         <dependency>
             <groupId>org.spockframework</groupId>

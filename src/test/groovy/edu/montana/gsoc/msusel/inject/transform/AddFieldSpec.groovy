@@ -26,14 +26,14 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.CodeTree
-import edu.montana.gsoc.msusel.codetree.DefaultCodeTree
-import edu.montana.gsoc.msusel.codetree.node.Accessibility
-import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.ClassNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
-import edu.montana.gsoc.msusel.codetree.typeref.PrimitiveTypeRef
+import edu.isu.isuese.datamodel.Project
+import edu.isu.isuese.datamodel.DefaultCodeTree
+import edu.isu.isuese.datamodel.Accessibility
+import edu.isu.isuese.datamodel.Field
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Class
+import edu.isu.isuese.datamodel.Type
+import edu.isu.isuese.datamodel.TypeRef
 
 class AddFieldSpec extends BaseTransformSpec {
 
@@ -41,13 +41,13 @@ class AddFieldSpec extends BaseTransformSpec {
         deleteDir(new File("testdata"))
 
         given: "A File containing a Type and a new Field to add to that type"
-        CodeTree tree = new DefaultCodeTree()
-        FileNode fn = FileNode.builder().key('testdata/Test.java').create()
-        TypeNode tn = ClassNode.builder().key('Test').accessibility(Accessibility.PUBLIC).create()
+        Project proj = new Project()
+        File fn = File.builder().key('testdata/Test.java').create()
+        Type tn = Class.builder().key('Test').accessibility(Accessibility.PUBLIC).create()
 
         new CreateFile(fn, tree).execute()
         new CreateType(fn, tree, tn).execute()
-        FieldNode fld = FieldNode.builder().key("Test#field").type(PrimitiveTypeRef.getInstance("int")).create()
+        Field fld = Field.builder().key("Test#field").type(TypeRef.getInstance("int")).create()
 
         when: "We create a new Transform"
         SourceTransform trans = new AddField(fn, tree, tn, fld)

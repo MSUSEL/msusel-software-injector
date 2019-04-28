@@ -26,10 +26,10 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.Accessibility
-import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.Accessibility
+import edu.isu.isuese.datamodel.Field
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.TypeHasField
 import groovy.transform.builder.Builder
@@ -37,18 +37,18 @@ import groovy.transform.builder.Builder
 /**
  * Transform to add a new Type to a given file
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class AddField extends AddMember {
 
     /**
      * Type to which the field will be added
      */
-    TypeNode type
+    Type type
     /**
      * Field to add
      */
-    FieldNode field
+    Field field
 
     /**
      * Constructs a new Add Field transform
@@ -58,7 +58,7 @@ class AddField extends AddMember {
      * @param field Field to be added
      */
     @Builder(buildMethodName = "create")
-    private AddField(InjectorContext context, FileNode file, TypeNode type, FieldNode field) {
+    private AddField(InjectorContext context, File file, Type type, Field field) {
         super(context, file)
         this.type = type
         this.field = field

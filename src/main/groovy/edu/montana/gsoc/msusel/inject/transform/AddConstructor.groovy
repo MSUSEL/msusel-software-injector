@@ -26,11 +26,11 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.AbstractTypeRef
-import edu.montana.gsoc.msusel.codetree.node.Accessibility
-import edu.montana.gsoc.msusel.codetree.node.member.ConstructorNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.TypeRef
+import edu.isu.isuese.datamodel.Accessibility
+import edu.isu.isuese.datamodel.Constructor
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.TypeHasConstructor
@@ -38,22 +38,22 @@ import groovy.transform.builder.Builder
 /**
  * Transform to inject a constructor into a given Type
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class AddConstructor extends AddMember {
 
     /**
      * Type which will contain the new constructor
      */
-    TypeNode type
+    Type type
     /**
      * Node representing the new constructor
      */
-    ConstructorNode node
+    Constructor node
     /**
      * List of potential imports to be added to the file
      */
-    private List<AbstractTypeRef> imports
+    private List<TypeRef> imports
     /**
      * The parameterizable body content
      */
@@ -67,7 +67,7 @@ class AddConstructor extends AddMember {
      * @param node The constructor
      */
     @Builder(buildMethodName = "create")
-    private AddConstructor(InjectorContext context, FileNode file, TypeNode type, ConstructorNode node, String bodyContent) {
+    private AddConstructor(InjectorContext context, File file, Type type, Constructor node, String bodyContent) {
         super(context, file)
         this.type = type
         this.node = node

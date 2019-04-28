@@ -26,24 +26,24 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.Modifiers
-import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.InterfaceNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.Modifier
+import edu.isu.isuese.datamodel.Method
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Interface
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
  * Base class for type header modifying transforms
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 abstract class TypeHeaderTransform extends CompositeSourceTransform {
 
     /**
-     * TypeNode whose header will be modified
+     * Type whose header will be modified
      */
-    TypeNode type
+    Type type
 
     /**
      * Constructs a new TypeHeaderTransform
@@ -51,7 +51,7 @@ abstract class TypeHeaderTransform extends CompositeSourceTransform {
      * @param file the file to be modified
      * @param type the type whose header is to be modified
      */
-    TypeHeaderTransform(InjectorContext context, FileNode file, TypeNode type) {
+    TypeHeaderTransform(InjectorContext context, File file, Type type) {
         super(context, file)
         this.type = type
     }
@@ -75,20 +75,20 @@ abstract class TypeHeaderTransform extends CompositeSourceTransform {
      * constructs the transforms necessary to implement any abstract methods not already implemented
      * @param other the type from which to gather abstract methods
      */
-    void implementAbstractMethods(TypeNode other) {
+    void implementAbstractMethods(Type other) {
         if (!type.isAbstract()) {
-            if (other instanceof InterfaceNode) {
-                other.methods().each { MethodNode m ->
-                    if (!m.modifiers.contains(Modifiers.STATIC) && !m.modifiers.contains(Modifiers.FINAL)) {
-                        MethodNode copy = MethodNode.builder().type(m.type).accessibility(m.accessibility).params(m.params).create()
+            if (other instanceof Interface) {
+                other.methods().each { Method m ->
+                    if (!m.modifiers.contains(Modifier.STATIC) && !m.modifiers.contains(Modifier.FINAL)) {
+                        Method copy = Method.builder().type(m.type).accessibility(m.accessibility).params(m.params).create()
                         transforms << AddMethod.builder().context(context).file(file).type(type).node(copy).create()
                     }
                 }
             }
             else {
-                other.methods().each { MethodNode m ->
+                other.methods().each { Method m ->
                     if (m.isAbstract()) {
-                        MethodNode copy = MethodNode.builder().type(m.type).accessibility(m.accessibility).params(m.params).create()
+                        Method copy = Method.builder().type(m.type).accessibility(m.accessibility).params(m.params).create()
                         transforms << AddMethod.builder().context(context).file(file).type(type).node(copy).create()
                     }
                 }

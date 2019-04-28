@@ -26,8 +26,8 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.AlreadyRealizes
 import groovy.transform.builder.Builder
@@ -35,14 +35,14 @@ import groovy.transform.builder.Builder
 /**
  * Transform which modifies a type's header information to contain a new interface to realize
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class AddRealization extends TypeHeaderTransform {
 
     /**
      * The inteface to realize
      */
-    TypeNode real
+    Type real
 
     /**
      * Constructs a new AddRealization transform
@@ -52,7 +52,7 @@ class AddRealization extends TypeHeaderTransform {
      * @param real the new Type to be realized
      */
     @Builder(buildMethodName = "create")
-    private AddRealization(InjectorContext context, FileNode file, TypeNode node, TypeNode real) {
+    private AddRealization(InjectorContext context, File file, Type node, Type real) {
         super(context, file, node)
         this.real = real
     }

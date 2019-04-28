@@ -29,7 +29,7 @@ package edu.montana.gsoc.msusel.inject.grime
 /**
  * Enumeration representing the relationship types used during grime injection
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 enum RelationType {
     ASSOC, GEN, REAL, USE_VAR, USE_PARAM, USE_RET

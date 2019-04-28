@@ -26,32 +26,32 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.montana.gsoc.msusel.codetree.node.member.ConstructorNode
-import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.Constructor
+import edu.isu.isuese.datamodel.Method
+import edu.isu.isuese.datamodel.Type
 
 /**
  * A condition which checks whether a type has a constructor with the matching signature as the one provided
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class TypeHasConstructor implements Condition {
 
     /**
      * The type to which the constructor will be added
      */
-    TypeNode type
+    Type type
     /**
      * The constructor node that will be added
      */
-    ConstructorNode cons
+    Constructor cons
 
     /**
      * Constructs a new TypeHasConstructor condition
      * @param type The type to which the constructor will be added
      * @param cons The constructor
      */
-    TypeHasConstructor(TypeNode type, ConstructorNode cons) {
+    TypeHasConstructor(Type type, Constructor cons) {
         this.type = type
         this.cons = cons
     }
@@ -61,7 +61,7 @@ class TypeHasConstructor implements Condition {
      */
     @Override
     boolean check() {
-        MethodNode mnode = type.methods().find { MethodNode m ->
+        Method mnode = type.methods().find { Method m ->
             m.signature() == cons.signature()
         }
 

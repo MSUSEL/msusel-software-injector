@@ -26,20 +26,20 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
  * A Base Condition class for TypeHeader modification conditions
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 abstract class TypeHeaderCondition implements Condition {
 
-    protected final FileNode file
-    protected final TypeNode node
+    protected final File file
+    protected final Type node
     protected final InjectorContext context
 
     /**
@@ -48,7 +48,7 @@ abstract class TypeHeaderCondition implements Condition {
      * @param file The File containing the type
      * @param node The actual type to be modified
      */
-    TypeHeaderCondition(InjectorContext context, FileNode file, TypeNode node) {
+    TypeHeaderCondition(InjectorContext context, File file, Type node) {
         this.context = context
         this.file = file
         this.node = node

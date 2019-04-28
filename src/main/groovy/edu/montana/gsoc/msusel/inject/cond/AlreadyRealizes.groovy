@@ -26,22 +26,22 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.InterfaceNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Interface
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
  * A condition used to check if a class already realizes some interface
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class AlreadyRealizes extends TypeHeaderCondition {
 
     /**
      * Potential interface the type will realize
      */
-    private final TypeNode real
+    private final Type real
 
     /**
      * Construts a new AlreadyRealizes condition
@@ -50,7 +50,7 @@ class AlreadyRealizes extends TypeHeaderCondition {
      * @param node The type in question
      * @param real The interface to realize
      */
-    AlreadyRealizes(InjectorContext context, FileNode file, TypeNode node, TypeNode real) {
+    AlreadyRealizes(InjectorContext context, File file, Type node, Type real) {
         super(context, file, node)
         this.real = real
     }
@@ -61,7 +61,7 @@ class AlreadyRealizes extends TypeHeaderCondition {
     @Override
     boolean check() {
         String header = getTypeHeader()
-        if (!(real instanceof InterfaceNode))
+        if (!(real instanceof Interface))
             return false
         else if (header.contains("implements")) {
             String impl = header.trim().split("implements")[1]

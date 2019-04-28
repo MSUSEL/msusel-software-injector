@@ -26,17 +26,17 @@
  */
 package edu.montana.gsoc.msusel.inject
 
-import edu.montana.gsoc.msusel.codetree.CodeTree
+import edu.isu.isuese.datamodel.Project
 
 /**
- * A Parameter Object used to pass the current TransformInvoker, InjectionController and project CodeTree throughout the system.
+ * A Parameter Object used to pass the current TransformInvoker, InjectionController and project Project throughout the system.
  * TODO replace with Dependency Injection
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class InjectorContext {
 
     TransformInvoker invoker
     InjectionController controller
-    CodeTree tree
+    Project proj
 }

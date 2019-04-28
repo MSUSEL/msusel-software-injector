@@ -26,8 +26,8 @@
  */
 package edu.montana.gsoc.msusel.inject
 
-import edu.montana.gsoc.msusel.codetree.node.CodeNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
+import edu.isu.isuese.datamodel.Component
+import edu.isu.isuese.datamodel.File
 
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
@@ -39,7 +39,7 @@ import java.nio.file.StandardOpenOption
  * Container for contents of files currently under modification. This class acts as the receiver
  * of the transforms.
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class FileOperations {
 
@@ -77,13 +77,13 @@ class FileOperations {
     }
 
     /**
-     * Opens the file at the location specified in the key of the provided FileNode
+     * Opens the file at the location specified in the key of the provided File
      * @param node Node representation of the file
-     * @throws IllegalArgumentException if the provided FileNode is null
+     * @throws IllegalArgumentException if the provided File is null
      */
-    void open(FileNode node) {
+    void open(File node) {
         if (file == null) {
-            throw new IllegalArgumentException("No FileOperations can be defined for a null FileNode")
+            throw new IllegalArgumentException("No FileOperations can be defined for a null File")
         }
 
         file = node.getKey()
@@ -134,9 +134,9 @@ class FileOperations {
      * @return List of strings covering the lines in the region requested
      * @throws IllegalArgumentException if the provide node is null
      */
-    List<String> contentRegion(CodeNode node) {
+    List<String> contentRegion(Component node) {
         if (node == null) {
-            throw new IllegalArgumentException("Cannot retrieve content region of a null CodeNode")
+            throw new IllegalArgumentException("Cannot retrieve content region of a null Component")
         }
         try {
             lines.subList(node.start - 1, node.end - 1)

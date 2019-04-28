@@ -26,31 +26,31 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.Field
+import edu.isu.isuese.datamodel.Type
 
 /**
  * A condition which checks whether a matching field with the same name already exists in the type.
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class TypeHasField implements Condition {
 
     /**
      * The type which will contain the field
      */
-    TypeNode type
+    Type type
     /**
      * The field that will be added
      */
-    FieldNode field
+    Field field
 
     /**
      * Constructs a new TypeHasField condition
      * @param type Type that will contain the field
      * @param field The field
      */
-    TypeHasField(TypeNode type, FieldNode field) {
+    TypeHasField(Type type, Field field) {
         this.type = type
         this.field = field
     }
@@ -60,7 +60,7 @@ class TypeHasField implements Condition {
      */
     @Override
     boolean check() {
-        FieldNode f = type.fields().find { FieldNode f ->
+        Field f = type.fields().find { Field f ->
             f.name() == field.name()
         }
 

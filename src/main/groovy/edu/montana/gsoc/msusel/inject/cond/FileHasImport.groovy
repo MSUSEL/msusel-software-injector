@@ -26,31 +26,31 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.structural.ImportNode
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Import
 
 /**
  * A condition to determine if the file already has the given import
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class FileHasImport implements Condition {
 
     /**
      * The File in question
      */
-    FileNode file
+    File file
     /**
      * The import to be added
      */
-    ImportNode imp
+    Import imp
 
     /**
      * Constructs a new FileHasImport condition for the given file and import
      * @param file The file
      * @param imp The new import
      */
-    FileHasImport(FileNode file, ImportNode imp) {
+    FileHasImport(File file, Import imp) {
         this.file = file
         this.imp = imp
     }

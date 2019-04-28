@@ -26,20 +26,20 @@
  */
 package edu.montana.gsoc.msusel.inject.select
 
-import edu.montana.gsoc.msusel.codetree.node.CodeNode
+import edu.isu.isuese.datamodel.Component
 
 /**
  * Interface representing the base contract for Selectors used from SourceInjectors
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 abstract class Selector {
 
     /**
      * Selects a list of code nodes from the provided tree, based on the provided binding
-     * @param tree CodeTree to select nodes form
+     * @param tree Project to select nodes form
      * @param binding The binding
      * @return List of selected CodeNodes
      */
-    abstract List<CodeNode> select(tree, binding)
+    abstract List<Component> select(tree, binding)
 }

@@ -26,12 +26,12 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.Modifiers
-import edu.montana.gsoc.msusel.codetree.node.member.FieldNode
-import edu.montana.gsoc.msusel.codetree.node.member.MethodNode
-import edu.montana.gsoc.msusel.codetree.node.member.ParameterNode
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.Modifier
+import edu.isu.isuese.datamodel.Field
+import edu.isu.isuese.datamodel.Method
+import edu.isu.isuese.datamodel.Parameter
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import groovy.transform.builder.Builder
@@ -39,22 +39,22 @@ import groovy.transform.builder.Builder
 /**
  * Transform which adds a field use line to a method.
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class AddFieldUse extends AddRelation {
 
     /**
      * Type containing the method to which the field use is to be added
      */
-    TypeNode type
+    Type type
     /**
      * Field which is to be used
      */
-    FieldNode field
+    Field field
     /**
      * Method in which the field use will be inserted
      */
-    MethodNode method
+    Method method
 
     /**
      * Constructs a new AddFieldUse transform
@@ -65,7 +65,7 @@ class AddFieldUse extends AddRelation {
      * @param method The method in which the code is to be injected
      */
     @Builder(buildMethodName = "create")
-    private AddFieldUse(InjectorContext context, FileNode file, TypeNode type, FieldNode field, MethodNode method) {
+    private AddFieldUse(InjectorContext context, File file, Type type, Field field, Method method) {
         super(context, file)
         this.type = type
         this.field = field
@@ -77,11 +77,11 @@ class AddFieldUse extends AddRelation {
      */
     @Override
     void execute() {
-        TypeNode fieldOwner = findOwningType(field)
+        Type fieldOwner = findOwningType(field)
         FileOperations ops = context.controller.getOps(file)
         int line = findStatementInsertionPoint(method)
 
-        if (field.hasModifier(Modifiers.STATIC)) {
+        if (field.hasModifier(Modifier.STATIC)) {
             content = "        ${fieldOwner.name()}.${field.name()};\n"
         } else if (sameContainingType(fieldOwner, type)) {
             content = "        this.${field.name()};\n"
@@ -90,10 +90,10 @@ class AddFieldUse extends AddRelation {
                 String var = selectVariable(method, fieldOwner)
                 content = "        ${var}.${field.name()};\n"
             } else if (hasParam(method, fieldOwner)) {
-                ParameterNode p = selectParameter(method, fieldOwner)
+                Parameter p = selectParameter(method, fieldOwner)
                 content = "        ${p.name()}.${field.name()};\n"
             } else if (hasField(type, fieldOwner)) {
-                FieldNode f = selectField(type, fieldOwner)
+                Field f = selectField(type, fieldOwner)
                 content = "        ${f.name()}.${field.name()};\n"
             } else {
                 StringBuilder builder = new StringBuilder()

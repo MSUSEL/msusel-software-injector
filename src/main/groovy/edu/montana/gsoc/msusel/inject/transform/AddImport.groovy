@@ -26,8 +26,8 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.structural.ImportNode
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Import
 import edu.montana.gsoc.msusel.inject.FileOperations
 import edu.montana.gsoc.msusel.inject.InjectorContext
 import edu.montana.gsoc.msusel.inject.cond.FileHasImport
@@ -36,14 +36,14 @@ import groovy.transform.builder.Builder
 /**
  * Transform to add an import to a File
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class AddImport extends BasicSourceTransform {
 
     /**
      * The import to be added
      */
-    ImportNode node
+    Import node
 
     /**
      * Constructs a new AddImport transform
@@ -52,7 +52,7 @@ class AddImport extends BasicSourceTransform {
      * @param node The import to be added
      */
     @Builder(buildMethodName = "create")
-    private AddImport(InjectorContext context, FileNode file, ImportNode node) {
+    private AddImport(InjectorContext context, File file, Import node) {
         super(context, file)
         this.node = node
     }

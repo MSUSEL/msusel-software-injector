@@ -26,12 +26,12 @@
  */
 package edu.montana.gsoc.msusel.inject.select
 
-import edu.montana.gsoc.msusel.codetree.node.CodeNode
+import edu.isu.isuese.datamodel.Component
 
 /**
  * A Selector for Classes Internal to a Design Pattern
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 class SelectInternalClasses extends Selector {
 
@@ -45,7 +45,7 @@ class SelectInternalClasses extends Selector {
      * {@inheritDoc}
      */
     @Override
-    List<CodeNode> select(tree, binding) {
+    List<Component> select(tree, binding) {
         return null
     }
 }

@@ -26,13 +26,13 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-import edu.montana.gsoc.msusel.codetree.node.structural.PatternNode
+import edu.isu.isuese.datamodel.Pattern
 import edu.montana.gsoc.msusel.inject.NullInjector
 
 /**
  * Factory for constructing instances of Grime Injectors
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 @Singleton
 class GrimeInjectorFactory {
@@ -43,7 +43,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern instance
      * @return a ClassGrimeInjector, or a NullInjector if the type was unknown
      */
-    def createClassGrimeInjector(String type, PatternNode pattern) {
+    def createClassGrimeInjector(String type, Pattern pattern) {
         switch (type) {
             case ClassGrimeTypes.DEPG:
                 return createDEPGInjector(pattern)
@@ -77,7 +77,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A DEPG grime injector to inject grime into the provided pattern
      */
-    private def createDEPGInjector(PatternNode pattern) {
+    private def createDEPGInjector(Pattern pattern) {
         return ClassGrimeInjector.builder().pattern(pattern).direct(true).internal(false).pair(true).create()
     }
 
@@ -85,7 +85,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A DESG grime injector to inject grime into the provided pattern
      */
-    private def createDESGInjector(PatternNode pattern) {
+    private def createDESGInjector(Pattern pattern) {
         return ClassGrimeInjector.builder().pattern(pattern).direct(true).internal(false).pair(false).create()
     }
 
@@ -93,7 +93,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A DIPG grime injector to inject grime into the provided pattern
      */
-    private def createDIPGInjector(PatternNode pattern) {
+    private def createDIPGInjector(Pattern pattern) {
         return ClassGrimeInjector.builder().pattern(pattern).direct(true).internal(true).pair(true).create()
     }
 
@@ -101,7 +101,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A DISG grime injector to inject grime into the provided pattern
      */
-    private def createDISGInjector(PatternNode pattern) {
+    private def createDISGInjector(Pattern pattern) {
         return ClassGrimeInjector.builder().pattern(pattern).direct(true).internal(true).pair(false).create()
     }
 
@@ -109,7 +109,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A IEPG grime injector to inject grime into the provided pattern
      */
-    private def createIEPGInjector(PatternNode pattern) {
+    private def createIEPGInjector(Pattern pattern) {
         return ClassGrimeInjector.builder().pattern(pattern).direct(false).internal(false).pair(true).create()
     }
 
@@ -117,7 +117,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A IESG grime injector to inject grime into the provided pattern
      */
-    private def createIESGInjector(PatternNode pattern) {
+    private def createIESGInjector(Pattern pattern) {
         return ClassGrimeInjector.builder().pattern(pattern).direct(false).internal(false).pair(false).create()
     }
 
@@ -125,7 +125,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A IIPG grime injector to inject grime into the provided pattern
      */
-    private def createIIPGInjector(PatternNode pattern) {
+    private def createIIPGInjector(Pattern pattern) {
         return ClassGrimeInjector.builder().pattern(pattern).direct(false).internal(true).pair(true).create()
     }
 
@@ -133,7 +133,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A IISG grime injector to inject grime into the provided pattern
      */
-    private def createIISGInjector(PatternNode pattern) {
+    private def createIISGInjector(Pattern pattern) {
         return ClassGrimeInjector.builder().pattern(pattern).direct(false).internal(true).pair(false).create()
     }
 
@@ -143,7 +143,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern instance
      * @return a ModularGrimeInjector, or a NullInjector if the type was unknown
      */
-    def createModGrimeInjector(String type, PatternNode pattern) {
+    def createModGrimeInjector(String type, Pattern pattern) {
         switch (type) {
             case ModularGrimeTypes.PIG:
                 return createPIGInjector(pattern)
@@ -166,7 +166,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A PIG grime injector to inject grime into the provided pattern
      */
-    private def createPIGInjector(PatternNode pattern) {
+    private def createPIGInjector(Pattern pattern) {
         return ModularGrimeInjector.builder().pattern(pattern).persistent(true).external(false).create()
     }
 
@@ -174,7 +174,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A TIG grime injector to inject grime into the provided pattern
      */
-    private def createTIGInjector(PatternNode pattern) {
+    private def createTIGInjector(Pattern pattern) {
         return ModularGrimeInjector.builder().pattern(pattern).persistent(false).external(false).create()
     }
 
@@ -182,7 +182,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A PEEG grime injector to inject grime into the provided pattern
      */
-    private def createPEEGInjector(PatternNode pattern) {
+    private def createPEEGInjector(Pattern pattern) {
         return ModularGrimeInjector.builder().pattern(pattern).persistent(true).external(true).efferent(true).create()
     }
 
@@ -190,7 +190,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A PEAG grime injector to inject grime into the provided pattern
      */
-    private def createPEAGInjector(PatternNode pattern) {
+    private def createPEAGInjector(Pattern pattern) {
         return ModularGrimeInjector.builder().pattern(pattern).persistent(true).external(true).efferent(false).create()
     }
 
@@ -198,7 +198,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A TEEG grime injector to inject grime into the provided pattern
      */
-    private def createTEEGInjector(PatternNode pattern) {
+    private def createTEEGInjector(Pattern pattern) {
         return ModularGrimeInjector.builder().pattern(pattern).persistent(false).external(true).efferent(true).create()
     }
 
@@ -206,7 +206,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A TEAG grime injector to inject grime into the provided pattern
      */
-    private def createTEAGInjector(PatternNode pattern) {
+    private def createTEAGInjector(Pattern pattern) {
         return ModularGrimeInjector.builder().pattern(pattern).persistent(false).external(true).efferent(false).create()
     }
 
@@ -216,7 +216,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern instance
      * @return a OrgGrimeInjector, or a NullInjector if the type was unknown
      */
-    def createOrgGrimeInjector(String type, PatternNode pattern) {
+    def createOrgGrimeInjector(String type, Pattern pattern) {
         switch (type) {
             case OrgGrimeTypes.MPECG:
                 return createMPECGInjector(pattern)
@@ -251,7 +251,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A MPECG grime injector to inject grime into the provided pattern
      */
-    def createMPECGInjector(PatternNode pattern) {
+    def createMPECGInjector(Pattern pattern) {
         return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(true).internal(false).cyclical(true).create()
     }
 
@@ -259,7 +259,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A MPEUG grime injector to inject grime into the provided pattern
      */
-    def createMPEUGInjector(PatternNode pattern) {
+    def createMPEUGInjector(Pattern pattern) {
         return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(true).internal(false).cyclical(false).create()
     }
 
@@ -267,7 +267,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A MPICG grime injector to inject grime into the provided pattern
      */
-    def createMPICGInjector(PatternNode pattern) {
+    def createMPICGInjector(Pattern pattern) {
         return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(true).internal(true).cyclical(true).create()
     }
 
@@ -275,7 +275,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A MPIUG grime injector to inject grime into the provided pattern
      */
-    def createMPIUGInjector(PatternNode pattern) {
+    def createMPIUGInjector(Pattern pattern) {
         return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(true).internal(true).cyclical(false).create()
     }
 
@@ -283,7 +283,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A MTECG grime injector to inject grime into the provided pattern
      */
-    def createMTECGInjector(PatternNode pattern) {
+    def createMTECGInjector(Pattern pattern) {
         return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(false).internal(false).cyclical(true).create()
     }
 
@@ -291,7 +291,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A MTEUG grime injector to inject grime into the provided pattern
      */
-    def createMTEUGInjector(PatternNode pattern) {
+    def createMTEUGInjector(Pattern pattern) {
         return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(false).internal(false).cyclical(false).create()
     }
 
@@ -299,7 +299,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A MTICG grime injector to inject grime into the provided pattern
      */
-    def createMTICGInjector(PatternNode pattern) {
+    def createMTICGInjector(Pattern pattern) {
         return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(false).internal(true).cyclical(true).create()
     }
 
@@ -307,7 +307,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A MTIUG grime injector to inject grime into the provided pattern
      */
-    def createMTIUGInjector(PatternNode pattern) {
+    def createMTIUGInjector(Pattern pattern) {
         return ModularOrgGrimeInjector.builder().pattern(pattern).persistent(false).internal(true).cyclical(false).create()
     }
 
@@ -315,7 +315,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A PECG grime injector to inject grime into the provided pattern
      */
-    def createPECGInjector(PatternNode pattern) {
+    def createPECGInjector(Pattern pattern) {
         return PackageOrgGrimeInjector.builder().pattern(pattern).internal(false).closure(true).create()
     }
 
@@ -323,7 +323,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A PERG grime injector to inject grime into the provided pattern
      */
-    def createPERGInjector(PatternNode pattern) {
+    def createPERGInjector(Pattern pattern) {
         return PackageOrgGrimeInjector.builder().pattern(pattern).internal(false).closure(false).create()
     }
 
@@ -331,7 +331,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A PICG grime injector to inject grime into the provided pattern
      */
-    def createPICGInjector(PatternNode pattern) {
+    def createPICGInjector(Pattern pattern) {
         return PackageOrgGrimeInjector.builder().pattern(pattern).internal(true).closure(true).create()
     }
 
@@ -339,7 +339,7 @@ class GrimeInjectorFactory {
      * @param pattern Pattern to be injected with grime
      * @return A PIRG grime injector to inject grime into the provided pattern
      */
-    def createPIRGInjector(PatternNode pattern) {
+    def createPIRGInjector(Pattern pattern) {
         return PackageOrgGrimeInjector.builder().pattern(pattern).internal(true).closure(false).create()
     }
 }

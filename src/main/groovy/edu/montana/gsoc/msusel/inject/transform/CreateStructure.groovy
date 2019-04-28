@@ -26,14 +26,14 @@
  */
 package edu.montana.gsoc.msusel.inject.transform
 
-import edu.montana.gsoc.msusel.codetree.node.structural.FileNode
-import edu.montana.gsoc.msusel.codetree.node.type.TypeNode
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
  * Base transform for the creation of structural components, such as Files, Types, and Namespaces
  * @author Isaac Griffith
- * @version 1.2.0
+ * @version 1.3.0
  */
 abstract class CreateStructure extends BasicSourceTransform {
 
@@ -42,7 +42,7 @@ abstract class CreateStructure extends BasicSourceTransform {
      * @param context current InjectorContext
      * @param file the file to be modified
      */
-    CreateStructure(InjectorContext context, FileNode file) {
+    CreateStructure(InjectorContext context, File file) {
         super(context, file)
     }
 
@@ -51,7 +51,7 @@ abstract class CreateStructure extends BasicSourceTransform {
      * @param type containing type into which another type will be inserted
      * @return line number in which a new type can be inserted
      */
-    int findInnerTypeInsertionPoint(TypeNode type) {
+    int findInnerTypeInsertionPoint(Type type) {
         return type.getEnd() - 1
     }
 }
