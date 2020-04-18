@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -74,17 +74,22 @@ class TypeHasMethod implements Condition {
      */
     @Override
     boolean check() {
-        Method mnode = null
+        if (!type)
+            throw new IllegalArgumentException("typeHasMethod.check(): type cannot be null")
+        if (!method && !name)
+            throw new IllegalArgumentException("typeHasMethod.check(): method and name cannot both be null")
+
+        Method other = null
         if (method) {
-            mnode = type.methods().find { Method m ->
+            other = type.methods.find { Method m ->
                 m.signature() == method.signature()
             }
         } else if (name) {
-            mnode = type.methods().find { Method m ->
-                m.name() == name
+            other = type.methods.find { Method m ->
+                m.name == name
             }
         }
 
-        mnode == null
+        other != null
     }
 }

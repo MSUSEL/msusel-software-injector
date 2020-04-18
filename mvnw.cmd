@@ -2,7 +2,7 @@
 @REM The MIT License (MIT)
 @REM
 @REM MSUSEL Software Injector
-@REM Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+@REM Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
 @REM Software Engineering Laboratory and Idaho State University, Informatics and
 @REM Computer Science, Empirical Software Engineering Laboratory
 @REM

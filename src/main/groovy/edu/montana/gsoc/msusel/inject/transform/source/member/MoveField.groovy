@@ -1,0 +1,186 @@
+/**
+ * The MIT License (MIT)
+ *
+ * MSUSEL Software Injector
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
+ * Software Engineering Laboratory and Idaho State University, Informatics and
+ * Computer Science, Empirical Software Engineering Laboratory
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package edu.montana.gsoc.msusel.inject.transform.source.member
+
+import edu.isu.isuese.datamodel.Field
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
+import edu.montana.gsoc.msusel.inject.transform.source.AddMember
+
+class MoveField extends AddMember {
+
+    Type from
+    Type to
+    Field field
+    File toFile
+
+    int current
+    int toOriginal
+    int toCurrent
+    java.io.File toOps
+    int insert
+    int original
+    def newLine
+    def toLines
+
+    /**
+     * Constructs a new BasicSourceTransform
+     * @param file the file to be modified
+     */
+    MoveField(File file, Type from, File toFile, Type to, Field field) {
+        super(file)
+        this.from = from
+        this.to = to
+        this.field = field
+        this.toFile = toFile
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void setup() {
+        ops = new java.io.File(file.getFullPath())
+        toOps = new java.io.File(toFile.getFullPath())
+
+        insert = findFieldInsertionPoint(to) - 1
+        start = field.start - 1
+        end = field.end - 1
+        lines = ops.readLines()
+        original = lines.size()
+        toLines = toOps.readLines()
+
+        if (start != end) {
+            text = lines[start..end].join("\n")
+        }
+        else {
+            text = lines[start]
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void buildContent() {
+        (newLine, text) = extractContent(text)
+        transformFromContent()
+        transformToContent()
+    }
+
+    private void transformFromContent() {
+        (end - start + 1).times {
+            lines.remove(start)
+        }
+
+        if (lines[start].trim().isEmpty())
+            lines.remove(start)
+
+        if (text)
+            lines.add(start, text)
+
+        current = lines.size()
+    }
+
+    private void transformToContent() {
+        toOriginal = toLines.size()
+        toLines.add(insert, newLine)
+//        if (to.getFields().isEmpty()) {
+//            toLines.add(insert + 1, "")
+//        }
+        toCurrent = toLines.size()
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void injectContent() {
+        ops.text = lines.join("\n")
+        toOps.text = toLines.join("\n")
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void updateModel() {
+        from.removeMember(field)
+        field.thaw()
+        updateContainingAndAllFollowing(start, current - original)
+
+        // TODO add import to new location
+
+        //updateImports(this.toFile) // FIXME
+
+        to.addMember(field)
+        //updateContainingAndAllFollowing(this.toFile, insert, toCurrent - toOriginal) // FIXME
+    }
+
+    private String createNewLine(String content) {
+        StringBuilder builder = new StringBuilder()
+        def access = field.getAccessibility().toString()
+        if (access)
+            builder << "    ${access} "
+        else
+            builder << "    "
+        field.getModifiers().each {
+            builder << "${it.getName()} "
+        }
+        builder << field.getType().getTypeName()
+        builder << " "
+        builder << content
+        builder << ";"
+        builder.toString()
+    }
+
+    private String[] extractContent(String content) {
+        if (content ==~ /^\s*(\w+\s+)*(\w+(<.+>)?)(\s+\w+(\s*=\s*.+)?)(\s*,\s*\w+(\s*=\s*.+)?)*;\s*$/) {
+            def loc = content.substring(content.indexOf("${field.getName()}"))
+            def toMove
+            if (loc.contains(",")) {
+                toMove = loc.substring(0, loc.indexOf(","))
+            } else {
+                toMove = loc.substring(0, loc.indexOf(";"))
+            }
+
+            toMove = toMove.replaceAll("\n", " ")
+            def newLine = createNewLine(toMove)
+            content = content.replace(toMove, "")
+            if (content =~ /,\s*,/)
+                content = content.replaceAll(/,\s*,/, ",")
+            if (content =~ /,\s*;/)
+                content = content.replaceAll(/,\s*;/, ";")
+            if (content =~ /${field.getType().getTypeName()}\s+;/)
+                content = ""
+
+            return [newLine, content]
+        }
+
+        ["", content]
+    }
+}

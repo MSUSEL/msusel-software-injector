@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -43,14 +43,14 @@ class TypeExists implements Condition {
     /**
      * The type to check
      */
-    Type type
+    String type
 
     /**
      * Constructs a new TypeExists condition
      * @param file The file to which the type will be added
      * @param type The type to add
      */
-    TypeExists(File file, Type type) {
+    TypeExists(File file, String type) {
         this.file = file
         this.type = type
     }
@@ -60,7 +60,12 @@ class TypeExists implements Condition {
      */
     @Override
     boolean check() {
-        Type t = file.types().find { it.name() == type.name() }
-        t == null
+        if (!type)
+            throw new IllegalArgumentException("TypeExists.check(): type cannot be null or empty")
+        if (!file)
+            throw new IllegalArgumentException("TypeExists.check(): file cannot be null")
+
+        Type t = file.allTypes.find { it.name == type }
+        t != null
     }
 }

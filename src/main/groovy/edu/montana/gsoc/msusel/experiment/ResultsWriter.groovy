@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -76,7 +76,6 @@ class ResultsWriter {
                         for (int j = 0; j < inject.length; j++)
                         {
                             String line = holder.getDataLine(pattern, l, inject[j], quality[k])
-                            pw.println(line)
                         }
                     }
                 }

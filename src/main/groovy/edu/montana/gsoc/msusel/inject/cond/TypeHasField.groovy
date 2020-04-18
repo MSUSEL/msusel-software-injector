@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -60,10 +60,15 @@ class TypeHasField implements Condition {
      */
     @Override
     boolean check() {
-        Field f = type.fields().find { Field f ->
-            f.name() == field.name()
+        if (!type)
+            throw new IllegalArgumentException("typeHasField.check(): type cannot be null")
+        if (!field)
+            throw new IllegalArgumentException("typeHasField.check(): field cannot be null")
+
+        Field f = type.fields.find { Field f ->
+            f.name == field.name
         }
 
-        f == null
+        f != null
     }
 }

@@ -1,0 +1,85 @@
+/**
+ * The MIT License (MIT)
+ *
+ * MSUSEL Software Injector
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
+ * Software Engineering Laboratory and Idaho State University, Informatics and
+ * Computer Science, Empirical Software Engineering Laboratory
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package edu.montana.gsoc.msusel.inject.transform.model.namespace
+
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Namespace
+import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
+import edu.montana.gsoc.msusel.inject.transform.model.NamespaceModelTransform
+import edu.montana.gsoc.msusel.inject.transform.source.structural.MoveFile
+import groovy.transform.builder.Builder
+
+class MoveFileModelTransform extends NamespaceModelTransform {
+
+    File file
+    Namespace newParent
+
+    @Builder(buildMethodName = "create")
+    MoveFileModelTransform(Namespace ns, File file, Namespace newParent) {
+        super(ns)
+        this.file = file
+        this.newParent = newParent
+    }
+
+    @Override
+    void verifyPreconditions() {
+        // 1. file is not null
+        if (!file)
+            throw new ModelTransformPreconditionsNotMetException()
+        // 2. newParent is not null
+        if (!newParent)
+            throw new ModelTransformPreconditionsNotMetException()
+        // 3. Namespace has this file as a child
+        if (!ns.getFiles().contains(file))
+            throw new ModelTransformPreconditionsNotMetException()
+        // 4. a file with the same name is not already in newParent
+        if (newParent.getFiles().find { it.name == file.name })
+            throw new ModelTransformPreconditionsNotMetException()
+    }
+
+    @Override
+    void transform() {
+        // Execute Transform
+        ns.removeFile(file)
+        file.thaw()
+        newParent.addFile(file)
+        file.updateKey()
+        // Generate Source Transform
+        new MoveFile(file, ns, newParent).execute()
+    }
+
+    @Override
+    void verifyPostconditons() {
+        // 1. ns no longer contains file
+        assert(!ns.getFiles().contains(file))
+        // 2. newParent now contains file
+        assert(newParent.getFiles().contains(file))
+        // 3. file's parent is newParent
+        assert(file.parent(Namespace.class) == newParent)
+        // 4. file's path is correct
+    }
+}

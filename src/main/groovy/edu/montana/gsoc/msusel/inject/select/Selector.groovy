@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -27,6 +27,8 @@
 package edu.montana.gsoc.msusel.inject.select
 
 import edu.isu.isuese.datamodel.Component
+import edu.isu.isuese.datamodel.PatternInstance
+import edu.isu.isuese.datamodel.Role
 
 /**
  * Interface representing the base contract for Selectors used from SourceInjectors
@@ -37,9 +39,8 @@ abstract class Selector {
 
     /**
      * Selects a list of code nodes from the provided tree, based on the provided binding
-     * @param tree Project to select nodes form
-     * @param binding The binding
-     * @return List of selected CodeNodes
+     * @param parent Parent to select components from
+     * @return List of selected components
      */
-    abstract List<Component> select(tree, binding)
+    abstract List<Component> select(PatternInstance parent, Role binding)
 }

@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -61,10 +61,15 @@ class TypeHasConstructor implements Condition {
      */
     @Override
     boolean check() {
-        Method mnode = type.methods().find { Method m ->
+        if (!type)
+            throw new IllegalArgumentException("typeHasConstructor.check(): type cannot be null")
+        if (!cons)
+            throw new IllegalArgumentException("typeHasConstructor.check(): cons cannot be null")
+
+        Method mnode = type.constructors.find { Constructor m ->
             m.signature() == cons.signature()
         }
 
-        mnode == null
+        mnode != null
     }
 }

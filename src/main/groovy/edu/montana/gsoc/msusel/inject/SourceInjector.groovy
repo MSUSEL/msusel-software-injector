@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -26,8 +26,6 @@
  */
 package edu.montana.gsoc.msusel.inject
 
-import edu.montana.gsoc.msusel.inject.transform.SourceTransform
-
 /**
  * Base interace defining the contract of a SourceInjector
  * @author Isaac Griffith
@@ -39,12 +37,5 @@ interface SourceInjector {
      * Method defining the logic for the injection of a source code artifact or series of artifacts
      * @param context The Current InjectionContext providing access to the injection system components
      */
-    void inject(InjectorContext context)
-
-    /**
-     * Constructs a list of transforms which when executed will define both the code and code tree artifacts of the item injected.
-     * @param context The Current InjectionContext providing access to the injection system components
-     * @return The list of transforms created by this Injector
-     */
-    List<SourceTransform> createTransforms(InjectorContext context)
+    void inject()
 }

@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -47,53 +47,34 @@ class FileOperations {
      * The string representation of the path for the file to be modified
      */
     String file
+    java.io.File actual
     /**
      * List containing the string contents of the file under modification
      */
     List<String> lines
 
-    /**
-     * Saves the file, if it already exists this method will delete and rewrite the file.
-     */
-    void save() {
-        Path path = Paths.get(file)
-        try {
-            Files.deleteIfExists(path)
-        } catch (IOException e) {
+    private FileOperations() {}
 
-        }
+    private static class Holder { private static final FileOperations INSTANCE = new FileOperations() }
 
-        PrintWriter pw
-        try {
-            pw = new PrintWriter(Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE))
-
-            lines.stream().each { pw.println(it) }
-            pw.flush()
-        } catch (IOException e) {
-
-        } finally {
-            pw?.close()
+    static FileOperations getOps(File file) {
+        FileOperations ops = Holder.INSTANCE
+        synchronized (FileOperations) {
+            if (ops.file == file.getFullPath())
+                return ops
+            else {
+                ops.file = file.getFullPath()
+                ops.actual = new java.io.File(ops.file)
+                ops.lines = ops.actual.readLines()
+            }
+            return ops
         }
     }
 
-    /**
-     * Opens the file at the location specified in the key of the provided File
-     * @param node Node representation of the file
-     * @throws IllegalArgumentException if the provided File is null
-     */
-    void open(File node) {
-        if (file == null) {
-            throw new IllegalArgumentException("No FileOperations can be defined for a null File")
-        }
-
-        file = node.getKey()
-
-        Path path = Paths.get(file)
-        try {
-            lines = Files.readAllLines(path)
-        } catch (IOException e) {
-
-        }
+    void clear() {
+        lines = []
+        actual = null
+        file = null
     }
 
     /**
@@ -111,9 +92,41 @@ class FileOperations {
 
         String[] newLines = content.split(/\n/)
 
-        lines.addAll(line - 1, Arrays.asList(newLines))
+        lines.addAll(line - 1, newLines.toList())
 
-        return newLines.length
+        return newLines.size()
+    }
+
+    def replace(int line, String oldContent, String content) {
+        if (line -1 < 0 || line -1 >= lines.size())
+            throw new IllegalArgumentException("No such line as ${line} in file ${file}")
+        if (content == null)
+            throw new IllegalArgumentException("Cannot replace with null content")
+        if (oldContent)
+            throw new IllegalArgumentException("Cannot replace nothing")
+
+        //String[] newLines = content.split(/\n/)
+
+        //String substring = lines[line].substring(range.getFrom(), range.getTo())
+        lines[line].replace(oldContent, content)
+    }
+
+    def replaceRange(int start, int end, String content) {
+        if (start < 0 || end >= lines.size())
+            throw new IllegalArgumentException("Invalid range")
+        if (content == null)
+            throw new IllegalArgumentException("content cannot be null")
+
+        String[] newLines = content.split(/\n/)
+
+        for (int i = 0; i < (end - start); i++)
+            lines.remove(start)
+
+        int ndx = start
+        newLines.each {
+            lines.add(ndx, it)
+            ndx += 1
+        }
     }
 
     /**
@@ -139,7 +152,7 @@ class FileOperations {
             throw new IllegalArgumentException("Cannot retrieve content region of a null Component")
         }
         try {
-            lines.subList(node.start - 1, node.end - 1)
+            lines[node.start - 1..node.end - 1]
         } catch (IndexOutOfBoundsException e) {
             []
         }
@@ -161,5 +174,9 @@ class FileOperations {
         lines.addAll(newLines)
 
         newLines.size()
+    }
+
+    void injectInLineAtLocation(int line, int column, String content) {
+        lines[line] = lines[line].substring(0, column) + content + lines[line].substring(column)
     }
 }

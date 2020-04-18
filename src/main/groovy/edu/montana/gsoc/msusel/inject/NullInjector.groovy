@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -25,9 +25,6 @@
  * SOFTWARE.
  */
 package edu.montana.gsoc.msusel.inject
-
-import edu.montana.gsoc.msusel.inject.transform.SourceTransform
-
 /**
  * A base injector which does simply nothing, following the NullObject pattern.
  * @author Isaac Griffith
@@ -39,15 +36,7 @@ class NullInjector implements SourceInjector {
      * {@inheritDoc}
      */
     @Override
-    List<SourceTransform> createTransforms(InjectorContext context) {
-        return []
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    void inject(InjectorContext context) {
+    void inject() {
 
     }
 }

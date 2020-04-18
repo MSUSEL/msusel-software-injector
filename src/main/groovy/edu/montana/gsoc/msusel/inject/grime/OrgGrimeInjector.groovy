@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -26,7 +26,8 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-import edu.isu.isuese.datamodel.Pattern
+
+import edu.isu.isuese.datamodel.PatternInstance
 
 /**
  * @author Isaac Griffith
@@ -34,7 +35,7 @@ import edu.isu.isuese.datamodel.Pattern
  */
 abstract class OrgGrimeInjector extends GrimeInjector {
 
-    OrgGrimeInjector(Pattern pattern) {
+    OrgGrimeInjector(PatternInstance pattern) {
         super(pattern)
     }
 }

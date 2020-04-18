@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -26,49 +26,44 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.isu.isuese.datamodel.File
-import edu.isu.isuese.datamodel.Interface
+
 import edu.isu.isuese.datamodel.Type
-import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
  * A condition used to check if a class already realizes some interface
  * @author Isaac Griffith
  * @version 1.3.0
  */
-class AlreadyRealizes extends TypeHeaderCondition {
+class AlreadyRealizes implements Condition {
 
     /**
      * Potential interface the type will realize
      */
-    private final Type real
+    private final String real
+    Type type
+
 
     /**
-     * Construts a new AlreadyRealizes condition
-     * @param context current InjectorContext
-     * @param file The file containing the type
-     * @param node The type in question
+     * Constructs a new AlreadyRealizes condition
+     * @param type The type in question
      * @param real The interface to realize
      */
-    AlreadyRealizes(InjectorContext context, File file, Type node, Type real) {
-        super(context, file, node)
+    AlreadyRealizes(Type type, String real) {
+        this.type = type
         this.real = real
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     boolean check() {
-        String header = getTypeHeader()
-        if (!(real instanceof Interface))
-            return false
-        else if (header.contains("implements")) {
-            String impl = header.trim().split("implements")[1]
-            impl = impl.replaceAll(/\w/, "")
-            impl = impl.replaceAll(/\{/, "")
-            List<String> impls = Arrays.asList(impl.split(","))
-            return impls.contains(real.name())
-        }
+        if (!type)
+            throw new IllegalArgumentException("AlreadyRealizes.check(): type cannot be null")
+        if (!real)
+            throw new IllegalArgumentException("AlreadyRealizes.check(): real cannot be null or empty")
+
+        type.getRealizes().find {
+            it.name == real
+        } != null
     }
 }

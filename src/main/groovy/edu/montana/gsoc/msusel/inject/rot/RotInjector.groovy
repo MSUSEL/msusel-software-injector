@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -26,7 +26,8 @@
  */
 package edu.montana.gsoc.msusel.inject.rot
 
-import edu.isu.isuese.datamodel.Pattern
+
+import edu.isu.isuese.datamodel.PatternInstance
 import edu.montana.gsoc.msusel.inject.SourceInjector
 
 /**
@@ -38,13 +39,13 @@ abstract class RotInjector implements SourceInjector {
     /**
      * The pattern instance into which rot will be injected
      */
-    Pattern pattern
+    PatternInstance pattern
 
     /**
      * Constructs a new Rot Injector for the provided pattern instance
      * @param pattern Pattern instance into which rot will be injected
      */
-    RotInjector(Pattern pattern) {
+    RotInjector(PatternInstance pattern) {
         this.pattern = pattern
     }
 }

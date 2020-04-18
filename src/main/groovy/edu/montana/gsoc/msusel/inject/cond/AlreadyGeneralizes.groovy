@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -26,21 +26,21 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.isu.isuese.datamodel.File
+
 import edu.isu.isuese.datamodel.Type
-import edu.montana.gsoc.msusel.inject.InjectorContext
 
 /**
  * Condition to determine if a class already generalizes another class
  * @author Isaac Griffith
  * @version 1.3.0
  */
-class AlreadyGeneralizes extends TypeHeaderCondition {
+class AlreadyGeneralizes implements Condition {
 
     /**
      * The Type to be inherited from
      */
-    private final Type gen
+    private final String gen
+    private Type type
 
     /**
      * Constructs a new AlreadyGeneralizes condition
@@ -49,8 +49,8 @@ class AlreadyGeneralizes extends TypeHeaderCondition {
      * @param node The type
      * @param gen The type the given type will be inheriting from
      */
-    AlreadyGeneralizes(InjectorContext context, File file, Type node, Type gen) {
-        super(context, file, node)
+    AlreadyGeneralizes(Type type, String gen) {
+        this.type = type
         this.gen = gen
     }
 
@@ -59,6 +59,13 @@ class AlreadyGeneralizes extends TypeHeaderCondition {
      */
     @Override
     boolean check() {
-        !getTypeHeader().contains("extends")
+        if (!type)
+            throw new IllegalArgumentException("AlreadyRealizes.check(): type cannot be null")
+        if (!gen)
+            throw new IllegalArgumentException("AlreadyRealizes.check(): gen cannot be null or empty")
+
+        type.getGeneralizedBy().find {
+            it.name == gen
+        } != null
     }
 }

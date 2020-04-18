@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -26,9 +26,8 @@
  */
 package edu.montana.gsoc.msusel.inject.rot
 
-import edu.isu.isuese.datamodel.Pattern
-import edu.montana.gsoc.msusel.inject.InjectorContext
-import edu.montana.gsoc.msusel.inject.transform.SourceTransform
+
+import edu.isu.isuese.datamodel.PatternInstance
 import groovy.transform.builder.Builder
 
 /**
@@ -43,7 +42,7 @@ class InappropriateDependencyInjector extends RotInjector {
      * @param pattern Pattern instance into which rot will be injected
      */
     @Builder(buildMethodName = "create")
-    private InappropriateDependencyInjector(Pattern pattern) {
+    private InappropriateDependencyInjector(PatternInstance pattern) {
         super(pattern)
     }
 
@@ -51,15 +50,7 @@ class InappropriateDependencyInjector extends RotInjector {
      * {@inheritDoc}
      */
     @Override
-    void inject(InjectorContext context) {
+    void inject() {
 
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    List<SourceTransform> createTransforms(InjectorContext context) {
-        return null
     }
 }

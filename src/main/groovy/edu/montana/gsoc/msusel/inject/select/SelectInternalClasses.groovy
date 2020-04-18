@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -27,6 +27,8 @@
 package edu.montana.gsoc.msusel.inject.select
 
 import edu.isu.isuese.datamodel.Component
+import edu.isu.isuese.datamodel.PatternInstance
+import edu.isu.isuese.datamodel.Role
 
 /**
  * A Selector for Classes Internal to a Design Pattern
@@ -45,7 +47,18 @@ class SelectInternalClasses extends Selector {
      * {@inheritDoc}
      */
     @Override
-    List<Component> select(tree, binding) {
-        return null
+    List<Component> select(PatternInstance parent, Role binding) {
+        if (!parent)
+            throw new IllegalArgumentException("SelectInternalClasses.select(): parent cannot be null")
+        if (!binding)
+            throw new IllegalArgumentException("SelectInternalClasses.select(): binding cannot be null")
+        if (num <= 0)
+            throw new IllegalArgumentException("SelectInternalClasses.select(): num must be greater than 0")
+        List<Component> types = parent.getTypesBoundTo(binding)
+        if (types.size() <= num)
+            return types
+        else {
+            return types.subList(0, num)
+        }
     }
 }

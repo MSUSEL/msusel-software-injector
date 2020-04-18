@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -26,7 +26,8 @@
  */
 package edu.montana.gsoc.msusel.inject.rot
 
-import edu.isu.isuese.datamodel.Pattern
+
+import edu.isu.isuese.datamodel.PatternInstance
 import edu.montana.gsoc.msusel.inject.NullInjector
 import edu.montana.gsoc.msusel.inject.SourceInjector
 
@@ -44,7 +45,7 @@ class RotInjectorFactory {
      * @param pattern Pattern instance
      * @return a RotInjector corresponding to the provided type, or a NullInjector if the type was unknown
      */
-    SourceInjector create(String type, Pattern pattern) {
+    SourceInjector create(String type, PatternInstance pattern) {
         switch (type) {
             case RotTypes.BLOB:
                 return createBlobRole(pattern)
@@ -72,7 +73,7 @@ class RotInjectorFactory {
      * @return The RotInjector
      * @throws IllegalArgumentException if the provided pattern is null
      */
-    private RotInjector createBlobRole(Pattern pattern) {
+    private RotInjector createBlobRole(PatternInstance pattern) {
         if (!pattern)
             throw new IllegalArgumentException("Pattern instance may not be null")
         BlobRoleInjector.builder().patten(pattern).create()
@@ -84,7 +85,7 @@ class RotInjectorFactory {
      * @return The RotInjector
      * @throws IllegalArgumentException if the provided pattern is null
      */
-    private RotInjector createInappropriateDep(Pattern pattern) {
+    private RotInjector createInappropriateDep(PatternInstance pattern) {
         if (!pattern)
             throw new IllegalArgumentException("Pattern instance may not be null")
         InappropriateDependencyInjector.builder().pattern(pattern).create()
@@ -96,7 +97,7 @@ class RotInjectorFactory {
      * @return The RotInjector
      * @throws IllegalArgumentException if the provided pattern is null
      */
-    private RotInjector createInappropriateInv(Pattern pattern) {
+    private RotInjector createInappropriateInv(PatternInstance pattern) {
         if (!pattern)
             throw new IllegalArgumentException("Pattern instance may not be null")
         InappropriateInversionInjector.builder().patten(pattern).create()
@@ -108,7 +109,7 @@ class RotInjectorFactory {
      * @return The RotInjector
      * @throws IllegalArgumentException if the provided pattern is null
      */
-    private RotInjector createMissingRole(Pattern pattern) {
+    private RotInjector createMissingRole(PatternInstance pattern) {
         if (!pattern)
             throw new IllegalArgumentException("Pattern instance may not be null")
         MissingRoleInjector.builder().patten(pattern).create()

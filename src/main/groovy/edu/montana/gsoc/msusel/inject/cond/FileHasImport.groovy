@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -27,7 +27,6 @@
 package edu.montana.gsoc.msusel.inject.cond
 
 import edu.isu.isuese.datamodel.File
-import edu.isu.isuese.datamodel.Import
 
 /**
  * A condition to determine if the file already has the given import
@@ -43,14 +42,14 @@ class FileHasImport implements Condition {
     /**
      * The import to be added
      */
-    Import imp
+    String imp
 
     /**
      * Constructs a new FileHasImport condition for the given file and import
      * @param file The file
      * @param imp The new import
      */
-    FileHasImport(File file, Import imp) {
+    FileHasImport(File file, String imp) {
         this.file = file
         this.imp = imp
     }
@@ -60,6 +59,11 @@ class FileHasImport implements Condition {
      */
     @Override
     boolean check() {
-        file.imports().find { it.key == imp.key } == null
+        if (!file)
+            throw new IllegalArgumentException("FileHasImport.check(): file cannot be null")
+        if (!imp)
+            throw new IllegalArgumentException("FileHasImport.check(): imp cannot be null or empty")
+
+        file.imports.find { it.name == imp } != null
     }
 }

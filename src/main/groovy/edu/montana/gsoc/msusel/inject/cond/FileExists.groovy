@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -30,6 +30,7 @@ import edu.isu.isuese.datamodel.File
 
 import java.nio.file.Files
 import java.nio.file.Paths
+
 /**
  * A Condition to determine if a file that is to be created already exists
  * @author Isaac Griffith
@@ -55,6 +56,8 @@ class FileExists implements Condition {
      */
     @Override
     boolean check() {
-        !Files.exists(Paths.get(file.key))
+        if (!file)
+            throw new IllegalArgumentException("FileExists.check(): file must not be null")
+        Files.exists(Paths.get(file.name))
     }
 }

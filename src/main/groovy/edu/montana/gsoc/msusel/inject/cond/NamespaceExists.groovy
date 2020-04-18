@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -27,7 +27,7 @@
 package edu.montana.gsoc.msusel.inject.cond
 
 import edu.isu.isuese.datamodel.Namespace
-import edu.montana.gsoc.msusel.inject.InjectorContext
+import edu.isu.isuese.datamodel.Project
 
 /**
  * A condition to check whether a particular namespace already exists
@@ -37,22 +37,22 @@ import edu.montana.gsoc.msusel.inject.InjectorContext
 class NamespaceExists implements Condition {
 
     /**
-     * The new namespace to be created
+     * The full name of the new namespace to be created
      */
-    Namespace namespace
+    String fullname
     /**
-     * The current injector context
+     * The project
      */
-    InjectorContext context
+    Project proj
 
     /**
      * Constructs a new NamespaceExists condition
      * @param context The current injector context
-     * @param namespace The namespace to be constructed
+     * @param fullname The full name of the namespace to be constructed
      */
-    NamespaceExists(InjectorContext context, Namespace namespace) {
-        this.context = context
-        this.namespace = namespace
+    NamespaceExists(Project proj, String fullname) {
+        this.proj = proj
+        this.fullname = fullname
     }
 
     /**
@@ -60,6 +60,15 @@ class NamespaceExists implements Condition {
      */
     @Override
     boolean check() {
-        return false
+        if (!fullname)
+            throw new IllegalArgumentException("NamespaceExists.check(): fullname cannot be null or empty")
+        if (!proj)
+            throw new IllegalArgumentException("NamespaceExists.check(): context cannot be null")
+
+        Namespace ns = proj.getNamespaces().find {
+            it.getFullName() == fullname
+        }
+
+        ns != null
     }
 }

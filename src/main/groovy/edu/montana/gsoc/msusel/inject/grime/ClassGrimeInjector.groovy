@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -26,15 +26,13 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-import edu.isu.isuese.datamodel.Accessibility
-import edu.isu.isuese.datamodel.Field
-import edu.isu.isuese.datamodel.Method
-import edu.isu.isuese.datamodel.Parameter
-import edu.isu.isuese.datamodel.Pattern
-import edu.isu.isuese.datamodel.Type
-import edu.isu.isuese.datamodel.TypeRef
-import edu.montana.gsoc.msusel.inject.InjectorContext
-import edu.montana.gsoc.msusel.inject.transform.*
+import edu.isu.isuese.datamodel.*
+import edu.montana.gsoc.msusel.inject.InjectionFailedException
+import edu.montana.gsoc.msusel.inject.transform.model.member.AddFieldUseModelTransform
+import edu.montana.gsoc.msusel.inject.transform.model.member.AddMethodCallModelTransform
+import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldGetterModelTransform
+import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldModelTransform
+import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldSetterModelTransform
 import groovy.transform.builder.Builder
 
 /**
@@ -65,7 +63,7 @@ class ClassGrimeInjector extends GrimeInjector {
      * @param pair Flag indicating either pair or singular grime
      */
     @Builder(buildMethodName = "create")
-    private ClassGrimeInjector(Pattern pattern, boolean direct, boolean internal, boolean pair) {
+    ClassGrimeInjector(PatternInstance pattern, boolean direct, boolean internal, boolean pair) {
         super(pattern)
         this.direct = direct
         this.internal = internal
@@ -76,60 +74,51 @@ class ClassGrimeInjector extends GrimeInjector {
      * {@inheritDoc}
      */
     @Override
-    List<SourceTransform> createTransforms(InjectorContext context) {
-        List<SourceTransform> transforms = []
-        Type clazz = selectPatternClass()
-        Field field = createField("test", clazz, transforms)
+    void inject() {
+        Type type = selectPatternClass()
+        Field field = createField(type, "test", selectType(type))
 
-        Method method1
-        Method method2
+        Method method1 = null
+        Method method2 = null
 
-        if (internal) {
-            method1 = selectPatternMethod()
-        } else {
-            method1 = selectOrCreateMethod()
+        while (!method1) {
+            if (internal) {
+                method1 = selectPatternMethod(type)
+            } else {
+                method1 = selectOrCreateMethod(type, [])
+            }
         }
 
         if (pair) {
-            method2 = selectOrCreateMethod()
+            while (!method2 && method2 != method1) {
+                method2 = selectOrCreateMethod(type, [method1])
+            }
         }
 
         if (direct) {
-            createFieldUse(transforms, clazz, field, method1)
+            createFieldUse(method1, field)
             if (method2) {
-                createFieldUse(transforms, clazz, field, method2)
+                createFieldUse(method2, field)
             }
         } else {
-            Method mutator = createGetter(clazz, field, transforms)
-            createMethodCall(clazz, method1, mutator, transforms)
+            Method mutator = createGetter(type, field)
+            createMethodCall(type, method1, mutator)
             if (method2) {
-                createMethodCall(clazz, method2, mutator, transforms)
+                createMethodCall(type, method2, mutator)
             }
         }
-        transforms
     }
 
-    /**
-     * Selects or creates a method for grime injection from/in the given type
-     * @param type Type to inject grime into
-     * @return A method that was either selected/created from/in the given type
-     */
-    Method selectOrCreateMethod(Type type) {
-        List<Method> methods = type.methods()
-        if (methods.size() >= 1) {
-            Random rand = new Random()
-            int count = 0
-            int max = rand.nextInt(methods.size()) + 1
-            for (Method method : methods) {
-                // TODO Fix This
-                if (count >= max) {
-                    return method
-                }
-                break
-            }
-        } else {
-            return createMethod(type, "testMethod1", transforms)
+    Type selectType(Type type) {
+        List<Type> knownTypes = type.getParentProject().getAllTypes()
+        knownTypes.remove(type)
+
+        if (knownTypes) {
+            Collections.shuffle(knownTypes)
+            return knownTypes.first()
         }
+
+        null
     }
 
     /**
@@ -138,20 +127,32 @@ class ClassGrimeInjector extends GrimeInjector {
      * @return a method that is part of the pattern and is found within the given type
      */
     Method selectPatternMethod(Type type) {
-        List<Method> methods = type.methods()
-        if (methods.size() >= 1) {
-            Random rand = new Random()
-            int count = 0
-            int max = rand.nextInt(methods.size()) + 1
-            for (Method method : methods) {
-                // TODO Fix This
-                if (count >= max) {
-                    return method
-                }
-                break
+        if (!type)
+            throw new InjectionFailedException()
+
+        List<Method> methods = []
+        pattern.getRoleBindings().each { RoleBinding rb ->
+            if (rb.reference.type == RefType.METHOD) {
+                Method method = Method.findFirst("compKey = ?", rb.reference.refKey)
+                if (method && method.getParentType() == type)
+                    methods << method
             }
+        }
+
+        if (methods.size() >= 1) {
+            Collections.shuffle(methods)
+            return methods.first()
         } else {
-            return methods[0]
+            Method method = createMethod(type, "roleBound")
+            Role role = pattern.getRoles().find {
+                it.getType() == RoleType.BEHAVE_FEAT
+            }
+            if (!role) {
+                role = Role.builder().type(RoleType.BEHAVE_FEAT).name("_test_role_").roleKey("${pattern.getParentPattern().patternKey}:_test_role_").create()
+            }
+            pattern.getParentPattern().addRole(role)
+            pattern.addRoleBinding(RoleBinding.of(role, method.createReference()))
+            return method
         }
     }
 
@@ -159,135 +160,65 @@ class ClassGrimeInjector extends GrimeInjector {
      * Constructs a new field with the given name, in the given type
      * @param fieldName Name of the new field to create
      * @param type Type in which the new field will be contained
-     * @param transforms list of transforms for this injector
      * @return The field node to be created
      */
-    protected Field createField(String fieldName, Type type, List<SourceTransform> transforms) {
-        Field field = Field.builder()
-                .key("${type.key}#${fieldName}")
-                .accessibility(Accessibility.PRIVATE)
-                .create()
-
-        transforms << AddField.builder()
-                .type(type)
-                .field(field)
-                .file(file)
-                .context(context)
-                .create()
-
-        field
+    protected Field createField(Type parent, String fieldName, Type type) {
+        AddFieldModelTransform trans = new AddFieldModelTransform(parent, fieldName, type, Accessibility.PRIVATE)
+        trans.execute()
+        trans.getField()
     }
 
     /**
      * Constructs a new method with a field use for the specified field in the given type
      * @param methodName Name of the method to be created
      * @param type Type which will contain the new method and which already contains the field to be used
-     * @param transforms List of current transforms for this injector
      * @param field the field to be referenced
      */
-    protected void createMethodWithFieldUse(String methodName, Type type, List<SourceTransform> transforms, Field field) {
-        Method extMethod = createMethod(type, methodName, transforms)
-        createFieldUse(transforms, type, field, extMethod)
+    protected void createMethodWithFieldUse(String methodName, Type type, Field field) {
+        Method extMethod = createMethod(type, methodName)
+        createFieldUse(extMethod, field)
     }
 
     /**
-     * Constructs a new field use
-     * @param transforms List of current transforms for this injector
-     * @param type The type to be modified
-     * @param field The field to be referenced
-     * @param extMethod The method in which the field use will be created
-     * @return List of transforms
+     * Constructs a new field use for the given field in the given method
+     * @param method Method into which to inject the field use
+     * @param field the field to be used
      */
-    protected void createFieldUse(List<SourceTransform> transforms, Type type, Field field, Method extMethod) {
-        transforms << AddFieldUse.builder()
-                .file(file)
-                .context(context)
-                .type(type)
-                .field(field)
-                .method(extMethod)
-                .create()
+    protected void createFieldUse(Method method, Field field) {
+        new AddFieldUseModelTransform(method, field).execute()
     }
 
     /**
      * Constructs a getter method contained in the given type and for the given field
      * @param type Type to contain the getter method
      * @param field Field the getter is for
-     * @param transforms List of current transforms for this Injector
      * @return the newly constructed getter method
      */
-    protected Method createGetter(Type type, Field field, List<SourceTransform> transforms) {
-        method = Method.builder()
-                .accessibility(Accessibility.PUBLIC)
-                .key("${type.key}#get${capitalizedName()}")
-                .type(node.type)
-                .create()
-
-        transforms << AddFieldGetter.builder()
-                .file(file)
-                .context(context)
-                .type(type)
-                .field(field)
-                .create()
-
-        method
+    protected Method createGetter(Type type, Field field) {
+        AddFieldGetterModelTransform trans = new AddFieldGetterModelTransform(type, field)
+        trans.execute()
+        trans.getMethod()
     }
 
     /**
      * Constructs a setter method contained in the given type and for the given field
      * @param type Type to contain the getter method
      * @param field Field the setter is for
-     * @param transforms List of current transforms for this Injector
      * @return the newly constructed setter method
      */
-    protected Method createSetter(Type type, Field field, List<SourceTransform> transforms) {
-        method = Method.builder()
-                .accessibility(Accessibility.PUBLIC)
-                .key("${type.key}#set${capitalizedName()}")
-                .type(TypeRef.getInstance("void"))
-                .params([Parameter.builder().type(node.type).key(node.name()).create()])
-                .create()
-
-        transforms << AddFieldSetter.builder()
-                .file(file)
-                .context(context)
-                .type(type)
-                .field(field)
-                .create()
-
-        method
-    }
-
-    /**
-     * Constructs a new method contained in the given type with the given name
-     * @param type Type to contain the new method
-     * @param methodName name of the new method
-     * @param transforms current list of transforms for this injector
-     * @return the newly created method
-     */
-    protected Method createMethod(Type type, String methodName, List<SourceTransform> transforms) {
-        Method extMethod = Method.builder()
-                .key("${type.key}#${methodName}")
-                .type(TypeRef.getInstance("void"))
-                .accessibility(Accessibility.PUBLIC)
-                .create()
-
-        transforms << AddMethod.builder()
-                .type(type)
-                .node(extMethod)
-                .file(file)
-                .context(context)
-                .create()
-        extMethod
+    protected Method createSetter(Type type, Field field) {
+        AddFieldSetterModelTransform trans = new AddFieldSetterModelTransform(type, field)
+        trans.execute()
+        trans.getMethod()
     }
 
     /**
      *
-     * @param Type
+     * @param type
      * @param callee
      * @param call
-     * @param transforms
      */
-    def createMethodCall(Type Type, Method callee, Method call, List<SourceTransform> transforms) {
-        // TODO Finish This
+    def createMethodCall(Type type, Method callee, Method call) {
+        new AddMethodCallModelTransform(callee, call).execute()
     }
 }

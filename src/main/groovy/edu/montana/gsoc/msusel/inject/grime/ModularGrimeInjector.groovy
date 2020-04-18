@@ -2,7 +2,7 @@
  * The MIT License (MIT)
  *
  * MSUSEL Software Injector
- * Copyright (c) 2015-2019 Montana State University, Gianforte School of Computing,
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
  * Software Engineering Laboratory and Idaho State University, Informatics and
  * Computer Science, Empirical Software Engineering Laboratory
  *
@@ -27,14 +27,8 @@
 package edu.montana.gsoc.msusel.inject.grime
 
 import com.google.common.collect.Lists
-import edu.isu.isuese.datamodel.File
-import edu.isu.isuese.datamodel.Pattern
+import edu.isu.isuese.datamodel.PatternInstance
 import edu.isu.isuese.datamodel.Type
-import edu.montana.gsoc.msusel.inject.InjectorContext
-import edu.montana.gsoc.msusel.inject.transform.AddAssociation
-import edu.montana.gsoc.msusel.inject.transform.AddInheritance
-import edu.montana.gsoc.msusel.inject.transform.AddRealization
-import edu.montana.gsoc.msusel.inject.transform.SourceTransform
 import groovy.transform.builder.Builder
 
 /**
@@ -65,7 +59,7 @@ class ModularGrimeInjector extends GrimeInjector {
      * @param efferent flag indicating whether the injected grime is efferent (true), or afferent (false)
      */
     @Builder(buildMethodName = "create")
-    private ModularGrimeInjector(Pattern pattern, boolean persistent, boolean external, boolean efferent) {
+    ModularGrimeInjector(PatternInstance pattern, boolean persistent, boolean external, boolean efferent) {
         super(pattern)
         this.persistent = persistent
         this.external = external
@@ -76,96 +70,54 @@ class ModularGrimeInjector extends GrimeInjector {
      * {@inheritDoc}
      */
     @Override
-    List<SourceTransform> createTransforms(InjectorContext context) {
-        List<SourceTransform> transforms = []
-        Type src
-        Type dest
+    void inject() {
+        Type src = null
+        Type dest = null
+        RelationType rel = null
 
-        if (external) {
-            if (efferent) {
-                src = selectExternClass(context)
-                dest = selectPatternClass()
+        while (!src && !dest) {
+            if (external) {
+                if (efferent) {
+                    src = selectExternClass()
+                    dest = selectPatternClass()
+                } else {
+                    src = selectPatternClass()
+                    dest = selectExternClass()
+                }
             } else {
-                src = selectPatternClass()
-                dest = selectExternClass(context)
+                (src, dest) = select2PatternClasses()
             }
-        } else {
-            (src, dest) = select2PatternClass()
+
+            rel = selectRelationship(src, dest, persistent)
+
+            if (!rel)
+                src = dest = null
         }
 
-        if (persistent) {
-            rel = selectPersistentRel(context, src, dest)
-        } else {
-            rel = selectTemporaryRel(context, src, dest)
-        }
+        createRelationship(rel, src, dest)
+    }
 
-        File file = context.tree.utils.findParentFile(src)
+    def select2PatternClasses() {
+        def types = Lists.newArrayList(pattern.getTypes())
+        Collections.shuffle(types)
 
-        createRelationship(context, file, rel, src, dest, transforms)
+        if (types.size() >= 2)
+            return [types[0], types[1]]
+        else
+            return [types[0], types[0]]
     }
 
     /**
      * Selects a type external to the pattern definition
-     * @param context current InjectorContext
      * @return the Type selected
      */
-    Type selectExternClass(InjectorContext context) {
-        List<Type> types = Lists.newArrayList(context.tree.utils.types)
-        types.removeAll(pattern.types())
+    Type selectExternClass() {
+        if (!pattern.getParentProjects().isEmpty()) {
+            List<Type> types = Lists.newArrayList(pattern.getParentProjects().first().getAllTypes())
+            types.removeAll(pattern.getTypes())
 
-        Random rand = new Random()
-        types[rand.nextInt(types.size())]
-    }
-
-    /**
-     * Selects a persistent relationship to inject between src and dest
-     * @param context current InjectorContext
-     * @param src the source side of the relationship
-     * @param dest the destination side of the relationship
-     * @return the relationship type to inject
-     */
-    RelationType selectPersistentRel(InjectorContext context, Type src, Type dest) {
-        // TODO Finish This
-    }
-
-    /**
-     * Selects a temporary relationship to inject between src and dest
-     * @param context current InjectorContext
-     * @param src the source side of the relationship
-     * @param dest the destination side of the relationship
-     * @return the relationship type to inject
-     */
-    RelationType selectTemporaryRel(InjectorContext context, Type src, Type dest) {
-        // TODO Finish This
-    }
-
-    /**
-     * method which actually constructs the transform which will inject the grime relationship into the pattern instance
-     * @param context current InjectorContext
-     * @param file File to be modified
-     * @param rel type of relationship to generate
-     * @param src source type of the relationship
-     * @param dest destination type of the relationship
-     * @param sourceTransforms List transforms to add this relationship to
-     */
-    void createRelationship(InjectorContext context, File file, RelationType rel, Type src, Type dest, List<SourceTransform> sourceTransforms) {
-        // TODO Finish This
-        switch (rel) {
-            case RelationType.ASSOC:
-                transforms << AddAssociation.builder().context(context).file(file).bidirect(false).from(src).fromName().to(dest).toName().create()
-                break
-            case RelationType.GEN:
-                transforms << AddInheritance.builder().context(context).file(file).node(src).gen(dest).create()
-                break
-            case RelationType.REAL:
-                transforms << AddRealization.builder().context(context).file(file).node(src).real(dest).create()
-                break
-            case RelationType.USE_PARAM:
-                break
-            case RelationType.USE_RET:
-                break
-            case RelationType.USE_VAR:
-                break
+            return types[rand.nextInt(types.size())]
         }
+        return null
     }
 }
