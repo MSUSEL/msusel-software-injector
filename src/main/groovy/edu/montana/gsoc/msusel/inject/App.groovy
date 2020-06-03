@@ -26,6 +26,8 @@
  */
 package edu.montana.gsoc.msusel.inject
 
+import edu.isu.isuese.datamodel.util.DBManager
+
 /**
  * @author Isaac Griffith
  * @version 1.3.0
@@ -51,7 +53,9 @@ class App {
         ConfigObject config = loader.loadConfiguration(fConfig)
 
         // Run the Program
+        DBManager.instance.open(config.db.driver, config.db.url, config.db.user, config.db.pass)
         Director.instance.inject(config)
+        DBManager.instance.close()
     }
 }
 

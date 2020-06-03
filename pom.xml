@@ -220,6 +220,7 @@
             <artifactId>groovy-all</artifactId>
             <version>2.4.8</version>
         </dependency>
+
         <!-- MSUSEL Projects -->
         <!--<dependency>-->
             <!--<groupId>edu.montana.gsoc.msusel</groupId>-->

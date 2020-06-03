@@ -8,9 +8,6 @@ import edu.isu.isuese.datamodel.Project
 class Director {
 
     void inject(ConfigObject config) {
-
-        DBManager.instance.open(config)
-
         Project proj = Project.findFirst("projectKey = ?", (String) config.where.projectKey)
 
         ProjectCopier copier = new ProjectCopier()
@@ -28,8 +25,6 @@ class Director {
         number.times {
             injector.inject()
         }
-
-        DBManager.instance.close()
     }
 
     SourceInjector selectInjector(PatternInstance inst, ConfigObject config) {
