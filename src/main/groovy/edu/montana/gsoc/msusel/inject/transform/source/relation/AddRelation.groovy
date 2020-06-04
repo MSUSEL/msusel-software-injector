@@ -33,6 +33,7 @@ import org.apache.commons.lang3.tuple.Pair
 
 /**
  * Base class for those transforms which construct relationships between two types
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

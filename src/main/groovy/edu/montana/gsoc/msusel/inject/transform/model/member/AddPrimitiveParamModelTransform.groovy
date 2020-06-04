@@ -35,6 +35,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.MemberModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.source.member.AddMethodParameter
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class AddPrimitiveParamModelTransform extends MemberModelTransform {
 
     String name

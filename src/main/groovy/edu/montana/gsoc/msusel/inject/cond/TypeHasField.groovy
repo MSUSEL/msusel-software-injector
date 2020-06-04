@@ -31,6 +31,7 @@ import edu.isu.isuese.datamodel.Type
 
 /**
  * A condition which checks whether a matching field with the same name already exists in the type.
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

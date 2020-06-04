@@ -32,6 +32,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPrecondition
 import edu.montana.gsoc.msusel.inject.transform.model.SystemModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.structural.MoveProject
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class MoveProjectModelTransform extends SystemModelTransform {
 
     Project proj

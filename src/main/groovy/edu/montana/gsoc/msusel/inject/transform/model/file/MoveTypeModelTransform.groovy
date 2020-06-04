@@ -32,6 +32,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.FileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.source.type.MoveType
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class MoveTypeModelTransform extends FileModelTransform {
 
     Type type

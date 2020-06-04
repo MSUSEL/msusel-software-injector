@@ -32,6 +32,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPrecondition
 import edu.montana.gsoc.msusel.inject.transform.model.NamespaceModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.structural.DeleteFile
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class DeleteFileModelTransform extends NamespaceModelTransform {
 
     File file

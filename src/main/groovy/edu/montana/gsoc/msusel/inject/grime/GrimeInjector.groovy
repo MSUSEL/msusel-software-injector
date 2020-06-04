@@ -38,6 +38,7 @@ import edu.montana.gsoc.msusel.inject.transform.model.type.AddRealizationModelTr
 
 /**
  * Base class for Design Pattern Grime injectors
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

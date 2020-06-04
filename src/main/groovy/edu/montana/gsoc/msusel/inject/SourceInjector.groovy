@@ -27,7 +27,8 @@
 package edu.montana.gsoc.msusel.inject
 
 /**
- * Base interace defining the contract of a SourceInjector
+ * Base interface defining the contract of a SourceInjector
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

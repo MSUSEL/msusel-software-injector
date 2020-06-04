@@ -28,6 +28,10 @@ package edu.montana.gsoc.msusel.inject.transform.source
 
 import edu.isu.isuese.datamodel.*
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 abstract class TypeTransform extends BasicSourceTransform {
 
     Type type

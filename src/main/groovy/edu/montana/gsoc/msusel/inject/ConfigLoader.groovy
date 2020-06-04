@@ -1,5 +1,9 @@
 package edu.montana.gsoc.msusel.inject
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 @Singleton
 class ConfigLoader {
 

@@ -32,6 +32,10 @@ import edu.montana.gsoc.msusel.inject.transform.source.type.ChangeTypeAccessibil
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.model.TypeModelTransform
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class ChangeTypeAccessibilityModelTransform extends TypeModelTransform {
 
     Accessibility access

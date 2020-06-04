@@ -32,6 +32,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Rot Injector which replaces generalization/realization roles with inverted
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

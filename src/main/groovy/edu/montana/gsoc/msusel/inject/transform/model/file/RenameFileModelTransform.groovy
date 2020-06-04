@@ -31,6 +31,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.FileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.source.structural.RenameFile
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class RenameFileModelTransform extends FileModelTransform {
 
     String name

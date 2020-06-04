@@ -26,6 +26,10 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.structural
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 abstract class StructuralDeleteTransform extends StructuralTransform {
 
     File fromDir

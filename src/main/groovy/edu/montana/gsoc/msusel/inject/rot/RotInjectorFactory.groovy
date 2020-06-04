@@ -33,6 +33,7 @@ import edu.montana.gsoc.msusel.inject.SourceInjector
 
 /**
  * Factory used to construct Design Pattern Rot injectors
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

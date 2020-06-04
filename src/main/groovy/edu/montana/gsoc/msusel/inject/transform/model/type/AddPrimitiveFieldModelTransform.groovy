@@ -35,6 +35,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPrecondition
 import edu.montana.gsoc.msusel.inject.transform.model.TypeModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.member.AddField
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class AddPrimitiveFieldModelTransform extends TypeModelTransform {
 
     String name

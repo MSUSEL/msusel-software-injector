@@ -31,6 +31,10 @@ import edu.isu.isuese.datamodel.Method
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.source.AddMember
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class MoveMethod extends AddMember {
 
     Type from

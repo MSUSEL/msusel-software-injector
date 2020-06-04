@@ -33,6 +33,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Transform which constructs new namespace, and any physical artifacts it requires
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

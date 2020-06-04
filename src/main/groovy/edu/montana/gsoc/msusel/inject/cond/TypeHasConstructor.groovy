@@ -32,6 +32,7 @@ import edu.isu.isuese.datamodel.Type
 
 /**
  * A condition which checks whether a type has a constructor with the matching signature as the one provided
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

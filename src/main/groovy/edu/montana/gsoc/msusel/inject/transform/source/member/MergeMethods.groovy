@@ -32,6 +32,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Merges two methods (one on top of the other) into a single method
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

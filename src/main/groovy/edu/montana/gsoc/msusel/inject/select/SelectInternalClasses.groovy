@@ -32,6 +32,7 @@ import edu.isu.isuese.datamodel.Role
 
 /**
  * A Selector for Classes Internal to a Design Pattern
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

@@ -31,6 +31,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Transform which adds a field use line to a method.
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

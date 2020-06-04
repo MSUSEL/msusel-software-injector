@@ -31,6 +31,10 @@ import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Literal
 import edu.montana.gsoc.msusel.inject.transform.source.AddMember
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class MoveLiteral extends AddMember {
 
     Enum from

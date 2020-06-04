@@ -35,6 +35,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Transform which adds an association in one Type to another Type
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

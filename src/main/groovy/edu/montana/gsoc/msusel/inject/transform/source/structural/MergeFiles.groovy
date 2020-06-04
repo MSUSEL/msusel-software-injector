@@ -32,6 +32,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Merges two files together into a single file, meant for rot research
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

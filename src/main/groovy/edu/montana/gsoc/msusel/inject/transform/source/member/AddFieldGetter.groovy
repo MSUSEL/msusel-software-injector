@@ -32,6 +32,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Transform to add a Getter method for a Field to a Type
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

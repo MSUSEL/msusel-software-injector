@@ -32,6 +32,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Transform which adds a Setter method for a field to a given type
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

@@ -33,6 +33,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPrecondition
 import edu.montana.gsoc.msusel.inject.transform.model.TypeModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.member.AddFieldSetter
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class AddFieldSetterModelTransform extends TypeModelTransform {
 
     Field field

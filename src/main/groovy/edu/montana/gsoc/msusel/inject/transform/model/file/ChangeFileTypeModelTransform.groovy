@@ -31,6 +31,10 @@ import edu.isu.isuese.datamodel.FileType
 import edu.montana.gsoc.msusel.inject.transform.model.FileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class ChangeFileTypeModelTransform extends FileModelTransform {
 
     FileType type

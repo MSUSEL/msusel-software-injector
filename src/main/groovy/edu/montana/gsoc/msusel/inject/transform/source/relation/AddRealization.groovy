@@ -33,6 +33,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Transform which modifies a type's header information to contain a new interface to realize
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

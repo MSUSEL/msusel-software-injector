@@ -10,6 +10,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.module.AddNamespaceToModul
 import edu.montana.gsoc.msusel.inject.transform.model.module.DeleteNamespaceFromModuleModelTransform
 import groovy.transform.builder.Builder
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class SplitNamespaceModelTransform extends NamespaceModelTransform {
 
     List<File> left

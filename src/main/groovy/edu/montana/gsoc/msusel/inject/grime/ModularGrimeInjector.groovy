@@ -33,6 +33,7 @@ import groovy.transform.builder.Builder
 
 /**
  * A source injector to inject modular grime into a design pattern instance
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

@@ -30,6 +30,7 @@ import edu.isu.isuese.datamodel.File
 
 /**
  * A condition to determine if the file already has the given import
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

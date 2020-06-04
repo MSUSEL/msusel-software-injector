@@ -4,6 +4,10 @@ import edu.isu.isuese.datamodel.Pattern
 import edu.isu.isuese.datamodel.PatternInstance
 import edu.isu.isuese.datamodel.Project
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 @Singleton
 class Director {
 
@@ -14,6 +18,7 @@ class Director {
         proj = copier.execute(proj)
 
         Pattern pattern = Pattern.findFirst("patternKey = ?", (String) config.where.patternKey)
+        // FIXME the next line is broken
         PatternInstance inst = proj.findPatternInstance(pattern, config.where.patternInst)
 
         SourceInjector injector = selectInjector(inst, config)

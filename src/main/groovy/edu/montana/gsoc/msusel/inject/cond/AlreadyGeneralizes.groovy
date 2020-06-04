@@ -31,6 +31,7 @@ import edu.isu.isuese.datamodel.Type
 
 /**
  * Condition to determine if a class already generalizes another class
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

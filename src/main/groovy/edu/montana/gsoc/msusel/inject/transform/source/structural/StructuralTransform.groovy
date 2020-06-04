@@ -29,6 +29,10 @@ package edu.montana.gsoc.msusel.inject.transform.source.structural
 
 import edu.montana.gsoc.msusel.inject.transform.source.AbstractSourceTransform
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 abstract class StructuralTransform extends AbstractSourceTransform {
 
     /**

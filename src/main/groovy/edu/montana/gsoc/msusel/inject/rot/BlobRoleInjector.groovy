@@ -32,6 +32,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Rot Injector which merges multiple pattern roles into a single role forming a blob role.
+ * 
  * @author Isaac Griffith
  * @version 1.3.0
  */

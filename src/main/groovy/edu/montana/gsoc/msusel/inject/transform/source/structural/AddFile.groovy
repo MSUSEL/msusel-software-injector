@@ -32,6 +32,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Transform which constructs a new file, including any physical artifacts it requires
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

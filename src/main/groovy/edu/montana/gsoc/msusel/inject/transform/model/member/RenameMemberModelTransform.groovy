@@ -31,6 +31,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.MemberModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.source.member.RenameMember
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class RenameMemberModelTransform extends MemberModelTransform {
 
     String name

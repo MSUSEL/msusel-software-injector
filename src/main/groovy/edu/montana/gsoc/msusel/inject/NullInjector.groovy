@@ -25,8 +25,10 @@
  * SOFTWARE.
  */
 package edu.montana.gsoc.msusel.inject
+
 /**
  * A base injector which does simply nothing, following the NullObject pattern.
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

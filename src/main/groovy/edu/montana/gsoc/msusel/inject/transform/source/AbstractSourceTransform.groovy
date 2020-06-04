@@ -36,6 +36,7 @@ import edu.montana.gsoc.msusel.inject.transform.source.structural.AddImport
 
 /**
  * Base class on which all transforms are built
+ * 
  * @author Isaac Griffith
  * @version 1.3.0
  */

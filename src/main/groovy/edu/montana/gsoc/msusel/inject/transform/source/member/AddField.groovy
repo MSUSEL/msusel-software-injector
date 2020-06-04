@@ -35,6 +35,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Transform to add a new Type to a given file
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

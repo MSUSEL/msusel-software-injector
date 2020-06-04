@@ -30,6 +30,7 @@ import edu.isu.isuese.datamodel.File
 
 /**
  * Base class for Merge Transforms, meant for Rot research
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

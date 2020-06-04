@@ -9,6 +9,10 @@ import edu.montana.gsoc.msusel.inject.grime.ModularOrgGrimeInjector
 import edu.montana.gsoc.msusel.inject.grime.OrgGrimeTypes
 import edu.montana.gsoc.msusel.inject.grime.PackageOrgGrimeInjector
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 @Singleton
 class InjectorFactory {
 

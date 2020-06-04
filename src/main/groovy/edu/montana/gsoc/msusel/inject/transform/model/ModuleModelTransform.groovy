@@ -29,6 +29,10 @@ package edu.montana.gsoc.msusel.inject.transform.model
 import edu.isu.isuese.datamodel.Module
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransform
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 abstract class ModuleModelTransform extends ModelTransform {
 
     Module mod

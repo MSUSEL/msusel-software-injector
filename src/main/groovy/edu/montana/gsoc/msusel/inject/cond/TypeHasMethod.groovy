@@ -31,6 +31,7 @@ import edu.isu.isuese.datamodel.Type
 
 /**
  * A condition which determines whether a type already contains a method with a matching signature
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

@@ -31,6 +31,7 @@ import edu.isu.isuese.datamodel.Type
 
 /**
  * A Condition that checks whether a given type already exists in a given type
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

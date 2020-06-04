@@ -33,6 +33,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Transform which injects a new Type into a given File
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

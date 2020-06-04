@@ -33,6 +33,10 @@ import edu.montana.gsoc.msusel.inject.transform.source.relation.DeleteRealizatio
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.model.TypeModelTransform
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class DeleteRealizationModelTransform extends TypeModelTransform {
 
     Type real

@@ -31,6 +31,10 @@ import edu.isu.isuese.datamodel.Method
 import edu.montana.gsoc.msusel.inject.transform.model.MemberModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class DeleteMethodCallModelTransform extends MemberModelTransform {
 
     Method method

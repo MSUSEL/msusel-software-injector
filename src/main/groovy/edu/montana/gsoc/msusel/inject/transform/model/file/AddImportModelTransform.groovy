@@ -32,6 +32,10 @@ import edu.montana.gsoc.msusel.inject.transform.source.structural.AddImport
 import edu.montana.gsoc.msusel.inject.transform.model.FileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class AddImportModelTransform extends FileModelTransform {
 
     String name

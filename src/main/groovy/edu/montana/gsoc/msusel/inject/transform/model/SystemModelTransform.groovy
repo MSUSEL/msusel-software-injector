@@ -29,6 +29,10 @@ package edu.montana.gsoc.msusel.inject.transform.model
 import edu.isu.isuese.datamodel.System
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransform
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 abstract class SystemModelTransform extends ModelTransform{
 
     System sys

@@ -31,6 +31,7 @@ import edu.isu.isuese.datamodel.Type
 
 /**
  * A condition used to check if a class already realizes some interface
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

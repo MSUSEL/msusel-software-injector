@@ -30,6 +30,7 @@ import edu.isu.isuese.datamodel.File
 
 /**
  * Base class for leaf transforms in the Transform Composite design pattern implementation
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

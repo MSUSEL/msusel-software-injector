@@ -6,6 +6,10 @@ import edu.isu.isuese.datamodel.TypedMember
 import edu.montana.gsoc.msusel.inject.transform.source.BasicSourceTransform
 import groovy.transform.builder.Builder
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class ChangeMemberType extends BasicSourceTransform {
 
     TypeRef retType

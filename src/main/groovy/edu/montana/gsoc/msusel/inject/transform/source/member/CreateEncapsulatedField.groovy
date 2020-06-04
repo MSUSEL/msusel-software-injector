@@ -32,6 +32,7 @@ import groovy.transform.builder.Builder
 
 /**
  * A composite transform which constructs a fully encapsulated field
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

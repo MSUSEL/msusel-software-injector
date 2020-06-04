@@ -31,6 +31,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPrecondition
 import edu.montana.gsoc.msusel.inject.transform.model.SystemModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.structural.RenameSystem
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class RenameSystemModelTransform extends SystemModelTransform {
 
     String name

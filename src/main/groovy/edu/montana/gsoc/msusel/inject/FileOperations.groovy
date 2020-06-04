@@ -38,6 +38,7 @@ import java.nio.file.StandardOpenOption
 /**
  * Container for contents of files currently under modification. This class acts as the receiver
  * of the transforms.
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

@@ -32,6 +32,7 @@ import groovy.transform.builder.Builder
 
 /**
  * Transform to inject a constructor into a given Type
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

@@ -32,6 +32,7 @@ import edu.montana.gsoc.msusel.inject.transform.source.member.AddMethod
 
 /**
  * Base class for type header modifying transforms
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

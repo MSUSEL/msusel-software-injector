@@ -31,6 +31,7 @@ import edu.isu.isuese.datamodel.File
 /**
  * The base class for the composite transforms in the Transform Composite design pattern implementation. These transforms
  * contain and generate a list of sub-transforms which when completed form the composite.
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

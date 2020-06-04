@@ -31,6 +31,7 @@ import edu.isu.isuese.datamodel.Project
 
 /**
  * A condition to check whether a particular namespace already exists
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

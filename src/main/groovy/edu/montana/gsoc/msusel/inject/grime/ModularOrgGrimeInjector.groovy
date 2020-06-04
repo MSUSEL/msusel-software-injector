@@ -36,6 +36,7 @@ import org.apache.commons.lang3.tuple.Pair
 
 /**
  * Injector strategy for Modular type Organizational Grime
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

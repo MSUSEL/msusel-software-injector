@@ -33,6 +33,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.MemberModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.source.relation.AddFieldUse
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class AddFieldUseModelTransform extends MemberModelTransform {
 
     Field field

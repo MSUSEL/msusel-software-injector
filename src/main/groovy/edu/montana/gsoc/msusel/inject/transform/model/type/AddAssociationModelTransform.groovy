@@ -31,6 +31,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPrecondition
 import edu.montana.gsoc.msusel.inject.transform.model.TypeModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.relation.AddAssociation
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class AddAssociationModelTransform extends TypeModelTransform {
 
     Type assoc

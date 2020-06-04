@@ -33,6 +33,7 @@ import java.nio.file.Paths
 
 /**
  * A Condition to determine if a file that is to be created already exists
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */

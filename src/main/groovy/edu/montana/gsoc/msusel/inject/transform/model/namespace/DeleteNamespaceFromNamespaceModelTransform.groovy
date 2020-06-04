@@ -32,6 +32,10 @@ import edu.montana.gsoc.msusel.inject.transform.model.NamespaceModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.structural.DeleteNamespace
 import groovy.transform.builder.Builder
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 class DeleteNamespaceFromNamespaceModelTransform extends NamespaceModelTransform {
 
     Namespace child

@@ -29,6 +29,10 @@ package edu.montana.gsoc.msusel.inject.transform.model
 import edu.isu.isuese.datamodel.File
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransform
 
+/**
+ * @author Isaac Griffith
+ * @version 1.3.0
+ */
 abstract class FileModelTransform extends ModelTransform {
 
     File file

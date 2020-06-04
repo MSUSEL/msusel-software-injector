@@ -32,6 +32,7 @@ import edu.isu.isuese.datamodel.Role
 
 /**
  * Interface representing the base contract for Selectors used from SourceInjectors
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */
