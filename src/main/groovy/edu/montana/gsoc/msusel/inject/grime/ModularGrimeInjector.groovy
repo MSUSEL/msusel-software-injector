@@ -27,6 +27,7 @@
 package edu.montana.gsoc.msusel.inject.grime
 
 import com.google.common.collect.Lists
+import edu.isu.isuese.datamodel.Finding
 import edu.isu.isuese.datamodel.PatternInstance
 import edu.isu.isuese.datamodel.Type
 import groovy.transform.builder.Builder
@@ -96,6 +97,31 @@ class ModularGrimeInjector extends GrimeInjector {
         }
 
         createRelationship(rel, src, dest)
+        createFinding(persistent, external, efferent, src)
+    }
+
+    void createFinding(boolean persistent, boolean external, boolean efferent, Type type) {
+        if (persistent) {
+            if (external) {
+                if (efferent) {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["PEEG"]).injected().on(type)
+                } else {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["PEAG"]).injected().on(type)
+                }
+            } else {
+                Finding.of(GrimeInjectorConstants.grimeTypes["PIG"]).injected().on(type)
+            }
+        } else {
+            if (external) {
+                if (efferent) {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["TEEG"]).injected().on(type)
+                } else {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["TEAG"]).injected().on(type)
+                }
+            } else {
+                Finding.of(GrimeInjectorConstants.grimeTypes["TIG"]).injected().on(type)
+            }
+        }
     }
 
     def select2PatternClasses() {

@@ -30,6 +30,7 @@ import com.google.common.graph.GraphBuilder
 import com.google.common.graph.MutableGraph
 import edu.isu.isuese.datamodel.Accessibility
 import edu.isu.isuese.datamodel.FileType
+import edu.isu.isuese.datamodel.Finding
 import edu.isu.isuese.datamodel.Namespace
 import edu.isu.isuese.datamodel.PatternInstance
 import edu.isu.isuese.datamodel.Project
@@ -96,6 +97,24 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
         if (other && dest) {
             RelationType rel = selectRelationship(type, dest, rand.nextBoolean())
             createRelationship(rel, type, dest)
+        }
+
+        createFinding(internal, closure, type)
+    }
+
+    void createFinding(boolean internal, boolean closure, Type type) {
+        if (internal) {
+            if (closure) {
+                Finding.of(GrimeInjectorConstants.grimeTypes["PICG"]).injected().on(type)
+            } else {
+                Finding.of(GrimeInjectorConstants.grimeTypes["PIRG"]).injected().on(type)
+            }
+        } else {
+            if (closure) {
+                Finding.of(GrimeInjectorConstants.grimeTypes["PECG"]).injected().on(type)
+            } else {
+                Finding.of(GrimeInjectorConstants.grimeTypes["PERG"]).injected().on(type)
+            }
         }
     }
 

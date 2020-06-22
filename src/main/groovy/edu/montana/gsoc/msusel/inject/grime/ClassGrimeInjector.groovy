@@ -108,6 +108,42 @@ class ClassGrimeInjector extends GrimeInjector {
                 createMethodCall(type, method2, mutator)
             }
         }
+
+        createFinding(direct, internal, pair, method1)
+        if (pair)
+            createFinding(direct, internal, pair, method2)
+    }
+
+    void createFinding(boolean direct, boolean internal, boolean pair, Method method) {
+        if (direct) {
+            if (internal) {
+                if (pair) {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["DIPG"]).injected().on(method)
+                } else {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["DISG"]).injected().on(method)
+                }
+            } else {
+                if (pair) {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["DEPG"]).injected().on(method)
+                } else {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["DESG"]).injected().on(method)
+                }
+            }
+        } else {
+            if (internal) {
+                if (pair) {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["IIPG"]).injected().on(method)
+                } else {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["IISG"]).injected().on(method)
+                }
+            } else {
+                if (pair) {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["IEPG"]).injected().on(method)
+                } else {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["IESG"]).injected().on(method)
+                }
+            }
+        }
     }
 
     Type selectType(Type type) {

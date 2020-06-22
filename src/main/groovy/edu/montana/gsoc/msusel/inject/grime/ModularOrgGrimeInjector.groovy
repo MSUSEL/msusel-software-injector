@@ -101,6 +101,44 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         } else {
             addInstability(ns1, ns2, rel)
         }
+
+        createFinding(persistent, internal, cyclical, ns1)
+    }
+
+    void createFinding(boolean persistent, boolean internal, boolean cyclical, Namespace ns) {
+        if (persistent) {
+            if (internal) {
+                if (cyclical) {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["MPICG"]).injected().on(ns)
+                }
+                else {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["MPIUG"]).injected().on(ns)
+                }
+            } else {
+                if (cyclical) {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["MPECG"]).injected().on(ns)
+                }
+                else {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["MPEUG"]).injected().on(ns)
+                }
+            }
+        } else {
+            if (internal) {
+                if (cyclical) {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["MTICG"]).injected().on(ns)
+                }
+                else {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["MTIUG"]).injected().on(ns)
+                }
+            } else {
+                if (cyclical) {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["MTECG"]).injected().on(ns)
+                }
+                else {
+                    Finding.of(GrimeInjectorConstants.grimeTypes["MTEUG"]).injected().on(ns)
+                }
+            }
+        }
     }
 
     /**
