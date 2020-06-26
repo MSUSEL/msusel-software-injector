@@ -26,7 +26,6 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source
 
-
 import edu.isu.isuese.datamodel.*
 import edu.montana.gsoc.msusel.inject.transform.source.member.AddMethod
 

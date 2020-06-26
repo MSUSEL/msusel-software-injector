@@ -26,10 +26,9 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.isu.isuese.datamodel.Module
+
 import edu.isu.isuese.datamodel.Namespace
 import edu.isu.isuese.datamodel.Project
-import edu.montana.gsoc.msusel.inject.InjectorContext
 import org.javalite.activejdbc.test.DBSpec
 import org.junit.After
 import org.junit.Before
@@ -38,19 +37,17 @@ import org.junit.Test
 class NamespaceExistsTest extends DBSpec {
 
     NamespaceExists fixture
-    InjectorContext context
     Namespace ns
     Project proj
 
     @Before
     void setUp() throws Exception {
         proj = Project.builder().name("Test").projKey("Test").relPath("test").create()
-        Module mod = Module.builder().name("Module").moduleKey("Module").create()
         Namespace par = Namespace.builder().name("parent").nsKey("parent").create()
         ns = Namespace.builder().name("ns").nsKey("ns").create()
         par.addNamespace(ns)
-        mod.addNamespace(par)
-        proj.addModule(mod)
+        proj.addNamespace(par)
+        proj.addNamespace(ns)
     }
 
     @After

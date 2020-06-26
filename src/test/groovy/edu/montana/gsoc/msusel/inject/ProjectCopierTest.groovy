@@ -92,12 +92,11 @@ class ProjectCopierTest extends DBSpec {
     protected static void createModel() {
         System sys = System.builder().name("testdata").key("TestData").basePath("testdata").create()
         Project proj = Project.builder().name("testproj").version("1.0").relPath("testproj").create()
-        Module mod = Module.builder().name("testmod").relPath("testmod").srcPath("src/main/java").create()
         Namespace ns1 = Namespace.builder().name("test").nsKey("test1").relPath("test").create()
         Namespace ns2 = Namespace.builder().name("test").nsKey("test2").relPath("test/test").create()
+        proj.addNamespace(ns2)
         ns1.addNamespace(ns2)
-        mod.addNamespace(ns1)
-        proj.addModule(mod)
+        proj.addNamespace(ns1)
         sys.addProject(proj)
 
         File file1 = File.builder().name("Test1.java").relPath("Test1.java").type(FileType.SOURCE).start(1).end(16).create()
@@ -109,8 +108,10 @@ class ProjectCopierTest extends DBSpec {
         type.addMember(m1)
         type.addMember(m2)
         type.addMember(f1)
+        ns2.addType(type)
         file1.addType(type)
         file1.addImport(imp)
+        proj.addFile(file1)
         ns2.addFile(file1)
 
         File file2 = File.builder().name("Test2.java").relPath("Test2.java").type(FileType.SOURCE).create()
@@ -119,7 +120,9 @@ class ProjectCopierTest extends DBSpec {
         m3.addParameter(Parameter.builder().name("param").type(TypeRef.createPrimitiveTypeRef("Test3")).create())
         m3.addModifier(Modifier.forName("ABSTRACT"))
         type2.addMember(m3)
+        ns2.addType(type2)
         file2.addType(type2)
+        proj.addFile(file2)
         ns2.addFile(file2)
 
         File file3 = File.builder().name("Test3.java").relPath("Test3.java").type(FileType.SOURCE).create()
@@ -130,6 +133,9 @@ class ProjectCopierTest extends DBSpec {
         type3.addMember(lit1)
         type3.addMember(lit2)
         type3.addMember(lit3)
+        proj.addFile(file3)
+        ns2.addType(type3)
+        ns2.addFile(file3)
         file3.addType(type3)
         ns2.addFile(file3)
 
@@ -140,22 +146,20 @@ class ProjectCopierTest extends DBSpec {
         FileTreeBuilder builder = new FileTreeBuilder(new java.io.File("testdata"))
         builder {
             "testproj" {
-                "testmod" {
-                    "src" {
-                        "main" {
-                            "java" {
-                                "test" {
-                                    "test" {}
-                                }
-                            }
-                            "resources" {
-
+                "src" {
+                    "main" {
+                        "java" {
+                            "test" {
+                                "test" {}
                             }
                         }
-                        "test" {
-                            "java" {
+                        "resources" {
 
-                            }
+                        }
+                    }
+                    "test" {
+                        "java" {
+
                         }
                     }
                 }
@@ -164,9 +168,9 @@ class ProjectCopierTest extends DBSpec {
             }
         }
 
-        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test1.java").text = createTestFile1()
-        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test2.java").text = createTestFile2()
-        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test3.java").text = createTestFile3()
+        new java.io.File("testdata/testproj/src/main/java/test/test/Test1.java").text = createTestFile1()
+        new java.io.File("testdata/testproj/src/main/java/test/test/Test2.java").text = createTestFile2()
+        new java.io.File("testdata/testproj/src/main/java/test/test/Test3.java").text = createTestFile3()
     }
 
     private static void deleteDirectoryStructure() {

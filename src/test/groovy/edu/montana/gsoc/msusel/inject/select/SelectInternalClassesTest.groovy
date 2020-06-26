@@ -54,11 +54,10 @@ class SelectInternalClassesTest extends DBSpec {
     @Before
     void setUp() throws Exception {
         Project proj = Project.builder().name("Test").projKey("Test").relPath("Test").create()
-        Module mod = Module.builder().name("Test").moduleKey("Test").create()
         Namespace ns = Namespace.builder().name("Test").nsKey("Test").create()
         File file = File.builder().name("Test.java").fileKey("Test.java").create()
-        proj.addModule(mod)
-        mod.addNamespace(ns)
+        proj.addNamespace(ns)
+        proj.addFile(file)
         ns.addFile(file)
 
         parent = PatternInstance.builder().instKey("Test").create()
@@ -68,7 +67,9 @@ class SelectInternalClassesTest extends DBSpec {
         type2 = Class.builder().name("Test2").compKey("Test2").create()
         binding = Role.builder().roleKey("Test").name("Test").type(RoleType.CLASSIFIER).create()
         file.addType(type1)
+        ns.addType(type1)
         file.addType(type2)
+        ns.addType(type2)
         proj.addPatternInstance(parent)
     }
 
