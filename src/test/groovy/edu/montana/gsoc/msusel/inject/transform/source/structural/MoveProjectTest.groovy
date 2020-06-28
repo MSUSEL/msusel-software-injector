@@ -47,7 +47,7 @@ class MoveProjectTest extends BaseSourceTransformSpec {
         to.addProject(proj)
         from.removeProject(proj)
         proj.thaw()
-        proj.updateKeys(to.getKey())
+        proj.updateKeys()
         fixture.execute()
 
         // then

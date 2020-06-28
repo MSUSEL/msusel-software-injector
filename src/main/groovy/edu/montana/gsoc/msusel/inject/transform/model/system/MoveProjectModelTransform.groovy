@@ -69,7 +69,7 @@ class MoveProjectModelTransform extends SystemModelTransform {
         sys.removeProject(proj)
         proj.thaw()
         newParent.addProject(proj)
-        proj.updateKeys(newParent.getKey())
+        proj.updateKeys()
         // Generate source transform
         new MoveProject(proj, sys, newParent).execute()
     }

@@ -66,7 +66,7 @@ class AddProjectModelTransform extends SystemModelTransform {
         // Execute transform
         proj = Project.builder().name(name).projKey(name).version(version).relPath(name).create()
         sys.addProject(proj)
-        proj.updateKeys(sys.getKey())
+        proj.updateKeys()
         // Generate source transform
         new AddProject(proj, sys).execute()
     }

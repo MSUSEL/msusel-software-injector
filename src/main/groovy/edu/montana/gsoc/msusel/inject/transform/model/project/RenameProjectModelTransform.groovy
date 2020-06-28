@@ -63,7 +63,7 @@ class RenameProjectModelTransform extends ProjectModelTransform {
     void transform() {
         String oldName = proj.getFullPath()
         proj.setName(name) // make change
-        proj.updateKeys(parentKey)
+        proj.updateKeys()
         new RenameProject(proj, oldName).execute()
     }
 

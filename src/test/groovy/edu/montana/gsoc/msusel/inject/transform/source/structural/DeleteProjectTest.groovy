@@ -42,7 +42,7 @@ class DeleteProjectTest extends BaseSourceTransformSpec {
         File locOld = new File("testdata/testproj")
 
         // when
-        proj.updateKeys(null)
+        proj.updateKeys()
         fixture.execute()
 
         // then

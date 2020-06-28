@@ -43,7 +43,7 @@ class RenameProjectTest extends BaseSourceTransformSpec {
 
         // when
         proj.setName("other")
-        proj.updateKeys("TestData")
+        proj.updateKeys()
         fixture.execute()
 
         // then

@@ -43,7 +43,7 @@ class AddProjectTest extends BaseSourceTransformSpec {
 
         // when
         parent.addProject(proj)
-        proj.updateKeys(parent.getKey())
+        proj.updateKeys()
         fixture.execute()
 
         // then
