@@ -86,7 +86,7 @@ class AddNamespace extends StructuralCreateTransform {
     }
 
     private File getNamespaceFile(Namespace other) {
-        File dir = new File(other.getFullPath(FileType.SOURCE))
+        File dir = new File(other.getFullPath(FileType.SOURCE, 0))
         new File(dir, namespace.getRelPath())
     }
 }

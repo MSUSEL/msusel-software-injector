@@ -375,6 +375,16 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addFile(fileC)
 
         sys.updateKeys()
+        ns2.refresh()
+        ns1.refresh()
+        ns3.refresh()
+        ns4.refresh()
+        ns5.refresh()
+        mod.refresh()
+        mod2.refresh()
+        proj.refresh()
+        proj2.refresh()
+        println(ns2.getNsKey())
 
         typeZ.generalizedBy(typeX)
         typeZ.associatedTo(typeXY)

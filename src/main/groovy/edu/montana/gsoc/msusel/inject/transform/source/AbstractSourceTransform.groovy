@@ -121,7 +121,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
         }
 
         List<String> missing = imports.findAll {
-            !importList.contains(it) && !(it =~ /${file.getParentNamespaces().first().getFullName()}\.\w+/)
+            !importList.contains(it) && !(it =~ /${file.getParentNamespace().getFullName()}\.\w+/)
         }
 
         List<SourceTransform> trans = []

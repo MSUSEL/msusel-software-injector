@@ -72,6 +72,6 @@ class AddNamespaceToNamespaceModelTransform extends NamespaceModelTransform {
         // 1. ns contains newNS
         assert(ns.getNamespaces().contains(child))
         // 2. newNS parent is ns
-        assert(child.parent(Namespace.class) == ns)
+        assert(child.getParentNamespace() == ns)
     }
 }

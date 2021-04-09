@@ -74,6 +74,6 @@ class AddNamespaceToModuleModelTransform extends ModuleModelTransform {
         // 1. ns is contained in mod
         assert(mod.getNamespaces().contains(ns))
         // 2. ns' parent is mod
-        assert(ns.parent(Module.class) == mod)
+        assert(ns.getParentModule() == mod)
     }
 }
