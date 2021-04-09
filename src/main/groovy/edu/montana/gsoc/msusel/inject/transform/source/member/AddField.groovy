@@ -73,7 +73,7 @@ class AddField extends AddMember {
     @Override
     void setup() {
         ops = new java.io.File(file.getFullPath())
-         lines = ops.readLines()
+        lines = ops.readLines()
         original = lines.size()
 
         // 1. find line of last field in type

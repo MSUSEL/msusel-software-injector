@@ -50,12 +50,12 @@ class AppTest extends Specification {
         given:
         String[] args = ['-h']
         String expected = '''\
-usage: si [options] <base>
+Usage: si [options] <base>
 
 Options:
- -c,--config-file <file>   Name of config file found in the base directory
- -h,--help                 Print this help text and exit
- -v,--version              Print the version information
+  -c, --config-file=<file>   Name of config file found in the base directory
+  -h, --help                 Print this help text and exit
+  -v, --version              Print the version information
 
 Copyright (c) 2018-2020 Isaac Griffith and Montana State University
 '''
