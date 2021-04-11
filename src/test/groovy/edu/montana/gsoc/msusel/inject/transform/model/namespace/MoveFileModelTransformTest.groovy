@@ -38,7 +38,7 @@ class MoveFileModelTransformTest extends NamespaceModelTransformBaseTest {
     void "test execute happy path"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Namespace other = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test3")
+        Namespace other = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test3")
 
         // when
         fixture = new MoveFileModelTransform(ns, file, other)
@@ -53,7 +53,7 @@ class MoveFileModelTransformTest extends NamespaceModelTransformBaseTest {
     void "test execute null file"() {
         // given
         File file = null
-        Namespace other = Namespace.findFirst("nsKey = ?", "TestData:testproj-1.0:testmod:test:test3")
+        Namespace other = Namespace.findFirst("nsKey = ?", "TestData:testproj-1.0:test.test3")
 
         // when
         fixture = new MoveFileModelTransform(ns, file, other)
@@ -75,7 +75,7 @@ class MoveFileModelTransformTest extends NamespaceModelTransformBaseTest {
     void "test execute unknown file"() {
         // given
         File file = File.builder().name("TestX.java").relPath("TestX.java").type(FileType.SOURCE).start(1).end(16).create()
-        Namespace other = Namespace.findFirst("nsKey = ?", "TestData:testproj-1.0:testmod:test:test3")
+        Namespace other = Namespace.findFirst("nsKey = ?", "TestData:testproj-1.0:test.test3")
 
         // when
         fixture = new MoveFileModelTransform(ns, file, other)

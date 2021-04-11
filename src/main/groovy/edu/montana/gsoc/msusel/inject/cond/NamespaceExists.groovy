@@ -67,6 +67,7 @@ class NamespaceExists implements Condition {
             throw new IllegalArgumentException("NamespaceExists.check(): context cannot be null")
 
         Namespace ns = proj.getNamespaces().find {
+            println("${it.getFullName()} contains ${fullname}: ${it.getFullName().contains(fullname)}")
             it.getFullName() == fullname
         }
 

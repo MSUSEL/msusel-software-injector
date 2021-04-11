@@ -82,7 +82,7 @@ class MoveNamespace extends StructuralMoveTransform {
     }
 
     private File getNamespaceFile(Namespace other) {
-        File dir = new File(other.getFullPath(FileType.SOURCE))
+        File dir = new File(other.getFullPath(FileType.SOURCE, 0))
         new File(dir, ns.getRelPath())
     }
 }

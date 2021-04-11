@@ -36,8 +36,8 @@ class MoveNamespaceModelTransformTest extends NamespaceModelTransformBaseTest {
     @Test
     void "test execute happy path"() {
         // given
-        Namespace child = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test:test5")
-        Namespace parent = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test3")
+        Namespace child = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test.test5")
+        Namespace parent = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test3")
 
         // when
         fixture = new MoveNamespaceModelTransform(ns, child, parent)
@@ -52,7 +52,7 @@ class MoveNamespaceModelTransformTest extends NamespaceModelTransformBaseTest {
     void "test execute child is null"() {
         // given
         Namespace child = null
-        Namespace parent = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test3")
+        Namespace parent = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test3")
 
         // when
         fixture = new MoveNamespaceModelTransform(ns, child, parent)
@@ -62,7 +62,7 @@ class MoveNamespaceModelTransformTest extends NamespaceModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute parent is null"() {
         // given
-        Namespace child = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test:test5")
+        Namespace child = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test.test5")
         Namespace parent = null
 
         // when
@@ -73,7 +73,7 @@ class MoveNamespaceModelTransformTest extends NamespaceModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute parent not namespace or module"() {
         // given
-        Namespace child = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test:test5")
+        Namespace child = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test.test5")
         System parent = System.findFirst("name = ?", "testdata")
 
         // when
@@ -84,8 +84,8 @@ class MoveNamespaceModelTransformTest extends NamespaceModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute child is not in ns"() {
         // given
-        Namespace child = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test4")
-        Namespace parent = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test3")
+        Namespace child = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test4")
+        Namespace parent = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test3")
 
         // when
         fixture = new MoveNamespaceModelTransform(ns, child, parent)

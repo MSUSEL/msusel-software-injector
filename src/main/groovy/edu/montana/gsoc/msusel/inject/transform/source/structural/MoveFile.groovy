@@ -52,8 +52,8 @@ class MoveFile extends StructuralMoveTransform {
 
     @Override
     void setup() {
-        fromDir = new java.io.File(from.getFullPath(file.getType()))
-        toDir = new java.io.File(to.getFullPath(file.getType()))
+        fromDir = new java.io.File(from.getFullPath(file.getType(), 0))
+        toDir = new java.io.File(to.getFullPath(file.getType(), 0))
         oldFile = new java.io.File(fromDir, file.getRelPath())
         newFile = new java.io.File(toDir, file.getRelPath())
     }

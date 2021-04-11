@@ -69,9 +69,8 @@ class MoveFileModelTransform extends NamespaceModelTransform {
     void transform() {
         // Execute Transform
         ns.removeFile(file)
-        file.thaw()
         newParent.addFile(file)
-        file.updateKey()
+        // file.updateKey()
         // Generate Source Transform
         new MoveFile(file, ns, newParent).execute()
     }
@@ -83,7 +82,7 @@ class MoveFileModelTransform extends NamespaceModelTransform {
         // 2. newParent now contains file
         assert(newParent.getFiles().contains(file))
         // 3. file's parent is newParent
-        assert(file.parent(Namespace.class) == newParent)
+        assert(file.getParentNamespace() == newParent)
         // 4. file's path is correct
     }
 }

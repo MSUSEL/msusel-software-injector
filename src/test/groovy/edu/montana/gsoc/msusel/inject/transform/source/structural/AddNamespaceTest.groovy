@@ -38,8 +38,8 @@ class AddNamespaceTest extends BaseSourceTransformSpec {
     void "test execute add to namespace"() {
         // given
         File toCreate = new File("testdata/testproj/testmod/src/main/java/test/test2/")
-        Namespace parent = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test")
-        Namespace ns = Namespace.builder().name("test2").nsKey("test5").relPath("test/test2").create()
+        Namespace parent = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
+        Namespace ns = Namespace.builder().name("test2").nsKey("test6").relPath("test/test2").create()
         AddNamespace fixture = new AddNamespace(ns, parent)
 
         // when
@@ -56,7 +56,7 @@ class AddNamespaceTest extends BaseSourceTransformSpec {
         // given
         File toCreate = new File("testdata/testproj/testmod/src/main/java/test2/")
         Module parent = Module.findFirst("name = ?", "testmod")
-        Namespace ns = Namespace.builder().name("test2").nsKey("test5").relPath("test2").create()
+        Namespace ns = Namespace.builder().name("test2").nsKey("test6").relPath("test2").create()
         AddNamespace fixture = new AddNamespace(ns, parent)
 
         // when

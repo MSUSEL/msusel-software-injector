@@ -37,8 +37,8 @@ class MoveNamespaceTest extends BaseSourceTransformSpec {
     @Test
     void "test execute ns to mod"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test3")
-        Namespace from = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test3")
+        Namespace from = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
         Module to = Module.findFirst("name = ?", "testmod")
         MoveNamespace fixture = new MoveNamespace(ns, from, to)
         File locOld = new File("testdata/testproj/testmod/src/main/java/test/test3/")
@@ -47,7 +47,6 @@ class MoveNamespaceTest extends BaseSourceTransformSpec {
         // when
         to.addNamespace(ns)
         from.removeNamespace(ns)
-        ns.thaw()
         ns.updateKey()
         fixture.execute()
 
@@ -59,9 +58,9 @@ class MoveNamespaceTest extends BaseSourceTransformSpec {
     @Test
     void "test execute ns to ns"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test")
-        Namespace from = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test")
-        Namespace to = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test4")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test")
+        Namespace from = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
+        Namespace to = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test4")
         MoveNamespace fixture = new MoveNamespace(ns, from, to)
         File locOld = new File("testdata/testproj/testmod/src/main/java/test/test/")
         File locNew = new File("testdata/testproj/testmod/src/main/java/test4/test/")
@@ -69,7 +68,6 @@ class MoveNamespaceTest extends BaseSourceTransformSpec {
         // when
         to.addNamespace(ns)
         from.removeNamespace(ns)
-        ns.thaw()
         ns.updateKey()
         fixture.execute()
 
@@ -81,7 +79,7 @@ class MoveNamespaceTest extends BaseSourceTransformSpec {
     @Test
     void "test execute mod to mod"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test4")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test4")
         Module from = Module.findFirst("name = ?", "testmod")
         Module to = Module.findFirst("name = ?", "testmod2")
         MoveNamespace fixture = new MoveNamespace(ns, from, to)
@@ -91,7 +89,6 @@ class MoveNamespaceTest extends BaseSourceTransformSpec {
         // when
         to.addNamespace(ns)
         from.removeNamespace(ns)
-        ns.thaw()
         ns.updateKey()
         fixture.execute()
 
@@ -103,8 +100,8 @@ class MoveNamespaceTest extends BaseSourceTransformSpec {
     @Test
     void "test execute mod to ns"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test4")
-        Namespace to = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test4")
+        Namespace to = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
         Module from = Module.findFirst("name = ?", "testmod")
         MoveNamespace fixture = new MoveNamespace(ns, from, to)
         File locOld = new File("testdata/testproj/testmod/src/main/java/test4/")
@@ -113,7 +110,6 @@ class MoveNamespaceTest extends BaseSourceTransformSpec {
         // when
         to.addNamespace(ns)
         from.removeNamespace(ns)
-        ns.thaw()
         ns.updateKey()
         fixture.execute()
 

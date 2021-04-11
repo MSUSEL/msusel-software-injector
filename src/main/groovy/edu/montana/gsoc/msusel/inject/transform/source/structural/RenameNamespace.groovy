@@ -52,7 +52,7 @@ class RenameNamespace extends StructuralRenameTransform {
     @Override
     void setup() {
         oldFile = new File(oldPath)
-        newFile = new File(ns.getFullPath(type))
+        newFile = new File(ns.getFullPath(type, 0))
     }
 
     @Override

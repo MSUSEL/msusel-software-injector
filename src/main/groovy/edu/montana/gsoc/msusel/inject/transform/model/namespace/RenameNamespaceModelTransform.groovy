@@ -51,13 +51,17 @@ class RenameNamespaceModelTransform extends NamespaceModelTransform {
         if (!name)
             throw new ModelTransformPreconditionsNotMetException()
         // 2. ns does not already have this name
-        if (ns.name == name)
+        println("New Name: $name")
+        println("Old Name: ${ns.name}")
+        if (ns.name.contains(".") && ns.name.substring(ns.name.lastIndexOf(".") + 1) == name)
+            throw new ModelTransformPreconditionsNotMetException()
+        if (ns.name == name || ns.nsKey == name)
             throw new ModelTransformPreconditionsNotMetException()
     }
 
     @Override
     void transform() {
-        String oldName = ns.getFullPath(FileType.SOURCE)
+        String oldName = ns.getFullPath(FileType.SOURCE, 0)
         // Execute Transform
         ns.setName(name)
         ns.updateKey()

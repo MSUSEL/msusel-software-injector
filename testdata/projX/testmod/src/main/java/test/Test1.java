@@ -24,35 +24,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.inject.transform.source.structural
+package test;
 
-import edu.isu.isuese.datamodel.File
-import edu.isu.isuese.datamodel.Namespace
-import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
-import org.junit.Test
+import java.util.*;
 
-class MoveFileTest extends BaseSourceTransformSpec {
+public class Test1 implements Test2 {
 
-    @Test
-    void execute() {
-        // given
-        File file = File.findFirst("name = ?", "Test1.java")
-        Namespace from = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test")
-        Namespace to = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
-        MoveFile fixture = new MoveFile(file, from, to)
-        java.io.File locOld = new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test1.java")
-        java.io.File locNew = new java.io.File("testdata/testproj/testmod/src/main/java/test/Test1.java")
+    private String name;
 
-        // when
-        to.addFile(file)
-        from.removeFile(file)
-        file.updateKey()
-        fixture.execute()
+    public void method(Test3 param) {
 
-        // then
-        the(locOld.exists()).shouldBeFalse()
-        the(locNew.exists()).shouldBeTrue()
-        the(locNew.text).shouldContain("package ${to.getFullName()};")
-        the(locNew.text).shouldNotContain("package ${from.getFullName()};")
+    }
+
+    public static void main(String args[]) {
+
     }
 }

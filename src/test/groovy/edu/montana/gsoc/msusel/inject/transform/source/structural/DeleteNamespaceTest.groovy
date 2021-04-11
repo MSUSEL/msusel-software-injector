@@ -35,7 +35,7 @@ class DeleteNamespaceTest extends BaseSourceTransformSpec {
     @Test
     void "test execute with namespace parent"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test")
         DeleteNamespace fixture = new DeleteNamespace(ns)
         File locOld = new File("testdata/testproj/testmod/src/main/java/test/test")
 
@@ -50,7 +50,7 @@ class DeleteNamespaceTest extends BaseSourceTransformSpec {
     @Test
     void "test execute with module parent"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
         DeleteNamespace fixture = new DeleteNamespace(ns)
         File locOld = new File("testdata/testproj/testmod/src/main/java/test")
 

@@ -107,6 +107,6 @@ class AddTypeModelTransform extends FileModelTransform {
         // 1. A new type with the given name and features exists in file
         assert (file.getAllTypes().contains(type))
         // 2. The new type's parent is file
-        assert (type.parent(File.class) == file)
+        assert (type.getParentFile() == file)
     }
 }

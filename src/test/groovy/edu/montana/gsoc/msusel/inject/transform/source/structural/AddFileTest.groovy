@@ -39,7 +39,7 @@ class AddFileTest extends BaseSourceTransformSpec {
         // given
         java.io.File toCreate = new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test5.java")
         File test5 = File.builder().name("Test5.java").relPath("Test5.java").type(FileType.SOURCE).create()
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test")
         AddFile fixture = new AddFile(test5, ns)
 
         // when
@@ -56,7 +56,8 @@ class AddFileTest extends BaseSourceTransformSpec {
         // given
         java.io.File toCreate = new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test5.java")
         File test5 = File.builder().name("Test5.java").relPath("Test5.java").type(FileType.SOURCE).create()
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test")
+
         AddFile fixture = new AddFile(test5, ns)
 
         // when
@@ -65,22 +66,22 @@ class AddFileTest extends BaseSourceTransformSpec {
         fixture.execute()
 
         // then
-        the(toCreate.text).shouldEqual(
+        the(toCreate.text).shouldBeEqual(
                 """\
                 /**
                  * The MIT License (MIT)
-                 * 
+                 *
                  * MSUSEL Software Injector
                  * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
                  * Software Engineering Laboratory
-                 * 
+                 *
                  * Permission is hereby granted, free of charge, to any person obtaining a copy
                  * of this software and associated documentation files (the "Software"), to deal
                  * in the Software without restriction, including without limitation the rights
                  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
                  * copies of the Software, and to permit persons to whom the Software is
                  * furnished to do so, subject to the following conditions:
-                 * 
+                 *
                  * The above copyright notice and this permission notice shall be included in all
                  * copies or substantial portions of the Software.
                  * 
@@ -92,9 +93,9 @@ class AddFileTest extends BaseSourceTransformSpec {
                  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
                  * SOFTWARE.
                  */
-                 
+                
                 package test.test;
-            """.stripIndent()
+                """.stripIndent()
         )
     }
 }

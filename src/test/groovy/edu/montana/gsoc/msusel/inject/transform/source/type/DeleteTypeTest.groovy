@@ -125,7 +125,8 @@ public class Test5 {
         type.setStart(type.getStart() + 4)
         type.setEnd(type.getEnd() + 4)
         Type type2 = Class.builder().name("Test5").compKey("Test5").accessibility(Accessibility.PUBLIC).start(18).end(20).create()
-        file.add(type2)
+        file.addType(type2)
+        type.getParentNamespace().addType(type2)
         actual.text = """\
 package test.test;
 

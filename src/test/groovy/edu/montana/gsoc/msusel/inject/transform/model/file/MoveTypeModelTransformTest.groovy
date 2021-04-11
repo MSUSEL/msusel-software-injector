@@ -46,7 +46,7 @@ class MoveTypeModelTransformTest extends FileModelTransformBaseTest {
 
         // then
         the(file.getAllTypes()).shouldNotContain(type)
-        the(type.parent(File.class)).shouldEqual(newParent)
+        the(type.getParentFile()).shouldEqual(newParent)
     }
 
     @Test(expected = ModelTransformPreconditionsNotMetException.class)

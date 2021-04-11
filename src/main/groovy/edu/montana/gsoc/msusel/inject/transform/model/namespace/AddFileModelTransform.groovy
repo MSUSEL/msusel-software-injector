@@ -77,6 +77,6 @@ class AddFileModelTransform extends NamespaceModelTransform {
         // 1. ns contains file
         assert(ns.getFiles().contains(file))
         // 2. file parent is ns
-        assert(file.parent(Namespace.class) == ns)
+        assert(file.getParentNamespace() == ns)
     }
 }

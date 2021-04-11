@@ -67,7 +67,6 @@ class MoveNamespaceModelTransform extends ModuleModelTransform {
     void transform() {
         // execute transform
         mod.removeNamespace(ns)
-        ns.thaw()
         newParent.addNamespace(ns)
         ns.updateKey()
         // create source transform
@@ -81,6 +80,6 @@ class MoveNamespaceModelTransform extends ModuleModelTransform {
         // 2. newParent now contains ns
         assert(newParent.namespaces.contains(ns))
         // 3. ns' is newParent
-        assert(ns.parent(Module.class) == newParent)
+        assert(ns.getParentModule() == newParent)
     }
 }

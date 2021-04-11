@@ -78,6 +78,6 @@ class MoveTypeModelTransform extends FileModelTransform {
         // 2. newParent contains type
         assert(newParent.getAllTypes().contains(type))
         // 3. type's parent is newParent
-        assert(type.parent(File.class) == newParent)
+        assert(type.getParentFile() == newParent)
     }
 }

@@ -36,7 +36,7 @@ class MoveNamespaceModelTransformTest extends ModuleModelTransformBaseTest {
     @Test
     void "test execute happy path"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
         Module other = Module.findFirst("name = ?","testmod2")
 
         // when
@@ -44,8 +44,8 @@ class MoveNamespaceModelTransformTest extends ModuleModelTransformBaseTest {
         fixture.execute()
 
         // then
-        the(ns.nsKey).shouldEqual("testdata:testproj-1.0:testmod2:test")
-        the(ns.parent(Module.class)).shouldEqual(other)
+        the(ns.nsKey).shouldEqual("testdata:testproj-1.0:test")
+        the(ns.getParentModule()).shouldEqual(other)
     }
 
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
@@ -62,7 +62,7 @@ class MoveNamespaceModelTransformTest extends ModuleModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute new parent is null"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
         Module other = null
 
         // when
@@ -73,7 +73,7 @@ class MoveNamespaceModelTransformTest extends ModuleModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute parent is same as mod"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
         Module other = Module.findFirst("name = ?", "testmod")
 
         // when

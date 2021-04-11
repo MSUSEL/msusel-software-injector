@@ -35,7 +35,7 @@ class DeleteNamespaceFromModuleModelTransformTest extends ModuleModelTransformBa
     @Test
     void "test execute happy path"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
 
         // when
         fixture = new DeleteNamespaceFromModuleModelTransform(mod, ns)

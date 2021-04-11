@@ -35,7 +35,7 @@ class DeleteNamespaceFromNamespaceModelTransformTest extends NamespaceModelTrans
     @Test
     void "test execute happy path"() {
         // given
-        Namespace del = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test:test5")
+        Namespace del = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test.test5")
 
         // when
         fixture = new DeleteNamespaceFromNamespaceModelTransform(ns, del)
@@ -58,7 +58,7 @@ class DeleteNamespaceFromNamespaceModelTransformTest extends NamespaceModelTrans
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute not a child"() {
         // given
-        Namespace del = Namespace.findFirst("nsKey = ?", "TestData:testproj-1.0:testmod:test:test3")
+        Namespace del = Namespace.findFirst("nsKey = ?", "TestData:testproj-1.0:test.test3")
 
         // when
         fixture = new DeleteNamespaceFromNamespaceModelTransform(ns, del)

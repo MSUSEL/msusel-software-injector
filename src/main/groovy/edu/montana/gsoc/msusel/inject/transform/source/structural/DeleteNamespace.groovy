@@ -48,7 +48,7 @@ class DeleteNamespace extends StructuralDeleteTransform {
 
     @Override
     void setup() {
-        oldFile = new File(ns.getFullPath(FileType.SOURCE))
+        oldFile = new File(ns.getFullPath(FileType.SOURCE, 0))
     }
 
     @Override

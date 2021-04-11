@@ -77,7 +77,6 @@ class MoveType extends TypeTransform {
         type.setStart(1)
         type.setEnd(1)
         file.removeType(type)
-        type.thaw()
         deleteFromOldLocation()
 
         to.addType(type)

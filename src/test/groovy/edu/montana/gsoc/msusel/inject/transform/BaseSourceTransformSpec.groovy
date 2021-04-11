@@ -70,7 +70,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addNamespace(ns2)
         proj.addNamespace(ns3)
         proj.addNamespace(ns4)
-        proj.addNamespace(ns4)
+        proj.addNamespace(ns5)
         proj.addModule(mod)
         proj.addModule(mod2)
         sys.addProject(proj)

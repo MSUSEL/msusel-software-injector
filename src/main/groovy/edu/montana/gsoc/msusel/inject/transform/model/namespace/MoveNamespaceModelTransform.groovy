@@ -70,7 +70,6 @@ class MoveNamespaceModelTransform extends NamespaceModelTransform {
     void transform() {
         // Execute Transform
         ns.removeNamespace(child)
-        child.thaw()
         newParent.addNamespace(child)
         child.updateKey()
         // Generate Source Transform
