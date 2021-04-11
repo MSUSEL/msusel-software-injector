@@ -24,67 +24,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.inject.transform.source.member
+package test.test;
 
-import edu.isu.isuese.datamodel.Enum
-import edu.isu.isuese.datamodel.File
-import edu.isu.isuese.datamodel.Literal
-import edu.montana.gsoc.msusel.inject.transform.source.AddMember
+import java.util.*;
 
-/**
- * @author Isaac Griffith
- * @version 1.3.0
- */
-class MoveLiteral extends AddMember {
+public class Test1 implements Test2 {
 
-    Enum from
-    Enum to
-    Literal literal
-    File toFile
+    private String name;
 
-    DeleteLiteral deleteLiteral
-    AddLiteral addLiteral
+    public void method(Test3 param) {
 
-    /**
-     * Constructs a new BasicSourceTransform
-     * @param file the file to be modified
-     */
-    MoveLiteral(File file, Enum from, File toFile, Enum to, Literal literal) {
-        super(file)
-        this.from = from
-        this.to = to
-        this.literal = literal
-        this.toFile = toFile
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    void setup() {
-        deleteLiteral = new DeleteLiteral(file, from, literal)
-        addLiteral = new AddLiteral(toFile, to, literal)
-    }
+    public static void main(String args[]) {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    void buildContent() {
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    void injectContent() {
-        deleteLiteral.execute()
-        addLiteral.execute()
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    void updateModel() {}
 }
