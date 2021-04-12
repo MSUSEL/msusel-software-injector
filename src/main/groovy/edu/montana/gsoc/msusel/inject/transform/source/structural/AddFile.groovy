@@ -62,7 +62,6 @@ class AddFile extends StructuralCreateTransform {
 
     @Override
     void transformStructure() {
-        println toWrite.getPath()
         if (!toWrite.exists())
             toWrite.createNewFile()
 

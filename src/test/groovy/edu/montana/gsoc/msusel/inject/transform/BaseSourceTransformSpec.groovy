@@ -42,7 +42,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
 
     @After
     void teardown() {
-//        deleteDirectoryStructure()
+        deleteDirectoryStructure()
     }
 
     protected void localSetup() {}
@@ -384,7 +384,6 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         mod2.refresh()
         proj.refresh()
         proj2.refresh()
-        println(ns2.getNsKey())
 
         typeZ.generalizedBy(typeX)
         typeZ.associatedTo(typeXY)

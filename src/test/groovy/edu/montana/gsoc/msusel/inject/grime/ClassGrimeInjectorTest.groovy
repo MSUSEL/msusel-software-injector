@@ -65,6 +65,7 @@ class ClassGrimeInjectorTest extends GrimeInjectorBaseTest {
         try {
             fixture.inject()
         } catch (Exception e) {
+            e.printStackTrace()
             Assert.fail()
         }
     }

@@ -61,7 +61,6 @@ class AddImportTest extends BaseSourceTransformSpec {
         fixture.execute()
 
         // then
-        println actual.text
         the(actual.text).shouldContain("import javax.swing.JFrame;")
         the(actual.text.indexOf("import javax.swing.JFrame") > actual.text.indexOf("package test.test;")).shouldBeTrue()
     }
@@ -93,7 +92,6 @@ class AddImportTest extends BaseSourceTransformSpec {
         fixture.execute()
 
         // then
-        println actual.text
         the(actual.text).shouldContain("import javax.swing.JFrame;")
         the(actual.text.indexOf("import javax.swing.JFrame") > actual.text.indexOf("import java.util.*;")).shouldBeTrue()
     }

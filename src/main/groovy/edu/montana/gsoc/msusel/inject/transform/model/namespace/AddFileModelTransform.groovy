@@ -67,6 +67,7 @@ class AddFileModelTransform extends NamespaceModelTransform {
         // Execute Transform
         file = File.builder().name(path).relPath(path).fileKey(path).type(type).create()
         ns.addFile(file)
+        ns.getParentProject().addFile(file)
         file.updateKey()
         // Generate Source Transform
         new AddFile(file, ns).execute()

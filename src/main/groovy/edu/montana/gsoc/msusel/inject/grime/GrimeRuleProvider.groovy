@@ -24,9 +24,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import java.util.*;
+package edu.montana.gsoc.msusel.inject.grime
 
-public class Test8 {
+import edu.isu.isuese.datamodel.Priority
+import edu.isu.isuese.datamodel.Rule
+import edu.isu.isuese.datamodel.RuleRepository
 
-    LITERAL4, LITERAL5, LITERAL6;
+@Singleton
+class GrimeRuleProvider {
+
+    def createRules(RuleRepository repo) {
+        GrimeInjectorConstants.grimeTypes.each {name, key ->
+            Rule rule = Rule.findFirst("ruleKey = ?", key)
+            if (!rule) {
+                rule = Rule.builder()
+                        .name(name)
+                        .key(key)
+                        .description("")
+                        .priority(Priority.MODERATE)
+                        .create()
+                rule.save()
+                repo.addRule(rule)
+            }
+        }
+    }
 }

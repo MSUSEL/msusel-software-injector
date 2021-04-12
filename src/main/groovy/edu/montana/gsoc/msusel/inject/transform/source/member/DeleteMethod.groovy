@@ -64,7 +64,6 @@ class DeleteMethod extends BasicSourceTransform {
     @Override
     void buildContent() {
         (end - start + 1).times {
-            println("> ${lines[start]}")
             lines.remove(start)
         }
 

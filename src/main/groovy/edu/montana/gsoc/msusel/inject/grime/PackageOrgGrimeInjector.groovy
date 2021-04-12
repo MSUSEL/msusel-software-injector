@@ -189,16 +189,13 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
 
         dfsUtil(graph, ns, visited)
 
-        println "visited size:\n${visited.size()}"
         List<Namespace> list = []
         visited.remove(ns)
-        println "visited size:\n${visited.size()}"
 
         visited.each { Namespace key, Boolean val ->
             if (val) list << key
         }
 
-        println "List: $list"
         Collections.shuffle(list)
 
         list[0]

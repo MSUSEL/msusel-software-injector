@@ -30,8 +30,11 @@ import edu.isu.isuese.datamodel.Class
 import edu.isu.isuese.datamodel.Type
 import junitparams.JUnitParamsRunner
 import junitparams.Parameters
+import org.junit.Assert
+import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 
 @RunWith(JUnitParamsRunner.class)
 class ModularGrimeInjectorTest extends GrimeInjectorBaseTest {
@@ -59,9 +62,12 @@ class ModularGrimeInjectorTest extends GrimeInjectorBaseTest {
         fixture = new ModularGrimeInjector(inst, persist, extern, effer)
 
         // when
-        fixture.inject()
-
-        // then
+        try {
+            fixture.inject()
+        } catch (Exception e) {
+            e.printStackTrace()
+            Assert.fail()
+        }
 
     }
 

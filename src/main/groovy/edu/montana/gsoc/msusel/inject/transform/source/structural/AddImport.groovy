@@ -71,7 +71,6 @@ class AddImport extends BasicSourceTransform {
     @Override
     void buildContent() {
         text = "import ${imp.name};"
-        println "Start: $start"
         lines.add(start, text)
     }
 

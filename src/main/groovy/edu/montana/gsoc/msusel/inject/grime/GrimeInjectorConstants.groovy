@@ -28,6 +28,9 @@ package edu.montana.gsoc.msusel.inject.grime
 
 interface GrimeInjectorConstants {
 
+    String repoName = "grime-rules"
+    String repoKey = "isuese:grime-rules"
+
     Map<String, String> grimeTypes = [
             "PIG": "isuese:grime-rules:modular-grime:pig",
             "TIG": "isuese:grime-rules:modular-grime:tig",

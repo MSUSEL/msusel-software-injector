@@ -202,8 +202,6 @@ abstract class GrimeInjector implements SourceInjector {
             throw new InjectionFailedException()
 
         List<Method> methods = type.getAllMethods()
-        println "Methods: $methods"
-        println "Selected: $selected"
         methods.removeAll(selected)
 
         if (methods) {

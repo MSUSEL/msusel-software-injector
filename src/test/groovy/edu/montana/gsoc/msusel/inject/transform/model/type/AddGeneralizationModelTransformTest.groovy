@@ -62,10 +62,6 @@ class AddGeneralizationModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute generalizes type"() {
         // given
         Type gen = Class.findFirst("name = ?", "TypeX")
-        println "TypeX GB: ${gen.getGeneralizedBy()}"
-        println "TypeX G: ${gen.getGeneralizes()}"
-        println "TypeZ GB: ${gen.getGeneralizedBy()}"
-        println "TypeZ G: ${gen.getGeneralizes()}"
 
         // when
         fixture = new AddGeneralizationModelTransform(type, gen)

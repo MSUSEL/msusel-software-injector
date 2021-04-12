@@ -51,8 +51,6 @@ class RenameNamespaceModelTransform extends NamespaceModelTransform {
         if (!name)
             throw new ModelTransformPreconditionsNotMetException()
         // 2. ns does not already have this name
-        println("New Name: $name")
-        println("Old Name: ${ns.name}")
         if (ns.name.contains(".") && ns.name.substring(ns.name.lastIndexOf(".") + 1) == name)
             throw new ModelTransformPreconditionsNotMetException()
         if (ns.name == name || ns.nsKey == name)

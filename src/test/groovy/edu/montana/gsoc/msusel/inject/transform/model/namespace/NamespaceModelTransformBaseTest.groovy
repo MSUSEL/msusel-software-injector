@@ -39,6 +39,5 @@ abstract class NamespaceModelTransformBaseTest extends BaseSourceTransformSpec {
     protected void localSetup() {
         super.localSetup()
         ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test")
-        println("NS: $ns")
     }
 }

@@ -53,7 +53,7 @@ class AddNamespaceToNamespaceModelTransform extends NamespaceModelTransform {
         if (!name)
             throw new ModelTransformPreconditionsNotMetException()
         // 2. a namespace with the given name does not already exist in ns
-        if (ns.getNamespaces().find { it.name == name || it.nsKey == name })
+        if (ns.getNamespaces().find {it.name == name || (it.name.contains(".") && it.name.substring(it.name.lastIndexOf(".") + 1) == name) || it.nsKey == name })
             throw new ModelTransformPreconditionsNotMetException()
     }
 

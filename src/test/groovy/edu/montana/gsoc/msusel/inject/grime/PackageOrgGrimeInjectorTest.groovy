@@ -32,6 +32,7 @@ import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectionFailedException
 import junitparams.JUnitParamsRunner
 import junitparams.Parameters
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -57,17 +58,17 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         fixture = new PackageOrgGrimeInjector(inst, internal, closure)
 
         // when
-//        try {
-        fixture.inject()
-//        } catch (Exception e) {
-//            fail()
-//        }
+        try {
+            fixture.inject()
+        } catch (Exception e) {
+            Assert.fail()
+        }
     }
 
     @Test
     void "test selectPatternNamespace"() {
         // given
-        List<Namespace> namespaces = [ ns2, ns4, ns5 ]
+        List<Namespace> namespaces = [ns2, ns4, ns5]
 
         // when
         Namespace ns = fixture.selectPatternNamespace()
@@ -160,7 +161,6 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
 
         // when
         Namespace result = fixture.selectReachableNamespace(graph, ns)
-        println result
 
         // then
         the(reachable).shouldContain(result)

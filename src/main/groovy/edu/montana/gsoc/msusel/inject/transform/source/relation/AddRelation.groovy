@@ -56,23 +56,26 @@ abstract class AddRelation extends BasicSourceTransform {
         FileOperations ops = FileOperations.getOps(file)
         List<String> content = ops.contentRegion(method)
 
-        if (content.last().trim() == "}") {
-            if (content[-2].trim().startsWith("return "))
-                return (method.end - 1) - 1
-            else
+        if (!content.isEmpty()) {
+            if (content.last().trim() == "}") {
+                if (content[-2].trim().startsWith("return "))
+                    return (method.end - 1) - 1
+                else
+                    return (method.end - 1)
+            } else if (content.last().trim().matches(/\{\s*}/)) {
+                content[-1] = content.last().substring(0, content.last().indexOf("}"))
+                content << "    }"
+                ops.replaceRange(method.start, method.end, content.join("\n"))
+                return method.end
+            } else if (content.last().trim().contains("}")) {
+                content[-1] = content.last().substring(0, content.last().indexOf("}"))
+                content << "    }"
+                ops.replaceRange(method.start, method.end, content.join("\n"))
+                return method.end
+            } else {
                 return (method.end - 1)
-        } else if (content.last().trim().matches(/\{\s*}/)) {
-            content[-1] = content.last().substring(0, content.last().indexOf("}"))
-            content << "    }"
-            ops.replaceRange(method.start, method.end, content.join("\n"))
-            return method.end
-        } else if (content.last().trim().contains("}")) {
-            content[-1] = content.last().substring(0, content.last().indexOf("}"))
-            content << "    }"
-            ops.replaceRange(method.start, method.end, content.join("\n"))
-            return method.end
-        }
-        else {
+            }
+        } else {
             return (method.end - 1)
         }
     }

@@ -70,16 +70,6 @@ class AbstractSourceTransformTest extends BaseSourceTransformSpec {
     }
 
     @Test
-    void updateImports() {
-        Assert.fail()
-    }
-
-    @Test
-    void testUpdateImports() {
-        Assert.fail()
-    }
-
-    @Test
     void updateContainingAndAllFollowing() {
         // given
         File file = File.builder().name("test").start(1).end(10).create()

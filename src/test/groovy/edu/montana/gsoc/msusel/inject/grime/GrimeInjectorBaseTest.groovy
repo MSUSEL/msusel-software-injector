@@ -74,6 +74,7 @@ abstract class GrimeInjectorBaseTest extends DBSpec {
         createModelComponents()
         createPatternInstance()
         createDirStructure()
+        createRepoAndRules()
         localSetup()
     }
 
@@ -88,12 +89,17 @@ abstract class GrimeInjectorBaseTest extends DBSpec {
     void createModelComponents() {
         sys = System.builder().name("testdata").key("TestData").basePath("testdata").create()
         proj = Project.builder().name("testproj").version("1.0").relPath("testproj").create()
+        Module mod = Module.builder().name("testmod").relPath("testmod").create()
         ns1 = Namespace.builder().name("test").nsKey("test1").relPath("test").create()
         ns2 = Namespace.builder().name("test").nsKey("test2").relPath("test/test").create()
         ns3 = Namespace.builder().name("test2").nsKey("test3").relPath("test/test2").create()
         ns4 = Namespace.builder().name("test3").nsKey("test4").relPath("test3").create()
         ns5 = Namespace.builder().name("test4").nsKey("test5").relPath("test4").create()
         ns6 = Namespace.builder().name("test5").nsKey("test6").relPath("test/test5").create()
+        proj.addModule(mod)
+        mod.addNamespace(ns1)
+        mod.addNamespace(ns4)
+        mod.addNamespace(ns5)
         ns1.addNamespace(ns2)
         ns1.addNamespace(ns3)
         proj.addNamespace(ns1)
@@ -210,6 +216,7 @@ abstract class GrimeInjectorBaseTest extends DBSpec {
         typeC.associatedTo(typeB)
         typeD.generalizedBy(typeB)
         typeE.generalizedBy(typeB)
+        proj.setSrcPath("testmod/src/main/java")
 
         sys.updateKeys()
     }
@@ -272,44 +279,44 @@ abstract class GrimeInjectorBaseTest extends DBSpec {
         FileTreeBuilder builder = new FileTreeBuilder(new java.io.File("testdata"))
         builder {
             "testproj" {
-                "testmod" {
-                    "src" {
-                        "main" {
-                            "java" {
-                                "test" {
+                    "testmod" {
+                        "src" {
+                            "main" {
+                                "java" {
                                     "test" {
+                                        "test" {
+                                        }
+                                        "test2" {
+                                        }
+                                        "test5" {}
                                     }
-                                    "test2" {
-                                    }
-                                    "test5" {}
+                                    "test3" {}
+                                    "test4" {}
                                 }
-                                "test3" {}
-                                "test4" {}
-                            }
-                            "resources" {
+                                "resources" {
 
+                                }
                             }
-                        }
-                        "test" {
-                            "java" {
+                            "test" {
+                                "java" {
 
+                                }
                             }
                         }
                     }
-                }
 //                "build.gradle"(createBuildGradleFile())
 //                "settings.gradle"(createSettingsGradleFile())
             }
         }
 
-        new java.io.File("testdata/testproj/src/main/java/test3/TypeA.java").text = createTestFileA()
-        new java.io.File("testdata/testproj/src/main/java/test/test/TypeB.java").text = createTestFileB()
-        new java.io.File("testdata/testproj/src/main/java/test4/TypeC.java").text = createTestFileC()
-        new java.io.File("testdata/testproj/src/main/java/test/test/TypeD.java").text = createTestFileD()
-        new java.io.File("testdata/testproj/src/main/java/test/test/TypeE.java").text = createTestFileE()
-        new java.io.File("testdata/testproj/src/main/java/test/TypeF.java").text = createTestFileF()
-        new java.io.File("testdata/testproj/src/main/java/test/test/TypeG.java").text = createTestFileG()
-        new java.io.File("testdata/testproj/src/main/java/test3/TypeH.java").text = createTestFileH()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test3/TypeA.java").text = createTestFileA()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/TypeB.java").text = createTestFileB()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test4/TypeC.java").text = createTestFileC()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/TypeD.java").text = createTestFileD()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/TypeE.java").text = createTestFileE()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/TypeF.java").text = createTestFileF()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/TypeG.java").text = createTestFileG()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test2/TypeH.java").text = createTestFileH()
     }
 
     String createTestFileA() {
@@ -406,5 +413,10 @@ public class TypeH {
 
 }
 """
+    }
+
+    void createRepoAndRules() {
+        GrimeRepoProvider.instance.createRepo()
+        GrimeRuleProvider.instance.createRules(GrimeRepoProvider.instance.getRepo())
     }
 }

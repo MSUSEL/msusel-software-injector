@@ -55,7 +55,6 @@ class AddGeneralizationModelTransform extends TypeModelTransform {
         if (!(type instanceof Class && gen instanceof Class) && !(type instanceof Interface && gen instanceof Interface))
             throw new ModelTransformPreconditionsNotMetException()
         // 3. type does not already extend something
-        println "GenBy: ${type.getGeneralizedBy()}"
         if (!type.getGeneralizedBy().isEmpty())
             throw new ModelTransformPreconditionsNotMetException()
         // 4. type does not already extend gen
