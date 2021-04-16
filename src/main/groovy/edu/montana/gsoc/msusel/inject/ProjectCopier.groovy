@@ -26,7 +26,11 @@
  */
 package edu.montana.gsoc.msusel.inject
 
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Module
+import edu.isu.isuese.datamodel.Namespace
 import edu.isu.isuese.datamodel.Project
+import edu.isu.isuese.datamodel.Type
 import org.apache.commons.io.FileUtils
 
 /**
@@ -43,21 +47,80 @@ class ProjectCopier {
         if (!proj)
             throw new InjectionFailedException()
 
-        // 1. for each component starting with Project recurse down the tree to copy the item calling the copy method
-        String newKey = "${proj.getName()}_copy"
-        String newRelPath = "${proj.getRelPath()}_copy"
-        Project copy = proj.copy(newKey, newRelPath)
+        Project copy = copyModelComponents(proj)
+        updateSecondaryLinks(proj, copy)
+        copyPhysicalFiles(proj, copy)
 
-        proj.getParentSystem().addProject(copy)
-        proj.getParentSystem().updateKeys()
+        return copy
+    }
+
+    private Project copyModelComponents(Project original) {
+        // 1. for each component starting with Project recurse down the tree to copy the item calling the copy method
+        String newKey = "${original.getName()}_copy"
+        String newRelPath = "${original.getRelPath()}_copy"
+        Project copy = original.copy(newKey, newRelPath)
+
+        original.getParentSystem().addProject(copy)
+        original.getParentSystem().updateKeys()
 
         copy.refresh()
 
-        // 2. copy directory contents over
-        File src = new File(proj.getFullPath())
-        File dest = new File(copy.getFullPath())
-        FileUtils.copyDirectory(src, dest)
-
         return copy
+    }
+
+    private def updateSecondaryLinks(Project original, Project copy) {
+        updateModule2NsLinks(original, copy)
+        updateNs2NsLinks(original, copy)
+        updateFile2TypeLinks(original, copy)
+        updateNs2FileLinks(original, copy)
+    }
+
+    private def updateModule2NsLinks(Project original, Project copy) {
+        original.getModules().each { mod ->
+            Module parent = copy.findModule(mod.name)
+            mod.getNamespaces().each {
+                Namespace copiedNamespace = copy.findNamespace(it.name)
+                parent.addNamespace(copiedNamespace)
+            }
+        }
+    }
+
+    private def updateNs2NsLinks(Project original, Project copy) {
+        original.getNamespaces().each {ns ->
+            Namespace parent = copy.findNamespace(ns.name)
+            ns.getNamespaces().each {
+                Namespace copiedNamespace = copy.findNamespace(it.name)
+                parent.addNamespace(copiedNamespace)
+            }
+        }
+    }
+
+    private def updateNs2FileLinks(Project original, Project copy) {
+        original.getNamespaces().each { ns->
+            Namespace parent = copy.findNamespace(ns.name)
+            ns.getFiles().each {
+                Namespace copiedNs = copy.findNamespace(it.getParentNamespace().name)
+                File copiedFile = copiedNs.getFileByName(it.name)
+                parent.addFile(copiedFile)
+            }
+        }
+    }
+
+    private def updateFile2TypeLinks(Project original, Project copy) {
+        original.getFiles().each {file ->
+            File parent = copy.getFileByName(file.name)
+            file.getAllTypes().each {
+                Namespace copiedNs = original.findNamespace(it.getParentNamespace().name)
+                Type copiedType = copiedNs.getTypeByName(it.name)
+                parent.addType(copiedType)
+            }
+        }
+    }
+
+    private def copyPhysicalFiles(Project original, Project copy) {
+        // 2. copy directory contents over
+        java.io.File src = new java.io.File(original.getFullPath())
+        java.io.File dest = new java.io.File(copy.getFullPath())
+        FileUtils.copyDirectory(src, dest)
     }
 }
