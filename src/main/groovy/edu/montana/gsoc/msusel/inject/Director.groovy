@@ -37,7 +37,7 @@ import edu.isu.isuese.datamodel.Project
 @Singleton
 class Director {
 
-    void inject(ConfigObject config) {
+    def inject(ConfigObject config) {
         Project proj = Project.findFirst("projectKey = ?", (String) config.where.projectKey)
 
         ProjectCopier copier = new ProjectCopier()
@@ -56,6 +56,9 @@ class Director {
         number.times {
             injector.inject()
         }
+
+        return [ "Key2" : proj.projectKey,
+                 "Path2" : proj.getFullPath() ]
     }
 
     SourceInjector selectInjector(PatternInstance inst, ConfigObject config) {
