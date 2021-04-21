@@ -38,7 +38,7 @@ import edu.isu.isuese.datamodel.Project
 class Director {
 
     def inject(ConfigObject config) {
-        Project proj = Project.findFirst("projectKey = ?", (String) config.where.projectKey)
+        Project proj = Project.findFirst("projKey = ?", (String) config.where.projectKey)
 
         ProjectCopier copier = new ProjectCopier()
         proj = copier.execute(proj)
