@@ -54,9 +54,11 @@ class Director {
         Random rand = new Random()
         println("Max: $max")
         println("Min: $min")
-        int number = rand.nextInt(max - min) + min
-        number.times {
-            injector.inject()
+        if (max > min) {
+            int number = rand.nextInt(max - min) + min
+            number.times {
+                injector.inject()
+            }
         }
 
         return [ "Key2" : proj.projectKey,
