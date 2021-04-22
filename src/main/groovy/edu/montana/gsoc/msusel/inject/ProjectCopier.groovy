@@ -71,8 +71,8 @@ class ProjectCopier {
     private def updateSecondaryLinks(Project original, Project copy) {
         updateModule2NsLinks(original, copy)
         updateNs2NsLinks(original, copy)
-        updateFile2TypeLinks(original, copy)
-        updateNs2FileLinks(original, copy)
+//        updateFile2TypeLinks(original, copy)
+//        updateNs2FileLinks(original, copy)
     }
 
     private def updateModule2NsLinks(Project original, Project copy) {
