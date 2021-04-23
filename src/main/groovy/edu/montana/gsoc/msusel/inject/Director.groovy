@@ -51,8 +51,6 @@ class Director {
         int max = config.what.max
 
         Random rand = new Random()
-        println("Max: $max")
-        println("Min: $min")
         if (max > min) {
             int number = rand.nextInt(max - min) + min
             number.times {
