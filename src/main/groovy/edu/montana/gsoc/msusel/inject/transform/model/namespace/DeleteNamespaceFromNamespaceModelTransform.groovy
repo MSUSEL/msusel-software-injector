@@ -58,11 +58,13 @@ class DeleteNamespaceFromNamespaceModelTransform extends NamespaceModelTransform
 
     @Override
     void transform() {
-        // Execute Transform
-        ns.removeNamespace(child)
-        child.thaw()
         // Generate Source Transform
         new DeleteNamespace(child).execute()
+        // Execute Transform
+        ns.getParentProject().removeNamespace(child)
+        child.thaw()
+        ns.removeNamespace(child)
+        child.thaw()
     }
 
     @Override

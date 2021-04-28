@@ -103,7 +103,12 @@ class AddMethod extends AddMember {
     void injectContent() {
         // 4. Conduct Injection
         int original = lines.size()
-        lines.add(start, builder.toString())
+        if (start >= original) {
+            lines.add("\n")
+            lines.add(builder.toString())
+        } else {
+            lines.add(start, builder.toString())
+        }
         lines = lines.join("\n").split("\n")
         int current = lines.size()
         end = current - original

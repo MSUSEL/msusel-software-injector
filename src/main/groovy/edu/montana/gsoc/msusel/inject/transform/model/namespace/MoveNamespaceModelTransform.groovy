@@ -28,6 +28,7 @@ package edu.montana.gsoc.msusel.inject.transform.model.namespace
 
 import edu.isu.isuese.datamodel.Module
 import edu.isu.isuese.datamodel.Namespace
+import edu.isu.isuese.datamodel.Project
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.model.NamespaceModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.structural.MoveNamespace
@@ -59,7 +60,7 @@ class MoveNamespaceModelTransform extends NamespaceModelTransform {
         if (!ns.getNamespaces().contains(child))
             throw new ModelTransformPreconditionsNotMetException()
         // 4. newParent is either a module or namespace
-        if (!(newParent instanceof Module) && !(newParent instanceof Namespace))
+        if (!(newParent instanceof Project) && !(newParent instanceof Module) && !(newParent instanceof Namespace))
             throw new ModelTransformPreconditionsNotMetException()
         // 5. newParent does not already contain a namespace equivalent to child
         if (newParent.getNamespaces().find { it.name == child.name })

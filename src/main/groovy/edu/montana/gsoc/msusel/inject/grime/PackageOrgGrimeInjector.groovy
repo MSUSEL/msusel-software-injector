@@ -37,7 +37,10 @@ import edu.isu.isuese.datamodel.Project
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectionFailedException
 import edu.montana.gsoc.msusel.inject.transform.model.file.AddTypeModelTransform
+import edu.montana.gsoc.msusel.inject.transform.model.module.AddNamespaceToModuleModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.namespace.AddFileModelTransform
+import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldModelTransform
+import edu.montana.gsoc.msusel.inject.transform.source.structural.AddNamespace
 import groovy.transform.builder.Builder
 
 /**
@@ -56,6 +59,10 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      * Flag indicating closure (true), or reuse (false) grime
      */
     protected boolean closure
+    /**
+     * Static index for generated items
+     */
+    protected static int generatedIndex = 1
 
     /**
      * Constructs a new Package type OrgGrime injector for the given pattern instance, parameterized by the provided flags
@@ -88,11 +95,12 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
         MutableGraph<Namespace> graph = createGraph(pkg.getParentProject())
 
         if (closure) {
-            other = selectUnreachableNamespace(graph, pkg)
+            other = selectOrCreateUnreachableNamespace(graph, pkg)
         } else {
-            other = selectReachableNamespace(graph, pkg)
+            other = selectOrCreateReachableNamespace(graph, pkg)
         }
-        dest = selectExternalClass(other)
+
+        dest = selectOrCreateExternalClass(other)
 
         if (other && dest) {
             RelationType rel = selectRelationship(type, dest, rand.nextBoolean())
@@ -176,7 +184,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      * @param ns the namespace to start from
      * @return A namespace for use in grime injection
      */
-    Namespace selectReachableNamespace(MutableGraph<Namespace> graph, Namespace ns) {
+    Namespace selectOrCreateReachableNamespace(MutableGraph<Namespace> graph, Namespace ns) {
         if (!graph)
             throw new InjectionFailedException()
         if (!ns)
@@ -196,9 +204,16 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
             if (val) list << key
         }
 
-        Collections.shuffle(list)
-
-        list[0]
+        if (!list) {
+            // Add Namespace
+            Namespace newNs
+            AddNamespaceToModuleModelTransform addNs = new AddNamespaceToModuleModelTransform(ns.getParentProject().getModules().first(), "exgeneratedns${generatedIndex++}")
+            addNs.execute()
+            addNs.ns
+        } else {
+            Collections.shuffle(list)
+            (Namespace) list[0]
+        }
     }
 
     /**
@@ -207,7 +222,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      * @param ns Namespace used for reachability calculations
      * @return A namespace currently unreachable from the provided namespace
      */
-    Namespace selectUnreachableNamespace(MutableGraph<Namespace> graph, Namespace ns) {
+    Namespace selectOrCreateUnreachableNamespace(MutableGraph<Namespace> graph, Namespace ns) {
         if (!graph)
             throw new InjectionFailedException()
         if (!ns)
@@ -226,9 +241,20 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
             if (!val) list << key
         }
 
-        Collections.shuffle(list)
-
-        list[0]
+        if (!list) {
+            // Add Namespace
+            Namespace newNs
+            AddNamespaceToModuleModelTransform addNs = new AddNamespaceToModuleModelTransform(ns.getParentProject().getModules().first(), "exgeneratedns${generatedIndex++}")
+            addNs.execute()
+            Type externalType = selectOrCreateExternalClass(addNs.ns)
+            Type internalType = selectInternalClass(ns)
+            AddFieldModelTransform addField = new AddFieldModelTransform(internalType, "connector${generatedIndex++}", externalType, Accessibility.PRIVATE)
+            addField.execute()
+            addNs.ns
+        } else {
+            Collections.shuffle(list)
+            (Namespace) list[0]
+        }
     }
 
     private void dfsUtil(MutableGraph<Namespace> graph, Namespace ns, Map<Namespace, Boolean> visited) {
@@ -249,9 +275,10 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
         Type type = selectExternalClass(ns)
 
         if (!type) {
-            AddFileModelTransform addFile = new AddFileModelTransform(ns, "GenExternalType.java", FileType.SOURCE)
+            int genIndex = generatedIndex++
+            AddFileModelTransform addFile = new AddFileModelTransform(ns, "GenExternalType${genIndex}.java", FileType.SOURCE)
             addFile.execute()
-            AddTypeModelTransform addType = new AddTypeModelTransform(addFile.file, "GenExternalType", Accessibility.PUBLIC, "class")
+            AddTypeModelTransform addType = new AddTypeModelTransform(addFile.file, "GenExternalType${genIndex}", Accessibility.PUBLIC, "class")
             addType.execute()
             addType.type
         } else {

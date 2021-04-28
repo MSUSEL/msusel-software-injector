@@ -126,7 +126,9 @@ abstract class AbstractSourceTransform implements SourceTransform {
 
         List<SourceTransform> trans = []
         missing.each {
-            Import imp = Import.builder().name(it).create()
+            Import imp = Import.findFirst("name = ?", it)
+            if (!imp)
+                imp = Import.builder().name(it).create()
             trans << AddImport.builder().file(file).imp(imp).create()
         }
 

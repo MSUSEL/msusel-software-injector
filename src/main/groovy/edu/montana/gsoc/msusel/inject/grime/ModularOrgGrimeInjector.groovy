@@ -29,7 +29,9 @@ package edu.montana.gsoc.msusel.inject.grime
 import com.google.common.collect.Lists
 import edu.isu.isuese.datamodel.*
 import edu.montana.gsoc.msusel.inject.InjectionFailedException
+import edu.montana.gsoc.msusel.inject.transform.model.file.AddTypeModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.module.AddNamespaceToModuleModelTransform
+import edu.montana.gsoc.msusel.inject.transform.model.namespace.AddFileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.namespace.SplitNamespaceModelTransform
 import groovy.transform.builder.Builder
 import org.apache.commons.lang3.tuple.Pair
@@ -54,6 +56,10 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * Flag indicating cyclical (true) or unstable (false) org grime
      */
     protected boolean cyclical
+    /**
+     * Static counter for generated types
+     */
+    protected static int generatedIndex = 1
 
     Type src
     Type dest
@@ -161,14 +167,17 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * @param rel type of relationship to generate
      */
     def createCyclicalDependency(Namespace srcNs, Namespace destNs, RelationType rel) {
-        List<Pair<Type, Type>> pairs = findTypePairs(destNs, srcNs, dest, src)
-        Pair<Type, Type> pair = pairs[rand.nextInt(pairs.size())]
-
         if (!hasRelationship(srcNs, destNs)) {
             createRelationship(rel, src, dest)
         }
         if (!hasRelationship(destNs, srcNs)) {
-            createRelationship(rel, pair.left, pair.right)
+            List<Pair<Type, Type>> pairs = findTypePairs(destNs, srcNs, dest, src)
+            if (pairs.isEmpty()) {
+                createRelationship(rel, dest, src)
+            } else {
+                Pair<Type, Type> pair = pairs[rand.nextInt(pairs.size())]
+                createRelationship(rel, pair.left, pair.right)
+            }
         }
     }
 
@@ -217,8 +226,8 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
     }
 
     def selectRelationship(Namespace srcNs, Namespace destNs, boolean persistent) {
-        src = selectType(srcNs)
-        dest = selectType(destNs)
+        src = selectOrCreateType(srcNs)
+        dest = selectOrCreateType(destNs)
 
         if (persistent) {
             selectPersistentRel(src, dest)
@@ -227,7 +236,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         }
     }
 
-    static def selectType(Namespace namespace) {
+    static def selectOrCreateType(Namespace namespace) {
         if (!namespace)
             throw new InjectionFailedException()
 
@@ -236,8 +245,17 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
             types += it.getAllTypes()
         }
 
-        Collections.shuffle(types)
-        types[0]
+        if (!types) {
+            int genIndex = generatedIndex++
+            AddFileModelTransform addFile = new AddFileModelTransform(namespace, "GenExternalType${genIndex}.java", FileType.SOURCE)
+            addFile.execute()
+            AddTypeModelTransform addType = new AddTypeModelTransform(addFile.file, "GenExternalType${genIndex}", Accessibility.PUBLIC, "class")
+            addType.execute()
+            addType.type
+        } else {
+            Collections.shuffle(types)
+            types[0]
+        }
     }
 
     /**
@@ -260,7 +278,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
             namespaces.first()
         } else {
             Module mod = project.getModules().first()
-            AddNamespaceToModuleModelTransform trans = new AddNamespaceToModuleModelTransform(mod, "genexternns")
+            AddNamespaceToModuleModelTransform trans = new AddNamespaceToModuleModelTransform(mod, "genexternns${generatedIndex}")
             trans.execute()
             trans.ns
         }

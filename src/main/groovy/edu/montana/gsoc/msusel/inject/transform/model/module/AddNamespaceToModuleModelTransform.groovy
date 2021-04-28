@@ -63,6 +63,7 @@ class AddNamespaceToModuleModelTransform extends ModuleModelTransform {
         // execute transform
         ns = Namespace.builder().name(name).nsKey(name).relPath(name).create()
         mod.addNamespace(ns)
+        mod.getParentProject().addNamespace(ns)
         ns.updateKey()
 
         // create source transform

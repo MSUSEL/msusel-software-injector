@@ -97,6 +97,7 @@ class AddTypeModelTransform extends FileModelTransform {
             type.addModifier(it)
         }
         file.addType(type)
+        file.getParentNamespace().addType(type)
         type.updateKey()
         // Generate Source Transform
         new AddType(file, type).execute()

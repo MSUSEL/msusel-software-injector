@@ -99,10 +99,7 @@ abstract class GrimeInjector implements SourceInjector {
                 return RelationType.GEN
             }
             else {
-                if (rand.nextBoolean())
-                    return RelationType.GEN
-                else
-                    return RelationType.ASSOC
+                return RelationType.ASSOC
             }
         } else {
             if (src.isRealizing(dest)) {
@@ -154,6 +151,10 @@ abstract class GrimeInjector implements SourceInjector {
      * @param dest destination type of the relationship
      */
     static void createRelationship(RelationType rel, Type src, Type dest) {
+        if (!src)
+            throw new IllegalArgumentException("Src cannot be null")
+        if (!dest)
+            throw new IllegalArgumentException("Dest cannot be null")
         switch (rel) {
             case RelationType.ASSOC:
                 new AddAssociationModelTransform(src, dest, dest.getName().uncapitalize(), src.getName().uncapitalize(), false).execute()

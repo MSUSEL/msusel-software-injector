@@ -62,6 +62,7 @@ class AddNamespaceToNamespaceModelTransform extends NamespaceModelTransform {
         // Execute Transform
         child = Namespace.builder().name(name).nsKey(name).create()
         ns.addNamespace(child)
+        ns.getParentProject().addNamespace(child)
         child.updateKey()
         // Generate Source Transform
         new AddNamespace(child, ns).execute()

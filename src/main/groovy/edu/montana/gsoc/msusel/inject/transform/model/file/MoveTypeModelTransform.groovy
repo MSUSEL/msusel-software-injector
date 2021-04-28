@@ -66,6 +66,8 @@ class MoveTypeModelTransform extends FileModelTransform {
     @Override
     void transform() {
         // Execute Transform
+        file.getParentNamespace()?.removeType(type)
+        newParent.getParentNamespace()?.addType(type)
 
         // Generate Source Transform
         new MoveType(type, file, newParent).execute()

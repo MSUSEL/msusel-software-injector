@@ -57,11 +57,14 @@ class DeleteFileModelTransform extends NamespaceModelTransform {
 
     @Override
     void transform() {
+        // Generate Source Transform
+        new DeleteFile(file).execute()
+
         // Execute Transform
         ns.removeFile(file)
         file.thaw()
-        // Generate Source Transform
-        new DeleteFile(file).execute()
+        ns.getParentProject().removefile(file)
+        file.thaw()
     }
 
     @Override

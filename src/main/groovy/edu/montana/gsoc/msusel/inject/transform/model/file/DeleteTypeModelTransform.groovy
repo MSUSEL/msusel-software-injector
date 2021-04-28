@@ -57,11 +57,13 @@ class DeleteTypeModelTransform extends FileModelTransform {
 
     @Override
     void transform() {
+        // Generate Source Transform
+        new DeleteType(file, type).execute()
         // Execute Transform
         file.removeType(type)
         type.thaw()
-        // Generate Source Transform
-        new DeleteType(file, type).execute()
+        file.getParentNamespace().removeType(type)
+        type.thaw()
     }
 
     @Override
