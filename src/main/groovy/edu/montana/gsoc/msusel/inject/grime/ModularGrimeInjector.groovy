@@ -77,30 +77,33 @@ class ModularGrimeInjector extends GrimeInjector {
         Type dest = null
         RelationType rel = null
 
-        while (!src && !dest) {
-            if (external) {
-                if (efferent) {
-                    src = selectExternClass()
-                    dest = selectPatternClass()
+        do {
+            while (!src && !dest) {
+                if (external) {
+                    if (efferent) {
+                        src = selectExternClass()
+                        dest = selectPatternClass()
+                    } else {
+                        src = selectPatternClass()
+                        dest = selectExternClass()
+                    }
                 } else {
-                    src = selectPatternClass()
-                    dest = selectExternClass()
+                    (src, dest) = select2PatternClasses()
                 }
-            } else {
-                (src, dest) = select2PatternClasses()
+
+                rel = selectRelationship(src, dest, persistent)
+
+                if (!rel)
+                    src = dest = null
             }
-
-            rel = selectRelationship(src, dest, persistent)
-
-            if (!rel)
-                src = dest = null
-        }
+        } while (affectedEntities.contains(src.getCompKey()))
 
         createRelationship(rel, src, dest)
         createFinding(persistent, external, efferent, src)
     }
 
     void createFinding(boolean persistent, boolean external, boolean efferent, Type type) {
+        affectedEntities << type.getCompKey()
         if (persistent) {
             if (external) {
                 if (efferent) {

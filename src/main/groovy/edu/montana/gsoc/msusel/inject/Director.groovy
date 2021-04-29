@@ -44,7 +44,9 @@ class Director {
         proj = copier.execute(proj)
 
         Pattern pattern = Pattern.findFirst("patternKey = ?", (String) config.where.patternKey)
-        PatternInstance inst = PatternInstance.findFirst("instKey = ?", (String) config.where.patternInst)
+        String[] instKey = config.where.patternInst.split(/:/)
+        instKey[1] = instKey[1] + "_copy"
+        PatternInstance inst = PatternInstance.findFirst("instKey = ?", (String) instKey.join(":"))
 
         SourceInjector injector = selectInjector(inst, config)
         int min = config.what.min

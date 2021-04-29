@@ -73,6 +73,8 @@ class InjectorFactory {
                 return ClassGrimeInjector.builder().direct(true).internal(false).pair(false).pattern(inst).create()
             case ClassGrimeTypes.IISG:
                 return ClassGrimeInjector.builder().direct(false).internal(true).pair(false).pattern(inst).create()
+            case ClassGrimeTypes.IIPG:
+                return ClassGrimeInjector.builder().direct(false).internal(true).pair(true).pattern(inst).create()
             case ClassGrimeTypes.IESG:
                 return ClassGrimeInjector.builder().direct(false).internal(false).pair(false).pattern(inst).create()
             case ClassGrimeTypes.IEPG:

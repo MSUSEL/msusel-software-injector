@@ -50,6 +50,10 @@ abstract class GrimeInjector implements SourceInjector {
      */
     protected PatternInstance pattern
 
+    static int generatedIndex = 1
+
+    static List<String> affectedEntities = []
+
     /**
      * Constructs a new GrimeInjector for the provided pattern instance
      * @param pattern Pattern instance into which grime will be injected
@@ -188,7 +192,7 @@ abstract class GrimeInjector implements SourceInjector {
     protected static Method createMethod(Type type, String methodName) {
         AddPrimitiveMethodModelTransform trans = new AddPrimitiveMethodModelTransform(type, methodName, "void", Accessibility.PUBLIC)
         trans.execute()
-        trans.getMethod()
+        return trans.getMethod()
     }
 
     /**
@@ -205,11 +209,11 @@ abstract class GrimeInjector implements SourceInjector {
         List<Method> methods = type.getAllMethods()
         methods.removeAll(selected)
 
-        if (methods) {
+        if (!methods.isEmpty()) {
             Collections.shuffle(methods)
             return methods.first()
         } else {
-            return createMethod(type, "testMethod")
+            return createMethod(type, "testMethod${generatedIndex++}")
         }
     }
 }

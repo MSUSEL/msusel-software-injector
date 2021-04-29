@@ -86,11 +86,13 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
         Namespace other
         Type type, dest
 
-        if (internal) {
-            type = selectInternalClass(pkg)
-        } else {
-            type = selectOrCreateExternalClass(pkg)
-        }
+        do {
+            if (internal) {
+                type = selectInternalClass(pkg)
+            } else {
+                type = selectOrCreateExternalClass(pkg)
+            }
+        } while (affectedEntities.contains(type.getCompKey()))
 
         MutableGraph<Namespace> graph = createGraph(pkg.getParentProject())
 
@@ -111,6 +113,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
     }
 
     void createFinding(boolean internal, boolean closure, Type type) {
+        affectedEntities << type.getCompKey()
         if (internal) {
             if (closure) {
                 Finding.of(GrimeInjectorConstants.grimeTypes["PICG"]).injected().on(type)

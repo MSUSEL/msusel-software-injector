@@ -76,7 +76,11 @@ class ClassGrimeInjector extends GrimeInjector {
      */
     @Override
     void inject() {
-        Type type = selectPatternClass()
+        Type type
+        do {
+            type = selectPatternClass()
+        } while (affectedEntities.contains(type.getCompKey()))
+
         Field field = createField(type, "test", selectType(type))
 
         Method method1 = null
@@ -91,20 +95,20 @@ class ClassGrimeInjector extends GrimeInjector {
         }
 
         if (pair) {
-            while (!method2 && method2 != method1) {
+//            while (!method2 && method2 != method1) {
                 method2 = selectOrCreateMethod(type, [method1])
-            }
+//            }
         }
 
         if (direct) {
             createFieldUse(method1, field)
-            if (method2) {
+            if (pair) {
                 createFieldUse(method2, field)
             }
         } else {
             Method mutator = createGetter(type, field)
             createMethodCall(type, method1, mutator)
-            if (method2) {
+            if (pair) {
                 createMethodCall(type, method2, mutator)
             }
         }
@@ -115,6 +119,7 @@ class ClassGrimeInjector extends GrimeInjector {
     }
 
     void createFinding(boolean direct, boolean internal, boolean pair, Method method) {
+        affectedEntities << method.getParentType().getCompKey()
         if (direct) {
             if (internal) {
                 if (pair) {

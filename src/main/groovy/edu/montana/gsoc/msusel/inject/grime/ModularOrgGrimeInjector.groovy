@@ -226,7 +226,11 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
     }
 
     def selectRelationship(Namespace srcNs, Namespace destNs, boolean persistent) {
-        src = selectOrCreateType(srcNs)
+        do {
+            src = selectOrCreateType(srcNs)
+        } while (affectedEntities.contains(src.getCompKey()))
+        affectedEntities << src.getCompKey()
+
         dest = selectOrCreateType(destNs)
 
         if (persistent) {
