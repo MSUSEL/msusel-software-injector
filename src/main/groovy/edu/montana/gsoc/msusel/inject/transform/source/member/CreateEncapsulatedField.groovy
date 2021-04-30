@@ -79,7 +79,7 @@ class CreateEncapsulatedField extends CompositeSourceTransform {
         // 2. If no such field exists, then create the field
         Field fld = Field.builder()
                 .name("${fieldName}")
-                .compKey("${fieldName}")
+                .compKey("${type.getCompKey()}:${fieldName}")
                 .accessibility(access)
                 .type(fieldType)
                 .create()
