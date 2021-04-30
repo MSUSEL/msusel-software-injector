@@ -111,8 +111,8 @@ class AddField extends AddMember {
     @Override
     void updateModel() {
         // 3. update field start and end
-        field.start = start + 1
-        field.end = start + 1
+        field.start = start
+        field.end = start
         // 4. Add field to type
         type.addMember(field)
 

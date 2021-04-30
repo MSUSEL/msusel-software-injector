@@ -82,7 +82,7 @@ class AddMethod extends AddMember {
         builder = new StringBuilder()
 
         // 1. find line of last method in type
-        start = findMethodInsertionPoint(type)
+        start = findMethodInsertionPoint(type) + 1
     }
 
     /**

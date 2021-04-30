@@ -85,16 +85,19 @@ abstract class AddMember extends BasicSourceTransform {
      */
     int findFieldInsertionPoint(Type type) {
         int line = 0
+        int mstart = Integer.MAX_VALUE
 
-        for (Field field : (List<Field>) type.getFields()) {
-            if (field.getEnd() > line)
-                line = field.getEnd()
+        if (type.getFields().size() > 0) {
+            for (Field field : (List<Field>) type.getFields()) {
+                if (field.getEnd() > line)
+                    line = field.getEnd()
+            }
         }
-
-        int mstart = Integer.MAX_VALUE;
-        for (Method method : (List<Method>) type.getMethods()) {
-            if (method.getStart() < mstart)
-                mstart = method.getStart()
+        else {
+            for (Method method : (List<Method>) type.getMethods()) {
+                if (method.getStart() < mstart)
+                    mstart = method.getStart()
+            }
         }
 
         if (line <= 0 && mstart == Integer.MAX_VALUE)
