@@ -174,7 +174,7 @@ class ClassGrimeInjector extends GrimeInjector {
 
         List<Method> methods = []
         pattern.getRoleBindings().each { RoleBinding rb ->
-            if (rb.reference.type == RefType.METHOD) {
+            if (rb.reference && rb.reference.type == RefType.METHOD) {
                 Method method = Method.findFirst("compKey = ?", rb.reference.refKey)
                 if (method && method.getParentType() == type)
                     methods << method
