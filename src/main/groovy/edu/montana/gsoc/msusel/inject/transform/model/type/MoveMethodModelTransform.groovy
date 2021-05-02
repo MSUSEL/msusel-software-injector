@@ -70,7 +70,7 @@ class MoveMethodModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type no longer contains method
         assert(!type.getAllMethods().contains(method))
         // 2. newParent now contains method

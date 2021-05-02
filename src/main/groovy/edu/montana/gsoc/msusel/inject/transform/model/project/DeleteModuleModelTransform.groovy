@@ -64,7 +64,7 @@ class DeleteModuleModelTransform extends ProjectModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. proj no longer contains mod
         assert(!proj.modules.contains(mod))
     }

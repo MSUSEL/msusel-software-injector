@@ -34,6 +34,7 @@ import edu.montana.gsoc.msusel.inject.transform.model.module.AddNamespaceToModul
 import edu.montana.gsoc.msusel.inject.transform.model.namespace.AddFileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.namespace.SplitNamespaceModelTransform
 import groovy.transform.builder.Builder
+import groovy.util.logging.Log4j2
 import org.apache.commons.lang3.tuple.Pair
 
 /**
@@ -42,6 +43,7 @@ import org.apache.commons.lang3.tuple.Pair
  * @author Isaac Griffith
  * @version 1.3.0
  */
+@Log4j2
 class ModularOrgGrimeInjector extends OrgGrimeInjector {
 
     /**
@@ -84,19 +86,17 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      */
     @Override
     void inject() {
-        List<Namespace> pkgs = findPatternNamespaces()
+        log.info "Starting Injection"
         Namespace ns1, ns2
         RelationType rel
 
         if (internal) {
-            if (pkgs.size() > 1) {
-                (ns1, ns2) = selectNamespaces(pkgs)
-            } else {
-                ns1 = selectNamespace(pkgs)
+            (ns1, ns2) = selectPatternNamespace(2)
+            if (!ns2) {
                 (ns1, ns2) = splitNamespace(ns1, true)
             }
         } else {
-            ns1 = selectNamespace(pkgs)
+            ns1 = selectPatternNamespace()[0]
             ns2 = selectOrCreateExternNamespace()
         }
 
@@ -109,9 +109,11 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         }
 
         createFinding(persistent, internal, cyclical, ns1)
+        log.info "Injection Complete"
     }
 
     void createFinding(boolean persistent, boolean internal, boolean cyclical, Namespace ns) {
+        log.info "Creating Finding"
         if (persistent) {
             if (internal) {
                 if (cyclical) {
@@ -145,6 +147,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
                 }
             }
         }
+        log.info "Finding Created"
     }
 
     /**
@@ -157,7 +160,9 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         // increase number of abstract classes in srcNs
 
         // add an outgoing relationship from srcNs to destNs
+        log.info "Adding Instability"
         createRelationship(rel, src, dest)
+        log.info "Instability added"
     }
 
     /**
@@ -167,6 +172,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * @param rel type of relationship to generate
      */
     def createCyclicalDependency(Namespace srcNs, Namespace destNs, RelationType rel) {
+        log.info "Creating Cyclical Dependency"
         if (!hasRelationship(srcNs, destNs)) {
             createRelationship(rel, src, dest)
         }
@@ -179,6 +185,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
                 createRelationship(rel, pair.left, pair.right)
             }
         }
+        log.info "Cyclical Dependency Created"
     }
 
     static boolean hasRelationship(Namespace srcNs, Namespace destNs) {
@@ -187,15 +194,9 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         if (!destNs)
             throw new InjectionFailedException()
 
-        List<Type> srcTypes = []
-        def destTypes = []
-
-        srcNs.getFiles().each {
-            srcTypes += it.getAllTypes()
-        }
-        destNs.getFiles().each {
-            destTypes += it.getAllTypes()
-        }
+        log.info "Checking for relatinship"
+        List<Type> srcTypes = srcNs.getAllTypes()
+        def destTypes = destNs.getAllTypes()
 
         for (Type t : srcTypes) {
             for (Type o : destTypes) {
@@ -208,6 +209,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
     }
 
     private static def findTypePairs(Namespace srcNs, Namespace destNs, Type excludedSrc = null, Type excludedDest = null) {
+        log.info "Finding Type Pairs"
         List<Pair<Type, Type>> pairs = []
 
         for (Type src : srcNs.getAllTypes()) {
@@ -226,13 +228,9 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
     }
 
     def selectRelationship(Namespace srcNs, Namespace destNs, boolean persistent) {
-        do {
-            src = selectOrCreateType(srcNs)
-        } while (affectedEntities.contains(src.getCompKey()))
-        affectedEntities << src.getCompKey()
-
+        log.info "Selecting Relationship"
+        src = selectOrCreateType(srcNs)
         dest = selectOrCreateType(destNs)
-
         if (persistent) {
             selectPersistentRel(src, dest)
         } else {
@@ -244,22 +242,31 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         if (!namespace)
             throw new InjectionFailedException()
 
-        List<Type> types = []
-        namespace.getFiles().each {
-            types += it.getAllTypes()
+        log.info "Selecting/Creating Type"
+        List<Type> types = namespace.getAllTypes()
+        Type selected = null
+
+        if (affectedEntities.size() < types.size()) {
+            for (Type type : types) {
+                if (!affectedEntities.contains(type.getCompKey())) {
+                    selected = type
+                    break
+                }
+            }
         }
 
-        if (!types) {
+        if (!selected) {
             int genIndex = generatedIndex++
             AddFileModelTransform addFile = new AddFileModelTransform(namespace, "GenExternalType${genIndex}.java", FileType.SOURCE)
             addFile.execute()
             AddTypeModelTransform addType = new AddTypeModelTransform(addFile.file, "GenExternalType${genIndex}", Accessibility.PUBLIC, "class")
             addType.execute()
-            addType.type
-        } else {
-            Collections.shuffle(types)
-            types[0]
+            selected = addType.type
         }
+
+        log.info "Type Selected/Created"
+        affectedEntities << selected.getCompKey()
+        selected
     }
 
     /**
@@ -267,6 +274,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
      * @return the namespace selected or created
      */
     Namespace selectOrCreateExternNamespace() {
+        log.info "Selecting/Creating External Namespace"
         Project project = pattern.getParentProject()
         List<Namespace> namespaces = project.getNamespaces()
         List<Namespace> patternNS = findPatternNamespaces()
@@ -302,6 +310,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         if (!namespace)
             throw new InjectionFailedException()
 
+        log.info "Spliting Namespace"
         List<File> left = []
         List<File> right = []
 
@@ -313,6 +322,13 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
                 else
                     right << it.getParentFile()
             }
+
+            if (left.isEmpty()) {
+                left << createPatternType(namespace).getParentFile()
+            }
+            if (right.isEmpty()) {
+                right << createType(namespace).getParentFile()
+            }
         } else {
             List<File> files = Lists.newArrayList(namespace.getFiles())
             Collections.shuffle(files)
@@ -323,54 +339,20 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
             for (int i = files.size() / 2; i < files.size(); i++) {
                 right << files[i]
             }
+
+            boolean isPattern = new Random().nextBoolean()
+            if (left.isEmpty()) {
+                left << isPattern ? createPatternType(namespace).getParentFile() : createType(namespace).getParentFile()
+            }
+            if (right.isEmpty()) {
+                right << isPattern ? createPatternType(namespace).getParentFile() : createType(namespace).getParentFile()
+            }
         }
 
         SplitNamespaceModelTransform trans = SplitNamespaceModelTransform.builder().ns(namespace).left(left).right(right).create()
         trans.execute()
+
+        log.info "Namespace Split"
         [trans.ns1, trans.ns2]
-    }
-
-    /**
-     * Selects a random namespace from the list provided
-     * @param namespaces list from which the selection is to occur
-     * @return A selected namespace
-     */
-    static Namespace selectNamespace(List<Namespace> namespaces) {
-        if (namespaces == null)
-            throw new InjectionFailedException()
-
-        if (namespaces.size() >= 1) {
-            Collections.shuffle(namespaces)
-            return namespaces.first()
-        }
-        null
-    }
-
-    /**
-     * Selects multiple namespaces from the list provided
-     * @param namespaces list of namespaces from which a selection is to occur
-     * @return a collection of selected namespaces
-     */
-    static def selectNamespaces(List<Namespace> namespaces) {
-        if (namespaces == null)
-            throw new InjectionFailedException()
-
-        if (namespaces.size() > 1) {
-            Collections.shuffle(namespaces)
-            return [namespaces[0], namespaces[1]]
-        }
-        []
-    }
-
-    /**
-     * Finds those namespaces in the codetree which are pattern namespaces
-     * @return List of pattern namespaces
-     */
-    List<Namespace> findPatternNamespaces() {
-        Set<Namespace> namespaces = [].toSet()
-        pattern.getTypes().each {
-            namespaces.add(it.getParentNamespace())
-        }
-        namespaces.toList()
     }
 }

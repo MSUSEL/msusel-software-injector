@@ -76,10 +76,7 @@ class ClassGrimeInjector extends GrimeInjector {
      */
     @Override
     void inject() {
-        Type type
-        do {
-            type = selectPatternClass()
-        } while (affectedEntities.contains(type.getCompKey()))
+        Type type = selectOrCreatePatternClass()
 
         Field field = createField(type, "test", selectType(type))
 
@@ -88,7 +85,7 @@ class ClassGrimeInjector extends GrimeInjector {
 
         while (!method1) {
             if (internal) {
-                method1 = selectPatternMethod(type)
+                method1 = selectOrCreatePatternMethod(type)
             } else {
                 method1 = selectOrCreateMethod(type, [])
             }
@@ -168,7 +165,7 @@ class ClassGrimeInjector extends GrimeInjector {
      * @param type Type
      * @return a method that is part of the pattern and is found within the given type
      */
-    Method selectPatternMethod(Type type) {
+    Method selectOrCreatePatternMethod(Type type) {
         if (!type)
             throw new InjectionFailedException()
 

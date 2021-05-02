@@ -65,7 +65,7 @@ class DeleteProjectModelTransform extends SystemModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. sys no longer contains project
         assert(!sys.getProjects().contains(proj))
     }

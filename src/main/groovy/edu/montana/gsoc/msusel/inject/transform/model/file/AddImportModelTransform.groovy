@@ -66,7 +66,7 @@ class AddImportModelTransform extends FileModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. file contains import with given name
         assert (file.imports.contains(imp))
     }

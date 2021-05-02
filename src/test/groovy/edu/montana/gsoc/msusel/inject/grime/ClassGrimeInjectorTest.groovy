@@ -122,7 +122,7 @@ class ClassGrimeInjectorTest extends GrimeInjectorBaseTest {
         Type type = Class.findFirst("name = ?", "TypeA")
 
         // when
-        Method method = fixture.selectPatternMethod(type)
+        Method method = fixture.selectOrCreatePatternMethod(type)
 
         // then
         the(method).shouldNotBeNull()
@@ -135,7 +135,7 @@ class ClassGrimeInjectorTest extends GrimeInjectorBaseTest {
         Type type = Class.findFirst("name = ?", "TypeB")
 
         // when
-        Method method = fixture.selectPatternMethod(type)
+        Method method = fixture.selectOrCreatePatternMethod(type)
 
         // then
         the(method).shouldNotBeNull()
@@ -148,6 +148,6 @@ class ClassGrimeInjectorTest extends GrimeInjectorBaseTest {
         Type type = null
 
         // when
-        fixture.selectPatternMethod(type)
+        fixture.selectOrCreatePatternMethod(type)
     }
 }

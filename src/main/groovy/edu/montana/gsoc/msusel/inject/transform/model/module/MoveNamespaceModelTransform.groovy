@@ -74,7 +74,7 @@ class MoveNamespaceModelTransform extends ModuleModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. ns no longer is contained by mod
         assert(!mod.namespaces.contains(ns))
         // 2. newParent now contains ns

@@ -62,7 +62,7 @@ class ChangeMemberAccessibilityModelTransform extends MemberModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. member has access of access
         assert(member.accessibility == access)
     }

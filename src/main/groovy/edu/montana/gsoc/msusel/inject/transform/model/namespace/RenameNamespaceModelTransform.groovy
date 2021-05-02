@@ -68,7 +68,7 @@ class RenameNamespaceModelTransform extends NamespaceModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. ns name is now name
         assert(ns.name == name)
     }

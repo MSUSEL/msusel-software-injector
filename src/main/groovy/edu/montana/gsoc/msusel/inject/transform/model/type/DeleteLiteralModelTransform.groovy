@@ -69,7 +69,7 @@ class DeleteLiteralModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type no longer contains member
         assert (!type.getLiterals().contains(literal))
     }

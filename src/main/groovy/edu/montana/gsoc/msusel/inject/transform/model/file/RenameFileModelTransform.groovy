@@ -66,7 +66,7 @@ class RenameFileModelTransform extends FileModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. file has new name
         assert (file.name == name)
     }

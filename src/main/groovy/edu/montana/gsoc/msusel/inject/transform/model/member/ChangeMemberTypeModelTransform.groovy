@@ -24,53 +24,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package edu.montana.gsoc.msusel.inject.transform.model.system
+package edu.montana.gsoc.msusel.inject.transform.model.member
 
-import edu.isu.isuese.datamodel.System
+
+import edu.isu.isuese.datamodel.Type
+import edu.isu.isuese.datamodel.TypedMember
+import edu.montana.gsoc.msusel.inject.transform.model.MemberModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
-import edu.montana.gsoc.msusel.inject.transform.model.SystemModelTransform
-import edu.montana.gsoc.msusel.inject.transform.source.structural.RenameSystem
+import edu.montana.gsoc.msusel.inject.transform.source.member.ChangeMemberType
+import groovy.transform.builder.Builder
 
-/**
- * @author Isaac Griffith
- * @version 1.3.0
- */
-class RenameSystemModelTransform extends SystemModelTransform {
+class ChangeMemberTypeModelTransform extends MemberModelTransform {
 
-    String name
+    Type type
 
-    RenameSystemModelTransform(System system, String name) {
-        super(system)
-        this.name = name
+    @Builder(buildMethodName = "create")
+    ChangeMemberTypeModelTransform(TypedMember member, Type type) {
+        super(member)
+        this.type = type
     }
 
     @Override
     void verifyPreconditions() {
-        // Pre-Conditions
-        // 1. name is not null or empty
-        if (!name)
+        // 1. type is not null
+        if (!type)
             throw new ModelTransformPreconditionsNotMetException()
-        // 2. system name is not already name
-        if (sys.name == name)
+        // 2. member does not already have this accessibility
+        if (((TypedMember) member).getType().getType(type.getParentProject().getProjectKey()) == type)
             throw new ModelTransformPreconditionsNotMetException()
     }
 
     @Override
     void transform() {
-        // Store previous state
-        String oldName = sys.getBasePath()
-        // Execute transform
-        sys.setName(name)
-        sys.updateKeys()
-        // Generate source transform
-        new RenameSystem(sys, oldName).execute()
+        // Generate Source Transform
+        new ChangeMemberType(member.getParentFile(), (TypedMember) member, type.createTypeRef()).execute()
     }
 
     @Override
     void verifyPostconditions() {
-        // 1. system name is now name
-        assert(sys.getName() == name)
-        // 2. system key is correct
-        assert(sys.getKey().endsWith(name))
+        // 1. member has access of access
+        assert(((TypedMember) member).getType().getType(type.getParentProject().getProjectKey()) == type)
     }
 }

@@ -40,12 +40,14 @@ import edu.montana.gsoc.msusel.inject.transform.source.structural.AddFile
 class AddFileModelTransform extends NamespaceModelTransform {
 
     String path
+    String relPath
     FileType type
     File file
 
     AddFileModelTransform(Namespace ns, String path, FileType type) {
         super(ns)
-        this.path = path
+        this.relPath = path
+        this.path = ns.getFullPath(type, 0) + (ns.getFullPath(type, 0).endsWith("/") ? "" : "/") + path
         this.type = type
     }
 
@@ -65,16 +67,17 @@ class AddFileModelTransform extends NamespaceModelTransform {
     @Override
     void transform() {
         // Execute Transform
-        file = File.builder().name(path).relPath(path).fileKey(path).type(type).create()
-        ns.addFile(file)
+        file = File.builder().name(path).relPath(relPath).fileKey(path).type(type).create()
         ns.getParentProject().addFile(file)
+        ns.addFile(file)
         file.updateKey()
+        file.refresh()
         // Generate Source Transform
         new AddFile(file, ns).execute()
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. ns contains file
         assert(ns.getFiles().contains(file))
         // 2. file parent is ns

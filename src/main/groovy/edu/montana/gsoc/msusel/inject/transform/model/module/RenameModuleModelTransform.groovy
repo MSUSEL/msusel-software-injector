@@ -68,7 +68,7 @@ class RenameModuleModelTransform extends ModuleModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // Post-Conditions
         // 1. the name of mod is now name
         assert(mod.name == name)

@@ -69,7 +69,7 @@ class AddNamespaceToNamespaceModelTransform extends NamespaceModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. ns contains newNS
         assert(ns.getNamespaces().contains(child))
         // 2. newNS parent is ns

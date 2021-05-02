@@ -71,7 +71,7 @@ class AddLiteralModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type contains literal
         assert(type.getLiterals().contains(literal))
     }

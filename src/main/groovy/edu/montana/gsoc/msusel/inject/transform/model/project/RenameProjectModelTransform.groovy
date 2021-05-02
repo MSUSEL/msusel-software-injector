@@ -68,7 +68,7 @@ class RenameProjectModelTransform extends ProjectModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. project name is now new name
         assert(proj.name == name)
         // 2. project key now contains new name

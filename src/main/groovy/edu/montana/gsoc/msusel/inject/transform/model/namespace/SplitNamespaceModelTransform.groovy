@@ -110,7 +110,7 @@ class SplitNamespaceModelTransform extends NamespaceModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         if (parent instanceof Module) {
             Module modParent = (Module) parent
             assert(!modParent.getNamespaces().contains(ns))

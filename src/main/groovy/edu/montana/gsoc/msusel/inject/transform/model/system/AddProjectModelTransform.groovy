@@ -72,7 +72,7 @@ class AddProjectModelTransform extends SystemModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. sys now contains proj
         assert(sys.getProjects().contains(proj))
         // 2. proj parent is sys

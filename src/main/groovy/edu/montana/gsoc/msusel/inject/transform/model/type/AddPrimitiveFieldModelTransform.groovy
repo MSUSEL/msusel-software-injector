@@ -90,7 +90,7 @@ class AddPrimitiveFieldModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type contains field
         assert(type.getFields().contains(field))
     }

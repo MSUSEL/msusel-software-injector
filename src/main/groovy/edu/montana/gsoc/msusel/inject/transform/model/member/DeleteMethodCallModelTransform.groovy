@@ -65,7 +65,7 @@ class DeleteMethodCallModelTransform extends MemberModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. member no longer calls method
         assert(!member.getMethodsCalled().contains(method))
         // 2. method no longer called by member

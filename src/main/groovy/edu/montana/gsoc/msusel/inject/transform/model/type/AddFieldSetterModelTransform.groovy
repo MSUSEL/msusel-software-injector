@@ -68,7 +68,7 @@ class AddFieldSetterModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         assert(type.getMethods().find { it.getName() == "set${field.name.capitalize()}" } != null)
     }
 }

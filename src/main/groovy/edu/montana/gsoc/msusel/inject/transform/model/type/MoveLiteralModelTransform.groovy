@@ -78,7 +78,7 @@ class MoveLiteralModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type no longer contains literal
         assert (!type.getLiterals().contains(literal))
         // 2. newParent now contains literal

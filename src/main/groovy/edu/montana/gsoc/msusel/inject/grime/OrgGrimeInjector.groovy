@@ -26,7 +26,8 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-
+import com.google.common.collect.Sets
+import edu.isu.isuese.datamodel.Namespace
 import edu.isu.isuese.datamodel.PatternInstance
 
 /**
@@ -35,7 +36,25 @@ import edu.isu.isuese.datamodel.PatternInstance
  */
 abstract class OrgGrimeInjector extends GrimeInjector {
 
+    Set<Namespace> patternNs
+
     OrgGrimeInjector(PatternInstance pattern) {
         super(pattern)
+    }
+
+    List<Namespace> selectPatternNamespace(num = 1) {
+        if (!patternNs) {
+            patternNs = Sets.newHashSet()
+            pattern.getTypes().each {
+                patternNs.add(it.getParentNamespace())
+            }
+        }
+
+        List<Namespace> selectFrom = patternNs.toList()
+        Collections.shuffle(selectFrom)
+        if (selectFrom.size() >= num)
+            selectFrom.subList(0, num)
+        else
+            selectFrom
     }
 }

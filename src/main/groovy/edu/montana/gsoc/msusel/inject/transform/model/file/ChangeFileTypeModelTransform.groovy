@@ -61,7 +61,7 @@ class ChangeFileTypeModelTransform extends FileModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. file's type is type
         assert(file.getType() == type)
     }

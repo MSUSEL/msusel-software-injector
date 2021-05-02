@@ -80,7 +80,7 @@ class AddParameterUseModelTransform extends MemberModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         assert(member.getParentType().hasUseTo(type))
         assert(((Method) member).getParameterByName(type.getName().uncapitalize()) != null)
     }

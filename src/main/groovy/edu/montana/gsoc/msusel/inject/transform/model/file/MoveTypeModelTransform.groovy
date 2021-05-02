@@ -74,7 +74,7 @@ class MoveTypeModelTransform extends FileModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. file no longer contains type
         assert(!file.getAllTypes().contains(type))
         // 2. newParent contains type

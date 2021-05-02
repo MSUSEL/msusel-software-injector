@@ -68,7 +68,7 @@ class AddFieldGetterModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type now contains a method with name getField
         assert (type.getMethods().find { it.getName() == "get${field.name.capitalize()}" } != null)
     }

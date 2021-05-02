@@ -63,7 +63,7 @@ class DeleteGeneralizationModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type no longer generalized by gen
         assert(!type.getGeneralizedBy().contains(gen))
         // 2. gen no longer generalizes type

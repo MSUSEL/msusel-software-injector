@@ -104,7 +104,7 @@ class AddTypeModelTransform extends FileModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. A new type with the given name and features exists in file
         assert (file.getAllTypes().contains(type))
         // 2. The new type's parent is file

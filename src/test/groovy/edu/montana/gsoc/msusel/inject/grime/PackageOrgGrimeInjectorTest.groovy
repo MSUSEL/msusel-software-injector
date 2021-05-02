@@ -122,7 +122,7 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         ]
 
         // when
-        Type type = fixture.selectInternalClass(ns)
+        Type type = fixture.selectOrCreateInternalClass(ns)
 
         // then
         the(types).shouldContain(type)
@@ -134,7 +134,7 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         Namespace ns = ns1
 
         // when
-        Type type = fixture.selectInternalClass(ns)
+        Type type = fixture.selectOrCreateInternalClass(ns)
 
         // then
         the(type).shouldBeNull()

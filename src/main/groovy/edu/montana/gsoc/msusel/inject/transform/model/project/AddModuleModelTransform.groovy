@@ -65,7 +65,7 @@ class AddModuleModelTransform extends ProjectModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. proj contains new module mod
         assert(proj.modules.contains(mod))
         // 2. mod's parent is proj

@@ -78,10 +78,9 @@ class AddReturnTypeUseModelTransform extends MemberModelTransform {
                         .create()
                         .execute()
             } else {
-                ChangeMemberType.builder()
-                        .file(method.getParentFile())
+                ChangeMemberTypeModelTransform.builder()
                         .member(method)
-                        .retType(type.createTypeRef())
+                        .type(type)
                         .create()
                         .execute()
             }
@@ -91,7 +90,7 @@ class AddReturnTypeUseModelTransform extends MemberModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         assert(member.getParentType().hasUseTo(type))
         assert(((Method) member).getType().getTypeName() == type.getName())
     }

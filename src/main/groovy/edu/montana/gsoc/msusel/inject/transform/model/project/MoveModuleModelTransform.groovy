@@ -72,7 +72,7 @@ class MoveModuleModelTransform extends ProjectModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. proj no longer contains mod
         assert(!proj.modules.contains(mod))
         // 2. newParent contains mod

@@ -65,7 +65,7 @@ class ChangeTypeAccessibilityModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         assert(type.getAccessibility() == access)
     }
 }

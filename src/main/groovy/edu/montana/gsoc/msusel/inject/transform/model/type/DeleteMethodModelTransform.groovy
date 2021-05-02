@@ -65,7 +65,7 @@ class DeleteMethodModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type no longer contains member
         assert(!type.getAllMethods().contains(method))
     }

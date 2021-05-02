@@ -35,12 +35,12 @@ abstract class ModelTransform {
     void execute() {
         verifyPreconditions()
         transform()
-        verifyPostconditons()
+        verifyPostconditions()
     }
 
     abstract void verifyPreconditions()
 
     abstract void transform()
 
-    abstract void verifyPostconditons()
+    abstract void verifyPostconditions()
 }

@@ -75,7 +75,7 @@ class MoveProjectModelTransform extends SystemModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. sys no longer contains proj
         assert(!sys.getProjects().contains(proj))
         // 2. newParent contains proj

@@ -78,7 +78,7 @@ class MoveNamespaceModelTransform extends NamespaceModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. ns no longer contains child
         assert(!ns.getNamespaces().contains(child))
         // 2. newParent contains child

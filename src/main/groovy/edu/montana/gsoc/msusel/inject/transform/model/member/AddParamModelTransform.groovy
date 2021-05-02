@@ -93,7 +93,7 @@ class AddParamModelTransform extends MemberModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. member has param
         assert(((Method) member).getParams().contains(param))
     }

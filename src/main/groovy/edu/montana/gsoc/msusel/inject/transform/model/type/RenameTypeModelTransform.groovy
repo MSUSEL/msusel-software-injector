@@ -66,7 +66,7 @@ class RenameTypeModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type's name is now name
         assert(type.name == name)
         // 2. type's key ends in name

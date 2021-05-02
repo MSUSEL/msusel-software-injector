@@ -57,13 +57,16 @@ class AddFile extends StructuralCreateTransform {
     @Override
     void setup() {
         base = new java.io.File(ns.getFullPath(file.getType(), 0))
-        toWrite = new java.io.File(base, file.getRelPath())
+        toWrite = new java.io.File(file.getFullPath())
     }
 
     @Override
     void transformStructure() {
-        if (!toWrite.exists())
+
+        if (!toWrite.exists()) {
+            toWrite.getParentFile().mkdirs()
             toWrite.createNewFile()
+        }
 
         String content = """\
         /**

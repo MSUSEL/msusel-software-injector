@@ -66,7 +66,7 @@ class RenameMemberModelTransform extends MemberModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. member name is name
         assert(member.name == name)
     }

@@ -64,7 +64,7 @@ class AddTypeModifierModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type has modifier mod
         assert(type.getModifiers().contains(mod))
     }

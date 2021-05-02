@@ -68,7 +68,7 @@ class DeleteNamespaceFromModuleModelTransform extends ModuleModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. ns is not contained in mod
         assert(!mod.namespaces.contains(ns))
     }

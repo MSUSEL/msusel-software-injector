@@ -64,7 +64,7 @@ class DeleteTypeModifierModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type no longer has modifier mod
         type.refresh()
         assert(!type.getModifiers().contains(mod))

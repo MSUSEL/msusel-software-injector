@@ -64,7 +64,7 @@ class AddMethodCallModelTransform extends MemberModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. member calls method
         assert(((Method) member).getMethodsCalled().contains(method))
         // 2. method called by member

@@ -96,7 +96,7 @@ class AddMethodModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         assert(type.getAllMethods().contains(method))
     }
 }

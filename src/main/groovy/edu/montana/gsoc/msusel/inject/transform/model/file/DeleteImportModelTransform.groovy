@@ -65,7 +65,7 @@ class DeleteImportModelTransform extends FileModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. file no longer contains imp
         assert (!file.imports.contains(imp))
     }

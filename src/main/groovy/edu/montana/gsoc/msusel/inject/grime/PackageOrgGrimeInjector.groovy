@@ -40,7 +40,6 @@ import edu.montana.gsoc.msusel.inject.transform.model.file.AddTypeModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.module.AddNamespaceToModuleModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.namespace.AddFileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldModelTransform
-import edu.montana.gsoc.msusel.inject.transform.source.structural.AddNamespace
 import groovy.transform.builder.Builder
 
 /**
@@ -82,17 +81,15 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      */
     @Override
     void inject() {
-        Namespace pkg = selectPatternNamespace()
+        Namespace pkg = selectPatternNamespace()[0]
         Namespace other
         Type type, dest
 
-        do {
-            if (internal) {
-                type = selectInternalClass(pkg)
-            } else {
-                type = selectOrCreateExternalClass(pkg)
-            }
-        } while (affectedEntities.contains(type.getCompKey()))
+        if (internal) {
+            type = selectOrCreateInternalClass(pkg)
+        } else {
+            type = selectOrCreateExternalClass(pkg)
+        }
 
         MutableGraph<Namespace> graph = createGraph(pkg.getParentProject())
 
@@ -129,20 +126,6 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
         }
     }
 
-    Namespace selectPatternNamespace() {
-        Set<Namespace> spaces = [].toSet()
-        pattern.getTypes().each {
-            spaces.add(it.getParentNamespace())
-        }
-
-        List<Namespace> selectFrom = spaces.toList()
-        if (!selectFrom.isEmpty()) {
-            Collections.shuffle(selectFrom)
-            return selectFrom.first()
-        }
-        return null
-    }
-
     /**
      * Selects a class within the given namespace, but external to the pattern instance
      * @param ns Namespace
@@ -168,17 +151,25 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
         }
     }
 
-    Type selectInternalClass(Namespace ns) {
+    Type selectOrCreateInternalClass(Namespace ns) {
         if (!ns)
             throw new InjectionFailedException()
 
         List<Type> patternTypes = pattern.getTypes()
-        List<Type> nsTypes = patternTypes.findAll {
-            it.getParentNamespace() == ns
+        Type selected = null
+        if (affectedEntities.size() < pattern.getTypes().size()) {
+            List<Type> availableTypes = patternTypes.findAll {
+                it.getParentNamespace() == ns && !affectedEntities.contains(it.getCompKey())
+            }
+            if (availableTypes.size() > 0)
+                selected = availableTypes[0]
+        }
+        if (!selected) {
+            selected = createType(ns)
         }
 
-        Collections.shuffle(nsTypes)
-        nsTypes[0]
+        affectedEntities << selected.getCompKey()
+        selected
     }
 
     /**
@@ -250,7 +241,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
             AddNamespaceToModuleModelTransform addNs = new AddNamespaceToModuleModelTransform(ns.getParentProject().getModules().first(), "exgeneratedns${generatedIndex++}")
             addNs.execute()
             Type externalType = selectOrCreateExternalClass(addNs.ns)
-            Type internalType = selectInternalClass(ns)
+            Type internalType = selectOrCreateInternalClass(ns)
             AddFieldModelTransform addField = new AddFieldModelTransform(internalType, "connector${generatedIndex++}", externalType, Accessibility.PRIVATE)
             addField.execute()
             addNs.ns

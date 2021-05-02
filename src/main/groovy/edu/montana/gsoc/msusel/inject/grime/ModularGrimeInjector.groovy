@@ -77,26 +77,24 @@ class ModularGrimeInjector extends GrimeInjector {
         Type dest = null
         RelationType rel = null
 
-        do {
-            while (!src && !dest) {
-                if (external) {
-                    if (efferent) {
-                        src = selectExternClass()
-                        dest = selectPatternClass()
-                    } else {
-                        src = selectPatternClass()
-                        dest = selectExternClass()
-                    }
+        while (!src && !dest) {
+            if (external) {
+                if (efferent) {
+                    src = selectOrCreateExternClass()
+                    dest = selectOrCreatePatternClass()
                 } else {
-                    (src, dest) = select2PatternClasses()
+                    src = selectOrCreatePatternClass()
+                    dest = selectOrCreateExternClass()
                 }
-
-                rel = selectRelationship(src, dest, persistent)
-
-                if (!rel)
-                    src = dest = null
+            } else {
+                (src, dest) = selectOrCreate2PatternClasses()
             }
-        } while (affectedEntities.contains(src.getCompKey()))
+
+            rel = selectRelationship(src, dest, persistent)
+
+            if (!rel)
+                src = dest = null
+        }
 
         createRelationship(rel, src, dest)
         createFinding(persistent, external, efferent, src)
@@ -127,26 +125,24 @@ class ModularGrimeInjector extends GrimeInjector {
         }
     }
 
-    def select2PatternClasses() {
-        def types = Lists.newArrayList(pattern.getTypes())
-        Collections.shuffle(types)
-
-        if (types.size() >= 2)
-            return [types[0], types[1]]
-        else
-            return [types[0], types[0]]
+    def selectOrCreate2PatternClasses() {
+        [selectOrCreatePatternClass(), selectOrCreatePatternClass()]
     }
 
     /**
      * Selects a type external to the pattern definition
      * @return the Type selected
      */
-    Type selectExternClass() {
+    Type selectOrCreateExternClass() {
         if (!pattern.getParentProjects().isEmpty()) {
             List<Type> types = Lists.newArrayList(pattern.getParentProjects().first().getAllTypes())
             types.removeAll(pattern.getTypes())
 
-            return types[rand.nextInt(types.size())]
+            if (types.isEmpty()) {
+                return createType()
+            }
+            else
+                return types[rand.nextInt(types.size())]
         }
         return null
     }

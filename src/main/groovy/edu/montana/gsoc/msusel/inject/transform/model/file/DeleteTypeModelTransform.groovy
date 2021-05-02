@@ -67,7 +67,7 @@ class DeleteTypeModelTransform extends FileModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. file no longer contains type
         assert(!file.getAllTypes().contains(type))
     }

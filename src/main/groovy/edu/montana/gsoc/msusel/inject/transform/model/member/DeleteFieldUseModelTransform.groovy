@@ -67,7 +67,7 @@ class DeleteFieldUseModelTransform extends MemberModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. member no longer calls method
         assert(!((Method) member).getFieldsUsed().contains(field))
         // 2. method no longer called by member

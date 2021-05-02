@@ -62,7 +62,7 @@ class DeleteAssociationModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type no longer associated to assoc
         assert(!type.getAssociatedTo().contains(assoc))
         // 2. assoc no longer associated from type

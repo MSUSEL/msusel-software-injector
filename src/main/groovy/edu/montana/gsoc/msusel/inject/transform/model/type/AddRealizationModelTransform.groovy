@@ -68,7 +68,7 @@ class AddRealizationModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type realizes real
         assert(type.getRealizes().contains(real))
         // 2. real realized by type

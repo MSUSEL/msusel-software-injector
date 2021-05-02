@@ -68,7 +68,7 @@ class DeleteRealizationModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type no longer realizes real
         assert(!type.getRealizes().contains(real))
         // 2. real no longer realized by type

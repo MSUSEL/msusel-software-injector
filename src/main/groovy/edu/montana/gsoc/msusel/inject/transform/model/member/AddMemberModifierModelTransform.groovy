@@ -64,7 +64,7 @@ class AddMemberModifierModelTransform extends MemberModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. member has modifier mod
         assert(member.getModifiers().contains(mod))
     }

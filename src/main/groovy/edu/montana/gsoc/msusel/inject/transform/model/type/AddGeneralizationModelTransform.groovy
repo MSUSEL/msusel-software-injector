@@ -71,7 +71,7 @@ class AddGeneralizationModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type generalized by gen
         assert(type.getGeneralizedBy().contains(gen))
         // 2. gen generalizes type

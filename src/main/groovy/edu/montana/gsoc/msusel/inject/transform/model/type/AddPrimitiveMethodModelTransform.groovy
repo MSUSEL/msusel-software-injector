@@ -90,7 +90,7 @@ class AddPrimitiveMethodModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type contains method
         assert(type.getAllMethods().contains(method))
     }

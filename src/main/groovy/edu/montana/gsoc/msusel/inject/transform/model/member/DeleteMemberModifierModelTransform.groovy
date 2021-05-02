@@ -63,7 +63,7 @@ class DeleteMemberModifierModelTransform extends MemberModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. member no longer has modifier mod
         assert(!member.getModifiers().contains(mod))
     }

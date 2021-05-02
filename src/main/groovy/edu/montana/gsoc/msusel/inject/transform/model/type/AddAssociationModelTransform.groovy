@@ -72,7 +72,7 @@ class AddAssociationModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type associated to assoc
         assert(type.getAssociatedTo().contains(assoc))
         // 2. assoc associated from type

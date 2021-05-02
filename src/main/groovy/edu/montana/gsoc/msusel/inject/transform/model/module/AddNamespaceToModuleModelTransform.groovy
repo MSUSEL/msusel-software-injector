@@ -71,7 +71,7 @@ class AddNamespaceToModuleModelTransform extends ModuleModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. ns is contained in mod
         assert(mod.getNamespaces().contains(ns))
         // 2. ns' parent is mod

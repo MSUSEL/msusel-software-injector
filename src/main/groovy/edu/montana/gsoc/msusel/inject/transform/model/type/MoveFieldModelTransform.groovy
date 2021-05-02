@@ -75,7 +75,7 @@ class MoveFieldModelTransform extends TypeModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. type no longer contains field
         assert(!type.getFields().contains(field))
         // 2. newParent now contains field

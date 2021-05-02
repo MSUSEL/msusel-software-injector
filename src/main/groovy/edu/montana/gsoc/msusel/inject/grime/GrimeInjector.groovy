@@ -29,8 +29,11 @@ package edu.montana.gsoc.msusel.inject.grime
 import edu.isu.isuese.datamodel.*
 import edu.montana.gsoc.msusel.inject.InjectionFailedException
 import edu.montana.gsoc.msusel.inject.SourceInjector
+import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
+import edu.montana.gsoc.msusel.inject.transform.model.file.AddTypeModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.member.AddParameterUseModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.member.AddReturnTypeUseModelTransform
+import edu.montana.gsoc.msusel.inject.transform.model.namespace.AddFileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddAssociationModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddGeneralizationModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddPrimitiveMethodModelTransform
@@ -65,12 +68,61 @@ abstract class GrimeInjector implements SourceInjector {
 
     /**
      * Selects a type from the pattern instance, as the focus for the injection event
+     * @param alreadySelected list of already selected classes
      * @return Type into which grime will be injected
      */
-    Type selectPatternClass() {
+    Type selectOrCreatePatternClass() {
         List<Type> types = pattern.getTypes()
-        Random rand = new Random()
-        types[rand.nextInt(types.size())]
+        Type selected = null
+
+        if (affectedEntities.size() < types.size()) {
+            for (Type type : types) {
+                if (!affectedEntities.contains(type.getCompKey())) {
+                    selected = type
+                    break
+                }
+            }
+        }
+        if (!selected) {
+            selected = createPatternType()
+        }
+
+        affectedEntities << selected.getCompKey()
+        selected
+    }
+
+    Type createPatternType(Namespace ns = null) {
+        Type type = createType(ns)
+        Role role = pattern.getRoles().find {
+            it.getType() == RoleType.CLASSIFIER
+        }
+        pattern.getParentPattern().addRole(role)
+        pattern.addRoleBinding(RoleBinding.of(role, type.createReference()))
+
+        type
+    }
+
+    Type createType(Namespace ns = null) {
+        int genIndex = generatedIndex++
+        if (!ns)
+            ns = findPatternNamespaces().get(0)
+
+        Type type = null
+        boolean exception
+        do {
+            exception = false
+            try {
+                AddFileModelTransform addFile = new AddFileModelTransform(ns, "GenExternalType${genIndex}.java", FileType.SOURCE)
+                addFile.execute()
+                AddTypeModelTransform addType = new AddTypeModelTransform(addFile.file, "GenExternalType${genIndex}", Accessibility.PUBLIC, "class")
+                addType.execute()
+                type = addType.type
+            } catch (ModelTransformPreconditionsNotMetException ex) {
+                exception = true
+            }
+        } while (exception)
+
+        type
     }
 
     /**
@@ -140,7 +192,7 @@ abstract class GrimeInjector implements SourceInjector {
                 case 0:
                     return RelationType.USE_PARAM
                 case 1:
-                    return RelationType.USE_RET
+                    return RelationType.USE_PARAM // should be USE_RET
 //                case 2:
 //                    return RelationType.USE_VAR
             }
@@ -215,5 +267,17 @@ abstract class GrimeInjector implements SourceInjector {
         } else {
             return createMethod(type, "testMethod${generatedIndex++}")
         }
+    }
+
+    /**
+     * Finds those namespaces in the codetree which are pattern namespaces
+     * @return List of pattern namespaces
+     */
+    List<Namespace> findPatternNamespaces() {
+        Set<Namespace> namespaces = [].toSet()
+        pattern.getTypes().each {
+            namespaces.add(it.getParentNamespace())
+        }
+        namespaces.toList()
     }
 }

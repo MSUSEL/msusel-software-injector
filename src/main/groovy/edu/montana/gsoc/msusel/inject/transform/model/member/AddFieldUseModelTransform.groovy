@@ -65,7 +65,7 @@ class AddFieldUseModelTransform extends MemberModelTransform {
     }
 
     @Override
-    void verifyPostconditons() {
+    void verifyPostconditions() {
         // 1. member calls method
         assert(((Method) member).getFieldsUsed().contains(field))
         // 2. method called by member
