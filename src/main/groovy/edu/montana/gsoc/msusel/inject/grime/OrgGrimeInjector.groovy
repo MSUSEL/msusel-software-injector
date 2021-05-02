@@ -29,11 +29,13 @@ package edu.montana.gsoc.msusel.inject.grime
 import com.google.common.collect.Sets
 import edu.isu.isuese.datamodel.Namespace
 import edu.isu.isuese.datamodel.PatternInstance
+import groovy.util.logging.Log4j2
 
 /**
  * @author Isaac Griffith
  * @version 1.3.0
  */
+@Log4j2
 abstract class OrgGrimeInjector extends GrimeInjector {
 
     Set<Namespace> patternNs
@@ -43,6 +45,7 @@ abstract class OrgGrimeInjector extends GrimeInjector {
     }
 
     List<Namespace> selectPatternNamespace(num = 1) {
+        log.info "Selecting Pattern Namespace"
         if (!patternNs) {
             patternNs = Sets.newHashSet()
             pattern.getTypes().each {

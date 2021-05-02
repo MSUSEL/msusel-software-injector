@@ -60,7 +60,7 @@ class AddNamespaceToNamespaceModelTransform extends NamespaceModelTransform {
     @Override
     void transform() {
         // Execute Transform
-        child = Namespace.builder().name(name).nsKey(name).create()
+        child = Namespace.builder().name(name).nsKey(name).relPath(name).create()
         ns.addNamespace(child)
         ns.getParentProject().addNamespace(child)
         child.updateKey()

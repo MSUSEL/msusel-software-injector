@@ -38,6 +38,7 @@ import edu.montana.gsoc.msusel.inject.transform.model.type.AddAssociationModelTr
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddGeneralizationModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddPrimitiveMethodModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddRealizationModelTransform
+import groovy.util.logging.Log4j2
 
 /**
  * Base class for Design Pattern Grime injectors
@@ -45,6 +46,7 @@ import edu.montana.gsoc.msusel.inject.transform.model.type.AddRealizationModelTr
  * @author Isaac Griffith
  * @version 1.3.0
  */
+@Log4j2
 abstract class GrimeInjector implements SourceInjector {
 
     protected Random rand
@@ -72,6 +74,7 @@ abstract class GrimeInjector implements SourceInjector {
      * @return Type into which grime will be injected
      */
     Type selectOrCreatePatternClass() {
+        log.info "Selecting/Creating Pattern Class"
         List<Type> types = pattern.getTypes()
         Type selected = null
 
@@ -92,6 +95,7 @@ abstract class GrimeInjector implements SourceInjector {
     }
 
     Type createPatternType(Namespace ns = null) {
+        log.info "Creating Pattern Type"
         Type type = createType(ns)
         Role role = pattern.getRoles().find {
             it.getType() == RoleType.CLASSIFIER
@@ -103,6 +107,7 @@ abstract class GrimeInjector implements SourceInjector {
     }
 
     Type createType(Namespace ns = null) {
+        log.info "Creating Type"
         int genIndex = generatedIndex++
         if (!ns)
             ns = findPatternNamespaces().get(0)
@@ -130,6 +135,7 @@ abstract class GrimeInjector implements SourceInjector {
      * @return Relationship type
      */
     RelationType selectRelationship(Type src, Type dest, boolean persistent) {
+        log.info "Selecting Relationship"
         if (persistent) {
             selectPersistentRel(src, dest)
         } else {
@@ -144,6 +150,7 @@ abstract class GrimeInjector implements SourceInjector {
      * @return the relationship type to inject
      */
     RelationType selectPersistentRel(Type src, Type dest) {
+        log.info "Selecting Persistent Relationship"
         if (src instanceof Class && dest instanceof Class) {
             if (src.isGeneralizedBy(dest) || src.getGeneralizedBy()) {
                 if (src.isAssociatedTo(dest)) {
@@ -183,6 +190,7 @@ abstract class GrimeInjector implements SourceInjector {
      * @return the relationship type to inject
      */
     RelationType selectTemporaryRel(Type src, Type dest) {
+        log.info "Selecting Temporary Relationship"
         if (src.hasUseTo(dest)) {
             return null
         } else {
@@ -207,6 +215,7 @@ abstract class GrimeInjector implements SourceInjector {
      * @param dest destination type of the relationship
      */
     static void createRelationship(RelationType rel, Type src, Type dest) {
+        log.info "Creating Relationship"
         if (!src)
             throw new IllegalArgumentException("Src cannot be null")
         if (!dest)
@@ -242,6 +251,7 @@ abstract class GrimeInjector implements SourceInjector {
      * @return the newly created method
      */
     protected static Method createMethod(Type type, String methodName) {
+        log.info "Creating Method"
         AddPrimitiveMethodModelTransform trans = new AddPrimitiveMethodModelTransform(type, methodName, "void", Accessibility.PUBLIC)
         trans.execute()
         return trans.getMethod()
@@ -258,6 +268,8 @@ abstract class GrimeInjector implements SourceInjector {
         if (selected == null)
             throw new InjectionFailedException()
 
+        log.info "Selecting/Creating Method"
+
         List<Method> methods = type.getAllMethods()
         methods.removeAll(selected)
 
@@ -270,10 +282,11 @@ abstract class GrimeInjector implements SourceInjector {
     }
 
     /**
-     * Finds those namespaces in the codetree which are pattern namespaces
+     * Finds those namespaces in the data model which are pattern namespaces
      * @return List of pattern namespaces
      */
     List<Namespace> findPatternNamespaces() {
+        log.info "Finding Pattern Namespaces"
         Set<Namespace> namespaces = [].toSet()
         pattern.getTypes().each {
             namespaces.add(it.getParentNamespace())

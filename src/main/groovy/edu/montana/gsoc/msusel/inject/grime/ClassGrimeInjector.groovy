@@ -34,6 +34,7 @@ import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldGetterModelTr
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldSetterModelTransform
 import groovy.transform.builder.Builder
+import groovy.util.logging.Log4j2
 
 /**
  * Injection Strategy for Class Grime
@@ -41,6 +42,7 @@ import groovy.transform.builder.Builder
  * @author Isaac Griffith
  * @version 1.3.0
  */
+@Log4j2
 class ClassGrimeInjector extends GrimeInjector {
 
     /**
@@ -76,6 +78,7 @@ class ClassGrimeInjector extends GrimeInjector {
      */
     @Override
     void inject() {
+        log.info "Starting Injection"
         Type type = selectOrCreatePatternClass()
 
         Field field = createField(type, "test", selectType(type))
@@ -113,9 +116,11 @@ class ClassGrimeInjector extends GrimeInjector {
         createFinding(direct, internal, pair, method1)
         if (pair)
             createFinding(direct, internal, pair, method2)
+        log.info "Injection Complete"
     }
 
     void createFinding(boolean direct, boolean internal, boolean pair, Method method) {
+        log.info "Creating finding"
         affectedEntities << method.getParentType().getCompKey()
         if (direct) {
             if (internal) {
@@ -146,9 +151,11 @@ class ClassGrimeInjector extends GrimeInjector {
                 }
             }
         }
+        log.info "Finding created"
     }
 
     Type selectType(Type type) {
+        log.info "Selecting Type"
         List<Type> knownTypes = type.getParentProject().getAllTypes()
         knownTypes.remove(type)
 
@@ -166,6 +173,7 @@ class ClassGrimeInjector extends GrimeInjector {
      * @return a method that is part of the pattern and is found within the given type
      */
     Method selectOrCreatePatternMethod(Type type) {
+        log.info "Selecting/Creating Pattern Method"
         if (!type)
             throw new InjectionFailedException()
 
@@ -202,6 +210,7 @@ class ClassGrimeInjector extends GrimeInjector {
      * @return The field node to be created
      */
     protected Field createField(Type parent, String fieldName, Type type) {
+        log.info "Creating Field"
         AddFieldModelTransform trans = new AddFieldModelTransform(parent, fieldName, type, Accessibility.PRIVATE)
         trans.execute()
         trans.getField()
@@ -214,6 +223,7 @@ class ClassGrimeInjector extends GrimeInjector {
      * @param field the field to be referenced
      */
     protected void createMethodWithFieldUse(String methodName, Type type, Field field) {
+        log.info "Creating Method with Field Use"
         Method extMethod = createMethod(type, methodName)
         createFieldUse(extMethod, field)
     }
@@ -224,6 +234,7 @@ class ClassGrimeInjector extends GrimeInjector {
      * @param field the field to be used
      */
     protected void createFieldUse(Method method, Field field) {
+        log.info "Creating Field Use"
         new AddFieldUseModelTransform(method, field).execute()
     }
 
@@ -234,6 +245,7 @@ class ClassGrimeInjector extends GrimeInjector {
      * @return the newly constructed getter method
      */
     protected Method createGetter(Type type, Field field) {
+        log.info "Creating Getter"
         AddFieldGetterModelTransform trans = new AddFieldGetterModelTransform(type, field)
         trans.execute()
         trans.getMethod()
@@ -246,6 +258,7 @@ class ClassGrimeInjector extends GrimeInjector {
      * @return the newly constructed setter method
      */
     protected Method createSetter(Type type, Field field) {
+        log.info "Creating Setter"
         AddFieldSetterModelTransform trans = new AddFieldSetterModelTransform(type, field)
         trans.execute()
         trans.getMethod()
@@ -258,6 +271,7 @@ class ClassGrimeInjector extends GrimeInjector {
      * @param call
      */
     def createMethodCall(Type type, Method callee, Method call) {
+        log.info "Creating Method Call"
         new AddMethodCallModelTransform(callee, call).execute()
     }
 }

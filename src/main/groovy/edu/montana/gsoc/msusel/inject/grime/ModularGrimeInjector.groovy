@@ -31,6 +31,7 @@ import edu.isu.isuese.datamodel.Finding
 import edu.isu.isuese.datamodel.PatternInstance
 import edu.isu.isuese.datamodel.Type
 import groovy.transform.builder.Builder
+import groovy.util.logging.Log4j2
 
 /**
  * A source injector to inject modular grime into a design pattern instance
@@ -38,6 +39,7 @@ import groovy.transform.builder.Builder
  * @author Isaac Griffith
  * @version 1.3.0
  */
+@Log4j2
 class ModularGrimeInjector extends GrimeInjector {
 
     /**
@@ -73,6 +75,7 @@ class ModularGrimeInjector extends GrimeInjector {
      */
     @Override
     void inject() {
+        log.info "Starting injection"
         Type src = null
         Type dest = null
         RelationType rel = null
@@ -98,9 +101,11 @@ class ModularGrimeInjector extends GrimeInjector {
 
         createRelationship(rel, src, dest)
         createFinding(persistent, external, efferent, src)
+        log.info "Injection Complete"
     }
 
     void createFinding(boolean persistent, boolean external, boolean efferent, Type type) {
+        log.info "Creating Finding"
         affectedEntities << type.getCompKey()
         if (persistent) {
             if (external) {
@@ -123,6 +128,7 @@ class ModularGrimeInjector extends GrimeInjector {
                 Finding.of(GrimeInjectorConstants.grimeTypes["TIG"]).injected().on(type)
             }
         }
+        log.info "Finding Created"
     }
 
     def selectOrCreate2PatternClasses() {
@@ -134,6 +140,7 @@ class ModularGrimeInjector extends GrimeInjector {
      * @return the Type selected
      */
     Type selectOrCreateExternClass() {
+        log.info "Selecting/Creating External Class"
         if (!pattern.getParentProjects().isEmpty()) {
             List<Type> types = Lists.newArrayList(pattern.getParentProjects().first().getAllTypes())
             types.removeAll(pattern.getTypes())

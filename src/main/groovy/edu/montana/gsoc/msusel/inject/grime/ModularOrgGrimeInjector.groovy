@@ -257,9 +257,9 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
 
         if (!selected) {
             int genIndex = generatedIndex++
-            AddFileModelTransform addFile = new AddFileModelTransform(namespace, "GenExternalType${genIndex}.java", FileType.SOURCE)
+            AddFileModelTransform addFile = new AddFileModelTransform(namespace, "GenExternalTypeMOG${genIndex}.java", FileType.SOURCE)
             addFile.execute()
-            AddTypeModelTransform addType = new AddTypeModelTransform(addFile.file, "GenExternalType${genIndex}", Accessibility.PUBLIC, "class")
+            AddTypeModelTransform addType = new AddTypeModelTransform(addFile.file, "GenExternalTypeMOG${genIndex}", Accessibility.PUBLIC, "class")
             addType.execute()
             selected = addType.type
         }
@@ -292,7 +292,10 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
             Module mod = project.getModules().first()
             AddNamespaceToModuleModelTransform trans = new AddNamespaceToModuleModelTransform(mod, "genexternns${generatedIndex}")
             trans.execute()
-            trans.ns
+            Namespace ns = trans.ns
+            ns.saveIt()
+            ns.refresh()
+            ns
         }
     }
 
@@ -308,6 +311,8 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
 
     def splitNamespace(Namespace namespace, boolean onPatternBoundary) {
         if (!namespace)
+            throw new InjectionFailedException()
+        if (namespace.getId() == null)
             throw new InjectionFailedException()
 
         log.info "Spliting Namespace"

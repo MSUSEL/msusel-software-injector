@@ -41,6 +41,7 @@ import edu.montana.gsoc.msusel.inject.transform.model.module.AddNamespaceToModul
 import edu.montana.gsoc.msusel.inject.transform.model.namespace.AddFileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldModelTransform
 import groovy.transform.builder.Builder
+import groovy.util.logging.Log4j2
 
 /**
  * Injector strategy for Package type Organizational Grime
@@ -48,6 +49,7 @@ import groovy.transform.builder.Builder
  * @author Isaac Griffith
  * @version 1.3.0
  */
+@Log4j2
 class PackageOrgGrimeInjector extends OrgGrimeInjector {
 
     /**
@@ -81,6 +83,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      */
     @Override
     void inject() {
+        log.info "Starting Injection"
         Namespace pkg = selectPatternNamespace()[0]
         Namespace other
         Type type, dest
@@ -107,9 +110,11 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
         }
 
         createFinding(internal, closure, type)
+        log.info "Injection Complete"
     }
 
     void createFinding(boolean internal, boolean closure, Type type) {
+        log.info "Creating Finding"
         affectedEntities << type.getCompKey()
         if (internal) {
             if (closure) {
@@ -124,6 +129,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
                 Finding.of(GrimeInjectorConstants.grimeTypes["PERG"]).injected().on(type)
             }
         }
+        log.info "Finding Created"
     }
 
     /**
@@ -132,6 +138,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      * @return An external to the pattern instance type
      */
     Type selectExternalClass(Namespace ns) {
+        log.info "Selecting External Class"
         if (!ns)
             throw new InjectionFailedException()
 
@@ -152,6 +159,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
     }
 
     Type selectOrCreateInternalClass(Namespace ns) {
+        log.info "Selecting/Creating Internal Class"
         if (!ns)
             throw new InjectionFailedException()
 
@@ -183,6 +191,8 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
             throw new InjectionFailedException()
         if (!ns)
             throw new InjectionFailedException()
+
+        log.info "Selecting/Creating Reachable Namespace"
 
         Map<Namespace, Boolean> visited = [:]
         graph.nodes().each {
@@ -221,6 +231,8 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
             throw new InjectionFailedException()
         if (!ns)
             throw new InjectionFailedException()
+
+        log.info "Selecting/Creating Unreachable Namespace"
 
         Map<Namespace, Boolean> visited = [:]
         graph.nodes().each {
@@ -266,6 +278,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
      * @return A type external to the pattern instance but contained within the given namespace
      */
     Type selectOrCreateExternalClass(Namespace ns) {
+        log.info "Selecting/Creating External Class"
         Type type = selectExternalClass(ns)
 
         if (!type) {
@@ -282,6 +295,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
     }
 
     static MutableGraph<Namespace> createGraph(Project p) {
+        log.info "Creating Graph"
         MutableGraph<Namespace> graph = GraphBuilder.undirected().build()
         p.getNamespaces().each {
             if (!it.getFiles().isEmpty())

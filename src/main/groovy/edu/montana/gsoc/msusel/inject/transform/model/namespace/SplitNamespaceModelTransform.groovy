@@ -49,6 +49,8 @@ class SplitNamespaceModelTransform extends NamespaceModelTransform {
     Namespace ns2
     def parent
 
+    static int generated = 1
+
     @Builder(buildMethodName = "create")
     SplitNamespaceModelTransform(Namespace ns, List<File> left, List<File> right) {
         super(ns)
@@ -73,52 +75,62 @@ class SplitNamespaceModelTransform extends NamespaceModelTransform {
         // 1. Create Two New Namespaces (ns.name 1, ns.name 2) -> Use AddNamespaceModelTransform
         ModelTransform trans1
         ModelTransform trans2
-        ModelTransform delete
+//        ModelTransform delete
 
         if (ns.getParentModule()) {
             parent = ns.getParentModule()
-            trans1 = AddNamespaceToModuleModelTransform.builder().mod(ns.getParentModule()).name("${ns.getName()}1").create()
-            trans2 = AddNamespaceToModuleModelTransform.builder().mod(ns.getParentModule()).name("${ns.getName()}2").create()
-            delete = DeleteNamespaceFromModuleModelTransform.builder().mod(ns.getParentModule()).ns(ns).create()
+//            trans1 = AddNamespaceToModuleModelTransform.builder().mod(ns.getParentModule()).name("${ns.getName()}1").create()
+            trans2 = AddNamespaceToModuleModelTransform.builder().mod(ns.getParentModule()).name("${ns.getName()}_generate_${generated++}").create()
+//            delete = DeleteNamespaceFromModuleModelTransform.builder().mod(ns.getParentModule()).ns(ns).create()
 
-            trans1.execute()
+//            trans1.execute()
             trans2.execute()
 
-            ns1 = ((AddNamespaceToModuleModelTransform) trans1).getNs()
+//            ns1 = ((AddNamespaceToModuleModelTransform) trans1).getNs()
+            ns1 = ns
+            ns1.saveIt()
+            ns1.refresh()
             ns2 = ((AddNamespaceToModuleModelTransform) trans2).getNs()
+            ns2.saveIt()
         } else {
             parent = ns.getParentNamespace()
-            trans1 = AddNamespaceToNamespaceModelTransform.builder().ns(ns.getParentNamespace()).name("${ns.getName()}_generated_1").create()
-            trans2 = AddNamespaceToNamespaceModelTransform.builder().ns(ns.getParentNamespace()).name("${ns.getName()}_generated_2").create()
-            delete = DeleteNamespaceFromNamespaceModelTransform.builder().ns(ns.getParentNamespace()).child(ns).create()
+//            trans1 = AddNamespaceToNamespaceModelTransform.builder().ns(ns.getParentNamespace()).name("${ns.getName()}_generated_1").create()
+            trans2 = AddNamespaceToNamespaceModelTransform.builder().ns(ns.getParentNamespace()).name("${ns.getName()}_generated_${generated++}").create()
+//            delete = DeleteNamespaceFromNamespaceModelTransform.builder().ns(ns.getParentNamespace()).child(ns).create()
 
-            trans1.execute()
+//            trans1.execute()
             trans2.execute()
 
-            ns1 = ((AddNamespaceToNamespaceModelTransform) trans1).getChild()
+//            ns1 = ((AddNamespaceToNamespaceModelTransform) trans1).getChild()
+            ns1 = ns
+            ns1.saveIt()
+            ns1.refresh()
             ns2 = ((AddNamespaceToNamespaceModelTransform) trans2).getChild()
+            ns2.saveIt()
+            ns2.refresh()
         }
+        ns2.refresh()
 
         // 2. for each file in left move to ns.name1 - Use MoveFileModelTransform
-        left.each { MoveFileModelTransform.builder().ns(ns).newParent(ns1).file(it).create().execute() }
+//        left.each { MoveFileModelTransform.builder().ns(ns).newParent(ns1).file(it).create().execute() }
 
         // 3. for each file in right move to ns.name2 -> Use MoveFileModelTransform
         right.each { MoveFileModelTransform.builder().ns(ns).newParent(ns2).file(it).create().execute() }
 
         // 4. Delete the current Namespace
-        delete.execute()
+//        delete.execute() // FIXME is this the problem?
     }
 
     @Override
     void verifyPostconditions() {
         if (parent instanceof Module) {
             Module modParent = (Module) parent
-            assert(!modParent.getNamespaces().contains(ns))
+//            assert(!modParent.getNamespaces().contains(ns))
             assert(modParent.getNamespaces().contains(ns1))
             assert(modParent.getNamespaces().contains(ns2))
         } else {
             Namespace nsParent = (Namespace) parent
-            assert(!nsParent.getNamespaces().contains(ns))
+//            assert(!nsParent.getNamespaces().contains(ns))
             assert(nsParent.getNamespaces().contains(ns1))
             assert(nsParent.getNamespaces().contains(ns2))
         }

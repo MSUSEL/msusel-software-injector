@@ -26,8 +26,10 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.namespace
 
+import com.google.common.collect.Lists
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Namespace
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.model.NamespaceModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.structural.MoveFile
@@ -70,6 +72,12 @@ class MoveFileModelTransform extends NamespaceModelTransform {
         // Execute Transform
         ns.removeFile(file)
         newParent.addFile(file)
+        List<Type> types = Lists.newArrayList(ns.getAllTypes())
+        types.findAll {it.getParentFile() == file }.each {
+            newParent.addType(it)
+            it.refresh()
+            it.updateKey()
+        }
         // file.updateKey()
         // Generate Source Transform
         new MoveFile(file, ns, newParent).execute()
