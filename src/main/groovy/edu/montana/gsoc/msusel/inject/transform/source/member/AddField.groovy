@@ -30,6 +30,7 @@ import edu.isu.isuese.datamodel.Accessibility
 import edu.isu.isuese.datamodel.Field
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
+import edu.isu.isuese.datamodel.TypeRefType
 import edu.montana.gsoc.msusel.inject.transform.source.AddMember
 import groovy.transform.builder.Builder
 
@@ -111,15 +112,18 @@ class AddField extends AddMember {
     @Override
     void updateModel() {
         // 3. update field start and end
-        field.start = start
-        field.end = start
+        field.start = start + 1
+        field.end = start + 1
         // 4. Add field to type
         type.addMember(field)
 
         int current = lines.size()
         updateContainingAndAllFollowing(start, current - original)
         // 6. check if an import is needed
-        //updateImports(field.type)
+        if (field.type.getType() == TypeRefType.Type) {
+            println "Adding Field"
+            updateImports(field.type)
+        }
         // 7. update file content
         ops.text = lines.join("\n")
     }

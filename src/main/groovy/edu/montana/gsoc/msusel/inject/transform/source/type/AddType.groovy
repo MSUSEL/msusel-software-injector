@@ -30,6 +30,7 @@ import com.google.common.collect.Sets
 import edu.isu.isuese.datamodel.*
 import edu.montana.gsoc.msusel.inject.transform.source.BasicSourceTransform
 import groovy.transform.builder.Builder
+import groovy.util.logging.Log4j2
 
 /**
  * Transform which injects a new Type into a given File
@@ -37,6 +38,7 @@ import groovy.transform.builder.Builder
  * @author Isaac Griffith
  * @version 1.3.0
  */
+@Log4j2
 class AddType extends BasicSourceTransform {
 
     /**
@@ -81,10 +83,11 @@ class AddType extends BasicSourceTransform {
 
         textLines = text.stripIndent().split("\n")
 
+//        start = this.file.getEnd()
         lines.add(start, "")
-        start += 1
+
         for (int i = 0; i < textLines.size(); i++) {
-            lines.add(start + i, textLines[i])
+            lines.add(start + i + 1, textLines[i])
         }
 
     }
@@ -102,7 +105,8 @@ class AddType extends BasicSourceTransform {
         type.setEnd(end)
         file.setEnd(file.getEnd() + length)
 
-        updateAllFollowing(start, length)
+        updateAllFollowing(type.getStart() + 1, length)
+        type.refresh()
     }
 
     /**
@@ -110,10 +114,7 @@ class AddType extends BasicSourceTransform {
      * @return line number at which the new type is to be inserted
      */
     private int findTypeInsertionPoint(File file) {
-        if (!file.getAllTypes().isEmpty())
-            file.getAllTypes().max { it.getEnd() }.getEnd()
-        else
-            return file.getEnd() - 1
+        return file.getEnd()
     }
 
     private String createTemplate(String kind) {

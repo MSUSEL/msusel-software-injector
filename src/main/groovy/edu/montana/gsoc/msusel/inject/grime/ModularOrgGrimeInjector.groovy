@@ -194,7 +194,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         if (!destNs)
             throw new InjectionFailedException()
 
-        log.info "Checking for relatinship"
+        log.info "Checking for relationship"
         List<Type> srcTypes = srcNs.getAllTypes()
         def destTypes = destNs.getAllTypes()
 

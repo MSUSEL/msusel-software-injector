@@ -26,13 +26,10 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source
 
-import edu.isu.isuese.datamodel.TypeRef
-import edu.isu.isuese.datamodel.File
-import edu.isu.isuese.datamodel.Import
-import edu.isu.isuese.datamodel.Type
-import edu.isu.isuese.datamodel.Component
+import com.google.common.collect.Sets
+import edu.isu.isuese.datamodel.*
 import edu.montana.gsoc.msusel.inject.cond.Condition
-import edu.montana.gsoc.msusel.inject.transform.source.structural.AddImport
+import edu.montana.gsoc.msusel.inject.transform.source.structural.UpdateImports
 
 /**
  * Base class on which all transforms are built
@@ -81,9 +78,12 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * Updates the file's list of imports with those items in the provided list
      * @param imports List of imports to update with
      */
-    void updateImports(List<Import> imports) {
+    void updateImports(List<TypeRef> imports) {
         List<String> keys = []
-        imports.each { keys << it.name }
+        imports.each {
+            if (it.getType() == TypeRefType.Type)
+                keys << it.getTypeFullName()
+        }
         addImports(keys)
     }
 
@@ -93,7 +93,10 @@ abstract class AbstractSourceTransform implements SourceTransform {
      */
     void updateImports(TypeRef imp) {
         if (!file.getParentProjects().isEmpty()) {
-            addImports([imp.getType(file.getParentProjects().first().name).getFullName()])
+            String name = imp.getTypeFullName()
+            Import imprt = file.getImports().find {it.name == name}
+            if (!imprt)
+                addImports([name])
         }
     }
 
@@ -102,7 +105,9 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * @param typ Type
      */
     void updateImports(Type typ) {
-        addImports([typ.getFullName()])
+        Import imprt = file.getImports().find {it.name == typ.getFullName() }
+        if (!imprt)
+            addImports([typ.getFullName()])
     }
 
     /**
@@ -111,28 +116,30 @@ abstract class AbstractSourceTransform implements SourceTransform {
      */
     void addImports(List<String> imports) {
         java.io.File actual = new java.io.File(file.getFullPath())
-        List<String> importList = []
+        Set<String> importList = Sets.newHashSet()
         actual.readLines().each {
             if (it.startsWith("import ")) {
-                String impOnly = it.split(/import /)[1]
+                String impOnly = it.split(/ /)[1]
                 impOnly = impOnly.substring(0, impOnly.length() - 1)
                 importList << impOnly
             }
         }
 
-        List<String> missing = imports.findAll {
-            !importList.contains(it) && !(it =~ /${file.getParentNamespace().getFullName()}\.\w+/)
+        file.imports.each {
+            imports.remove(it.getName())
+        }
+        imports.remove(file.getParentNamespace().getFullName())
+
+        imports.each { String name ->
+            Import imp = Import.findFirst("name = ?", name)
+            if (!imp) {
+                imp = Import.builder().name(name).create()
+            }
+
+            file.addImport(imp)
         }
 
-        List<SourceTransform> trans = []
-        missing.each {
-            Import imp = Import.findFirst("name = ?", it)
-            if (!imp)
-                imp = Import.builder().name(it).create()
-            trans << AddImport.builder().file(file).imp(imp).create()
-        }
-
-        trans*.execute()
+        UpdateImports.builder().file(file).create().execute()
     }
 
     /**

@@ -123,13 +123,17 @@ class AddMethod extends AddMember {
         // 5. update all following items with size of insert
         updateContainingAndAllFollowing(start, end)
         // 6. for return type check if primitive, if not check if an import is needed
-//        updateImports(method.type)
+        if (method.type.getTypeFullName() != "void") {
+            println "Adding Method Return Type"
+            updateImports(method.type)
+        }
         // 7. for each parameter check if primitive, if not check if an import is needed
-//        updateImports(imports)
+        println "Adding Method Params"
+        updateImports(imports)
 
         type.addMember(this.method)
-        this.method.start = start
-        this.method.end = start + end
+        this.method.start = start + 1
+        this.method.end = end + 1
     }
 
     /**

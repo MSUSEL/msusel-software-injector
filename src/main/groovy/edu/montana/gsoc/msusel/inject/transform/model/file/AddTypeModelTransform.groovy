@@ -74,7 +74,7 @@ class AddTypeModelTransform extends FileModelTransform {
             case "class":
                 type = Class.builder()
                         .name(name)
-                        .compKey(file.getParentNamespace().getNsKey() + "." + name)
+                        .compKey(file.getParentNamespace().getNsKey() + ":" + name)
                         .accessibility(access)
                         .create()
                 break
@@ -82,14 +82,14 @@ class AddTypeModelTransform extends FileModelTransform {
                 type = Interface.builder()
                         .name(name)
                         .accessibility(access)
-                        .compKey(file.getParentNamespace().getNsKey() + "." + name)
+                        .compKey(file.getParentNamespace().getNsKey() + ":" + name)
                         .create()
                 break
             case "enum":
                 type = Enum.builder()
                         .name(name)
                         .accessibility(access)
-                        .compKey(file.getParentNamespace().getNsKey() + "." + name)
+                        .compKey(file.getParentNamespace().getNsKey() + ":" + name)
                         .create()
                 break
         }

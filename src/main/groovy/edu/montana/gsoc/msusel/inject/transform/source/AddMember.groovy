@@ -50,30 +50,31 @@ abstract class AddMember extends BasicSourceTransform {
      * @return line number where a new method can be inserted
      */
     int findMethodInsertionPoint(Type type) {
-        int line = 0
+//        int line = 0
 
-        if (type.getMethods().isEmpty()) {
-            if (type.getFields().isEmpty()) {
-                if (type.getLiterals().isEmpty()) {
-                    line = type.getStart()
-                } else {
-                    type.getLiterals().each {
-                        if (it.getEnd() > line)
-                            line = it.getEnd()
-                    }
-                }
-            } else {
-                type.getFields().each() {
-                    if (it.getEnd() > line)
-                        line = it.getEnd()
-                }
-            }
-        } else {
-            type.getMethods().each {
-                if (it.getEnd() > line)
-                    line = it.getEnd()
-            }
-        }
+//        if (type.getMethods().isEmpty()) {
+//            if (type.getFields().isEmpty()) {
+//                if (type.getLiterals().isEmpty()) {
+//                    line = type.getStart()
+//                } else {
+//                    type.getLiterals().each {
+//                        if (it.getEnd() > line)
+//                            line = it.getEnd()
+//                    }
+//                }
+//            } else {
+//                type.getFields().each() {
+//                    if (it.getEnd() > line)
+//                        line = it.getEnd()
+//                }
+//            }
+//        } else {
+//            type.getMethods().each {
+//                if (it.getEnd() > line)
+//                    line = it.getEnd()
+//            }
+//        }
+        int line = type.getEnd()
 
         return line
     }
@@ -84,30 +85,33 @@ abstract class AddMember extends BasicSourceTransform {
      * @return line number where a new field can be inserted
      */
     int findFieldInsertionPoint(Type type) {
-        int line = 0
+        int line = -1
         int mstart = Integer.MAX_VALUE
 
-        if (type.getFields().size() > 0) {
-            for (Field field : (List<Field>) type.getFields()) {
-                if (field.getEnd() > line)
-                    line = field.getEnd()
-            }
-        }
-        else {
-            for (Method method : (List<Method>) type.getMethods()) {
-                if (method.getStart() < mstart)
-                    mstart = method.getStart()
-            }
-        }
+//        if (type.getFields().size() > 0) {
+//            for (Field field : (List<Field>) type.getFields()) {
+//                if (field.getEnd() > line)
+//                    line = field.getEnd()
+//            }
+//        } else {
+//            if (type.getMethods().size() > 0) {
+//                for (Method method : (List<Method>) type.getMethods()) {
+//                    if (method.getStart() < mstart)
+//                        mstart = method.getStart()
+//                }
+//            }
+//        }
+//
+//        if (line < 0 && mstart == Integer.MAX_VALUE)
+//            return type.getStart() + 1
+//        if (line < mstart && mstart == Integer.MAX_VALUE)
+//            return line + 1
+//        if (line < mstart && mstart < Integer.MAX_VALUE)
+//            return mstart - 1
 
-        if (line <= 0 && mstart == Integer.MAX_VALUE)
-            return type.getEnd() - 1
-        if (line < mstart && mstart == Integer.MAX_VALUE)
-            return line + 1
-        if (line < mstart && mstart < Integer.MAX_VALUE)
-            return mstart - 1
+        line = type.getStart() + 1
 
-        return line + 1
+        return line
     }
 
     /**
@@ -135,8 +139,7 @@ abstract class AddMember extends BasicSourceTransform {
                         lastLine = c.end
                 }
                 line = lastLine
-            }
-            else {
+            } else {
                 int lastLine = type.end
                 type.getMethods().each { Method m ->
                     if (m.start <= lastLine)
@@ -152,8 +155,7 @@ abstract class AddMember extends BasicSourceTransform {
                         lastLine = fld.end
                 }
                 line = lastLine
-            }
-            else {
+            } else {
                 line = type.end
             }
         }

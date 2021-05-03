@@ -33,6 +33,8 @@ import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPrecondition
 import edu.montana.gsoc.msusel.inject.transform.model.NamespaceModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.structural.AddFile
 
+import java.nio.file.Paths
+
 /**
  * @author Isaac Griffith
  * @version 1.3.0
@@ -47,7 +49,7 @@ class AddFileModelTransform extends NamespaceModelTransform {
     AddFileModelTransform(Namespace ns, String path, FileType type) {
         super(ns)
         this.relPath = path
-        this.path = ns.getFullPath(type, 0) + (ns.getFullPath(type, 0).endsWith("/") ? "" : "/") + path
+        this.path = Paths.get(ns.getFullPath(type, 0)).toAbsolutePath().toString() + "/" + path
         this.type = type
     }
 

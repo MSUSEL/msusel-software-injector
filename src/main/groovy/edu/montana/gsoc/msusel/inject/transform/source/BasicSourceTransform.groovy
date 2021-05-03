@@ -37,8 +37,8 @@ import edu.isu.isuese.datamodel.File
 abstract class BasicSourceTransform extends AbstractSourceTransform {
 
     java.io.File ops
-    int start
-    int end
+    protected int start
+    protected int end
     List<String> lines
     String text
 
