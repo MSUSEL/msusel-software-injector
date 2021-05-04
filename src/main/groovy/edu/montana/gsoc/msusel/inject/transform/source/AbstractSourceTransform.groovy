@@ -94,8 +94,8 @@ abstract class AbstractSourceTransform implements SourceTransform {
     void updateImports(TypeRef imp) {
         if (!file.getParentProjects().isEmpty()) {
             String name = imp.getTypeFullName()
-            Import imprt = file.getImports().find {it.name == name}
-            if (!imprt)
+//            Import imprt = file.getImports().find {it.name == name}
+//            if (!imprt)
                 addImports([name])
         }
     }
@@ -105,8 +105,8 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * @param typ Type
      */
     void updateImports(Type typ) {
-        Import imprt = file.getImports().find {it.name == typ.getFullName() }
-        if (!imprt)
+//        Import imprt = file.getImports().find {it.name == typ.getFullName() }
+//        if (!imprt)
             addImports([typ.getFullName()])
     }
 
@@ -116,21 +116,22 @@ abstract class AbstractSourceTransform implements SourceTransform {
      */
     void addImports(List<String> imports) {
         java.io.File actual = new java.io.File(file.getFullPath())
-        Set<String> importList = Sets.newHashSet()
         actual.readLines().each {
             if (it.startsWith("import ")) {
                 String impOnly = it.split(/ /)[1]
-                impOnly = impOnly.substring(0, impOnly.length() - 1)
-                importList << impOnly
+                impOnly = impOnly.substring(0, impOnly.indexOf(";"))
+                imports << impOnly
+                println "ImpOnly: $impOnly"
             }
         }
 
         file.imports.each {
-            imports.remove(it.getName())
+            imports.removeAll(it.getName())
         }
         imports.remove(file.getParentNamespace().getFullName())
 
         imports.each { String name ->
+            println "Import name: $name"
             Import imp = Import.findFirst("name = ?", name)
             if (!imp) {
                 imp = Import.builder().name(name).create()

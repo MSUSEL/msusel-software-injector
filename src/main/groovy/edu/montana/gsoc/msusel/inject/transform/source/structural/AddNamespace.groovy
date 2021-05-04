@@ -74,7 +74,8 @@ class AddNamespace extends StructuralCreateTransform {
     @Override
     void transformStructure() {
         if (base) {
-            File nsPath = new File(base, namespace.getFullName().replaceAll(/\./, "/"))
+            println "Base: $base"
+            File nsPath = new File(base, namespace.getRelPath().replaceAll(/\./, "/"))
             nsPath.mkdirs()
         }
     }
@@ -82,11 +83,11 @@ class AddNamespace extends StructuralCreateTransform {
     private File getModuleFile(Module mod) {
         File dir = new File(mod.getFullPath())
         File file = new File(dir, mod.getSrcPath())
-        new File(file, namespace.getRelPath())
+        return file
     }
 
     private File getNamespaceFile(Namespace other) {
         File dir = new File(other.getFullPath(FileType.SOURCE, 0))
-        new File(dir, namespace.getRelPath())
+        return dir
     }
 }

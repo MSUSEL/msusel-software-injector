@@ -129,7 +129,7 @@ class AddMethod extends AddMember {
         }
         // 7. for each parameter check if primitive, if not check if an import is needed
         println "Adding Method Params"
-        updateImports(imports)
+//        updateImports(imports)
 
         type.addMember(this.method)
         this.method.start = start + 1

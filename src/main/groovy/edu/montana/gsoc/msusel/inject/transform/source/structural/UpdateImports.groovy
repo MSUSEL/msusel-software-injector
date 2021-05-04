@@ -63,6 +63,8 @@ class UpdateImports extends BasicSourceTransform {
         List<String> imps = Lists.newArrayList()
         file.getImports().each {
             String str = "import ${it.name};"
+            str = str.split(/ /)[1]
+            str = str.substring(0, str.indexOf(";"))
             if (!imps.contains(str))
                 imps << str
         }
@@ -72,6 +74,7 @@ class UpdateImports extends BasicSourceTransform {
 
         println "\nImports Written:"
         println text
+        println ""
 
         delta = imps.size() - (end - start)
     }
@@ -106,10 +109,10 @@ class UpdateImports extends BasicSourceTransform {
         start = -1
         end = -1
         actual.readLines().eachWithIndex { String str, int ndx ->
-            if (str.startsWith("import") && start == -1) {
+            if (str.startsWith("import ") && start == -1) {
                 start = ndx
                 end = ndx
-            } else if (str.startsWith("import") && start >= 0) {
+            } else if (str.startsWith("import ") && start >= 0) {
                 end = ndx
             }
         }
@@ -117,7 +120,7 @@ class UpdateImports extends BasicSourceTransform {
 
         if (start == -1 || file.getImports().isEmpty()) {
             actual.readLines().eachWithIndex { String str, int ndx ->
-                if (str.startsWith("package")) {
+                if (str.startsWith("package ")) {
                     start = end = line = ndx + 1
                 }
             }
