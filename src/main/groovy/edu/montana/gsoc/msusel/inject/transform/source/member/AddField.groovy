@@ -116,7 +116,8 @@ class AddField extends AddMember {
         // 4. Add field to type
         type.addMember(field)
 
-        updateContainingAndAllFollowing(start + 1, 1)
+        updateContainingAndAllFollowing(start + 2, 1)
+        file.setEnd(file.getEnd() + 1)
         // 6. check if an import is needed
         if (field.type.getType() == TypeRefType.Type) {
             println "Adding Field"

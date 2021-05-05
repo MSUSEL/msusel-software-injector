@@ -66,6 +66,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
             if (c instanceof Component) {
                 c.setStart(c.getStart() + length)
                 c.setEnd(c.getEnd() + length)
+                c.refresh()
             }
         }
     }
@@ -150,11 +151,11 @@ abstract class AbstractSourceTransform implements SourceTransform {
      */
     void updateContainingAndAllFollowing(int line, int length) {
         file.containing(line).each {
-            if (it instanceof Component) {
-                it.setEnd(it.getEnd() + length)
-            }
+            it.setEnd(it.getEnd() + length)
+            it.refresh()
         }
         file.setEnd(file.getEnd() + length)
+        file.refresh()
         updateAllFollowing(line, length)
     }
 }

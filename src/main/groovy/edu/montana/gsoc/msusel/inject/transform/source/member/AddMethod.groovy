@@ -135,7 +135,7 @@ class AddMethod extends AddMember {
 
         type.addMember(this.method)
         this.method.start = start + 1
-        this.method.end = end + 1
+        this.method.end = start + end + 1
     }
 
     /**
