@@ -159,6 +159,11 @@
 
             <url>https://raw.github.com/MSUSEL/msusel-maven-repo/releases</url>
         </repository>
+        <releases>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+            <checksumPolicy>warn</checksumPolicy>
+        </releases>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
