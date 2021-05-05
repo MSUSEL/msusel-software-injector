@@ -152,18 +152,14 @@
             <name>msusel-maven-repo</name>
             <releases>
                 <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
             </releases>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-
             <url>https://raw.github.com/MSUSEL/msusel-maven-repo/releases</url>
         </repository>
-        <releases>
-            <enabled>true</enabled>
-            <updatePolicy>always</updatePolicy>
-            <checksumPolicy>warn</checksumPolicy>
-        </releases>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
