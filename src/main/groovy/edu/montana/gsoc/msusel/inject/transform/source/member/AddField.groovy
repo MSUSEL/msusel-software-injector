@@ -75,7 +75,6 @@ class AddField extends AddMember {
     void setup() {
         ops = new java.io.File(file.getFullPath())
         lines = ops.readLines()
-        original = lines.size()
 
         // 1. find line of last field in type
         start = findFieldInsertionPoint(type)
@@ -93,7 +92,7 @@ class AddField extends AddMember {
         if (type.getFields().size() >= 1)
             content = String.format("    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
         else
-            content = String.format("    %s%s%s %s%s\n", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
+            content = String.format("\n    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
         lines.add(start, content)
     }
 
@@ -117,8 +116,7 @@ class AddField extends AddMember {
         // 4. Add field to type
         type.addMember(field)
 
-        int current = lines.size()
-        updateContainingAndAllFollowing(start, current - original)
+        updateContainingAndAllFollowing(start + 1, 1)
         // 6. check if an import is needed
         if (field.type.getType() == TypeRefType.Type) {
             println "Adding Field"

@@ -74,7 +74,7 @@ abstract class AddMember extends BasicSourceTransform {
 //                    line = it.getEnd()
 //            }
 //        }
-        int line = type.getEnd()
+        int line = type.getEnd() - 1
 
         return line
     }
@@ -88,28 +88,26 @@ abstract class AddMember extends BasicSourceTransform {
         int line = -1
         int mstart = Integer.MAX_VALUE
 
-//        if (type.getFields().size() > 0) {
-//            for (Field field : (List<Field>) type.getFields()) {
-//                if (field.getEnd() > line)
-//                    line = field.getEnd()
-//            }
-//        } else {
-//            if (type.getMethods().size() > 0) {
-//                for (Method method : (List<Method>) type.getMethods()) {
-//                    if (method.getStart() < mstart)
-//                        mstart = method.getStart()
-//                }
-//            }
-//        }
-//
-//        if (line < 0 && mstart == Integer.MAX_VALUE)
-//            return type.getStart() + 1
-//        if (line < mstart && mstart == Integer.MAX_VALUE)
-//            return line + 1
-//        if (line < mstart && mstart < Integer.MAX_VALUE)
-//            return mstart - 1
+        if (type.getFields().size() > 0) {
+            for (Field field : (List<Field>) type.getFields()) {
+                if (field.getEnd() > line)
+                    line = field.getEnd()
+            }
+        } else {
+            if (type.getMethods().size() > 0) {
+                for (Method method : (List<Method>) type.getMethods()) {
+                    if (method.getStart() < mstart)
+                        mstart = method.getStart()
+                }
+            }
+        }
 
-        line = type.getStart() + 1
+        if (line < 0 && mstart == Integer.MAX_VALUE)
+            return type.getStart() + 1
+        if (line < mstart && mstart == Integer.MAX_VALUE)
+            return line + 1
+        if (line < mstart && mstart < Integer.MAX_VALUE)
+            return mstart - 1
 
         return line
     }

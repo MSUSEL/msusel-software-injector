@@ -40,6 +40,8 @@ class AddFieldGetterTest extends BaseSourceTransformSpec {
         Field field = Field.findFirst("name = ?", "name")
         AddFieldGetter fixture = new AddFieldGetter(file, type, field)
         java.io.File actual = new java.io.File(file.getFullPath())
+        println "Type Start: ${type.start}"
+        println "Type End: ${type.end}"
 
         // when
         fixture.execute()
@@ -49,6 +51,7 @@ class AddFieldGetterTest extends BaseSourceTransformSpec {
 package test.test;
 
 import java.util.*;
+import String;
 
 public class Test1 implements Test2 {
 

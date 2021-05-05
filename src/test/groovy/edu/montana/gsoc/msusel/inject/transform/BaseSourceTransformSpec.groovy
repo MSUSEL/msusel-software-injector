@@ -144,7 +144,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addFile(file5)
 
         File file6 = File.builder().name("Test9.java").relPath("Test9.java").type(FileType.SOURCE).start(1).end(12).create()
-        Type type6 = Class.builder().name("Test9").accessibility(Accessibility.PUBLIC).start(5).end(16).create()
+        Type type6 = Class.builder().name("Test9").accessibility(Accessibility.PUBLIC).start(5).end(12).create()
         Method m16 = Method.builder().name("method").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(9).end(11).create()
         Field f16 = Field.builder().name("name9").type().accessibility(Accessibility.PRIVATE).start(7).end(7).create()
         Field f26 = Field.builder().name("other").type().accessibility(Accessibility.PRIVATE).start(7).end(7).create()
@@ -370,6 +370,36 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         typeC.addMember(fC3)
         fileC.addType(typeC)
 
+        File file19 = File.builder().name("Test19.java").relPath("Test19.java").type(FileType.SOURCE).start(1).end(31).create()
+        Type type19 = Class.builder().name("Test19").accessibility(Accessibility.PUBLIC).start(29).end(31).create()
+        file19.addType(type19)
+        proj.addFile(file19)
+        ns2.addType(type19)
+        ns2.addFile(file19)
+
+        File file20 = File.builder().name("Test20.java").relPath("Test20.java").type(FileType.SOURCE).start(1).end(37).create()
+        Type type20 = Class.builder().name("Test20").accessibility(Accessibility.PUBLIC).start(35).end(37).create()
+        file20.addType(type20)
+        file20.addImport(imp)
+        proj.addFile(file20)
+        ns2.addType(type20)
+        ns2.addFile(file20)
+
+        File file21 = File.builder().name("Test21.java").relPath("Test21.java").type(FileType.SOURCE).start(1).end(35).create()
+        Type type21 = Class.builder().name("Test21").accessibility(Accessibility.PUBLIC).start(32).end(34).create()
+        file21.addType(type21)
+        proj.addFile(file21)
+        ns2.addType(type21)
+        ns2.addFile(file21)
+
+        File file22 = File.builder().name("Test22.java").relPath("Test22.java").type(FileType.SOURCE).start(1).end(37).create()
+        Type type22 = Class.builder().name("Test22").accessibility(Accessibility.PUBLIC).start(35).end(37).create()
+        file22.addType(type22)
+        file22.addImport(imp)
+        proj.addFile(file22)
+        ns2.addType(type22)
+        ns2.addFile(file22)
+
         ns4.addFile(fileC)
         ns4.addType(typeC)
         proj.addFile(fileC)
@@ -458,6 +488,10 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test16.java").text = createTestFile13()
         new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test17.java").text = createTestFile14()
         new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test18.java").text = createTestFile15()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test19.java").text = createTestFile24()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test20.java").text = createTestFile25()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test21.java").text = createTestFile26()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test22.java").text = createTestFile27()
         new java.io.File("testdata/testproj/testmod/src/main/java/test4/TypeX.java").text = createTestFile16()
         new java.io.File("testdata/testproj/testmod/src/main/java/test4/TypeY.java").text = createTestFile17()
         new java.io.File("testdata/testproj/testmod/src/main/java/test4/TypeZ.java").text = createTestFile18()
@@ -798,6 +832,165 @@ public class TypeC {
 
     public void methodC3() {
     }
+}
+'''
+    }
+
+    private static createTestFile24() {
+        '''\
+/**
+ * The MIT License (MIT)
+ *
+ * MSUSEL Software Injector
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
+ * Software Engineering Laboratory and Idaho State University, Informatics and
+ * Computer Science, Empirical Software Engineering Laboratory
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package test.test;
+
+public class Type19 {
+
+}
+'''
+    }
+
+    private static createTestFile25() {
+        '''\
+/**
+ * The MIT License (MIT)
+ *
+ * MSUSEL Software Injector
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
+ * Software Engineering Laboratory and Idaho State University, Informatics and
+ * Computer Science, Empirical Software Engineering Laboratory
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package test.test;
+
+import java.util.*;
+
+/**
+ * @author Isaac D Griffith
+ * @version 1.3.0
+ */
+public class Type20 {
+
+}
+'''
+    }
+
+    private static createTestFile26() {
+        '''\
+/**
+ * The MIT License (MIT)
+ *
+ * MSUSEL Software Injector
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
+ * Software Engineering Laboratory and Idaho State University, Informatics and
+ * Computer Science, Empirical Software Engineering Laboratory
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+/**
+ * @author Isaac D Griffith
+ * @version 1.3.0
+ */
+public class Type21 {
+
+}
+'''
+    }
+
+    private static createTestFile27() {
+        '''\
+/**
+ * The MIT License (MIT)
+ *
+ * MSUSEL Software Injector
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
+ * Software Engineering Laboratory and Idaho State University, Informatics and
+ * Computer Science, Empirical Software Engineering Laboratory
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package test.test;
+
+import java.util.*;
+
+/**
+ * @author Isaac D Griffith
+ * @version 1.3.0
+ */
+public class Type22 {
+
 }
 '''
     }

@@ -27,6 +27,7 @@
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
 import edu.isu.isuese.datamodel.*
+import edu.montana.gsoc.msusel.inject.transform.source.AbstractSourceTransform
 import edu.montana.gsoc.msusel.inject.transform.source.CompositeSourceTransform
 import groovy.transform.builder.Builder
 
@@ -88,14 +89,27 @@ class CreateEncapsulatedField extends CompositeSourceTransform {
         }
 
         // 3. Create the AddField transform
-        transforms << AddField.builder().file(file).type(type).field(fld).create()
+        println("Part 1")
+        AbstractSourceTransform trans = AddField.builder().file(file).type(type).field(fld).create()
+        trans.execute()
+        type.refresh()
+        file.refresh()
+        new java.io.File(file.getFullPath()).readLines().eachWithIndex { String str, int ndx ->
+            println "$ndx: $str"
+        }
 
+        println("Part 2")
         // 4. Check if a getter called get<FieldName> exists, if so throw an exception, else create the transform
-        transforms << AddFieldGetter.builder().file(file).type(type).field(fld).create()
+        trans = AddFieldGetter.builder().file(file).type(type).field(fld).create()
+        trans.execute()
+        type.refresh()
+        file.refresh()
 
+        println("Part 3")
         // 5. Check if a setter called set<FieldName> exists, if so throw an exception, else create the transform
-        transforms << AddFieldSetter.builder().file(file).type(type).field(fld).create()
-
-        transforms*.execute()
+        trans = AddFieldSetter.builder().file(file).type(type).field(fld).create()
+        trans.execute()
+        type.refresh()
+        file.refresh()
     }
 }

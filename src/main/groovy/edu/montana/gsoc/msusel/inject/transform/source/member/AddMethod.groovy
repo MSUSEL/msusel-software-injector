@@ -56,7 +56,6 @@ class AddMethod extends AddMember {
     private String bodyContent
 
     StringBuilder builder
-    int line = findMethodInsertionPoint(type) - 1
 
     /**
      * Constructs a new AddMethod transform
@@ -82,7 +81,10 @@ class AddMethod extends AddMember {
         builder = new StringBuilder()
 
         // 1. find line of last method in type
-        start = findMethodInsertionPoint(type) + 1
+        start = findMethodInsertionPoint(type)
+
+        println "Type End: ${type.getEnd()}"
+        println "Method Start: $start"
     }
 
     /**
@@ -103,12 +105,12 @@ class AddMethod extends AddMember {
     void injectContent() {
         // 4. Conduct Injection
         int original = lines.size()
-        if (start >= original) {
-            lines.add("\n")
-            lines.add(builder.toString())
-        } else {
+//        if (start >= original) {
+////            lines.add(start, "\n")
+//            lines.add(start, builder.toString())
+//        } else {
             lines.add(start, builder.toString())
-        }
+//        }
         lines = lines.join("\n").split("\n")
         int current = lines.size()
         end = current - original
@@ -121,14 +123,12 @@ class AddMethod extends AddMember {
     @Override
     void updateModel() {
         // 5. update all following items with size of insert
-        updateContainingAndAllFollowing(start, end)
+        updateContainingAndAllFollowing(start + 1, end + 1)
         // 6. for return type check if primitive, if not check if an import is needed
         if (method.type.getTypeFullName() != "void") {
-            println "Adding Method Return Type"
             updateImports(method.type)
         }
         // 7. for each parameter check if primitive, if not check if an import is needed
-        println "Adding Method Params"
 //        updateImports(imports)
 
         type.addMember(this.method)

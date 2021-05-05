@@ -26,7 +26,6 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source
 
-import com.google.common.collect.Sets
 import edu.isu.isuese.datamodel.*
 import edu.montana.gsoc.msusel.inject.cond.Condition
 import edu.montana.gsoc.msusel.inject.transform.source.structural.UpdateImports
@@ -65,9 +64,6 @@ abstract class AbstractSourceTransform implements SourceTransform {
     void updateAllFollowing(File file = this.file, int line, int length) {
         file.following(line).each { c ->
             if (c instanceof Component) {
-                c.setStart(c.getStart() + length)
-                c.setEnd(c.getEnd() + length)
-            } else if (c instanceof Import) {
                 c.setStart(c.getStart() + length)
                 c.setEnd(c.getEnd() + length)
             }
@@ -121,17 +117,20 @@ abstract class AbstractSourceTransform implements SourceTransform {
                 String impOnly = it.split(/ /)[1]
                 impOnly = impOnly.substring(0, impOnly.indexOf(";"))
                 imports << impOnly
-                println "ImpOnly: $impOnly"
             }
         }
 
         file.imports.each {
             imports.removeAll(it.getName())
         }
-        imports.remove(file.getParentNamespace().getFullName())
+        imports.removeAll {
+            if (it.contains(".")) {
+                String pkg = it.substring(0, it.lastIndexOf("."))
+                pkg == file.getParentNamespace().getFullName()
+            }
+        }
 
         imports.each { String name ->
-            println "Import name: $name"
             Import imp = Import.findFirst("name = ?", name)
             if (!imp) {
                 imp = Import.builder().name(name).create()
@@ -151,9 +150,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
      */
     void updateContainingAndAllFollowing(int line, int length) {
         file.containing(line).each {
-            if (it instanceof Import)
-                it.setEnd(it.getEnd() + length)
-            else if (it instanceof Component) {
+            if (it instanceof Component) {
                 it.setEnd(it.getEnd() + length)
             }
         }

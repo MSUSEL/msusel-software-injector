@@ -34,6 +34,9 @@ import groovy.transform.builder.Builder
 class UpdateImports extends BasicSourceTransform {
 
     int delta = 0
+    boolean pkgOnly = false
+    boolean existingImps = false
+    boolean neither = false
 
     /**
      * Constructs a new AddImport transform
@@ -61,20 +64,19 @@ class UpdateImports extends BasicSourceTransform {
     @Override
     void buildContent() {
         List<String> imps = Lists.newArrayList()
+        if (pkgOnly)
+            imps << ""
+
         file.getImports().each {
             String str = "import ${it.name};"
-            str = str.split(/ /)[1]
-            str = str.substring(0, str.indexOf(";"))
             if (!imps.contains(str))
                 imps << str
         }
 
-        text = imps.join("\n")
-        lines.add(start, text)
+        if (neither)
+            imps << ""
 
-        println "\nImports Written:"
-        println text
-        println ""
+        text = imps.join("\n")
 
         delta = imps.size() - (end - start)
     }
@@ -84,8 +86,11 @@ class UpdateImports extends BasicSourceTransform {
      */
     @Override
     void injectContent() {
-        for (int i = start; i <= end; i++)
-            lines.remove(i)
+        if (existingImps) {
+            for (int i = end; i >= start; i--)
+                lines.remove(i)
+        }
+
         lines.add(start, text)
 
         ops.text = lines.join("\n")
@@ -104,36 +109,47 @@ class UpdateImports extends BasicSourceTransform {
      * @return Line at which the import should be injected
      */
     int findImportInsertionPoint(java.io.File actual) {
-        int line = 0
-
         start = -1
         end = -1
         actual.readLines().eachWithIndex { String str, int ndx ->
             if (str.startsWith("import ") && start == -1) {
                 start = ndx
                 end = ndx
+                existingImps = true
             } else if (str.startsWith("import ") && start >= 0) {
                 end = ndx
             }
         }
-        line = start
 
         if (start == -1 || file.getImports().isEmpty()) {
             actual.readLines().eachWithIndex { String str, int ndx ->
                 if (str.startsWith("package ")) {
-                    start = end = line = ndx + 1
+                    pkgOnly = true
+                    start = end = ndx + 1
                 }
             }
         }
 
-        if (start == -1)
-            start = line = 0
+        if (start == -1 && !pkgOnly) {
+            if (actual.readLines().get(0).startsWith("/*")) {
+                int endComment = 0
+                actual.readLines().eachWithIndex { String str, int ndx ->
+                    if (str.contains("*/") && endComment == 0) {
+                        endComment = ndx
+                        start = endComment + 1
+                    }
+                }
+            }
+        }
 
-        println(file.getRelPath())
-        for (int i = start; i <= end; i++)
-            println actual.text.split("\n")[i]
-        println()
+        if (start == -1) {
+            start = end = 0
+            neither = true
+        }
 
-        line
+        if (end == -1)
+            end = start
+
+        start
     }
 }
