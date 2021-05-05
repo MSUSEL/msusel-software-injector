@@ -43,7 +43,7 @@ class AddFileModelTransformTest extends NamespaceModelTransformBaseTest {
         fixture.execute()
 
         // then
-        the(ns.getFiles().find { it.name == path }).shouldNotBeNull()
+        the(ns.getFiles().find { it.relPath == path }).shouldNotBeNull()
     }
 
     @Test(expected = ModelTransformPreconditionsNotMetException.class)

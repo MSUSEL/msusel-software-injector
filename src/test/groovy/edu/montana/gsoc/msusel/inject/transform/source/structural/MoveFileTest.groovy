@@ -37,8 +37,8 @@ class MoveFileTest extends BaseSourceTransformSpec {
     void execute() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Namespace from = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test")
-        Namespace to = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
+        Namespace from = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test.test")
+        Namespace to = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test")
         MoveFile fixture = new MoveFile(file, from, to)
         java.io.File locOld = new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test1.java")
         java.io.File locNew = new java.io.File("testdata/testproj/testmod/src/main/java/test/Test1.java")

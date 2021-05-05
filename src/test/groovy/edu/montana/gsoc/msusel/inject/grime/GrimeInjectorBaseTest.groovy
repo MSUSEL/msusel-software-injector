@@ -82,7 +82,7 @@ abstract class GrimeInjectorBaseTest extends DBSpec {
 
     @After
     void teardown() {
-        java.io.File dir = new java.io.File("testdata")
+        java.io.File dir = new java.io.File("testdata2")
         dir.deleteDir()
     }
 
@@ -91,7 +91,7 @@ abstract class GrimeInjectorBaseTest extends DBSpec {
         proj = Project.builder().name("testproj").version("1.0").relPath("testproj").create()
         Module mod = Module.builder().name("testmod").relPath("testmod").create()
         ns1 = Namespace.builder().name("test").nsKey("test1").relPath("test").create()
-        ns2 = Namespace.builder().name("test").nsKey("test2").relPath("test/test").create()
+        ns2 = Namespace.builder().name("test1").nsKey("test2").relPath("test/test").create()
         ns3 = Namespace.builder().name("test2").nsKey("test3").relPath("test/test2").create()
         ns4 = Namespace.builder().name("test3").nsKey("test4").relPath("test3").create()
         ns5 = Namespace.builder().name("test4").nsKey("test5").relPath("test4").create()

@@ -62,9 +62,6 @@ class AbstractSourceTransformTest extends BaseSourceTransformSpec {
 
         // then
         the(file.getEnd()).shouldBeEqual(10)
-        the(imp1.getEnd()).shouldBeEqual(2)
-        the(imp2.getStart()).shouldBeEqual(6)
-        the(imp2.getStart()).shouldBeEqual(6)
         the(type.getStart()).shouldBeEqual(7)
         the(type.getEnd()).shouldBeEqual(13)
     }
@@ -94,9 +91,6 @@ class AbstractSourceTransformTest extends BaseSourceTransformSpec {
 
         // then
         the(file.getEnd()).shouldBeEqual(13)
-        the(imp1.getEnd()).shouldBeEqual(5)
-        the(imp2.getStart()).shouldBeEqual(6)
-        the(imp2.getStart()).shouldBeEqual(6)
         the(type.getStart()).shouldBeEqual(7)
         the(type.getEnd()).shouldBeEqual(13)
     }

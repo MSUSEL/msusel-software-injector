@@ -72,6 +72,6 @@ class RenameProjectModelTransform extends ProjectModelTransform {
         // 1. project name is now new name
         assert(proj.name == name)
         // 2. project key now contains new name
-        assert(proj.projectKey.endsWith(":${name}-${proj.version}"))
+        assert(proj.projectKey.endsWith(":${name}:${proj.version}"))
     }
 }

@@ -62,7 +62,7 @@ class AddFileModelTransform extends NamespaceModelTransform {
         if (!type)
             throw new ModelTransformPreconditionsNotMetException()
         // 3. a file with the given path does not already exist in ns
-        if (ns.getFiles().find { it.name == path })
+        if (!relPath || !path || ns.getFiles().find { it.name == path || it.name == relPath })
             throw new ModelTransformPreconditionsNotMetException()
     }
 

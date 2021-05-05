@@ -61,9 +61,9 @@ class DeleteFileModelTransform extends NamespaceModelTransform {
         new DeleteFile(file).execute()
 
         // Execute Transform
-        ns.removeFile(file)
-        file.thaw()
         ns.getParentProject().removefile(file)
+        file.thaw()
+        ns.removeFile(file)
         file.thaw()
     }
 

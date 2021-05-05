@@ -36,7 +36,7 @@ class RenameNamespaceTest extends BaseSourceTransformSpec {
     @Test
     void execute() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test.test")
         RenameNamespace fixture = new RenameNamespace(ns, "testdata/testproj/testmod/src/main/java/test/test/", FileType.SOURCE)
         File locOld = new File("testdata/testproj/testmod/src/main/java/test/test/")
         File locNew = new File("testdata/testproj/testmod/src/main/java/test/other/")

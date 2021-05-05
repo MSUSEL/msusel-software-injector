@@ -49,7 +49,7 @@ class AddGeneralizationTest extends BaseSourceTransformSpec {
 
         // then
         //the(actual.text).shouldEqual("""\
-        Assert.assertEquals(actual.text, """\
+        the(actual.text).shouldBeEqual("""\
 package test.test;
 
 import java.util.*;
@@ -58,8 +58,7 @@ public class Test13 extends Test1 {
 
     private volatile static final int COUNTX;
 
-}
-""")
+}""")
     }
 
     @Test
@@ -76,7 +75,7 @@ public class Test13 extends Test1 {
 
         // then
         //the(actual.text).shouldEqual("""\
-        Assert.assertEquals(actual.text, """\
+        the(actual.text).shouldBeEqual("""\
 package test.test;
 
 import java.util.*;
@@ -85,10 +84,10 @@ public class Test13 extends Test12 {
 
     private volatile static final int COUNTX;
 
+
     public void paramsTest2(int param1, int param2, int param3) {
         throw new OperationNotSupportedException();
     }
-
 }""")
     }
 }

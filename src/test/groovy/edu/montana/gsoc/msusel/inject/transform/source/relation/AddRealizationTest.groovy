@@ -50,7 +50,7 @@ class AddRealizationTest extends BaseSourceTransformSpec {
 
         // then
         //the(actual.text).shouldEqual("""\
-        Assert.assertEquals(actual.text, """\
+        the(actual.text).shouldBeEqual("""\
 package test.test;
 
 import java.util.*;
@@ -59,10 +59,10 @@ public class Test13 implements Test2 {
 
     private volatile static final int COUNTX;
 
+
     public void method(Test3 param) {
         throw new OperationNotSupportedException();
     }
-
 }""")
     }
 
@@ -81,7 +81,7 @@ public class Test13 implements Test2 {
 
         // then
         //the(actual.text).shouldEqual("""\
-        Assert.assertEquals(actual.text, """\
+        the(actual.text).shouldBeEqual("""\
 package test.test;
 
 import java.util.*;
@@ -90,10 +90,10 @@ public class Test13 implements TestX, Test2 {
 
     private volatile static final int COUNTX;
 
+
     public void method(Test3 param) {
         throw new OperationNotSupportedException();
     }
-
 }""")
     }
 
@@ -121,10 +121,10 @@ public class Test13 extends TestX implements Test2 {
 
     private volatile static final int COUNTX;
 
+
     public void method(Test3 param) {
         throw new OperationNotSupportedException();
     }
-
 }""")
     }
 

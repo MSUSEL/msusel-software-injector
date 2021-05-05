@@ -39,7 +39,7 @@ class AddFileTest extends BaseSourceTransformSpec {
         // given
         java.io.File toCreate = new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test5.java")
         File test5 = File.builder().name("Test5.java").relPath("Test5.java").type(FileType.SOURCE).create()
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test.test")
         AddFile fixture = new AddFile(test5, ns)
 
         // when
@@ -56,7 +56,7 @@ class AddFileTest extends BaseSourceTransformSpec {
         // given
         java.io.File toCreate = new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test5.java")
         File test5 = File.builder().name("Test5.java").relPath("Test5.java").type(FileType.SOURCE).create()
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test.test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test.test")
 
         AddFile fixture = new AddFile(test5, ns)
 

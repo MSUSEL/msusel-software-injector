@@ -36,7 +36,7 @@ class MoveNamespaceModelTransformTest extends ModuleModelTransformBaseTest {
     @Test
     void "test execute happy path"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test")
         Module other = Module.findFirst("name = ?","testmod2")
 
         // when
@@ -44,7 +44,7 @@ class MoveNamespaceModelTransformTest extends ModuleModelTransformBaseTest {
         fixture.execute()
 
         // then
-        the(ns.nsKey).shouldEqual("testdata:testproj-1.0:test")
+        the(ns.nsKey).shouldEqual("testdata:testproj:1.0:test")
         the(ns.getParentModule()).shouldEqual(other)
     }
 

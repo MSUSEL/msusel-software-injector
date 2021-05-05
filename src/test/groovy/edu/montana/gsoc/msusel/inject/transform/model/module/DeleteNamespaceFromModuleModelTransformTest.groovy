@@ -35,7 +35,7 @@ class DeleteNamespaceFromModuleModelTransformTest extends ModuleModelTransformBa
     @Test
     void "test execute happy path"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test")
 
         // when
         fixture = new DeleteNamespaceFromModuleModelTransform(mod, ns)
@@ -58,7 +58,7 @@ class DeleteNamespaceFromModuleModelTransformTest extends ModuleModelTransformBa
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute ns not contained by mod"() {
         // given
-        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:testmod:test:test")
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:testmod:test:test")
 
         // when
         fixture = new DeleteNamespaceFromModuleModelTransform(mod, ns)

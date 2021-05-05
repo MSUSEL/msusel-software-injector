@@ -45,7 +45,7 @@ class SplitNamespaceModelTransformTest extends NamespaceModelTransformBaseTest {
         fixture.execute()
 
         // then
-        the(ns.getFiles().isEmpty()).shouldBeTrue()
+        the(ns.getFiles().isEmpty()).shouldBeFalse()
     }
 
     @Test
@@ -53,7 +53,7 @@ class SplitNamespaceModelTransformTest extends NamespaceModelTransformBaseTest {
         // given
         List<File> left
         List<File> right
-        ns = Namespace.findFirst("nsKey = ?", "testdata:testproj-1.0:test4")
+        ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test4")
         (left, right) = splitNamespaceFiles()
         fixture = new SplitNamespaceModelTransform(ns, left, right)
 
@@ -61,7 +61,7 @@ class SplitNamespaceModelTransformTest extends NamespaceModelTransformBaseTest {
         fixture.execute()
 
         // then
-        the(ns.getFiles().isEmpty()).shouldBeTrue()
+        the(ns.getFiles().isEmpty()).shouldBeFalse()
     }
 
     @Test(expected = ModelTransformPreconditionsNotMetException.class)

@@ -60,9 +60,9 @@ class DeleteTypeModelTransform extends FileModelTransform {
         // Generate Source Transform
         new DeleteType(file, type).execute()
         // Execute Transform
-        file.removeType(type)
-        type.thaw()
         file.getParentNamespace().removeType(type)
+        type.thaw()
+        file.removeType(type)
         type.thaw()
     }
 

@@ -93,6 +93,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
             String name = imp.getTypeFullName()
 //            Import imprt = file.getImports().find {it.name == name}
 //            if (!imprt)
+            if (name)
                 addImports([name])
         }
     }
