@@ -83,7 +83,9 @@ class AddMethod extends AddMember {
         // 1. find line of last method in type
         start = findMethodInsertionPoint(type)
 
+        println "Type Start: ${type.getStart()}"
         println "Type End: ${type.getEnd()}"
+        println "File End: ${file.getEnd()}"
         println "Method Start: $start"
     }
 
