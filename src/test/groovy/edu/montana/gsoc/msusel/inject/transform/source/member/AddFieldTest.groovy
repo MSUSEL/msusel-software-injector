@@ -55,7 +55,6 @@ import java.util.*;
 public class Test11 implements Test2 {
 
     private int test;
-
     public void paramsTest(int param1, int param2, int param3) {
     
     }
@@ -63,8 +62,8 @@ public class Test11 implements Test2 {
         the(field.start).shouldEqual(7)
         the(field.end).shouldEqual(7)
         the(type.start).shouldEqual(5)
-        the(type.end).shouldEqual(12)
-        the(file.end).shouldEqual(12)
+        the(type.end).shouldEqual(11)
+        the(file.end).shouldEqual(11)
     }
 
     @Test

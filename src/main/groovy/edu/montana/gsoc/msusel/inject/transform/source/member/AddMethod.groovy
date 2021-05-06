@@ -82,11 +82,6 @@ class AddMethod extends AddMember {
 
         // 1. find line of last method in type
         start = findMethodInsertionPoint(type)
-
-        println "Type Start: ${type.getStart()}"
-        println "Type End: ${type.getEnd()}"
-        println "File End: ${file.getEnd()}"
-        println "Method Start: $start"
     }
 
     /**
@@ -111,7 +106,7 @@ class AddMethod extends AddMember {
 ////            lines.add(start, "\n")
 //            lines.add(start, builder.toString())
 //        } else {
-            lines.add(start, builder.toString())
+        lines.add(start, builder.toString())
 //        }
         lines = lines.join("\n").split("\n")
         int current = lines.size()
@@ -125,13 +120,19 @@ class AddMethod extends AddMember {
     @Override
     void updateModel() {
         // 5. update all following items with size of insert
-        updateContainingAndAllFollowing(start + 1, end + 1)
+        updateContainingAndAllFollowing(start + 1, end)
         // 6. for return type check if primitive, if not check if an import is needed
         if (method.type.getTypeFullName() != "void") {
-            updateImports(method.type)
+            if (method.type.getType() == TypeRefType.Type)
+                updateImports(method.type)
         }
         // 7. for each parameter check if primitive, if not check if an import is needed
-//        updateImports(imports)
+        List<TypeRef> imports = []
+        method.params.each {
+            if (it.getType().getType() == TypeRefType.Type)
+                imports << it.getType()
+        }
+        updateImports(imports)
 
         type.addMember(this.method)
         this.method.start = start + 1

@@ -28,6 +28,7 @@ package edu.montana.gsoc.msusel.inject.grime
 
 import com.google.common.graph.MutableGraph
 import edu.isu.isuese.datamodel.Namespace
+import edu.isu.isuese.datamodel.PatternInstance
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectionFailedException
 import junitparams.JUnitParamsRunner
@@ -35,6 +36,7 @@ import junitparams.Parameters
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.testng.collections.Sets
 
 @RunWith(JUnitParamsRunner.class)
 class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
@@ -71,7 +73,7 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         List<Namespace> namespaces = [ns2, ns4, ns5]
 
         // when
-        Namespace ns = fixture.selectPatternNamespace()
+        Namespace ns = fixture.selectPatternNamespace()[0]
 
         // then
         the(namespaces).shouldContain(ns)
@@ -116,16 +118,18 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
     @Test
     void "test selectInternalClass with namespace internal to pattern"() {
         // given
+        PatternInstance inst = PatternInstance.findFirst("instKey = ?", "Builder01")
+        Set<Namespace> set = Sets.newHashSet()
+        inst.getTypes().each {
+            set.add(it.getParentNamespace())
+        }
         Namespace ns = ns2
-        List<Type> types = [
-                typeA, typeB, typeC, typeD, typeE
-        ]
 
         // when
         Type type = fixture.selectOrCreateInternalClass(ns)
 
         // then
-        the(types).shouldContain(type)
+        the(set).shouldContain(type.getParentNamespace())
     }
 
     @Test
@@ -137,7 +141,7 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         Type type = fixture.selectOrCreateInternalClass(ns)
 
         // then
-        the(type).shouldBeNull()
+        the(type).shouldNotBeNull()
     }
 
     @Test(expected = InjectionFailedException.class)
@@ -160,7 +164,7 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         ]
 
         // when
-        Namespace result = fixture.selectReachableNamespace(graph, ns)
+        Namespace result = fixture.selectOrCreateReachableNamespace(graph, ns)
 
         // then
         the(reachable).shouldContain(result)
@@ -173,7 +177,7 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         Namespace ns = ns2
 
         // when
-        fixture.selectReachableNamespace(graph, ns)
+        fixture.selectOrCreateReachableNamespace(graph, ns)
     }
 
     @Test(expected = InjectionFailedException.class)
@@ -183,7 +187,7 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         Namespace ns = null
 
         // when
-        fixture.selectReachableNamespace(graph, ns)
+        fixture.selectOrCreateReachableNamespace(graph, ns)
     }
 
     @Test
@@ -197,7 +201,7 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         ]
 
         // when
-        Namespace result = fixture.selectUnreachableNamespace(graph, ns)
+        Namespace result = fixture.selectOrCreateUnreachableNamespace(graph, ns)
 
         // then
         the(unreachable).shouldContain(result)
@@ -210,7 +214,7 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         Namespace ns = ns2
 
         // when
-        fixture.selectUnreachableNamespace(graph, ns)
+        fixture.selectOrCreateUnreachableNamespace(graph, ns)
     }
 
     @Test(expected = InjectionFailedException.class)
@@ -220,7 +224,7 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         Namespace ns = null
 
         // when
-        fixture.selectUnreachableNamespace(graph, ns)
+        fixture.selectOrCreateUnreachableNamespace(graph, ns)
     }
 
     @Test
@@ -233,7 +237,7 @@ class PackageOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
 
         // then
         the(type).shouldNotBeNull()
-        the(type.getName()).shouldEqual("GenExternalType")
+        the(type.getName()).shouldEqual("GenExternalType1")
     }
 
     @Test(expected = InjectionFailedException.class)

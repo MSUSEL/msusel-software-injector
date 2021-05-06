@@ -44,6 +44,11 @@ class CreateEncapsulatedFieldTest extends BaseSourceTransformSpec {
         CreateEncapsulatedField fixture = new CreateEncapsulatedField(file, type, fieldType, name, Accessibility.PRIVATE, mods)
         java.io.File actual = new java.io.File(file.getFullPath())
 
+        the(file.getStart()).shouldBeEqual(1)
+        the(file.getEnd()).shouldBeEqual(10)
+        the(type.getStart()).shouldBeEqual(5)
+        the(type.getEnd()).shouldBeEqual(10)
+
         // when
         fixture.execute()
 
@@ -57,7 +62,6 @@ import java.util.*;
 public class Test11 implements Test2 {
 
     private static transient int test;
-
     public void paramsTest(int param1, int param2, int param3) {
     
     }

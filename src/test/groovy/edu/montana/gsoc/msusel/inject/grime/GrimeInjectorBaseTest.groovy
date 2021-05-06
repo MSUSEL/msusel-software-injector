@@ -91,7 +91,7 @@ abstract class GrimeInjectorBaseTest extends DBSpec {
         proj = Project.builder().name("testproj").version("1.0").relPath("testproj").create()
         Module mod = Module.builder().name("testmod").relPath("testmod").create()
         ns1 = Namespace.builder().name("test").nsKey("test1").relPath("test").create()
-        ns2 = Namespace.builder().name("test1").nsKey("test2").relPath("test/test").create()
+        ns2 = Namespace.builder().name("test1").nsKey("test2").relPath("test/test1").create()
         ns3 = Namespace.builder().name("test2").nsKey("test3").relPath("test/test2").create()
         ns4 = Namespace.builder().name("test3").nsKey("test4").relPath("test3").create()
         ns5 = Namespace.builder().name("test4").nsKey("test5").relPath("test4").create()
@@ -223,7 +223,7 @@ abstract class GrimeInjectorBaseTest extends DBSpec {
 
     void createPatternInstance() {
         Pattern p = Pattern.findFirst("name = ?", "Builder")
-        inst = PatternInstance.builder().instKey().create()
+        inst = PatternInstance.builder().instKey("Builder01").create()
         p.addInstance(inst)
         proj.addPatternInstance(inst)
 
@@ -284,7 +284,7 @@ abstract class GrimeInjectorBaseTest extends DBSpec {
                             "main" {
                                 "java" {
                                     "test" {
-                                        "test" {
+                                        "test1" {
                                         }
                                         "test2" {
                                         }
@@ -310,12 +310,12 @@ abstract class GrimeInjectorBaseTest extends DBSpec {
         }
 
         new java.io.File("testdata/testproj/testmod/src/main/java/test3/TypeA.java").text = createTestFileA()
-        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/TypeB.java").text = createTestFileB()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test1/TypeB.java").text = createTestFileB()
         new java.io.File("testdata/testproj/testmod/src/main/java/test4/TypeC.java").text = createTestFileC()
-        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/TypeD.java").text = createTestFileD()
-        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/TypeE.java").text = createTestFileE()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test1/TypeD.java").text = createTestFileD()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test1/TypeE.java").text = createTestFileE()
         new java.io.File("testdata/testproj/testmod/src/main/java/test/TypeF.java").text = createTestFileF()
-        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/TypeG.java").text = createTestFileG()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test1/TypeG.java").text = createTestFileG()
         new java.io.File("testdata/testproj/testmod/src/main/java/test/test2/TypeH.java").text = createTestFileH()
     }
 

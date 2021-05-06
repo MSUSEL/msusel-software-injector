@@ -28,6 +28,7 @@ package edu.montana.gsoc.msusel.inject.grime
 
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Namespace
+import edu.isu.isuese.datamodel.PatternInstance
 import edu.isu.isuese.datamodel.Role
 import edu.isu.isuese.datamodel.RoleBinding
 import edu.isu.isuese.datamodel.RoleType
@@ -118,13 +119,12 @@ class ModularOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
     void "test selectType happy path"() {
         // given
         Namespace ns = ns2
-        def types = [ typeB, typeD, typeE, typeG ]
 
         // when
-        Type type = fixture.selectType(ns)
+        Type type = fixture.selectOrCreateType(ns)
 
         // then
-        the(types).shouldContain(type)
+        the(ns.getAllTypes()).shouldContain(type)
     }
 
     @Test(expected = InjectionFailedException.class)
@@ -133,7 +133,7 @@ class ModularOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         Namespace ns = null
 
         // when
-        Type type = fixture.selectType(ns)
+        Type type = fixture.selectOrCreateType(ns)
     }
 
     @Test
@@ -164,7 +164,7 @@ class ModularOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         Namespace ns = fixture.selectOrCreateExternNamespace()
 
         // then
-        the(ns.getName()).shouldBeEqual("genexternns")
+        the(ns.getName()).shouldBeEqual("genexternns1")
     }
 
     @Test
@@ -205,85 +205,6 @@ class ModularOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         // when
         Namespace n1, n2
         fixture.splitNamespace(null, boundary)
-    }
-
-    @Test
-    void "test selectNamespace happy path"() {
-        // given
-        def list = [ ns1, ns2, ns3, ns4, ns5, ns6]
-
-        // when
-        def selected = fixture.selectNamespace(list)
-
-        // then
-        the(selected).shouldNotBeNull()
-    }
-
-    @Test
-    void "test selectNamespace single item list"() {
-        // given
-        def list = [ ns1 ]
-
-        // when
-        def selected = fixture.selectNamespace(list)
-
-        // then
-        the(selected).shouldNotBeNull()
-        the(selected).shouldEqual(ns1)
-    }
-
-    @Test
-    void "test selectNamespace empty list"() {
-        // given
-        def list = []
-
-        // when
-        def selected = fixture.selectNamespace(list)
-
-        // then
-        the(selected).shouldBeNull()
-    }
-
-    @Test(expected = InjectionFailedException.class)
-    void "test selectNamespace null list"() {
-        // given
-        def list = null
-
-        // when
-        fixture.selectNamespaces(list)
-    }
-
-    @Test
-    void "test selectNamespaces happy path"() {
-        // given
-        def list = [ ns1, ns2, ns3, ns4, ns5, ns6]
-
-        // when
-        def selected = fixture.selectNamespaces(list)
-
-        // then
-        the(selected.size()).shouldBeEqual(2)
-    }
-
-    @Test
-    void "test selectNamespaces empty list"() {
-        // given
-        def list = []
-
-        // when
-        def selected = fixture.selectNamespaces(list)
-
-        // then
-        the(selected.size()).shouldBeEqual(0)
-    }
-
-    @Test(expected = InjectionFailedException.class)
-    void "test selectNamespaces null list"() {
-        // given
-        def list = null
-
-        // when
-        fixture.selectNamespaces(list)
     }
 
     @Test

@@ -27,6 +27,7 @@
 package edu.montana.gsoc.msusel.inject.grime
 
 import edu.isu.isuese.datamodel.Class
+import edu.isu.isuese.datamodel.PatternInstance
 import edu.isu.isuese.datamodel.Type
 import junitparams.JUnitParamsRunner
 import junitparams.Parameters
@@ -79,7 +80,7 @@ class ModularGrimeInjectorTest extends GrimeInjectorBaseTest {
                      Class.findFirst("name = ?", "TypeH")]
 
         // when
-        def result = fixture.selectExternClass()
+        def result = fixture.selectOrCreateExternClass()
 
         // then
         the(types).shouldContain(result)
@@ -88,35 +89,27 @@ class ModularGrimeInjectorTest extends GrimeInjectorBaseTest {
     @Test
     void selectPatternClass() {
         // given
-        def types = [Class.findFirst("name = ?", "TypeA"),
-                     Class.findFirst("name = ?", "TypeB"),
-                     Class.findFirst("name = ?", "TypeC"),
-                     Class.findFirst("name = ?", "TypeD"),
-                     Class.findFirst("name = ?", "TypeE")]
+        PatternInstance inst = PatternInstance.findFirst("instKey = ?", "Builder01")
 
         // when
-        def result = fixture.selectPatternClass()
+        def result = fixture.selectOrCreatePatternClass()
 
         // then
-        the(types).shouldContain(result)
+        the(inst.getTypes().contains(result)).shouldBeTrue()
     }
 
     @Test
     void select2PatternClasses() {
         // given
-        def types = [Class.findFirst("name = ?", "TypeA"),
-                     Class.findFirst("name = ?", "TypeB"),
-                     Class.findFirst("name = ?", "TypeC"),
-                     Class.findFirst("name = ?", "TypeD"),
-                     Class.findFirst("name = ?", "TypeE")]
+        PatternInstance inst = PatternInstance.findFirst("instKey = ?", "Builder01")
 
         // when
-        def (result1, result2) = fixture.select2PatternClasses()
+        def (result1, result2) = fixture.selectOrCreate2PatternClasses()
 
         // then
         the(result1).shouldNotBeEqual(result2)
-        the(types).shouldContain(result1)
-        the(types).shouldContain(result2)
+        the(inst.getTypes().contains(result1)).shouldBeTrue()
+        the(inst.getTypes().contains(result2)).shouldBeTrue()
     }
 
     @Test

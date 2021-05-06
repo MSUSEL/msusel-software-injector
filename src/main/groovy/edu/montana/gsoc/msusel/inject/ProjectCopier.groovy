@@ -58,8 +58,6 @@ class ProjectCopier {
         // 1. for each component starting with Project recurse down the tree to copy the item calling the copy method
         String newKey = "${original.getName()}_copy"
         String newRelPath = "${original.getRelPath()}_copy"
-        println "NewKey: $newKey"
-        println "NewRelPath: $newRelPath"
         Project copy = original.copy(newKey, newRelPath)
 
         original.getParentSystem().addProject(copy)

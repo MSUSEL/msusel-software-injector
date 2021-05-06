@@ -32,7 +32,7 @@ import edu.montana.gsoc.msusel.inject.transform.source.structural.UpdateImports
 
 /**
  * Base class on which all transforms are built
- * 
+ *
  * @author Isaac Griffith
  * @version 1.3.0
  */
@@ -90,11 +90,13 @@ abstract class AbstractSourceTransform implements SourceTransform {
      */
     void updateImports(TypeRef imp) {
         if (!file.getParentProjects().isEmpty()) {
-            String name = imp.getTypeFullName()
+            if (imp.getType() == TypeRefType.Type) {
+                String name = imp.getTypeFullName()
 //            Import imprt = file.getImports().find {it.name == name}
 //            if (!imprt)
-            if (name)
-                addImports([name])
+                if (name)
+                    addImports([name])
+            }
         }
     }
 
@@ -151,12 +153,14 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * @param length Length of the change
      */
     void updateContainingAndAllFollowing(int line, int length) {
+        file.setEnd(file.getEnd() + length)
+        file.refresh()
+
         file.containing(line).each {
             it.setEnd(it.getEnd() + length)
             it.refresh()
         }
-        file.setEnd(file.getEnd() + length)
-        file.refresh()
+
         updateAllFollowing(line, length)
     }
 }

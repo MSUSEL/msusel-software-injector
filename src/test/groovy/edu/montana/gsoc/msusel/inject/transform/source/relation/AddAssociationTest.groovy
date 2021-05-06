@@ -48,11 +48,6 @@ class AddAssociationTest extends BaseSourceTransformSpec {
         java.io.File fromActual = new java.io.File(fromFile.getFullPath())
         java.io.File toActual = new java.io.File(toFile.getFullPath())
 
-        println "From Type Start: ${fromType.start}"
-        println "From Type End: ${fromType.end}"
-        println "To Type Start: ${toType.start}"
-        println "To Type End: ${toType.end}"
-
         // when
         fixture.execute()
 
@@ -75,12 +70,12 @@ public class Test1 implements Test2 {
 
     }
 
-    public void setTest9(Test9 test9) {
-        this.test9 = test9;
-    }
-
     public Test9 getTest9() {
         return test9;
+    }
+
+    public void setTest9(Test9 test9) {
+        this.test9 = test9;
     }
 }""")
 
@@ -98,12 +93,12 @@ public class Test9 implements Test2 {
     
     }
 
-    public void setTest1(Test1 test1) {
-        this.test1 = test1;
-    }
-
     public Test1 getTest1() {
         return test1;
+    }
+
+    public void setTest1(Test1 test1) {
+        this.test1 = test1;
     }
 }""")
         the(fromType.getAssociatedTo()).shouldContain(toType)

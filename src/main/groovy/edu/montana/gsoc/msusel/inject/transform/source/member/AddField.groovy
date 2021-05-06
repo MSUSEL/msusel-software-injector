@@ -92,7 +92,7 @@ class AddField extends AddMember {
         if (type.getFields().size() >= 1)
             content = String.format("    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
         else
-            content = String.format("\n    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
+            content = String.format("    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
         lines.add(start, content)
     }
 
@@ -116,11 +116,9 @@ class AddField extends AddMember {
         // 4. Add field to type
         type.addMember(field)
 
-        updateContainingAndAllFollowing(start + 2, 1)
-        file.setEnd(file.getEnd() + 1)
+        updateContainingAndAllFollowing(start + 1, 1)
         // 6. check if an import is needed
         if (field.type.getType() == TypeRefType.Type) {
-            println "Adding Field"
             updateImports(field.type)
         }
         // 7. update file content

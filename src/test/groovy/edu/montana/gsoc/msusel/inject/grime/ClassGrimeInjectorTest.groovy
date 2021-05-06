@@ -94,7 +94,7 @@ class ClassGrimeInjectorTest extends GrimeInjectorBaseTest {
 
         // then
         the(method).shouldNotBeNull()
-        the(method.getName()).shouldEqual("testMethod")
+        the(method.getName()).shouldContain("testMethod")
     }
 
     @Test(expected = InjectionFailedException.class)

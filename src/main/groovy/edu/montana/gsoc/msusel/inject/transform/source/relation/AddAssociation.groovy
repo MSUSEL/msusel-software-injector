@@ -29,6 +29,7 @@ package edu.montana.gsoc.msusel.inject.transform.source.relation
 import edu.isu.isuese.datamodel.Accessibility
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
+import edu.montana.gsoc.msusel.inject.transform.source.AbstractSourceTransform
 import edu.montana.gsoc.msusel.inject.transform.source.CompositeSourceTransform
 import edu.montana.gsoc.msusel.inject.transform.source.member.CreateEncapsulatedField
 import groovy.transform.builder.Builder
@@ -93,14 +94,12 @@ class AddAssociation extends CompositeSourceTransform {
     @Override
     void execute() {
         if (!bidirect) {
-            transforms << CreateEncapsulatedField.builder().file(file).type(from).fieldType(to.createTypeRef()).fieldName(fromName).access(Accessibility.PRIVATE).create()
+            CreateEncapsulatedField.builder().file(file).type(from).fieldType(to.createTypeRef()).fieldName(fromName).access(Accessibility.PRIVATE).create().execute()
         } else {
-            transforms << CreateEncapsulatedField.builder().file(file).type(from).fieldType(to.createTypeRef()).fieldName(fromName).access(Accessibility.PRIVATE).create()
-            transforms << CreateEncapsulatedField.builder().file(toFile).type(to).fieldType(from.createTypeRef()).fieldName(toName).access(Accessibility.PRIVATE).create()
+            CreateEncapsulatedField.builder().file(file).type(from).fieldType(to.createTypeRef()).fieldName(fromName).access(Accessibility.PRIVATE).create().execute()
+            CreateEncapsulatedField.builder().file(toFile).type(to).fieldType(from.createTypeRef()).fieldName(toName).access(Accessibility.PRIVATE).create().execute()
             to.associatedTo(from)
         }
         from.associatedTo(to)
-
-        transforms*.execute()
     }
 }

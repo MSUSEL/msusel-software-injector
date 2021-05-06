@@ -78,7 +78,7 @@ class UpdateImports extends BasicSourceTransform {
 
         text = imps.join("\n")
 
-        delta = imps.size() - (end - start)
+        delta = imps.size() - ((end + 1) - start)
     }
 
     /**
@@ -101,7 +101,7 @@ class UpdateImports extends BasicSourceTransform {
      */
     @Override
     void updateModel() {
-        updateAllFollowing(start + 1, delta + 1)
+        updateContainingAndAllFollowing(start + 1, delta)
     }
 
     /**

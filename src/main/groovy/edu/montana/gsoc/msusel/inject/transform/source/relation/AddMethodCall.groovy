@@ -101,9 +101,13 @@ class AddMethodCall extends AddRelation {
      */
     @Override
     void injectContent() {
-        FileOperations ops = FileOperations.getOps(file)
-        end = ops.inject(start, text)
-        ops.clear()
+        java.io.File ops = new java.io.File(file.getFullPath())
+        def lines = ops.readLines()
+        int orig = lines.size()
+        lines.add(start, text)
+        String other = lines.join("\n")
+        lines = other.split("\n")
+        end = lines.size() - orig
     }
 
     /**
