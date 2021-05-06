@@ -64,8 +64,7 @@ class AddLiteralModelTransform extends TypeModelTransform {
     void transform() {
         // Execute Transform
         literal = Literal.builder().name(name).compKey(name).create()
-        type.addMember(literal)
-        literal.updateKey()
+
         // Generate Source Transform
         new AddLiteral(type.getParentFile(), (Enum) type, literal).execute()
     }

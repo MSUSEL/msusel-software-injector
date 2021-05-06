@@ -50,9 +50,9 @@ abstract class AddMember extends BasicSourceTransform {
      * @return line number where a new method can be inserted
      */
     int findMethodInsertionPoint(Type type) {
-//        int line = 0
+        int line = 0
 
-//        if (type.getMethods().isEmpty()) {
+        if (type.getMethods().isEmpty()) {
 //            if (type.getFields().isEmpty()) {
 //                if (type.getLiterals().isEmpty()) {
 //                    line = type.getStart()
@@ -68,13 +68,14 @@ abstract class AddMember extends BasicSourceTransform {
 //                        line = it.getEnd()
 //                }
 //            }
-//        } else {
-//            type.getMethods().each {
-//                if (it.getEnd() > line)
-//                    line = it.getEnd()
-//            }
-//        }
-        int line = type.getEnd() - 1
+            line = type.getEnd() - 1
+        } else {
+            type.getMethods().each {
+                if (it.getEnd() > line)
+                    line = it.getEnd()
+            }
+        }
+//        int line = type.getEnd()
 
         return line
     }

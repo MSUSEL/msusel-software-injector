@@ -62,7 +62,7 @@ class AddRealizationModelTransform extends TypeModelTransform {
     @Override
     void transform() {
         // Execute Transform
-        type.realizes(real)
+//        type.realizes(real)
         // Generate Source Transform
         new AddRealization(type.getParentFile(), type, real).execute()
     }

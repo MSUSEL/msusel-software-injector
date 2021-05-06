@@ -58,7 +58,7 @@ class AddMethodCallModelTransform extends MemberModelTransform {
     @Override
     void transform() {
         // Execute Transform
-        ((Method) member).callsMethod(method)
+//        ((Method) member).callsMethod(method)
         // Generate Source Transform
         new AddMethodCall(member.getParentFile(), (Method) member, method).execute()
     }

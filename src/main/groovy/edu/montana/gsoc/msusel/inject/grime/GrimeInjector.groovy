@@ -122,6 +122,9 @@ abstract class GrimeInjector implements SourceInjector {
                 AddTypeModelTransform addType = new AddTypeModelTransform(addFile.file, "GenExternalType${genIndex}", Accessibility.PUBLIC, "class")
                 addType.execute()
                 type = addType.type
+                ns.addType(type)
+                type.updateKey()
+                type.refresh()
             } catch (ModelTransformPreconditionsNotMetException ex) {
                 exception = true
             }

@@ -83,8 +83,7 @@ class AddPrimitiveMethodModelTransform extends TypeModelTransform {
         mods.each {
             method.addModifier(it)
         }
-        type.addMember(method)
-        method.updateKey()
+        
         // Generate Source Transform
         new AddMethod(type.getParentFile(), type, method, "").execute()
     }

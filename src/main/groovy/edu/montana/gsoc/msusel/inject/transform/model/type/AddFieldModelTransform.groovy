@@ -90,7 +90,7 @@ class AddFieldModelTransform extends TypeModelTransform {
             field.addModifier(it)
         }
 //        type.addMember(field)
-        field.updateKey()
+//        field.updateKey()
         type.refresh()
         field.refresh()
         // Generate Source Transform

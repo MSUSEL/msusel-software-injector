@@ -66,7 +66,7 @@ class AddAssociationModelTransform extends TypeModelTransform {
     @Override
     void transform() {
         // Execute Transform
-        type.associatedTo(assoc)
+//        type.associatedTo(assoc)
         // Generate Source Transform
         new AddAssociation(type.getParentFile(), type, assoc.getParentFile(), assoc, toName, fromName, bidirect).execute()
     }

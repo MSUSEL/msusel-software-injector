@@ -139,5 +139,6 @@ class AddLiteral extends BasicSourceTransform {
         updateAllFollowing(loc, delta)
         type.setEnd(type.getEnd() + delta)
         type.addMember(literal)
+        literal.updateKey()
     }
 }

@@ -59,7 +59,7 @@ class AddFieldUseModelTransform extends MemberModelTransform {
     @Override
     void transform() {
         // Execute Transform
-        ((Method) member).usesField(field)
+//        ((Method) member).usesField(field)
         // Generate Source Transform
         new AddFieldUse(member.getParentFile(), member.getParentType(), field, (Method) member).execute()
     }

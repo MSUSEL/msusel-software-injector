@@ -120,7 +120,7 @@ class AddMethod extends AddMember {
     @Override
     void updateModel() {
         // 5. update all following items with size of insert
-        updateContainingAndAllFollowing(start + 1, end)
+        updateContainingAndAllFollowing(start, end)
         // 6. for return type check if primitive, if not check if an import is needed
         if (method.type.getTypeFullName() != "void") {
             if (method.type.getType() == TypeRefType.Type)
@@ -137,6 +137,7 @@ class AddMethod extends AddMember {
         type.addMember(this.method)
         this.method.start = start + 2
         this.method.end = start + end
+        this.method.updateKey()
     }
 
     /**

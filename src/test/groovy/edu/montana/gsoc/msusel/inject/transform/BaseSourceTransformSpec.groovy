@@ -410,6 +410,16 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         ns2.addType(type23)
         ns2.addFile(file23)
 
+        File file24 = File.builder().name("Test24.java").relPath("Test24.java").type(FileType.SOURCE).start(1).end(45).create()
+        Type type24 = Class.builder().name("Test24").accessibility(Accessibility.PUBLIC).start(35).end(43).create()
+        Method m241 = Method.builder().name("aMethod24").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(40).end(42).create()
+        type24.addMember(m241)
+        file24.addType(type24)
+        file24.addImport(imp)
+        proj.addFile(file24)
+        ns2.addType(type24)
+        ns2.addFile(file24)
+
         ns4.addFile(fileC)
         ns4.addType(typeC)
         proj.addFile(fileC)
@@ -529,6 +539,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test21.java").text = createTestFile26()
         new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test22.java").text = createTestFile27()
         new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test23.java").text = createTestFile28()
+        new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test24.java").text = createTestFile29()
         new java.io.File("testdata/testproj/testmod/src/main/java/test4/TypeX.java").text = createTestFile16()
         new java.io.File("testdata/testproj/testmod/src/main/java/test4/TypeY.java").text = createTestFile17()
         new java.io.File("testdata/testproj/testmod/src/main/java/test4/TypeZ.java").text = createTestFile18()
@@ -1077,6 +1088,56 @@ public class Test23 {
     
     }
 }
+'''
+    }
+
+    private static createTestFile29() {
+        '''\
+/**
+ * The MIT License (MIT)
+ *
+ * MSUSEL Software Injector
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
+ * Software Engineering Laboratory and Idaho State University, Informatics and
+ * Computer Science, Empirical Software Engineering Laboratory
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+package test.test;
+
+import java.util.*;
+
+/**
+ * @author Isaac D Griffith
+ * @version 1.3.0
+ */
+public class Test24 {
+
+    /**
+     * A method that does something
+     */
+    public void aMethod24() {
+    
+    }
+}
+
+
 '''
     }
 }

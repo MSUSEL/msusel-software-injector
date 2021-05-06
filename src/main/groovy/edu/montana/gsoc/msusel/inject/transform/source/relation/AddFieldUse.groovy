@@ -128,6 +128,7 @@ class AddFieldUse extends AddRelation {
     @Override
     void updateModel() {
         updateContainingAndAllFollowing(start, delta)
+        method.usesField(field)
         addUseDep(type, fieldOwner)
         updateImports(fieldOwner)
     }

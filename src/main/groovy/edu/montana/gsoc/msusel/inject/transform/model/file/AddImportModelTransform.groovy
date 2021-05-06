@@ -60,7 +60,6 @@ class AddImportModelTransform extends FileModelTransform {
     void transform() {
         // Execute Transform
         imp = Import.builder().name(name).create()
-        file.addImport(imp)
         // Generate Source Transform
         new AddImport(file, imp).execute()
     }

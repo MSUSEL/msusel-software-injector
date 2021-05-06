@@ -83,8 +83,7 @@ class AddPrimitiveFieldModelTransform extends TypeModelTransform {
         mods.each {
             field.addModifier(it)
         }
-        type.addMember(field)
-        field.updateKey()
+
         // Generate Source Transform
         new AddField(type.getParentFile(), type, field).execute()
     }

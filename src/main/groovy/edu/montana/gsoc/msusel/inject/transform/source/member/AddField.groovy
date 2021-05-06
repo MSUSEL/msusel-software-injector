@@ -129,8 +129,9 @@ class AddField extends AddMember {
 
         // 4. Add field to type
         type.addMember(field)
+        field.updateKey()
 
-        updateContainingAndAllFollowing(start + 1, delta)
+        updateContainingAndAllFollowing(start, delta)
         // 6. check if an import is needed
         if (field.type.getType() == TypeRefType.Type) {
             updateImports(field.type)
