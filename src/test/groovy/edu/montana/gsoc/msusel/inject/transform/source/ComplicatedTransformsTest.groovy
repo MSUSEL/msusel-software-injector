@@ -78,11 +78,11 @@ class ComplicatedTransformsTest  extends BaseSourceTransformSpec {
         type.refresh()
 
         the(file.getStart()).shouldBeEqual(1)
-        the(file.getEnd()).shouldBeEqual(38)
+        the(file.getEnd()).shouldBeEqual(39)
         the(type.getStart()).shouldBeEqual(35)
-        the(type.getEnd()).shouldBeEqual(38)
-        the(field.getStart()).shouldBeEqual(38)
-        the(field.getEnd()).shouldBeEqual(38)
+        the(type.getEnd()).shouldBeEqual(39)
+        the(field.getStart()).shouldBeEqual(37)
+        the(field.getEnd()).shouldBeEqual(37)
 
         AddMethodModelTransform addMethod = new AddMethodModelTransform(type, methodName, TypeRef.createPrimitiveTypeRef("void"), Accessibility.PUBLIC)
         addMethod.execute()
@@ -132,18 +132,19 @@ public class TestX {
 
     private TypeX typeX;
 
+
     public void methodX() {
     
     }
 }''')
         the(file.getStart()).shouldBeEqual(1)
-        the(file.getEnd()).shouldBeEqual(42)
+        the(file.getEnd()).shouldBeEqual(43)
         the(type.getStart()).shouldBeEqual(35)
-        the(type.getEnd()).shouldBeEqual(42)
-        the(field.getStart()).shouldBeEqual(38)
-        the(field.getEnd()).shouldBeEqual(38)
-        the(method.getStart()).shouldBeEqual(39)
-        the(method.getEnd()).shouldBeEqual(41)
+        the(type.getEnd()).shouldBeEqual(43)
+        the(field.getStart()).shouldBeEqual(37)
+        the(field.getEnd()).shouldBeEqual(37)
+        the(method.getStart()).shouldBeEqual(40)
+        the(method.getEnd()).shouldBeEqual(42)
     }
 
     @Test
@@ -169,6 +170,7 @@ public class TestX {
         Field field = addField.getField()
         file.refresh()
         type.refresh()
+        method.refresh()
 
         // Then
         java.io.File actual = new java.io.File(file.getFullPath())
