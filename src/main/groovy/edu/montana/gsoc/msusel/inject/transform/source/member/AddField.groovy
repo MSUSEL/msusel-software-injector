@@ -89,8 +89,6 @@ class AddField extends AddMember {
     void buildContent() {
         // 2. add field to content
         String content
-        println "Num Methods: ${type.getMethods().size()}"
-        println "Num Fields: ${type.getFields().size()}"
 
         if (type.getFields().size() >= 1) {
             start += 1
@@ -132,8 +130,6 @@ class AddField extends AddMember {
         // 4. Add field to type
         type.addMember(field)
 
-        println "Start: ${start + 1}"
-        println "Delta: $delta"
         updateContainingAndAllFollowing(start + 1, delta)
         // 6. check if an import is needed
         if (field.type.getType() == TypeRefType.Type) {

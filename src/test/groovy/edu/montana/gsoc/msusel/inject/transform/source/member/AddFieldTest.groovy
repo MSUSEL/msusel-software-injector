@@ -60,8 +60,8 @@ public class Test11 implements Test2 {
     
     }
 }""")
-        the(field.start).shouldEqual(8)
-        the(field.end).shouldEqual(8)
+        the(field.start).shouldEqual(7)
+        the(field.end).shouldEqual(7)
         the(type.start).shouldEqual(5)
         the(type.end).shouldEqual(12)
         the(file.end).shouldEqual(12)
