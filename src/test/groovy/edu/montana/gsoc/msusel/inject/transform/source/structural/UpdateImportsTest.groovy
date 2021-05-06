@@ -124,7 +124,8 @@ public class Test9 implements Test2 {
     public void method(Test3 param) {
     
     }
-}"""
+}
+"""
         String actual = new java.io.File("testdata/testproj/testmod/src/main/java/test/test/Test9.java").text
         the(actual).shouldEqual(expected)
     }

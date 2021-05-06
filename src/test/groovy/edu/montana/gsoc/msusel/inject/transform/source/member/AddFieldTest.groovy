@@ -55,15 +55,16 @@ import java.util.*;
 public class Test11 implements Test2 {
 
     private int test;
+
     public void paramsTest(int param1, int param2, int param3) {
     
     }
 }""")
-        the(field.start).shouldEqual(7)
-        the(field.end).shouldEqual(7)
+        the(field.start).shouldEqual(8)
+        the(field.end).shouldEqual(8)
         the(type.start).shouldEqual(5)
-        the(type.end).shouldEqual(11)
-        the(file.end).shouldEqual(11)
+        the(type.end).shouldEqual(12)
+        the(file.end).shouldEqual(12)
     }
 
     @Test
@@ -88,8 +89,8 @@ import java.util.*;
 
 public class Test10 implements Test2 {
 
-    private volatile static final int COUNT;
     private int test;
+    private volatile static final int COUNT;
 
     public static void method4(Test3 param) {
     

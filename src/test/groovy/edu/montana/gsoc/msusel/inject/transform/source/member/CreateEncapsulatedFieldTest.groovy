@@ -53,8 +53,7 @@ class CreateEncapsulatedFieldTest extends BaseSourceTransformSpec {
         fixture.execute()
 
         // then
-        //the(actual.text).shouldEqual("""\
-        Assert.assertEquals(actual.text, """\
+        the(actual.text).shouldEqual("""\
 package test.test;
 
 import java.util.*;
@@ -62,6 +61,7 @@ import java.util.*;
 public class Test11 implements Test2 {
 
     private static transient int test;
+
     public void paramsTest(int param1, int param2, int param3) {
     
     }

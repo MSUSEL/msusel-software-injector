@@ -81,7 +81,7 @@ class AddFieldModelTransform extends TypeModelTransform {
                 .compKey(name)
                 .accessibility(access)
                 .type(TypeRef.builder()
-                        .typeName(name)
+                        .typeName(fldType.getName())
                         .type(TypeRefType.Type)
                         .ref(Reference.to(fldType))
                         .create())
@@ -89,7 +89,7 @@ class AddFieldModelTransform extends TypeModelTransform {
         mods.each {
             field.addModifier(it)
         }
-        type.addMember(field)
+//        type.addMember(field)
         field.updateKey()
         type.refresh()
         field.refresh()

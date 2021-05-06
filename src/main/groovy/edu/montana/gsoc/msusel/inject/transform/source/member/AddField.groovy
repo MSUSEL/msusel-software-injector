@@ -78,8 +78,8 @@ class AddField extends AddMember {
 
         // 1. find line of last field in type
         start = findFieldInsertionPoint(type)
-        if (type.getFields().size() >= 1)
-            start = start - 1
+//        if (type.getFields().size() >= 1)
+//            start = start - 1
     }
 
     /**
@@ -89,11 +89,20 @@ class AddField extends AddMember {
     void buildContent() {
         // 2. add field to content
         String content
-        if (type.getFields().size() >= 1)
+        println "Num Methods: ${type.getMethods().size()}"
+        println "Num Fields: ${type.getFields().size()}"
+
+        if (type.getFields().size() >= 1) {
+            start += 1
             content = String.format("    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
-        else
-            content = String.format("    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
-        lines.add(start, content)
+        }
+        else {
+            if (type.getMethods().size() > 0)
+                content = String.format("\n    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
+            else
+                content = String.format("\n    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
+        }
+        lines.add(start - 1, content)
     }
 
     /**
@@ -111,12 +120,21 @@ class AddField extends AddMember {
     @Override
     void updateModel() {
         // 3. update field start and end
+        int delta = 1
+        if (type.getFields().size() < 1)
+            delta = 2
+//        if (type.getFields().size() < 1 && type.getMethods().size() > 0)
+//            delta = 3
+
         field.start = start + 1
         field.end = start + 1
+
         // 4. Add field to type
         type.addMember(field)
 
-        updateContainingAndAllFollowing(start + 1, 1)
+        println "Start: ${start + 1}"
+        println "Delta: $delta"
+        updateContainingAndAllFollowing(start + 1, delta)
         // 6. check if an import is needed
         if (field.type.getType() == TypeRefType.Type) {
             updateImports(field.type)

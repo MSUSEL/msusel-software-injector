@@ -143,7 +143,8 @@ abstract class AbstractSourceTransform implements SourceTransform {
             file.addImport(imp)
         }
 
-        UpdateImports.builder().file(file).create().execute()
+        if (imports)
+            UpdateImports.builder().file(file).create().execute()
     }
 
     /**

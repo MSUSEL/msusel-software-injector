@@ -58,7 +58,8 @@ public class Test13 extends Test1 {
 
     private volatile static final int COUNTX;
 
-}""")
+}
+""")
     }
 
     @Test

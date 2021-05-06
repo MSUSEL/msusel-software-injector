@@ -82,13 +82,10 @@ class AddType extends BasicSourceTransform {
         }
 
         textLines = text.stripIndent().split("\n")
+        textLines.add(0, "")
 
 //        start = this.file.getEnd()
-        lines.add(start, "")
-
-        for (int i = 0; i < textLines.size(); i++) {
-            lines.add(start + i + 1, textLines[i])
-        }
+        lines.add(start, textLines.join("\n"))
 
     }
 
@@ -99,14 +96,15 @@ class AddType extends BasicSourceTransform {
 
     @Override
     void updateModel() {
-        int length = textLines.size() + 1
+        int length = textLines.size()
         end = start + length
-        type.setStart(start)
+        type.setStart(start + 8)
         type.setEnd(end)
         file.setEnd(file.getEnd() + length)
 
         updateAllFollowing(type.getStart() + 1, length)
         type.refresh()
+        file.refresh()
     }
 
     /**

@@ -44,12 +44,26 @@ import edu.montana.gsoc.msusel.inject.transform.source.member.AddMethod
 class AddMethodModelTransform extends TypeModelTransform {
 
     String name
-    Type methodType
+    TypeRef methodType
     Accessibility access
     List<Modifier> mods
     Method method
 
     AddMethodModelTransform(Type type, String name, Type methodType, Accessibility access, Modifier ... mods) {
+        super(type)
+        this.name = name
+        if (methodType) {
+            this.methodType = TypeRef.builder()
+                    .typeName(name)
+                    .type(TypeRefType.Type)
+                    .ref(Reference.to(methodType))
+                    .create()
+        }
+        this.access = access
+        this.mods = mods
+    }
+
+    AddMethodModelTransform(Type type, String name, TypeRef methodType, Accessibility access, Modifier ... mods) {
         super(type)
         this.name = name
         this.methodType = methodType
@@ -80,11 +94,7 @@ class AddMethodModelTransform extends TypeModelTransform {
                 .name(name)
                 .compKey(name)
                 .accessibility(access)
-                .type(TypeRef.builder()
-                        .typeName(name)
-                        .type(TypeRefType.Type)
-                        .ref(Reference.to(methodType))
-                        .create())
+                .type(methodType)
                 .create()
         mods.each {
             method.addModifier(it)

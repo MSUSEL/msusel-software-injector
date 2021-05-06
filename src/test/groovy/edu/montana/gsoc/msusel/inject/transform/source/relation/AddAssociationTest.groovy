@@ -59,8 +59,8 @@ import java.util.*;
 
 public class Test1 implements Test2 {
 
-    private String name;
     private Test9 test9;
+    private String name;
 
     public void method(Test3 param) {
 
@@ -86,8 +86,8 @@ import java.util.*;
 
 public class Test9 implements Test2 {
 
-    private String name9, other;
     private Test1 test1;
+    private String name9, other;
 
     public void method(Test3 param) {
     

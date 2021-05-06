@@ -135,8 +135,8 @@ class AddMethod extends AddMember {
         updateImports(imports)
 
         type.addMember(this.method)
-        this.method.start = start + 1
-        this.method.end = start + end + 1
+        this.method.start = start + 2
+        this.method.end = start + end
     }
 
     /**
