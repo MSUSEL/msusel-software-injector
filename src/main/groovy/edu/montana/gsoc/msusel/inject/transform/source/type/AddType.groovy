@@ -102,10 +102,10 @@ class AddType extends BasicSourceTransform {
         type.setEnd(end)
         file.setEnd(file.getEnd() + length)
 
-        updateAllFollowing(type.getStart(), length)
-
         file.addType(type)
         file.getParentNamespace().addType(type)
+        updateAllFollowing(type.getStart(), length)
+
 
         type.refresh()
         file.refresh()

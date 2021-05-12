@@ -63,7 +63,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * @param length The offset to update following items by
      */
     void updateAllFollowing(File file = this.file, int line, int length) {
-        file.following(line + 1).each { c ->
+        file.following(line).each { c ->
             if (c instanceof Component) {
                 c.refresh()
                 c.setStart(c.getStart() + length)
@@ -215,7 +215,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * @param length Length of the change
      */
     void updateContainingAndAllFollowing(int line, int length) {
-        file.containing(line + 1).each {
+        file.containing(line).each {
             it.refresh()
             it.setEnd(it.getEnd() + length)
             it.refresh()

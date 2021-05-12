@@ -238,6 +238,104 @@ public class Test23 {
     }
 
     @Test
+    void testCaseThree2() {
+        // Given
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test.test")
+        String path = "TestX.java"
+        String typeName = "TestX"
+        String fieldName = "test"
+
+        // When
+        AddFileModelTransform addFile = new AddFileModelTransform(ns, path, FileType.SOURCE)
+        addFile.execute()
+        File file = addFile.getFile()
+
+        the(file.getStart()).shouldBeEqual(1)
+        the(file.getEnd()).shouldBeEqual(27)
+
+        AddTypeModelTransform addType = new AddTypeModelTransform(file, typeName, Accessibility.PUBLIC, "class")
+        addType.execute()
+        Type type = addType.getType()
+
+        the(file.getStart()).shouldBeEqual(1)
+        the(file.getEnd()).shouldBeEqual(37)
+        the(type.getStart()).shouldBeEqual(35)
+        the(type.getEnd()).shouldBeEqual(37)
+
+        // When
+        CreateEncapsulatedField encFld = new CreateEncapsulatedField(file, type, TypeRef.createPrimitiveTypeRef("int"), fieldName, Accessibility.PRIVATE)
+        encFld.execute()
+
+        java.io.File actual = new java.io.File(file.getFullPath())
+        String text = actual.getText()
+
+        // Then
+        file.refresh()
+        type.refresh()
+        the(file.getEnd()).shouldBeEqual(47)
+        the(type.getStart()).shouldBeEqual(35)
+        the(type.getEnd()).shouldBeEqual(47)
+
+        the(text).shouldBeEqual('''\
+/**
+ * The MIT License (MIT)
+ *
+ * MSUSEL Software Injector
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
+ * Software Engineering Laboratory
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package test.test;
+
+/**
+ * Generated Type
+ *
+ * @author Isaac Griffith
+ * @version 1.0
+ */
+public class TestX {
+
+    private int test;
+
+
+    public int getTest() {
+        return test;
+    }
+
+    public void setTest(int test) {
+        this.test = test;
+    }
+}''')
+        Method getter = type.getMethodWithName("getTest")
+        the(getter.getStart()).shouldBeEqual(40)
+        the(getter.getEnd()).shouldBeEqual(42)
+        Method setter = type.getMethodWithName("setTest")
+        the(setter.getStart()).shouldBeEqual(44)
+        the(setter.getEnd()).shouldBeEqual(46)
+        Field field = type.getFieldWithName("test")
+        the(field.getStart()).shouldBeEqual(37)
+        the(field.getEnd()).shouldBeEqual(37)
+    }
+
+    @Test
     void testCaseThree() {
         // Given
         Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test.test")
@@ -348,8 +446,6 @@ public class Test23 {
 
         java.io.File actual = new java.io.File(file.getFullPath())
         String text = actual.getText()
-
-        // Then
         the(text).shouldBeEqual('''\
 /**
  * The MIT License (MIT)
@@ -402,6 +498,12 @@ public class TestX {
         this.test = test;
     }
 }''')
+        the(file.getStart()).shouldBeEqual(1)
+        the(file.getEnd()).shouldBeEqual(51)
+        the(type.getStart()).shouldBeEqual(35)
+        the(type.getEnd()).shouldBeEqual(51)
+        the(method.getStart()).shouldBeEqual(40)
+        the(method.getEnd()).shouldBeEqual(42)
     }
 
     @Test
@@ -502,13 +604,11 @@ public class Test24 {
 
     @Test
     @Parameters([
-            "4,7",
-            "6,6",
-            "7,5",
-            "8,4",
-            "10,3",
-            "14,2",
-            "18,1",
+            "1,7", "2,7", "3,7", "4,7", "5,6",
+            "6,6", "7,5", "8,4", "9,4", "10,3",
+            "11,3", "12,3", "13,3", "14,2", "15,2",
+            "16,2", "17,2", "18,1", "19,1", "20,1",
+            "21,1", "22,0", "23,0", "24,0", "25,0",
     ])
     void testCaseSix(int line, int expected) {
         File file = File.findFirst("name = ?", "Test16.java")
@@ -520,9 +620,9 @@ public class Test24 {
     @Parameters([
             "1,0", "2,0", "3,0", "4,0", "5,0",
             "6,1", "7,1", "8,1", "9,1", "10,1",
-            "11,2", "12,1", "13,1", "14,1", "15,2",
-            "16,1", "17,1", "18,1", "19,2", "20,1",
-            "21,1", "22,1", "23,2", "24,1", "25,0",
+            "11,2", "12,2", "13,1", "14,1", "15,2",
+            "16,2", "17,1", "18,1", "19,2", "20,2",
+            "21,1", "22,1", "23,2", "24,2", "25,1",
     ])
     void testCaseSeven(int line, int expected) {
         File file = File.findFirst("name = ?", "Test16.java")

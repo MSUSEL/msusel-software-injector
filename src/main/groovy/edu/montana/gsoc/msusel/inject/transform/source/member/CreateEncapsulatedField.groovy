@@ -92,6 +92,7 @@ class CreateEncapsulatedField extends CompositeSourceTransform {
         AddField.builder().file(file).type(type).field(fld).create().execute()
         type.refresh()
         file.refresh()
+        fld.refresh()
 
         // 4. Check if a getter called get<FieldName> exists, if so throw an exception, else create the transform
         AddFieldGetter.builder().file(file).type(type).field(fld).create().execute()
