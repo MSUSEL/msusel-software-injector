@@ -101,7 +101,7 @@ class UpdateImports extends BasicSourceTransform {
      */
     @Override
     void updateModel() {
-        updateContainingAndAllFollowing(start + 1, delta)
+        updateContainingAndAllFollowing(start, delta)
     }
 
     /**

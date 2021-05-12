@@ -114,6 +114,6 @@ class MoveMethod extends AddMember {
         method.setStart(injectPoint + 1)
         method.setEnd(injectPoint + methodLines.size() + 1)
 
-        updateAllFollowing(toFile, injectPoint + 1, methodLines.size())
+        updateAllFollowing(toFile, injectPoint, methodLines.size())
     }
 }

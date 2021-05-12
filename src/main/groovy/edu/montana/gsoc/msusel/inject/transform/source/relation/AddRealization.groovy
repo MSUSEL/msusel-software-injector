@@ -84,7 +84,7 @@ class AddRealization extends TypeHeaderTransform {
 
         // 5. check the package to determine if an import is needed
         // 6. if an import is needed, check if it already exists, if not add the type to the import list
-        updateImports(real)
+        updateImports()
         // 7. check new generalization type for any needed abstract methods (if not abstract), if any are missing add to list of things to do
         // 8. if abstract, and methods not implemented, then add them to all concrete subclasses
         implementAbstractMethods(real)

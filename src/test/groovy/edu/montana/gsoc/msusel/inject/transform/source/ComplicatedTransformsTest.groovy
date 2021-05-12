@@ -41,8 +41,12 @@ import edu.montana.gsoc.msusel.inject.transform.model.namespace.AddFileModelTran
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddMethodModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.member.CreateEncapsulatedField
+import junitparams.JUnitParamsRunner
+import junitparams.Parameters
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(JUnitParamsRunner.class)
 class ComplicatedTransformsTest  extends BaseSourceTransformSpec {
 
     @Test
@@ -71,7 +75,7 @@ class ComplicatedTransformsTest  extends BaseSourceTransformSpec {
         the(type.getStart()).shouldBeEqual(35)
         the(type.getEnd()).shouldBeEqual(37)
 
-        Type fieldType = Class.findFirst("name = ?", "TypeX")
+        Type fieldType = Class.findFirst("name = ?", "Test1")
         AddFieldModelTransform addField = new AddFieldModelTransform(type, fieldName, fieldType, Accessibility.PRIVATE)
         addField.execute()
         Field field = addField.getField()
@@ -131,7 +135,7 @@ package test.test;
  */
 public class TestX {
 
-    private TypeX typeX;
+    private Test1 typeX;
 
 
     public void methodX() {
@@ -156,7 +160,7 @@ public class TestX {
         Type type = Class.findFirst("name = ?", "Test23")
         Method method = Method.findFirst("name = ?", "aMethod23")
         String fieldName = "typeX"
-        Type fieldType = Class.findFirst("name = ?", "TypeX")
+        Type fieldType = Class.findFirst("name = ?", "Test1")
 
         the(file.getStart()).shouldBeEqual(1)
         the(file.getEnd()).shouldBeEqual(43)
@@ -213,7 +217,7 @@ import java.util.*;
  */
 public class Test23 {
 
-    private TypeX typeX;
+    private Test1 typeX;
 
     /**
      * A method that does something
@@ -251,6 +255,10 @@ public class Test23 {
         String text = actual.getText()
 
         // Then
+        the(file.getEnd()).shouldBeEqual(53)
+        the(type.getStart()).shouldBeEqual(35)
+        the(type.getEnd()).shouldBeEqual(53)
+
         the(text).shouldBeEqual('''\
 /**
  * The MIT License (MIT)
@@ -425,8 +433,8 @@ public class TestX {
         the(file.getEnd()).shouldBeEqual(55)
         the(type.getStart()).shouldBeEqual(35)
         the(type.getEnd()).shouldBeEqual(53)
-        the(field.getStart()).shouldBeEqual(39)
-        the(field.getEnd()).shouldBeEqual(39)
+        the(field.getStart()).shouldBeEqual(37)
+        the(field.getEnd()).shouldBeEqual(37)
         the(method.getStart()).shouldBeEqual(42)
 //        the(method.getEnd()).shouldBeEqual(44)
 //        the(getter.getStart()).shouldBeEqual(46)
@@ -490,5 +498,35 @@ public class Test24 {
         this.test = test;
     }
 }''')
+    }
+
+    @Test
+    @Parameters([
+            "4,7",
+            "6,6",
+            "7,5",
+            "8,4",
+            "10,3",
+            "14,2",
+            "18,1",
+    ])
+    void testCaseSix(int line, int expected) {
+        File file = File.findFirst("name = ?", "Test16.java")
+
+        the(file.following(line).size()).shouldBeEqual(expected)
+    }
+
+    @Test
+    @Parameters([
+            "1,0", "2,0", "3,0", "4,0", "5,0",
+            "6,1", "7,1", "8,1", "9,1", "10,1",
+            "11,2", "12,1", "13,1", "14,1", "15,2",
+            "16,1", "17,1", "18,1", "19,2", "20,1",
+            "21,1", "22,1", "23,2", "24,1", "25,0",
+    ])
+    void testCaseSeven(int line, int expected) {
+        File file = File.findFirst("name = ?", "Test16.java")
+
+        the(file.containing(line).size()).shouldBeEqual(expected)
     }
 }

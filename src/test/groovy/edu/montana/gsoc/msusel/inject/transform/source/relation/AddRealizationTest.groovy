@@ -111,8 +111,7 @@ public class Test13 implements TestX, Test2 {
         fixture.execute()
 
         // then
-        //the(actual.text).shouldEqual("""\
-        Assert.assertEquals(actual.text, """\
+        the(actual.text).shouldEqual("""\
 package test.test;
 
 import java.util.*;

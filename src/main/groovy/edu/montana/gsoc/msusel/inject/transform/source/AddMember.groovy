@@ -52,7 +52,7 @@ abstract class AddMember extends BasicSourceTransform {
     int findMethodInsertionPoint(Type type) {
         int line = 0
 
-        if (type.getMethods().isEmpty()) {
+//        if (type.getMethods().isEmpty()) {
 //            if (type.getFields().isEmpty()) {
 //                if (type.getLiterals().isEmpty()) {
 //                    line = type.getStart()
@@ -68,14 +68,19 @@ abstract class AddMember extends BasicSourceTransform {
 //                        line = it.getEnd()
 //                }
 //            }
+//            if (type.getFields()) {
+//                line = type.getFields().max {it.refresh(); it.getEnd() }.getEnd()
+//            }
+//            else if (!type.getFields() && type.getLiterals()) {
+//                line = type.getLiterals().max { it.getEnd() }.getEnd() - 1
+//            }
+//        } else {
+//            line = type.getMethods().max {it.getEnd() }.getEnd()
+//        }
+
+        println "Type End: ${type.getEnd()}"
+        if (line == 0)
             line = type.getEnd() - 1
-        } else {
-            type.getMethods().each {
-                if (it.getEnd() > line)
-                    line = it.getEnd()
-            }
-        }
-//        int line = type.getEnd()
 
         return line
     }

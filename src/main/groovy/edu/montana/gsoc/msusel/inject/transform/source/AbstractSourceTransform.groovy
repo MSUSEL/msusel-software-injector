@@ -26,6 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source
 
+import com.google.common.collect.Sets
 import edu.isu.isuese.datamodel.*
 import edu.montana.gsoc.msusel.inject.cond.Condition
 import edu.montana.gsoc.msusel.inject.transform.source.structural.UpdateImports
@@ -62,8 +63,9 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * @param length The offset to update following items by
      */
     void updateAllFollowing(File file = this.file, int line, int length) {
-        file.following(line).each { c ->
+        file.following(line + 1).each { c ->
             if (c instanceof Component) {
+                c.refresh()
                 c.setStart(c.getStart() + length)
                 c.setEnd(c.getEnd() + length)
                 c.refresh()
@@ -71,50 +73,25 @@ abstract class AbstractSourceTransform implements SourceTransform {
         }
     }
 
-    /**
-     * Updates the file's list of imports with those items in the provided list
-     * @param imports List of imports to update with
-     */
-    void updateImports(List<TypeRef> imports) {
-        List<String> keys = []
-        imports.each {
-            if (it.getType() == TypeRefType.Type)
-                keys << it.getTypeFullName()
-        }
-        addImports(keys)
-    }
+    void updateImports() {
+        Set<String> imports = readKnownImports()
+        getTypeImports(imports)
 
-    /**
-     * Updates the file's list of imports with the provide type ref
-     * @param imp TypeRef
-     */
-    void updateImports(TypeRef imp) {
-        if (!file.getParentProjects().isEmpty()) {
-            if (imp.getType() == TypeRefType.Type) {
-                String name = imp.getTypeFullName()
-//            Import imprt = file.getImports().find {it.name == name}
-//            if (!imprt)
-                if (name)
-                    addImports([name])
+        imports.each { String name ->
+            Import imp = Import.findFirst("name = ?", name)
+            if (!imp) {
+                imp = Import.builder().name(name).create()
             }
+
+            file.addImport(imp)
         }
+
+        if (imports)
+            UpdateImports.builder().file(file).create().execute()
     }
 
-    /**
-     * Updates the file's list of imports with the provided Type
-     * @param typ Type
-     */
-    void updateImports(Type typ) {
-//        Import imprt = file.getImports().find {it.name == typ.getFullName() }
-//        if (!imprt)
-            addImports([typ.getFullName()])
-    }
-
-    /**
-     * Adds to the file's list of imports with the provided string representations of imports to add
-     * @param imports List of strings representing imports to add
-     */
-    void addImports(List<String> imports) {
+    private Set<String> readKnownImports() {
+        Set<String> imports = Sets.newHashSet()
         java.io.File actual = new java.io.File(file.getFullPath())
         actual.readLines().each {
             if (it.startsWith("import ")) {
@@ -123,6 +100,90 @@ abstract class AbstractSourceTransform implements SourceTransform {
                 imports << impOnly
             }
         }
+        imports
+    }
+
+    private void getTypeImports(Set<String> imports) {
+        file.getAllTypes().each {type ->
+            type.getAllMethods().each { method ->
+                if (method.getType() && method.getType().getType() == TypeRefType.Type)
+                    if (!this.shareSameNamespace(type, method.getType().getTypeFullName()))
+                        imports << method.getType().getTypeFullName()
+
+                method.getParams().each { param ->
+                    if (param.getType() && param.getType().getType() == TypeRefType.Type)
+                        if (!this.shareSameNamespace(type, param.getType().getTypeFullName()))
+                            imports << param.getType().getTypeFullName()
+                }
+            }
+
+            type.getFields().each {field ->
+                if (field.getType() && field.getType().getType() == TypeRefType.Type)
+                    if (!this.shareSameNamespace(type, field.getType().getTypeFullName()))
+                        imports << field.getType().getTypeFullName()
+            }
+
+            type.getUseTo().each {
+                if (!this.shareSameNamespace(type, it))
+                    imports << it.getFullName()
+            }
+
+            type.getGeneralizedBy().each {
+                if (!this.shareSameNamespace(type, it))
+                    imports << it.getFullName()
+            }
+
+            type.getRealizes().each {
+                if (!this.shareSameNamespace(type, it))
+                    imports << it.getFullName()
+            }
+
+            type.getAssociatedTo().each {
+                if (!this.shareSameNamespace(type, it))
+                    imports << it.getFullName()
+            }
+
+            type.getAggregatedTo().each {
+                if (!this.shareSameNamespace(type, it))
+                    imports << it.getFullName()
+            }
+
+            type.getComposedTo().each {
+                if (!this.shareSameNamespace(type, it))
+                    imports << it.getFullName()
+            }
+        }
+    }
+
+    boolean shareSameNamespace(Type one, Type two) {
+        String nsOne = one.getFullName()
+        String nsTwo = two.getFullName()
+
+        nsOne = nsOne.substring(0, nsOne.lastIndexOf("."))
+        nsTwo = nsTwo.substring(0, nsTwo.lastIndexOf("."))
+
+        return nsOne == nsTwo
+    }
+
+    boolean shareSameNamespace(Type one, String typeName) {
+        String nsOne = one.getFullName()
+
+        nsOne = nsOne.substring(0, nsOne.lastIndexOf("."))
+        if (typeName.contains(".")) {
+            typeName = typeName.substring(0, typeName.lastIndexOf("."))
+
+            return nsOne == typeName
+        }
+
+        return false
+    }
+
+    /**
+     * Adds to the file's list of imports with the provided string representations of imports to add
+     * @param imports List of strings representing imports to add
+     */
+    void addImports(List<String> imports) {
+
 
         file.imports.each {
             imports.removeAll(it.getName())
@@ -154,14 +215,14 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * @param length Length of the change
      */
     void updateContainingAndAllFollowing(int line, int length) {
-        file.setEnd(file.getEnd() + length)
-        file.refresh()
-
-        file.containing(line).each {
+        file.containing(line + 1).each {
+            it.refresh()
             it.setEnd(it.getEnd() + length)
             it.refresh()
         }
-
         updateAllFollowing(line, length)
+
+        file.setEnd(file.getEnd() + length)
+        file.refresh()
     }
 }

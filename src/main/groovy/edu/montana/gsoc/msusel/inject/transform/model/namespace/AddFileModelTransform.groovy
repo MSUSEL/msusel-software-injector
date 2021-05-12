@@ -78,6 +78,7 @@ class AddFileModelTransform extends NamespaceModelTransform {
         file.updateKey()
         // Generate Source Transform
         new AddFile(file, ns).execute()
+        file.refresh()
     }
 
     @Override
@@ -86,5 +87,6 @@ class AddFileModelTransform extends NamespaceModelTransform {
         assert(ns.getFiles().contains(file))
         // 2. file parent is ns
         assert(file.getParentNamespace() == ns)
+        assert(new java.io.File(file.getName()).exists())
     }
 }

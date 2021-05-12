@@ -64,5 +64,7 @@ class MoveFile extends StructuralMoveTransform {
         oldFile.delete()
 
         newFile.text = newFile.text.replaceAll("package ${from.getFullName()};", "package ${to.getFullName()};")
+
+        file.setName(newFile.getAbsolutePath())
     }
 }

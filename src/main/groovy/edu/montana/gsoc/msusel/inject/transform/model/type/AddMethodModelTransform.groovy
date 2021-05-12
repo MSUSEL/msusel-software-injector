@@ -54,7 +54,8 @@ class AddMethodModelTransform extends TypeModelTransform {
         this.name = name
         if (methodType) {
             this.methodType = TypeRef.builder()
-                    .typeName(name)
+                    .typeName(methodType.name)
+                    .typeFullName(methodType.getFullName())
                     .type(TypeRefType.Type)
                     .ref(Reference.to(methodType))
                     .create()

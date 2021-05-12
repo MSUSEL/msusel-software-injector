@@ -27,6 +27,7 @@
 package edu.montana.gsoc.msusel.inject.transform.source.structural
 
 import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Import
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
 import edu.montana.gsoc.msusel.inject.transform.source.BasicSourceTransform
 import org.junit.Test
@@ -210,13 +211,14 @@ public enum Test3 {
     @Test
     void testCaseEight() {
         File file = File.findFirst("name = ?", "Test8.java")
+        file.addImport(Import.findFirst("name = ?", "java.util.*"))
         TestTransform trans = new TestTransform(file)
         trans.addImports(["java.lang.*"])
         trans.addImports(["what.how.when.Now"])
 
         String expected = """\
-import java.lang.*;
 import java.util.*;
+import java.lang.*;
 import what.how.when.Now;
 
 public class Test8 {

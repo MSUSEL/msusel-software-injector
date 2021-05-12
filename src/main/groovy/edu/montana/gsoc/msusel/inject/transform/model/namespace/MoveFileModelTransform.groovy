@@ -81,6 +81,7 @@ class MoveFileModelTransform extends NamespaceModelTransform {
         // file.updateKey()
         // Generate Source Transform
         new MoveFile(file, ns, newParent).execute()
+        file.refresh()
     }
 
     @Override

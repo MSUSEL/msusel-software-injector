@@ -116,9 +116,9 @@ class AddMethodCall extends AddRelation {
     @Override
     void updateModel() {
         caller.callsMethod(callee)
-        updateContainingAndAllFollowing(start, end)
         addUseDep(callerOwner, calleeOwner)
-        updateImports(calleeOwner)
+        updateContainingAndAllFollowing(start, end)
+        updateImports()
     }
 
     /**

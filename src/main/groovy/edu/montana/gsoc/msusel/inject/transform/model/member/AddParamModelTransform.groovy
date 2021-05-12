@@ -79,6 +79,7 @@ class AddParamModelTransform extends MemberModelTransform {
                 .name(name)
                 .type(TypeRef.builder()
                         .typeName(type.name)
+                        .typeFullName(type.getFullName())
                         .type(TypeRefType.Type)
                         .ref(Reference.to(type))
                         .create())

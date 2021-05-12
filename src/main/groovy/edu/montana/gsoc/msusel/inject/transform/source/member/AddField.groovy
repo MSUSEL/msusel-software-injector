@@ -128,13 +128,13 @@ class AddField extends AddMember {
         field.end = start + 1
 
         // 4. Add field to type
+        updateContainingAndAllFollowing(start, delta)
         type.addMember(field)
         field.updateKey()
 
-        updateContainingAndAllFollowing(start, delta)
         // 6. check if an import is needed
         if (field.type.getType() == TypeRefType.Type) {
-            updateImports(field.type)
+            updateImports()
         }
         // 7. update file content
         ops.text = lines.join("\n")

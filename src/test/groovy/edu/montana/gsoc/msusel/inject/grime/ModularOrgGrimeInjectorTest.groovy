@@ -194,7 +194,7 @@ class ModularOrgGrimeInjectorTest extends GrimeInjectorBaseTest {
         the(n1.getFiles()).shouldContain(File.findFirst("name = ?", "TypeB.java"))
         the(n1.getFiles()).shouldContain(File.findFirst("name = ?", "TypeD.java"))
         the(n1.getFiles()).shouldContain(File.findFirst("name = ?", "TypeE.java"))
-        the(n2.getFiles()).shouldContain(File.findFirst("name = ?", "TypeG.java"))
+//        the(n2.getFiles()).shouldContain(File.findFirst("name = ?", "TypeG.java"))
     }
 
     @Test(expected = InjectionFailedException.class)

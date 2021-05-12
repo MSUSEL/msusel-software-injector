@@ -82,6 +82,7 @@ class AddFieldModelTransform extends TypeModelTransform {
                 .accessibility(access)
                 .type(TypeRef.builder()
                         .typeName(fldType.getName())
+                        .typeFullName(fldType.getFullName())
                         .type(TypeRefType.Type)
                         .ref(Reference.to(fldType))
                         .create())
