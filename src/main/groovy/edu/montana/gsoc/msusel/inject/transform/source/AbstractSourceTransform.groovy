@@ -71,9 +71,12 @@ abstract class AbstractSourceTransform implements SourceTransform {
                 c.refresh()
             }
         }
+
+        file.setEnd(file.getEnd() + length)
+        file.refresh()
     }
 
-    void updateImports() {
+    void updateImports(File file = this.file) {
         Set<String> imports = readKnownImports()
         getTypeImports(imports)
 
@@ -221,8 +224,5 @@ abstract class AbstractSourceTransform implements SourceTransform {
             it.refresh()
         }
         updateAllFollowing(line, length)
-
-        file.setEnd(file.getEnd() + length)
-        file.refresh()
     }
 }

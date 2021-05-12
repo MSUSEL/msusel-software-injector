@@ -68,6 +68,8 @@ public class Test1 implements Test2 {
         the(toActual.text).shouldEqual("""\
 package test.test;
 
+import java.util.*;
+
 public interface Test2 {
 
     void method(Test3 param);
@@ -100,6 +102,8 @@ package test.test;
 import java.util.*;""")
         the(toActual.text).shouldEqual("""\
 package test.test;
+
+import java.util.*;
 
 public interface Test2 {
 
@@ -147,6 +151,8 @@ public class Test1 implements Test2 {
         the(toActual.text).shouldEqual("""\
 package test.test;
 
+import java.util.*;
+
 public class Test5 {
 
 }""")
@@ -174,6 +180,8 @@ package test.test;
 import java.util.*;""")
         the(toActual.text).shouldEqual("""\
 package test.test;
+
+import java.util.*;
 
 public class Test5 {
 

@@ -88,6 +88,9 @@ class AddMethod extends AddMember {
             println "${ndx + 1}: $str"
         }
         println "Insertion Point: $start"
+        if (start >= lines.size())
+            start = lines.size() - 1
+        println "Revised Insertion Point: $start"
     }
 
     /**
@@ -107,16 +110,15 @@ class AddMethod extends AddMember {
     @Override
     void injectContent() {
         // 4. Conduct Injection
-        int original = lines.size()
 //        if (start >= original) {
 ////            lines.add(start, "\n")
 //            lines.add(start, builder.toString())
 //        } else {
-        lines.add(start, builder.toString())
+//        lines.add(start, builder.toString())
 //        }
-        lines = lines.join("\n").split("\n")
-        int current = lines.size()
-        end = current - original
+        List<String> content = builder.toString().split("\n")
+        lines.addAll(start, content)
+        end = content.size()
         ops.text = lines.join("\n")
     }
 

@@ -51,8 +51,7 @@ class AddField extends AddMember {
      */
     Field field
     String init
-
-    int original
+    int delta
 
     /**
      * Constructs a new Add Field transform
@@ -90,17 +89,20 @@ class AddField extends AddMember {
         // 2. add field to content
         String content
 
+        start = start - 1
         if (type.getFields().size() >= 1) {
             start += 1
             content = String.format("    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
+            delta = 1
         }
         else {
             if (type.getMethods().size() > 0)
                 content = String.format("\n    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
             else
                 content = String.format("\n    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
+            delta = 2
         }
-        lines.add(start - 1, content)
+        lines.add(start, content)
     }
 
     /**
@@ -118,14 +120,8 @@ class AddField extends AddMember {
     @Override
     void updateModel() {
         // 3. update field start and end
-        int delta = 1
-        if (type.getFields().size() < 1)
-            delta = 2
-//        if (type.getFields().size() < 1 && type.getMethods().size() > 0)
-//            delta = 3
-
-        field.start = start + 1
-        field.end = start + 1
+        field.start = start + delta
+        field.end = start + delta
 
         // 4. Add field to type
         updateContainingAndAllFollowing(start + 1, delta)

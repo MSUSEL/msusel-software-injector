@@ -102,16 +102,14 @@ class MoveType extends TypeTransform {
         // update start and end of type and new file
         type.setStart(newStart)
         type.setEnd(newStart + delta)
-        to.setEnd(to.getEnd() + delta)
         // update end of old file
-        file.setEnd(file.getEnd() - delta)
         // updated all following in both files
         updateAllFollowing(file, start, -1 * delta)
         updateAllFollowing(to, newStart, delta)
-        updateMembers() // update contained members from oldbase (start) to new base (newStart)
+//        updateMembers() // update contained members from oldbase (start) to new base (newStart)
         // update imports in both files
-//        updateImports(file, type)
-//        updateImports(to, type)
+        updateImports(file)
+        updateImports(to)
     }
 
     private int findTypeInsertionPoint(File file) {

@@ -110,10 +110,11 @@ class MoveMethod extends AddMember {
      */
     @Override
     void updateModel() {
+        updateAllFollowing(toFile, injectPoint, methodLines.size())
+
         to.addMember(method)
         method.setStart(injectPoint + 1)
-        method.setEnd(injectPoint + methodLines.size() + 1)
+        method.setEnd(injectPoint + methodLines.size())
 
-        updateAllFollowing(toFile, injectPoint, methodLines.size())
     }
 }

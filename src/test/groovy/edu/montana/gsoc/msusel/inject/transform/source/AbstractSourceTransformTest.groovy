@@ -61,7 +61,7 @@ class AbstractSourceTransformTest extends BaseSourceTransformSpec {
         type.refresh()
 
         // then
-        the(file.getEnd()).shouldBeEqual(10)
+        the(file.getEnd()).shouldBeEqual(13)
         the(type.getStart()).shouldBeEqual(7)
         the(type.getEnd()).shouldBeEqual(13)
     }

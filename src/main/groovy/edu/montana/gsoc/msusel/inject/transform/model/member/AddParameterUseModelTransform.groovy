@@ -41,6 +41,7 @@ import edu.montana.gsoc.msusel.inject.transform.source.member.AddMethodParameter
 class AddParameterUseModelTransform extends MemberModelTransform {
 
     Type type
+    static int generated = 0
 
     AddParameterUseModelTransform(Member member, Type type) {
         super(member)
@@ -55,15 +56,13 @@ class AddParameterUseModelTransform extends MemberModelTransform {
             throw new ModelTransformPreconditionsNotMetException()
         if (!(member instanceof Method))
             throw new ModelTransformPreconditionsNotMetException()
-        if (((Method) member).getParameterByName(type.getName().uncapitalize()) != null)
-            throw new ModelTransformPreconditionsNotMetException()
     }
 
     @Override
     void transform() {
         Parameter param = Parameter.builder()
                 .type(type.createTypeRef())
-                .name(type.getName().uncapitalize())
+                .name(type.getName().uncapitalize() + generated++)
                 .create()
 
         ((Method) member).addParameter(param)
@@ -82,6 +81,5 @@ class AddParameterUseModelTransform extends MemberModelTransform {
     @Override
     void verifyPostconditions() {
         assert(member.getParentType().hasUseTo(type))
-        assert(((Method) member).getParameterByName(type.getName().uncapitalize()) != null)
     }
 }

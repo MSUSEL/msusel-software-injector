@@ -64,6 +64,7 @@ import java.util.*;
         DeleteType fixture = new DeleteType(file, type)
         java.io.File actual = new java.io.File(file.getFullPath())
         createMultipleTypeFileFirst(actual)
+        file.refresh()
         Type type2 = Class.findFirst("name = ?", "Test5")
 
         // when
@@ -93,6 +94,7 @@ public class Test5 {
         Type type = Class.findFirst("name = ?", "Test1")
         java.io.File actual = new java.io.File(file.getFullPath())
         createMultipleTypeFileSecond(actual)
+        file.refresh()
         Type type2 = Class.findFirst("name = ?", "Test5")
         type.refresh()
         DeleteType fixture = new DeleteType(file, type)
@@ -114,8 +116,7 @@ import java.util.*;
 
 public class Test5 {
 
-}
-""")
+}""")
     }
 
     private createMultipleTypeFileFirst(java.io.File actual) {
@@ -153,11 +154,12 @@ public class Test5 {
 
     private createMultipleTypeFileSecond(java.io.File actual) {
         File file = File.findFirst("name = ?", "Test1.java")
-        file.setEnd(file.getEnd() + 4)
+        file.setEnd(21)
         Type type = Class.findFirst("name = ?", "Test1")
         type.setStart(type.getStart() + 4)
         type.setEnd(type.getEnd() + 4)
         Type type2 = Class.builder().name("Test5").compKey("Test5").accessibility(Accessibility.PUBLIC).start(5).end(7).create()
+        file.addType(type2)
         actual.text = """\
 package test.test;
 

@@ -63,7 +63,7 @@ class DeleteType extends TypeTransform {
             lines.remove(start)
         }
         if (file.getAllTypes().size() > 1) {
-            lines.remove(start)
+            lines.remove(start - 1)
             delta += 1
         }
     }
@@ -75,7 +75,6 @@ class DeleteType extends TypeTransform {
 
     @Override
     void updateModel() {
-        file.setEnd(lines.size())
         updateAllFollowing(end, -1 * delta)
     }
 }
