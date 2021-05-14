@@ -42,7 +42,7 @@ class AddFieldUseTest extends BaseSourceTransformSpec {
         // given
         File file = File.findFirst("name = ?", "Test16.java")
         Type type = Class.findFirst("name = ?", "Test16")
-        Field field = Field.findFirst("name = ?", "yz")
+        Field field = type.getFieldWithName("yz")
         Method method = Method.findFirst("name = ?", "testXY")
         AddFieldUse fixture = new AddFieldUse(file, type, field, method)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -65,6 +65,8 @@ public class Test16 {
     public void testXY() {
 
         Test16.yz;
+
+
     }
 
     public void testXX() {
@@ -86,8 +88,8 @@ public class Test16 {
         // given
         File file = File.findFirst("name = ?", "Test16.java")
         Type type = Class.findFirst("name = ?", "Test16")
-        Field field = Field.findFirst("name = ?", "xy")
-        Method method = Method.findFirst("name = ?", "testXY")
+        Field field = type.getFieldWithName("xy")
+        Method method = type.getMethodWithName("testXY")
         AddFieldUse fixture = new AddFieldUse(file, type, field, method)
         java.io.File actual = new java.io.File(file.getFullPath())
 
@@ -109,6 +111,8 @@ public class Test16 {
     public void testXY() {
 
         this.xy;
+
+
     }
 
     public void testXX() {
@@ -155,8 +159,10 @@ public class Test16 {
     }
 
     public void testXX() {
-        Test17 xx;
+
         xx.bb;
+
+        Test17 xx;
     }
 
     public void testYY(Test18 xx) {
@@ -205,6 +211,8 @@ public class Test16 {
     public void testYY(Test18 xx) {
 
         xx.zz;
+
+
     }
 
     public void testZZ() {
@@ -253,6 +261,8 @@ public class Test16 {
     public void testZZ() {
 
         xy.bb;
+
+
     }
 }""")
     }
@@ -298,6 +308,8 @@ public class Test16 {
 
         Test18 test18 = new Test18();
         test18.zz;
+
+
     }
 }""")
     }

@@ -91,11 +91,9 @@ class AddField extends AddMember {
 
         start = start - 1
         if (type.getFields().size() >= 1) {
-            start += 1
             content = String.format("    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
             delta = 1
-        }
-        else {
+        } else {
             if (type.getMethods().size() > 0)
                 content = String.format("\n    %s%s%s %s%s", getAccessibility(), getModifierString(), getTypeString(), getName(), getInit())
             else
@@ -103,15 +101,7 @@ class AddField extends AddMember {
             delta = 2
         }
         lines.add(start, content)
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    void injectContent() {
-        // 5. update all following items by the length of the insert
-        lines = lines.join("\n").split("\n")
     }
 
     /**
@@ -122,16 +112,24 @@ class AddField extends AddMember {
         // 3. update field start and end
         field.start = start + delta
         field.end = start + delta
-        updateContainingAndAllFollowing(start + 1, delta)
+        updateContainingAndAllFollowing(start + delta, delta)
 
         // 4. Add field to type
         type.addMember(field)
         field.updateKey()
 
         // 6. check if an import is needed
-        if (field.type.getType() == TypeRefType.Type) {
-            updateImports()
-        }
+        updateImports()
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    void injectContent() {
+        // 5. update all following items by the length of the insert
+        lines = lines.join("\n").split("\n")
+
         // 7. update file content
         ops.text = lines.join("\n")
     }

@@ -90,8 +90,6 @@ class AddFieldModelTransform extends TypeModelTransform {
         mods.each {
             field.addModifier(it)
         }
-//        type.addMember(field)
-//        field.updateKey()
         type.refresh()
         field.refresh()
         // Generate Source Transform

@@ -31,12 +31,14 @@ import edu.isu.isuese.datamodel.Class
 import edu.isu.isuese.datamodel.Field
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.FileType
+import edu.isu.isuese.datamodel.Interface
 import edu.isu.isuese.datamodel.Method
 import edu.isu.isuese.datamodel.Namespace
 import edu.isu.isuese.datamodel.Type
 import edu.isu.isuese.datamodel.TypeRef
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
 import edu.montana.gsoc.msusel.inject.transform.model.file.AddTypeModelTransform
+import edu.montana.gsoc.msusel.inject.transform.model.member.AddFieldUseModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.namespace.AddFileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddMethodModelTransform
@@ -669,6 +671,7 @@ public class Test24 {
         getter.refresh()
         Method setter = type.getMethodWithName("setTest")
         setter.refresh()
+        field.refresh()
 
         AddMethodModelTransform trans = new AddMethodModelTransform(type, "test1", (Type) Class.findFirst("name = ?", "TypeZ"), Accessibility.PUBLIC)
         trans.execute()
@@ -687,6 +690,12 @@ public class Test24 {
         trans = new AddMethodModelTransform(type, "test8", TypeRef.createPrimitiveTypeRef("void"), Accessibility.PUBLIC)
         trans.execute()
 
+        AddFieldModelTransform afmt = new AddFieldModelTransform(type, "newField", Interface.findFirst("name = ?", "TypeY"), Accessibility.PRIVATE)
+        afmt.execute()
+
+        AddFieldUseModelTransform afumt = new AddFieldUseModelTransform(method, afmt.field)
+        afumt.execute()
+
         Method test1 = type.getMethodWithName("test1")
         Method test2 = type.getMethodWithName("test2")
         Method test3 = type.getMethodWithName("test3")
@@ -695,6 +704,8 @@ public class Test24 {
         Method test6 = type.getMethodWithName("test6")
         Method test7 = type.getMethodWithName("test7")
         Method test8 = type.getMethodWithName("test8")
+        Field newField = afmt.field
+        newField.refresh()
 
         // Then
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -729,6 +740,7 @@ public class Test24 {
 package test.test;
 
 import test4.TypeZ;
+import test4.TypeY;
 
 /**
  * Generated Type
@@ -738,10 +750,14 @@ import test4.TypeZ;
  */
 public class TypeTest {
 
+    private TypeY newField;
     private int test;
 
 
     public int aMethodTest() {
+
+        this.newField;
+
         throw new UnsupportedOperationException();
     }
 
@@ -793,33 +809,35 @@ public class TypeTest {
         getter.refresh()
         setter.refresh()
         the(file.getStart()).shouldBeEqual(1)
-        the(file.getEnd()).shouldBeEqual(85)
-        the(type.getStart()).shouldBeEqual(37)
-        the(type.getEnd()).shouldBeEqual(85)
-        the(field.getStart()).shouldBeEqual(39)
-        the(field.getEnd()).shouldBeEqual(39)
-        the(method.getStart()).shouldBeEqual(42)
-        the(method.getEnd()).shouldBeEqual(44)
-        the(getter.getStart()).shouldBeEqual(46)
-        the(getter.getEnd()).shouldBeEqual(48)
-        the(setter.getStart()).shouldBeEqual(50)
-        the(setter.getEnd()).shouldBeEqual(52)
-        the(test1.getStart()).shouldBeEqual(54)
-        the(test1.getEnd()).shouldBeEqual(56)
-        the(test2.getStart()).shouldBeEqual(58)
-        the(test2.getEnd()).shouldBeEqual(60)
-        the(test3.getStart()).shouldBeEqual(62)
-        the(test3.getEnd()).shouldBeEqual(64)
-        the(test4.getStart()).shouldBeEqual(66)
-        the(test4.getEnd()).shouldBeEqual(68)
-        the(test5.getStart()).shouldBeEqual(70)
-        the(test5.getEnd()).shouldBeEqual(72)
-        the(test6.getStart()).shouldBeEqual(74)
-        the(test6.getEnd()).shouldBeEqual(76)
-        the(test7.getStart()).shouldBeEqual(78)
-        the(test7.getEnd()).shouldBeEqual(80)
-        the(test8.getStart()).shouldBeEqual(82)
-        the(test8.getEnd()).shouldBeEqual(84)
+        the(file.getEnd()).shouldBeEqual(90)
+        the(type.getStart()).shouldBeEqual(38)
+        the(type.getEnd()).shouldBeEqual(90)
+        the(newField.getStart()).shouldBeEqual(40)
+        the(newField.getEnd()).shouldBeEqual(40)
+        the(field.getStart()).shouldBeEqual(41)
+        the(field.getEnd()).shouldBeEqual(41)
+        the(method.getStart()).shouldBeEqual(44)
+        the(method.getEnd()).shouldBeEqual(49)
+        the(getter.getStart()).shouldBeEqual(51)
+        the(getter.getEnd()).shouldBeEqual(53)
+        the(setter.getStart()).shouldBeEqual(55)
+        the(setter.getEnd()).shouldBeEqual(57)
+        the(test1.getStart()).shouldBeEqual(59)
+        the(test1.getEnd()).shouldBeEqual(61)
+        the(test2.getStart()).shouldBeEqual(63)
+        the(test2.getEnd()).shouldBeEqual(65)
+        the(test3.getStart()).shouldBeEqual(67)
+        the(test3.getEnd()).shouldBeEqual(69)
+        the(test4.getStart()).shouldBeEqual(71)
+        the(test4.getEnd()).shouldBeEqual(73)
+        the(test5.getStart()).shouldBeEqual(75)
+        the(test5.getEnd()).shouldBeEqual(77)
+        the(test6.getStart()).shouldBeEqual(79)
+        the(test6.getEnd()).shouldBeEqual(81)
+        the(test7.getStart()).shouldBeEqual(83)
+        the(test7.getEnd()).shouldBeEqual(85)
+        the(test8.getStart()).shouldBeEqual(87)
+        the(test8.getEnd()).shouldBeEqual(89)
 
     }
 }

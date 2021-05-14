@@ -74,7 +74,10 @@ class AddFieldUse extends AddRelation {
     @Override
     void setup() {
         fieldOwner = findOwningType()
-        start = findStatementInsertionPoint(method)
+        type.refresh()
+        file.refresh()
+        field.refresh()
+        method.refresh()
     }
 
     /**
@@ -84,29 +87,23 @@ class AddFieldUse extends AddRelation {
     void buildContent() {
         if (field.hasModifier("static")) {
             text = "        ${fieldOwner.name}.${field.name};"
-            delta = 1
         } else if (sameContainingType(fieldOwner, type)) {
             text = "        this.${field.name};"
-            delta = 1
         } else {
             if (hasLocalVar(method, fieldOwner)) {
                 String var = selectVariable(method, fieldOwner)
                 text = "        ${var}.${field.name};"
-                delta = 1
             } else if (hasParam(method, fieldOwner)) {
                 Parameter p = selectParameter(method, fieldOwner)
                 text = "        ${p.name}.${field.name};"
-                delta = 1
             } else if (hasField(type, fieldOwner)) {
                 Field f = selectField(type, fieldOwner)
                 text = "        ${f.name}.${field.name};"
-                delta = 1
             } else {
                 StringBuilder builder = new StringBuilder()
                 builder << "        ${fieldOwner.name} ${fieldOwner.name.toLowerCase()} = new ${fieldOwner.name}();\n"
                 builder << "        ${fieldOwner.name.toLowerCase()}.${field.name};"
                 text = builder.toString()
-                delta = 2
             }
         }
     }
@@ -118,8 +115,36 @@ class AddFieldUse extends AddRelation {
     void injectContent() {
         java.io.File ops = new java.io.File(file.getFullPath())
         def lines = ops.readLines()
-        lines.add(start, text)
-        ops.text = lines.join("\n")
+
+        method.refresh()
+        type.refresh()
+        file.refresh()
+        lines.eachWithIndex { str, ndx ->
+            println "$ndx: $str"
+        }
+        println "Method Name: ${method.name}"
+        println "Method Start: ${method.start}"
+        println "Method End: ${method.end}"
+        List<String> oldContent = lines[(method.getStart() - 1)..(method.getEnd() - 1)]
+        String oc = oldContent.join("\n")
+
+        println "Old Content:"
+        println oc
+        println ""
+        def pattern = ~/(?s).*\{(?<content>.*)}/
+        def matcher = oc =~ pattern
+        if (matcher.matches()) {
+            String actualContent = matcher.group("content")
+            List<String> oldLines = actualContent.split("\n")
+            oldLines.add(0, text)
+            oldLines.add(0, "\n")
+            String nc = oc.replace(actualContent, oldLines.join("\n"))
+            List<String> newContent = nc.split("\n")
+            delta = newContent.size() - oldContent.size()
+            ops.text = lines.join("\n").replace(oc, nc)
+        } else {
+            println "Didn't find match"
+        }
     }
 
     /**
@@ -127,9 +152,17 @@ class AddFieldUse extends AddRelation {
      */
     @Override
     void updateModel() {
+        updateContainingAndAllFollowing(method.getStart(), delta)
+
         method.usesField(field)
         addUseDep(type, fieldOwner)
-        updateContainingAndAllFollowing(start, delta)
+
+        int oldEnd = method.getEnd()
+
+        method.refresh()
+        if (method.getEnd() - oldEnd != delta)
+            method.setEnd(method.getEnd() + delta)
+
         updateImports()
     }
 
