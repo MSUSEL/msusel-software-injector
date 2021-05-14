@@ -74,7 +74,7 @@ class AddReturnTypeUseModelTransform extends MemberModelTransform {
                         .file(method.getParentFile())
                         .type(member.getParentType())
                         .method(method)
-                        .bodyContent("    throw new OperationNotSupportedException();")
+                        .bodyContent("    throw new UnsupportedOperationException();")
                         .create()
                         .execute()
             } else {

@@ -315,7 +315,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
                     if (it.getName() != "abstract")
                         copy.addModifier(it)
                 }
-                AddMethod.builder().file(file).type(type).method(copy).bodyContent("    throw new OperationNotSupportedException();").create().execute()
+                AddMethod.builder().file(file).type(type).method(copy).bodyContent("    throw new UnsupportedOperationException();").create().execute()
             }
         }
     }

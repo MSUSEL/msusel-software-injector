@@ -86,7 +86,7 @@ public class Test13 extends Test12 {
 
 
     public void paramsTest2(int param1, int param2, int param3) {
-        throw new OperationNotSupportedException();
+        throw new UnsupportedOperationException();
     }
 }""")
     }

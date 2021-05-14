@@ -61,7 +61,7 @@ public class Test13 implements Test2 {
 
 
     public void method(Test3 param) {
-        throw new OperationNotSupportedException();
+        throw new UnsupportedOperationException();
     }
 }""")
     }
@@ -92,7 +92,7 @@ public class Test13 implements TestX, Test2 {
 
 
     public void method(Test3 param) {
-        throw new OperationNotSupportedException();
+        throw new UnsupportedOperationException();
     }
 }""")
     }
@@ -122,7 +122,7 @@ public class Test13 extends TestX implements Test2 {
 
 
     public void method(Test3 param) {
-        throw new OperationNotSupportedException();
+        throw new UnsupportedOperationException();
     }
 }""")
     }
