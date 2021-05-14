@@ -87,23 +87,23 @@ class AddFieldUse extends AddRelation {
     void buildContent() {
 
         if (field.hasModifier("static")) {
-            text = "        ${fieldOwner.name}.${field.name} = null;"
+            text = "        System.out.println(${fieldOwner.name}.${field.name});"
         } else if (sameContainingType(fieldOwner, type)) {
-            text = "        this.${field.name} = null;"
+            text = "        System.out.println(this.${field.name});"
         } else {
             if (hasLocalVar(method, fieldOwner)) {
                 String var = selectVariable(method, fieldOwner)
-                text = "        ${var}.${field.name} = null;"
+                text = "        System.out.println(${var}.${field.name});"
             } else if (hasParam(method, fieldOwner)) {
                 Parameter p = selectParameter(method, fieldOwner)
-                text = "        ${p.name}.${field.name} = null;"
+                text = "        System.out.println(${p.name}.${field.name});"
             } else if (hasField(type, fieldOwner)) {
                 Field f = selectField(type, fieldOwner)
-                text = "        ${f.name}.${field.name} = null;"
+                text = "        System.out.println(${f.name}.${field.name});"
             } else {
                 StringBuilder builder = new StringBuilder()
                 builder << "        ${fieldOwner.name} ${fieldOwner.name.toLowerCase()} = new ${fieldOwner.name}();\n"
-                builder << "        ${fieldOwner.name.toLowerCase()}.${field.name} = null;"
+                builder << "        System.out.println(${fieldOwner.name.toLowerCase()}.${field.name});"
                 text = builder.toString()
             }
         }
@@ -120,18 +120,10 @@ class AddFieldUse extends AddRelation {
         method.refresh()
         type.refresh()
         file.refresh()
-        lines.eachWithIndex { str, ndx ->
-            println "$ndx: $str"
-        }
-        println "Method Name: ${method.name}"
-        println "Method Start: ${method.start}"
-        println "Method End: ${method.end}"
+
         List<String> oldContent = lines[(method.getStart() - 1)..(method.getEnd() - 1)]
         String oc = oldContent.join("\n")
 
-        println "Old Content:"
-        println oc
-        println ""
         def pattern = ~/(?s).*\{(?<content>.*)}/
         def matcher = oc =~ pattern
         if (matcher.matches()) {
@@ -143,8 +135,6 @@ class AddFieldUse extends AddRelation {
             List<String> newContent = nc.split("\n")
             delta = newContent.size() - oldContent.size()
             ops.text = lines.join("\n").replace(oc, nc)
-        } else {
-            println "Didn't find match"
         }
     }
 

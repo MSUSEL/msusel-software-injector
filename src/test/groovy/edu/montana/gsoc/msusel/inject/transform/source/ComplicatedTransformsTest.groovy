@@ -756,7 +756,7 @@ public class TypeTest {
 
     public int aMethodTest() {
 
-        this.newField;
+        System.out.println(this.newField);
 
         throw new UnsupportedOperationException();
     }

@@ -64,7 +64,7 @@ public class Test16 {
 
     public void testXY() {
 
-        Test16.yz;
+        System.out.println(Test16.yz);
 
 
     }
@@ -110,7 +110,7 @@ public class Test16 {
 
     public void testXY() {
 
-        this.xy;
+        System.out.println(this.xy);
 
 
     }
@@ -160,7 +160,7 @@ public class Test16 {
 
     public void testXX() {
 
-        xx.bb;
+        System.out.println(xx.bb);
 
         Test17 xx;
     }
@@ -210,7 +210,7 @@ public class Test16 {
 
     public void testYY(Test18 xx) {
 
-        xx.zz;
+        System.out.println(xx.zz);
 
 
     }
@@ -260,7 +260,7 @@ public class Test16 {
 
     public void testZZ() {
 
-        xy.bb;
+        System.out.println(xy.bb);
 
 
     }
@@ -307,7 +307,7 @@ public class Test16 {
     public void testZZ() {
 
         Test18 test18 = new Test18();
-        test18.zz;
+        System.out.println(test18.zz);
 
 
     }
