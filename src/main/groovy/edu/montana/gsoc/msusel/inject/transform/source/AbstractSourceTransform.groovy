@@ -29,6 +29,7 @@ package edu.montana.gsoc.msusel.inject.transform.source
 import com.google.common.collect.Sets
 import edu.isu.isuese.datamodel.*
 import edu.montana.gsoc.msusel.inject.cond.Condition
+import edu.montana.gsoc.msusel.inject.transform.source.member.AddMethod
 import edu.montana.gsoc.msusel.inject.transform.source.structural.UpdateImports
 
 /**
@@ -42,7 +43,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
     /**
      * File containing the component on which this transform operates
      */
-    File file
+    protected File file
     /**
      * List of pre-conditions which must be true prior to this transform executing
      */
@@ -63,6 +64,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * @param length The offset to update following items by
      */
     void updateAllFollowing(File file = this.file, int line, int length) {
+        file.refresh()
         file.following(line).each { c ->
             if (c instanceof Component) {
                 c.refresh()
@@ -72,6 +74,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
             }
         }
 
+        file.refresh()
         file.setEnd(file.getEnd() + length)
         file.refresh()
     }
@@ -79,6 +82,8 @@ abstract class AbstractSourceTransform implements SourceTransform {
     void updateImports(File file = this.file) {
         Set<String> imports = readKnownImports()
         getTypeImports(imports)
+
+        file.refresh()
 
         imports.each { String name ->
             Import imp = Import.findFirst("name = ?", name)
@@ -217,12 +222,119 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * @param line Line where the insertion occurred
      * @param length Length of the change
      */
-    void updateContainingAndAllFollowing(int line, int length) {
+    void updateContainingAndAllFollowing(int line, int length, file = this.file) {
+        file.refresh()
         file.containing(line).each {
             it.refresh()
             it.setEnd(it.getEnd() + length)
             it.refresh()
         }
         updateAllFollowing(line, length)
+    }
+
+    def implementAbstractMethods(Type type, Type parent) {
+        if (type.isAbstract() && !(type instanceof Interface)) {
+            if (parent instanceof Interface) {
+                parent.getAllMethods().each { m ->
+                    Random rand = new Random()
+                    if (rand.nextDouble() <= 0.25d)
+                        copyAndImplement(type, m)
+                    else
+                        pushToSubclasses(type, m)
+                }
+            } else {
+                parent.getAllMethods().each { m ->
+                    if (m.isAbstract()) {
+                        Random rand = new Random()
+                        if (rand.nextDouble() <= 0.25d)
+                            copyAndImplement(type, m)
+                        else
+                            pushToSubclasses(type, m)
+                    }
+                }
+            }
+        } else if (type instanceof Interface) {
+            parent.getAllMethods().each { m ->
+                if (m.isAbstract()) {
+                    pushToSubclasses(type, m)
+                }
+            }
+        } else if (!type.isAbstract()) {
+            parent.getAllMethods().each { m ->
+                if (m.isAbstract()) {
+                    Random rand = new Random()
+                    if (rand.nextDouble() <=> 0.25d && !type.getGeneralizes().isEmpty()) {
+                        overrideInChildren(type, m)
+                    }
+                    copyAndImplement(type, m)
+                }
+            }
+        }
+    }
+
+    def implementAbstractMethod(Type type, Type parent, Method m) {
+        if (type.isAbstract() && !(type instanceof Interface)) {
+            if (parent instanceof Interface) {
+                Random rand = new Random()
+                if (rand.nextDouble() <= 0.25d)
+                    copyAndImplement(type, m)
+                else
+                    pushToSubclasses(type, m)
+            } else {
+                if (m.isAbstract()) {
+                    Random rand = new Random()
+                    if (rand.nextDouble() <= 0.25d)
+                        copyAndImplement(type, m)
+                    else
+                        pushToSubclasses(type, m)
+                }
+            }
+        } else if (type instanceof Interface) {
+            if (m.isAbstract()) {
+                pushToSubclasses(type, m)
+            }
+        } else if (!type.isAbstract()) {
+            if (m.isAbstract()) {
+                Random rand = new Random()
+                if (rand.nextDouble() <=> 0.25d && !type.getGeneralizes().isEmpty()) {
+                    overrideInChildren(type, m)
+                }
+                copyAndImplement(type, m)
+            }
+        }
+    }
+
+    def copyAndImplement(Type type, Method m) {
+        if (!m.modifiers.contains(Modifier.forName("static")) && !m.modifiers.contains(Modifier.forName("final"))) {
+            if (!type.hasMethodWithNameAndNumParams(m.name, m.getParams().size())) {
+                Method copy = Method.builder().name(m.name).compKey(m.name).type(m.type).accessibility(m.accessibility).create()
+                m.getParams().each {
+                    copy.addParameter(Parameter.builder().name(it.name).type(it.getType()).create())
+                }
+                m.getModifiers().each {
+                    if (it.getName() != "abstract")
+                        copy.addModifier(it)
+                }
+                AddMethod.builder().file(file).type(type).method(copy).bodyContent("    throw new OperationNotSupportedException();").create().execute()
+            }
+        }
+    }
+
+    def pushToSubclasses(Type type, Method m) {
+        if (type instanceof Interface) {
+            type.getRealizedBy().each {
+                copyAndImplement(it, m)
+            }
+        } else {
+            type.getGeneralizes().each {
+                copyAndImplement(it, m)
+            }
+        }
+    }
+
+    def overrideInChildren(type, m) {
+        type.getGeneralizes().each {
+            copyAndImplement(it, m)
+        }
     }
 }

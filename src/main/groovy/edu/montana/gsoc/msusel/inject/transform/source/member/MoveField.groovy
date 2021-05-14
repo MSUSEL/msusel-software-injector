@@ -136,13 +136,11 @@ class MoveField extends AddMember {
         from.removeMember(field)
         field.thaw()
         updateContainingAndAllFollowing(start, current - original)
-
-        // TODO add import to new location
-
-        //updateImports(this.toFile) // FIXME
+        updateImports(file)
 
         to.addMember(field)
-        //updateContainingAndAllFollowing(this.toFile, insert, toCurrent - toOriginal) // FIXME
+        updateContainingAndAllFollowing(insert, toCurrent - toOriginal, this.toFile) // FIXME
+        updateImports(this.toFile) // FIXME
     }
 
     private String createNewLine(String content) {

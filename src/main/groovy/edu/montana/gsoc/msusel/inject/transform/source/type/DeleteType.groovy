@@ -76,5 +76,6 @@ class DeleteType extends TypeTransform {
     @Override
     void updateModel() {
         updateAllFollowing(end, -1 * delta)
+        updateImports()
     }
 }

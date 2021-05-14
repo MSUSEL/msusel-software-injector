@@ -84,9 +84,11 @@ class DeleteAssociation extends BasicSourceTransform {
     void updateModel() {
         if (dftf) {
             from.removeAssociatedTo(to)
+            updateImports()
         }
         if (dtff) {
             to.removeAssociatedTo(from)
+            updateImports(toFile)
         }
     }
 

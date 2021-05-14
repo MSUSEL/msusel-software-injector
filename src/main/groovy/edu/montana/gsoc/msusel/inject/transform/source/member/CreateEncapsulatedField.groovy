@@ -27,7 +27,6 @@
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
 import edu.isu.isuese.datamodel.*
-import edu.montana.gsoc.msusel.inject.transform.source.AbstractSourceTransform
 import edu.montana.gsoc.msusel.inject.transform.source.CompositeSourceTransform
 import groovy.transform.builder.Builder
 
@@ -62,7 +61,7 @@ class CreateEncapsulatedField extends CompositeSourceTransform {
      * @param fieldName the name of the field
      */
     @Builder(buildMethodName = "create")
-    CreateEncapsulatedField(File file, Type type, TypeRef fieldType, String fieldName, Accessibility access, Modifier ... mods) {
+    CreateEncapsulatedField(File file, Type type, TypeRef fieldType, String fieldName, Accessibility access, Modifier... mods) {
         super(file)
         this.type = type
         this.fieldName = fieldName
@@ -95,13 +94,19 @@ class CreateEncapsulatedField extends CompositeSourceTransform {
         fld.refresh()
 
         // 4. Check if a getter called get<FieldName> exists, if so throw an exception, else create the transform
-        AddFieldGetter.builder().file(file).type(type).field(fld).create().execute()
+        AddFieldGetter afg = AddFieldGetter.builder().file(file).type(type).field(fld).create()
+        afg.execute()
+        afg.getMethod().refresh()
         type.refresh()
         file.refresh()
+        fld.refresh()
 
         // 5. Check if a setter called set<FieldName> exists, if so throw an exception, else create the transform
-        AddFieldSetter.builder().file(file).type(type).field(fld).create().execute()
+        AddFieldSetter afs = AddFieldSetter.builder().file(file).type(type).field(fld).create()
+        afs.execute()
+        afs.getMethod().refresh()
         type.refresh()
         file.refresh()
+        fld.refresh()
     }
 }

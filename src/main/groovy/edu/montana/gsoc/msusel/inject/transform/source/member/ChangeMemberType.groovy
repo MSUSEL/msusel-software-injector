@@ -88,5 +88,7 @@ class ChangeMemberType extends BasicSourceTransform {
     @Override
     void updateModel() {
         member.setType(retType)
+
+        updateImports()
     }
 }

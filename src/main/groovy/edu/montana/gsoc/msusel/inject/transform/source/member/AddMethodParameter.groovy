@@ -27,9 +27,12 @@
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
 import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Interface
 import edu.isu.isuese.datamodel.Method
+import edu.isu.isuese.datamodel.Modifier
 import edu.isu.isuese.datamodel.Parameter
 import edu.isu.isuese.datamodel.Type
+import edu.montana.gsoc.msusel.inject.transform.model.member.AddParamModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.BasicSourceTransform
 import groovy.transform.builder.Builder
 
@@ -91,7 +94,39 @@ class AddMethodParameter extends BasicSourceTransform {
     }
 
     @Override
-    void updateModel() {}
+    void updateModel() {
+        updateImports()
+
+        if (method.isAbstract()) {
+            if (type instanceof Interface) {
+                type.getRealizedBy().each {
+                    addParamToImplementingMethods(it, method.getName(), param)
+                }
+            } else {
+                type.getGeneralizes().each {
+                    addParamToImplementingMethods(it, method.getName(), param)
+                }
+            }
+        }
+    }
+
+    def addParamToImplementingMethods(Type type, String methodName, Parameter param) {
+        if (type.hasMethodWithName(methodName)) {
+            Method method = type.getMethodWithName(methodName)
+            AddParamModelTransform apmt = new AddParamModelTransform(method, param.getName(), param.getType().getType(type.getParentProject().getProjectKey()), (Modifier[]) param.getModifiers().toArray())
+            apmt.execute()
+        }
+
+        if (type instanceof Interface) {
+            type.getRealizedBy().each {
+                addParamToImplementingMethods(it, methodName, param)
+            }
+        } else {
+            type.getGeneralizes().each {
+                addParamToImplementingMethods(it, methodName, param)
+            }
+        }
+    }
 
     private String genParamText() {
         StringBuilder builder = new StringBuilder()

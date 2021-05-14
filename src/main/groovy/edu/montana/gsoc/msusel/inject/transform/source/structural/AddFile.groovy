@@ -58,9 +58,9 @@ class AddFile extends StructuralCreateTransform {
     void setup() {
         base = new java.io.File(ns.getFullPath(file.getType(), 0))
         toWrite = new java.io.File(file.getFullPath()) // FIXME
-        println "NS: ${ns.getFullName()}"
-        println "GetName: ${file.getName()}"
-        println "GetFullPath: ${file.getFullPath()}"
+//        println "NS: ${ns.getFullName()}"
+//        println "GetName: ${file.getName()}"
+//        println "GetFullPath: ${file.getFullPath()}"
     }
 
     @Override

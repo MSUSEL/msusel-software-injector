@@ -91,5 +91,7 @@ class DeleteRealization extends BasicSourceTransform {
     }
 
     @Override
-    void updateModel() {}
+    void updateModel() {
+        updateImports()
+    }
 }

@@ -122,9 +122,9 @@ class AddField extends AddMember {
         // 3. update field start and end
         field.start = start + delta
         field.end = start + delta
+        updateContainingAndAllFollowing(start + 1, delta)
 
         // 4. Add field to type
-        updateContainingAndAllFollowing(start + 1, delta)
         type.addMember(field)
         field.updateKey()
 

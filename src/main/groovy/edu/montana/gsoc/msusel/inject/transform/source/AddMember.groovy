@@ -75,12 +75,18 @@ abstract class AddMember extends BasicSourceTransform {
 //                line = type.getLiterals().max { it.getEnd() }.getEnd() - 1
 //            }
 //        } else {
-//            line = type.getMethods().max {it.getEnd() }.getEnd()
+//        if (!type.getMethods().isEmpty()) {
+//            line = type.getMethods().max {it.refresh(); it.getEnd() }.getEnd()
 //        }
 
-        println "Type End: ${type.getEnd()}"
+//        println "Type End: ${type.getEnd()}"
+        type.refresh()
         if (line == 0)
             line = type.getEnd() - 1
+//        println "Insertion Point: $line"
+        if (line >= lines.size())
+            line = lines.size() - 1
+//        println "Revised Insertion Point: $line"
 
         return line
     }

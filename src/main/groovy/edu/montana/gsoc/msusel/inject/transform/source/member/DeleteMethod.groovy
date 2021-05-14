@@ -81,5 +81,7 @@ class DeleteMethod extends BasicSourceTransform {
     @Override
     void updateModel() {
         updateContainingAndAllFollowing(start, delta)
+
+        updateImports()
     }
 }

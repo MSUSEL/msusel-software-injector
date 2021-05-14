@@ -52,8 +52,7 @@ class DeleteTypeTest extends BaseSourceTransformSpec {
         the(actual.text).shouldEqual("""\
 package test.test;
 
-import java.util.*;
-""")
+import java.util.*;""")
     }
 
     @Test

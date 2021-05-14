@@ -75,5 +75,7 @@ class DeleteGeneralization extends BasicSourceTransform {
     }
 
     @Override
-    void updateModel() {}
+    void updateModel() {
+        updateImports()
+    }
 }

@@ -236,11 +236,11 @@ abstract class GrimeInjector implements SourceInjector {
                 new AddRealizationModelTransform(src, dest).execute()
                 break
             case RelationType.USE_PARAM:
-                Method method = selectOrCreateMethod(src, [])
+                Method method = selectOrCreateMethod(src, [], true)
                 new AddParameterUseModelTransform(method, dest).execute()
                 break
             case RelationType.USE_RET:
-                Method method = selectOrCreateMethod(src, [])
+                Method method = selectOrCreateMethod(src, [], true)
                 new AddReturnTypeUseModelTransform(method, dest).execute()
                 break
 //            case RelationType.USE_VAR:
@@ -267,7 +267,7 @@ abstract class GrimeInjector implements SourceInjector {
      * @param type Type to inject grime into
      * @return A method that was either selected/created from/in the given type
      */
-    static Method selectOrCreateMethod(Type type, List<Method> selected) {
+    static Method selectOrCreateMethod(Type type, List<Method> selected, forParamInject = false) {
         if (!type)
             throw new InjectionFailedException()
         if (selected == null)
@@ -277,6 +277,8 @@ abstract class GrimeInjector implements SourceInjector {
 
         List<Method> methods = type.getAllMethods()
         methods.removeAll(selected)
+        if (forParamInject)
+            methods.removeAll {it.isOverriding() || it.isAbstract() }
 
         if (!methods.isEmpty()) {
             Collections.shuffle(methods)

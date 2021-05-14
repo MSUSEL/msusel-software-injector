@@ -40,6 +40,7 @@ import edu.montana.gsoc.msusel.inject.transform.model.file.AddTypeModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.namespace.AddFileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddMethodModelTransform
+import edu.montana.gsoc.msusel.inject.transform.source.member.AddMethod
 import edu.montana.gsoc.msusel.inject.transform.source.member.CreateEncapsulatedField
 import junitparams.JUnitParamsRunner
 import junitparams.Parameters
@@ -139,7 +140,7 @@ public class TestX {
 
 
     public void methodX() {
-    
+        throw new UnsupportedOperationException();
     }
 }''')
         the(file.getStart()).shouldBeEqual(1)
@@ -487,7 +488,7 @@ public class TestX {
 
 
     public void aMethodX() {
-    
+        throw new UnsupportedOperationException();
     }
 
     public int getTest() {
@@ -628,5 +629,197 @@ public class Test24 {
         File file = File.findFirst("name = ?", "Test16.java")
 
         the(file.containing(line).size()).shouldBeEqual(expected)
+    }
+
+    @Test
+    void testCaseEight() {
+        // Given
+        Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test.test")
+        String path = "TypeTest.java"
+        String typeName = "TypeTest"
+        String fieldName = "test"
+        String methodName = "aMethodTest"
+        TypeRef fieldType = TypeRef.createPrimitiveTypeRef("int")
+
+        AddFileModelTransform addFile = new AddFileModelTransform(ns, path, FileType.SOURCE)
+        addFile.execute()
+        File file = addFile.getFile()
+
+        the(file.getStart()).shouldBeEqual(1)
+        the(file.getEnd()).shouldBeEqual(27)
+
+        AddTypeModelTransform addType = new AddTypeModelTransform(file, typeName, Accessibility.PUBLIC, "class")
+        addType.execute()
+        Type type = addType.getType()
+
+        AddMethodModelTransform ammt = new AddMethodModelTransform(type, methodName, TypeRef.createPrimitiveTypeRef("int"), Accessibility.PUBLIC)
+        ammt.execute()
+        Method method = ammt.getMethod()
+
+        // When
+        CreateEncapsulatedField encFld = new CreateEncapsulatedField(file, type, fieldType, fieldName, Accessibility.PRIVATE)
+        encFld.execute()
+        file.refresh()
+        type.refresh()
+
+        Field field = type.getFieldWithName("test")
+        field.refresh()
+        method.refresh()
+        Method getter = type.getMethodWithName("getTest")
+        getter.refresh()
+        Method setter = type.getMethodWithName("setTest")
+        setter.refresh()
+
+        AddMethodModelTransform trans = new AddMethodModelTransform(type, "test1", (Type) Class.findFirst("name = ?", "TypeZ"), Accessibility.PUBLIC)
+        trans.execute()
+        trans = new AddMethodModelTransform(type, "test2", TypeRef.createPrimitiveTypeRef("void"), Accessibility.PUBLIC)
+        trans.execute()
+        trans = new AddMethodModelTransform(type, "test3", TypeRef.createPrimitiveTypeRef("void"), Accessibility.PUBLIC)
+        trans.execute()
+        trans = new AddMethodModelTransform(type, "test4", TypeRef.createPrimitiveTypeRef("void"), Accessibility.PUBLIC)
+        trans.execute()
+        trans = new AddMethodModelTransform(type, "test5", TypeRef.createPrimitiveTypeRef("void"), Accessibility.PUBLIC)
+        trans.execute()
+        trans = new AddMethodModelTransform(type, "test6", TypeRef.createPrimitiveTypeRef("void"), Accessibility.PUBLIC)
+        trans.execute()
+        trans = new AddMethodModelTransform(type, "test7", TypeRef.createPrimitiveTypeRef("void"), Accessibility.PUBLIC)
+        trans.execute()
+        trans = new AddMethodModelTransform(type, "test8", TypeRef.createPrimitiveTypeRef("void"), Accessibility.PUBLIC)
+        trans.execute()
+
+        Method test1 = type.getMethodWithName("test1")
+        Method test2 = type.getMethodWithName("test2")
+        Method test3 = type.getMethodWithName("test3")
+        Method test4 = type.getMethodWithName("test4")
+        Method test5 = type.getMethodWithName("test5")
+        Method test6 = type.getMethodWithName("test6")
+        Method test7 = type.getMethodWithName("test7")
+        Method test8 = type.getMethodWithName("test8")
+
+        // Then
+        java.io.File actual = new java.io.File(file.getFullPath())
+        String text = actual.getText()
+        the(text).shouldBeEqual('''\
+/**
+ * The MIT License (MIT)
+ *
+ * MSUSEL Software Injector
+ * Copyright (c) 2015-2020 Montana State University, Gianforte School of Computing,
+ * Software Engineering Laboratory
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package test.test;
+
+import test4.TypeZ;
+
+/**
+ * Generated Type
+ *
+ * @author Isaac Griffith
+ * @version 1.0
+ */
+public class TypeTest {
+
+    private int test;
+
+
+    public int aMethodTest() {
+        throw new UnsupportedOperationException();
+    }
+
+    public int getTest() {
+        return test;
+    }
+
+    public void setTest(int test) {
+        this.test = test;
+    }
+
+    public TypeZ test1() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void test2() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void test3() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void test4() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void test5() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void test6() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void test7() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void test8() {
+        throw new UnsupportedOperationException();
+    }
+}''')
+
+        file.refresh()
+        type.refresh()
+        method.refresh()
+        field.refresh()
+        getter.refresh()
+        setter.refresh()
+        the(file.getStart()).shouldBeEqual(1)
+        the(file.getEnd()).shouldBeEqual(85)
+        the(type.getStart()).shouldBeEqual(37)
+        the(type.getEnd()).shouldBeEqual(85)
+        the(field.getStart()).shouldBeEqual(39)
+        the(field.getEnd()).shouldBeEqual(39)
+        the(method.getStart()).shouldBeEqual(42)
+        the(method.getEnd()).shouldBeEqual(44)
+        the(getter.getStart()).shouldBeEqual(46)
+        the(getter.getEnd()).shouldBeEqual(48)
+        the(setter.getStart()).shouldBeEqual(50)
+        the(setter.getEnd()).shouldBeEqual(52)
+        the(test1.getStart()).shouldBeEqual(54)
+        the(test1.getEnd()).shouldBeEqual(56)
+        the(test2.getStart()).shouldBeEqual(58)
+        the(test2.getEnd()).shouldBeEqual(60)
+        the(test3.getStart()).shouldBeEqual(62)
+        the(test3.getEnd()).shouldBeEqual(64)
+        the(test4.getStart()).shouldBeEqual(66)
+        the(test4.getEnd()).shouldBeEqual(68)
+        the(test5.getStart()).shouldBeEqual(70)
+        the(test5.getEnd()).shouldBeEqual(72)
+        the(test6.getStart()).shouldBeEqual(74)
+        the(test6.getEnd()).shouldBeEqual(76)
+        the(test7.getStart()).shouldBeEqual(78)
+        the(test7.getEnd()).shouldBeEqual(80)
+        the(test8.getStart()).shouldBeEqual(82)
+        the(test8.getEnd()).shouldBeEqual(84)
+
     }
 }

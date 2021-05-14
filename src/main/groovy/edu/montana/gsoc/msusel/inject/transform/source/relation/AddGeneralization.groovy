@@ -81,6 +81,6 @@ class AddGeneralization extends TypeHeaderTransform {
         updateImports()
         // 5. check new generalization type for any needed abstract methods (if not abstract), if any are missing add to list of things to do
         // 6. if abstract, and methods not implemented, then add them to all concrete subclasses
-        implementAbstractMethods(gen)
+        implementAbstractMethods(type, gen)
     }
 }

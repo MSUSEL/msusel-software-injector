@@ -90,6 +90,8 @@ class DeleteField extends BasicSourceTransform {
     @Override
     void updateModel() {
         updateContainingAndAllFollowing(start, start - end)
+
+        updateImports()
     }
 
     private String replace(String defLines) {

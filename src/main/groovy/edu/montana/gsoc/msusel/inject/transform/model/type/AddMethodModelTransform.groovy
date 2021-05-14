@@ -103,7 +103,7 @@ class AddMethodModelTransform extends TypeModelTransform {
 //        type.addMember(method)
 //        method.updateKey()
         // Generate Source Transform
-        new AddMethod(type.getParentFile(), type, method, "").execute()
+        new AddMethod(type.getParentFile(), type, method, "    throw new UnsupportedOperationException();").execute()
     }
 
     @Override

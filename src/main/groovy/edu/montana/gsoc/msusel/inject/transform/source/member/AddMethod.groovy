@@ -47,10 +47,6 @@ class AddMethod extends AddMember {
      */
     Method method
     /**
-     * List of possible imports to add
-     */
-    private List<TypeRef> imports
-    /**
      * The parameterizable body content
      */
     private String bodyContent
@@ -76,6 +72,9 @@ class AddMethod extends AddMember {
      */
     @Override
     void setup() {
+        file.refresh()
+        type.refresh()
+        method.refresh()
         ops = new java.io.File(file.getFullPath())
         lines = ops.readLines()
         builder = new StringBuilder()
@@ -83,14 +82,10 @@ class AddMethod extends AddMember {
         // 1. find line of last method in type
         start = findMethodInsertionPoint(type)
 
-        println "\nAdd Method"
-        lines.eachWithIndex { String str, int ndx ->
-            println "${ndx + 1}: $str"
-        }
-        println "Insertion Point: $start"
-        if (start >= lines.size())
-            start = lines.size() - 1
-        println "Revised Insertion Point: $start"
+//        println "\nAdd Method"
+//        lines.eachWithIndex { String str, int ndx ->
+//            println "${ndx + 1}: $str"
+//        }
     }
 
     /**
@@ -136,6 +131,18 @@ class AddMethod extends AddMember {
         this.method.updateKey()
 
         updateImports()
+
+        if (this.method.isAbstract()) {
+            if (type instanceof Interface) {
+                type.getRealizedBy().each {
+                    implementAbstractMethod(it, type, method)
+                }
+            } else {
+                type.getGeneralizes().each {
+                    implementAbstractMethod(it, type, method)
+                }
+            }
+        }
     }
 
     /**

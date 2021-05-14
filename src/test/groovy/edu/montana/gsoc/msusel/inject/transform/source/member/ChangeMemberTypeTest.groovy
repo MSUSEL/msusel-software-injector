@@ -50,6 +50,7 @@ class ChangeMemberTypeTest extends BaseSourceTransformSpec {
 package test.test;
 
 import java.util.*;
+import test4.TypeZ;
 
 public class Test10 implements Test2 {
 
@@ -79,6 +80,7 @@ public class Test10 implements Test2 {
 package test.test;
 
 import java.util.*;
+import test4.TypeZ;
 
 public class Test10 implements Test2 {
 

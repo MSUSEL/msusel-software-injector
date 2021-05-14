@@ -104,5 +104,7 @@ class DeleteMethodParameter extends BasicSourceTransform {
         method.removeParameter(param)
         method.updateKey()
         param.thaw()
+
+        updateImports()
     }
 }

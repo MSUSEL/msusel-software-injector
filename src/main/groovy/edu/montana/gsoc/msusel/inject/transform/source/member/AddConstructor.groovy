@@ -99,14 +99,14 @@ class AddConstructor extends AddMember {
     @Override
     void updateModel() {
         updateContainingAndAllFollowing(start, end)
-        // 6. for return type check if primitive, if not check if an import is needed
-//        updateImports(method.type)
-        // 7. for each parameter check if primitive, if not check if an import is needed
-//        updateImports(imports)
-
         type.addMember(this.cnst)
         this.cnst.start = start + 1
         this.cnst.end = start + end + 1
+
+        // 6. for return type check if primitive, if not check if an import is needed
+//        updateImports(method.type)
+        // 7. for each parameter check if primitive, if not check if an import is needed
+        updateImports()
     }
 
     /**

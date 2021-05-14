@@ -64,9 +64,14 @@ class UpdateImports extends BasicSourceTransform {
     @Override
     void buildContent() {
         List<String> imps = Lists.newArrayList()
-        if (pkgOnly)
-            imps << ""
+        delta = 0
 
+        if (pkgOnly) {
+            imps << ""
+            delta += 1
+        }
+
+        file.refresh()
         file.getImports().each {
             String str = "import ${it.name};"
             if (!imps.contains(str))
@@ -78,7 +83,7 @@ class UpdateImports extends BasicSourceTransform {
 
         text = imps.join("\n")
 
-        delta = imps.size() - ((end + 1) - start)
+        delta += imps.size() - ((end + 1) - start)
     }
 
     /**
@@ -101,7 +106,7 @@ class UpdateImports extends BasicSourceTransform {
      */
     @Override
     void updateModel() {
-        updateContainingAndAllFollowing(start, delta)
+        updateAllFollowing(start, delta)
     }
 
     /**

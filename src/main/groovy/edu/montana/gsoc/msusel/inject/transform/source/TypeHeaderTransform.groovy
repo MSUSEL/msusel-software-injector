@@ -64,39 +64,4 @@ abstract class TypeHeaderTransform extends CompositeSourceTransform {
         }
         return null
     }
-
-    /**
-     * constructs the transforms necessary to implement any abstract methods not already implemented
-     * @param other the type from which to gather abstract methods
-     */
-    void implementAbstractMethods(Type other) {
-        if (!type.isAbstract()) {
-            if (other instanceof Interface) {
-                other.getMethods().each { Method m ->
-                    if (!m.modifiers.contains(Modifier.forName("static")) && !m.modifiers.contains(Modifier.forName("final"))) {
-                        copyAndAddMethod(m)
-                    }
-                }
-            }
-            else {
-                other.getMethods().each { Method m ->
-                    if (m.isAbstract()) {
-                        copyAndAddMethod(m)
-                    }
-                }
-            }
-        }
-    }
-
-    void copyAndAddMethod(Method m) {
-        Method copy = Method.builder().name(m.name).compKey(m.name).type(m.type).accessibility(m.accessibility).create()
-        m.getParams().each {
-            copy.addParameter(Parameter.builder().name(it.name).type(it.getType()).create())
-        }
-        m.getModifiers().each {
-            if (it.getName() != "abstract")
-                copy.addModifier(it)
-        }
-        AddMethod.builder().file(file).type(type).method(copy).bodyContent("    throw new OperationNotSupportedException();").create().execute()
-    }
 }

@@ -65,7 +65,6 @@ class MoveMethod extends AddMember {
      */
     @Override
     void setup() {
-        injectPoint = findMethodInsertionPoint(to)
         ops = new java.io.File(file.getFullPath())
         toOps = new java.io.File(toFile.getFullPath())
 
@@ -74,6 +73,7 @@ class MoveMethod extends AddMember {
 
         lines = ops.readLines()
         toLines = toOps.readLines()
+        injectPoint = findMethodInsertionPoint(to)
         methodLines = lines[start..end]
     }
 
@@ -110,11 +110,12 @@ class MoveMethod extends AddMember {
      */
     @Override
     void updateModel() {
+        updateImports(file)
         updateAllFollowing(toFile, injectPoint, methodLines.size())
 
         to.addMember(method)
         method.setStart(injectPoint + 1)
         method.setEnd(injectPoint + methodLines.size())
-
+        updateImports(toFile)
     }
 }
