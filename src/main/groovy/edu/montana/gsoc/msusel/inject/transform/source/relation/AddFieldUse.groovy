@@ -85,24 +85,25 @@ class AddFieldUse extends AddRelation {
      */
     @Override
     void buildContent() {
+
         if (field.hasModifier("static")) {
-            text = "        ${fieldOwner.name}.${field.name} = new ${field.getType().getTypeName()}();"
+            text = "        ${fieldOwner.name}.${field.name} = null;"
         } else if (sameContainingType(fieldOwner, type)) {
-            text = "        this.${field.name} = new ${field.getType().getTypeName()}();"
+            text = "        this.${field.name} = null;"
         } else {
             if (hasLocalVar(method, fieldOwner)) {
                 String var = selectVariable(method, fieldOwner)
-                text = "        ${var}.${field.name} = new ${field.getType().getTypeName()}();"
+                text = "        ${var}.${field.name} = null;"
             } else if (hasParam(method, fieldOwner)) {
                 Parameter p = selectParameter(method, fieldOwner)
-                text = "        ${p.name}.${field.name} = new ${field.getType().getTypeName()}();"
+                text = "        ${p.name}.${field.name} = null;"
             } else if (hasField(type, fieldOwner)) {
                 Field f = selectField(type, fieldOwner)
-                text = "        ${f.name}.${field.name} = new ${field.getType().getTypeName()}();"
+                text = "        ${f.name}.${field.name} = null;"
             } else {
                 StringBuilder builder = new StringBuilder()
                 builder << "        ${fieldOwner.name} ${fieldOwner.name.toLowerCase()} = new ${fieldOwner.name}();\n"
-                builder << "        ${fieldOwner.name.toLowerCase()}.${field.name} = new ${field.getType().getTypeName()}();"
+                builder << "        ${fieldOwner.name.toLowerCase()}.${field.name} = null;"
                 text = builder.toString()
             }
         }
