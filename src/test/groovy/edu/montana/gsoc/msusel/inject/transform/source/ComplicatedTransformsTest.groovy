@@ -607,11 +607,11 @@ public class Test24 {
 
     @Test
     @Parameters([
-            "1,7", "2,7", "3,7", "4,7", "5,6",
-            "6,6", "7,5", "8,4", "9,4", "10,3",
-            "11,3", "12,3", "13,3", "14,2", "15,2",
-            "16,2", "17,2", "18,1", "19,1", "20,1",
-            "21,1", "22,0", "23,0", "24,0", "25,0",
+            "1,7", "2,7", "3,7", "4,7", "5,7",
+            "6,6", "7,6", "8,5", "9,4", "10,4",
+            "11,3", "12,3", "13,3", "14,3", "15,2",
+            "16,2", "17,2", "18,2", "19,1", "20,1",
+            "21,1", "22,1", "23,0", "24,0", "25,0",
     ])
     void testCaseSix(int line, int expected) {
         File file = File.findFirst("name = ?", "Test16.java")
@@ -838,6 +838,5 @@ public class TypeTest {
         the(test7.getEnd()).shouldBeEqual(85)
         the(test8.getStart()).shouldBeEqual(87)
         the(test8.getEnd()).shouldBeEqual(89)
-
     }
 }

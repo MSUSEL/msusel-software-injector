@@ -152,7 +152,7 @@ class AddFieldUse extends AddRelation {
      */
     @Override
     void updateModel() {
-        updateContainingAndAllFollowing(method.getStart(), delta)
+        updateContainingAndAllFollowing(method.getStart() + 1, delta)
 
         method.usesField(field)
         addUseDep(type, fieldOwner)
@@ -162,6 +162,7 @@ class AddFieldUse extends AddRelation {
         method.refresh()
         if (method.getEnd() - oldEnd != delta)
             method.setEnd(method.getEnd() + delta)
+        method.refresh()
 
         updateImports()
     }
