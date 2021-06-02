@@ -26,9 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.relation
 
-import edu.isu.isuese.datamodel.Class
 import edu.isu.isuese.datamodel.File
-import edu.isu.isuese.datamodel.Interface
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
 import org.junit.Test
@@ -39,8 +37,8 @@ class DeleteRealizationTest extends BaseSourceTransformSpec {
     void "test execute with only a single realization"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
-        Type real = Interface.findFirst("name = ?", "Test2")
+        Type type = Type.findFirst("name = ?", "Test1")
+        Type real = Type.findFirst("name = ?", "Test2")
         DeleteRealization fixture = new DeleteRealization(file, type, real)
         java.io.File actual = new java.io.File(file.getFullPath())
 
@@ -56,8 +54,8 @@ class DeleteRealizationTest extends BaseSourceTransformSpec {
     void "test execute with multiple realizations and no generalization"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
-        Type real = Interface.findFirst("name = ?", "Test2")
+        Type type = Type.findFirst("name = ?", "Test1")
+        Type real = Type.findFirst("name = ?", "Test2")
         DeleteRealization fixture = new DeleteRealization(file, type, real)
         java.io.File actual = new java.io.File(file.getFullPath())
         setFileText(actual, "", "Test3, Test2, Test4")
@@ -73,8 +71,8 @@ class DeleteRealizationTest extends BaseSourceTransformSpec {
     void "test execute with only a single realization and generalization"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
-        Type real = Interface.findFirst("name = ?", "Test2")
+        Type type = Type.findFirst("name = ?", "Test1")
+        Type real = Type.findFirst("name = ?", "Test2")
         DeleteRealization fixture = new DeleteRealization(file, type, real)
         java.io.File actual = new java.io.File(file.getFullPath())
         setFileText(actual, "Test3", "")
@@ -90,8 +88,8 @@ class DeleteRealizationTest extends BaseSourceTransformSpec {
     void "test execute with multiple realizations and generalization"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
-        Type real = Interface.findFirst("name = ?", "Test2")
+        Type type = Type.findFirst("name = ?", "Test1")
+        Type real = Type.findFirst("name = ?", "Test2")
         DeleteRealization fixture = new DeleteRealization(file, type, real)
         java.io.File actual = new java.io.File(file.getFullPath())
         setFileText(actual, "Test3", "Test3, Test2, Test4")

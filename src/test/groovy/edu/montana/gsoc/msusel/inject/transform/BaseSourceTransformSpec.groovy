@@ -79,7 +79,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
 
         File file1 = File.builder().name("Test1.java").relPath("Test1.java").type(FileType.SOURCE).start(1).end(16).create()
         Import imp = Import.builder().name("java.util.*").start(3).end(3).create()
-        Type type = Class.builder().name("Test1").accessibility(Accessibility.PUBLIC).start(5).end(16).create()
+        Type type = Type.builder().type(Type.CLASS).name("Test1").accessibility(Accessibility.PUBLIC).start(5).end(16).create()
         Method m1 = Method.builder().name("method").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(9).end(11).create()
         Method m2 = Method.builder().name("main").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(13).end(15).create()
         Field f1 = Field.builder().name("name").type(TypeRef.createPrimitiveTypeRef("String")).accessibility(Accessibility.PRIVATE).start(7).end(7).create()
@@ -93,7 +93,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         ns2.addFile(file1)
 
         File file2 = File.builder().name("Test2.java").relPath("Test2.java").start(1).end(6).type(FileType.SOURCE).create()
-        Type type2 = Interface.builder().name("Test2").accessibility(Accessibility.PUBLIC).start(3).end(6).create()
+        Type type2 = Type.builder().type(Type.INTERFACE).name("Test2").accessibility(Accessibility.PUBLIC).start(3).end(6).create()
         Method m3 = Method.builder().name("method").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(5).end(5).create()
         m3.addParameter(Parameter.builder().name("param").type(TypeRef.createPrimitiveTypeRef("Test3")).create())
         m3.addModifier(Modifier.forName("ABSTRACT"))
@@ -104,7 +104,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         ns2.addType(type2)
 
         File file3 = File.builder().name("Test3.java").relPath("Test3.java").type(FileType.SOURCE).start(1).end(6).create()
-        Enum type3 = Enum.builder().name("Test3").accessibility(Accessibility.PUBLIC).start(1).end(6).create()
+        Type type3 = Type.builder().type(Type.ENUM).name("Test3").accessibility(Accessibility.PUBLIC).start(1).end(6).create()
         Literal lit1 = Literal.builder().name("LITERAL1").compKey().start(3).end(3).create()
         Literal lit2 = Literal.builder().name("LITERAL2").compKey().start(4).end(4).create()
         Literal lit3 = Literal.builder().name("LITERAL3").compKey().start(5).end(5).create()
@@ -117,7 +117,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addFile(file3)
 
         File file4 = File.builder().name("Test7.java").relPath("Test7.java").start(1).end(8).type(FileType.SOURCE).create()
-        Class type4 = Class.builder().name("Test7").accessibility(Accessibility.PUBLIC).start(3).end(8).create()
+        Type type4 = Type.builder().type(Type.CLASS).name("Test7").accessibility(Accessibility.PUBLIC).start(3).end(8).create()
         Literal lit14 = Literal.builder().name("LITERAL1").compKey().start(5).end(5).create()
         Literal lit24 = Literal.builder().name("LITERAL2").compKey().start(6).end(6).create()
         Literal lit34 = Literal.builder().name("LITERAL3").compKey().start(7).end(7).create()
@@ -131,7 +131,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         ns2.addType(type4)
 
         File file5 = File.builder().name("Test8.java").relPath("Test8.java").type(FileType.SOURCE).start(1).end(6).create()
-        Enum type5 = Enum.builder().name("Test8").accessibility(Accessibility.PUBLIC).start(3).end(6).create()
+        Type type5 = Type.builder().type(Type.ENUM).name("Test8").accessibility(Accessibility.PUBLIC).start(3).end(6).create()
         Literal lit4 = Literal.builder().name("LITERAL4").compKey().start(5).end(5).create()
         Literal lit5 = Literal.builder().name("LITERAL5").compKey().start(5).end(5).create()
         Literal lit6 = Literal.builder().name("LITERAL6").compKey().start(5).end(5).create()
@@ -144,7 +144,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addFile(file5)
 
         File file6 = File.builder().name("Test9.java").relPath("Test9.java").type(FileType.SOURCE).start(1).end(12).create()
-        Type type6 = Class.builder().name("Test9").accessibility(Accessibility.PUBLIC).start(5).end(12).create()
+        Type type6 = Type.builder().type(Type.CLASS).name("Test9").accessibility(Accessibility.PUBLIC).start(5).end(12).create()
         Method m16 = Method.builder().name("method").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(9).end(11).create()
         Field f16 = Field.builder().name("name9").type().accessibility(Accessibility.PRIVATE).start(7).end(7).create()
         Field f26 = Field.builder().name("other").type().accessibility(Accessibility.PRIVATE).start(7).end(7).create()
@@ -158,7 +158,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addFile(file6)
 
         File file7 = File.builder().name("Test10.java").relPath("Test10.java").type(FileType.SOURCE).start(1).end(12).create()
-        Type type7 = Class.builder().name("Test10").accessibility(Accessibility.PUBLIC).start(5).end(12).create()
+        Type type7 = Type.builder().type(Type.CLASS).name("Test10").accessibility(Accessibility.PUBLIC).start(5).end(12).create()
         Method m17 = Method.builder().name("method4").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(9).end(11).create()
         Parameter param = Parameter.builder().name("param").type(TypeRef.createPrimitiveTypeRef("Test3")).create()
         m17.addParameter(param)
@@ -176,7 +176,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addFile(file7)
 
         File file8 = File.builder().name("Test11.java").relPath("Test11.java").type(FileType.SOURCE).start(1).end(10).create()
-        Type type8 = Class.builder().name("Test11").accessibility(Accessibility.PUBLIC).start(5).end(10).create()
+        Type type8 = Type.builder().type(Type.CLASS).name("Test11").accessibility(Accessibility.PUBLIC).start(5).end(10).create()
         Method m18 = Method.builder().name("paramsTest").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(7).end(9).create()
         Parameter p1 = Parameter.builder().name("param1").create()
         p1.setType(TypeRef.createPrimitiveTypeRef("int"))
@@ -193,7 +193,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addFile(file8)
 
         File file9 = File.builder().name("Test12.java").relPath("Test12.java").type(FileType.SOURCE).start(1).end(8).create()
-        Type type9 = Class.builder().name("Test12").accessibility(Accessibility.PUBLIC).start(5).end(8).create()
+        Type type9 = Type.builder().type(Type.CLASS).name("Test12").accessibility(Accessibility.PUBLIC).start(5).end(8).create()
         Method m19 = Method.builder().name("paramsTest2").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(7).end(7).create()
         Parameter p19 = Parameter.builder().name("param1").type(TypeRef.createPrimitiveTypeRef("int")).create()
         Parameter p29 = Parameter.builder().name("param2").type(TypeRef.createPrimitiveTypeRef("int")).create()
@@ -211,7 +211,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addFile(file9)
 
         File file10 = File.builder().name("Test13.java").relPath("Test13.java").type(FileType.SOURCE).start(1).end(9).create()
-        Type type10 = Class.builder().name("Test13").accessibility(Accessibility.PUBLIC).start(5).end(9).create()
+        Type type10 = Type.builder().type(Type.CLASS).name("Test13").accessibility(Accessibility.PUBLIC).start(5).end(9).create()
         Field f110 = Field.builder().name("COUNTX").type(TypeRef.createPrimitiveTypeRef("int")).accessibility(Accessibility.PRIVATE).start(7).end(7).create()
         f110.addModifier(Modifier.forName("volatile"))
         f110.addModifier(Modifier.forName("static"))
@@ -224,7 +224,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addFile(file10)
 
         File file11 = File.builder().name("Test14.java").relPath("Test14.java").type(FileType.SOURCE).start(1).end(9).create()
-        Type type11 = Class.builder().name("Test14").accessibility(Accessibility.PUBLIC).start(5).end(9).create()
+        Type type11 = Type.builder().type(Type.CLASS).name("Test14").accessibility(Accessibility.PUBLIC).start(5).end(9).create()
         file11.addType(type11)
         file11.addImport(imp)
         ns2.addFile(file11)
@@ -232,7 +232,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addFile(file11)
 
         File file12 = File.builder().name("Test15.java").relPath("Test15.java").type(FileType.SOURCE).start(1).end(9).create()
-        Type type12 = Class.builder().name("Test15").accessibility(Accessibility.PUBLIC).start(5).end(9).create()
+        Type type12 = Type.builder().type(Type.CLASS).name("Test15").accessibility(Accessibility.PUBLIC).start(5).end(9).create()
         file12.addType(type12)
         file12.addImport(imp)
         ns2.addFile(file12)
@@ -248,7 +248,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         type12.associatedTo(type11)
 
         File file16 = File.builder().name("Test16.java").relPath("Test16.java").type(FileType.SOURCE).start(1).end(25).create()
-        Type type16 = Class.builder().name("Test16").accessibility(Accessibility.PUBLIC).start(5).end(25).create()
+        Type type16 = Type.builder().type(Type.CLASS).name("Test16").accessibility(Accessibility.PUBLIC).start(5).end(25).create()
         file16.addType(type16)
         file16.addImport(imp)
         ns2.addFile(file16)
@@ -256,7 +256,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addFile(file16)
 
         File file17 = File.builder().name("Test17.java").relPath("Test17.java").type(FileType.SOURCE).start(1).end(8).create()
-        Type type17 = Class.builder().name("Test17").accessibility(Accessibility.PUBLIC).start(5).end(8).create()
+        Type type17 = Type.builder().type(Type.CLASS).name("Test17").accessibility(Accessibility.PUBLIC).start(5).end(8).create()
         file17.addType(type17)
         file17.addImport(imp)
         ns2.addFile(file17)
@@ -264,7 +264,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         proj.addFile(file17)
 
         File file18 = File.builder().name("Test18.java").relPath("Test18.java").type(FileType.SOURCE).start(1).end(8).create()
-        Type type18 = Class.builder().name("Test18").accessibility(Accessibility.PUBLIC).start(5).end(8).create()
+        Type type18 = Type.builder().type(Type.CLASS).name("Test18").accessibility(Accessibility.PUBLIC).start(5).end(8).create()
         file18.addType(type18)
         file18.addImport(imp)
         ns2.addFile(file18)
@@ -293,15 +293,15 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         type18.addMember(f181)
 
         File fileX = File.builder().name("TypeX.java").relPath("TypeX.java").type(FileType.SOURCE).start(1).end(5).create()
-        Type typeX = Class.builder().name("TypeX").accessibility(Accessibility.PUBLIC).start(3).end(5).create()
+        Type typeX = Type.builder().type(Type.CLASS).name("TypeX").accessibility(Accessibility.PUBLIC).start(3).end(5).create()
         fileX.addType(typeX)
 
         File fileY = File.builder().name("TypeY.java").relPath("TypeY.java").type(FileType.SOURCE).start(1).end(5).create()
-        Type typeY = Interface.builder().name("TypeY").accessibility(Accessibility.PUBLIC).start(3).end(5).create()
+        Type typeY = Type.builder().type(Type.INTERFACE).name("TypeY").accessibility(Accessibility.PUBLIC).start(3).end(5).create()
         fileY.addType(typeY)
 
         File fileZ = File.builder().name("TypeZ.java").relPath("TypeZ.java").type(FileType.SOURCE).start(1).end(10).create()
-        Type typeZ = Class.builder().name("TypeZ").accessibility(Accessibility.PUBLIC).start(3).end(10).create()
+        Type typeZ = Type.builder().type(Type.CLASS).name("TypeZ").accessibility(Accessibility.PUBLIC).start(3).end(10).create()
         typeZ.addModifier(Modifier.forName("final"))
         Method mZ = Method.builder().name("methodZ").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(8).end(9).create()
         Field fZ = Field.builder().name("fieldZ").type(TypeRef.createPrimitiveTypeRef("int")).accessibility(Accessibility.PRIVATE).start(5).end(5).create()
@@ -310,21 +310,21 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         fileZ.addType(typeZ)
 
         File fileXY = File.builder().name("TypeXY.java").relPath("TypeXY.java").type(FileType.SOURCE).start(1).end(5).create()
-        Type typeXY = Class.builder().name("TypeXY").accessibility(Accessibility.PUBLIC).start(3).end(5).create()
+        Type typeXY = Type.builder().type(Type.CLASS).name("TypeXY").accessibility(Accessibility.PUBLIC).start(3).end(5).create()
         fileXY.addType(typeXY)
 
         File fileYY = File.builder().name("TypeYY.java").relPath("TypeYY.java").type(FileType.SOURCE).start(1).end(5).create()
-        Type typeYY = Interface.builder().name("TypeYY").accessibility(Accessibility.PUBLIC).start(3).end(5).create()
+        Type typeYY = Type.builder().type(Type.INTERFACE).name("TypeYY").accessibility(Accessibility.PUBLIC).start(3).end(5).create()
         fileYY.addType(typeYY)
 
         File fileA = File.builder().name("TypeA.java").relPath("TypeA.java").type(FileType.SOURCE).start(1).end(6).create()
-        Type typeA = Enum.builder().name("TypeA").accessibility(Accessibility.PUBLIC).start(3).end(6).create()
+        Type typeA = Type.builder().type(Type.ENUM).name("TypeA").accessibility(Accessibility.PUBLIC).start(3).end(6).create()
         Literal litA = Literal.builder().name("LITERALA").compKey().start(5).end(5).create()
         typeA.addMember(litA)
         fileA.addType(typeA)
 
         File fileB = File.builder().name("TypeB.java").relPath("TypeB.java").type(FileType.SOURCE).start(1).end(5).create()
-        Type typeB = Enum.builder().name("TypeB").accessibility(Accessibility.PUBLIC).start(3).end(5).create()
+        Type typeB = Type.builder().type(Type.ENUM).name("TypeB").accessibility(Accessibility.PUBLIC).start(3).end(5).create()
         fileB.addType(typeB)
 
         ns4.addFile(fileX)
@@ -353,7 +353,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         typeZ.addMember(ftXY)
 
         File fileC = File.builder().name("TypeC.java").relPath("TypeC.java").type(FileType.SOURCE).start(1).end(19).create()
-        Type typeC = Class.builder().name("TypeC").accessibility(Accessibility.PUBLIC).start(3).end(19).create()
+        Type typeC = Type.builder().type(Type.CLASS).name("TypeC").accessibility(Accessibility.PUBLIC).start(3).end(19).create()
         Method mC1 = Method.builder().name("methodC1").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(9).end(12).create()
         mC1.addParameter(Parameter.builder().type(TypeRef.createPrimitiveTypeRef("int")).name("x").create())
         mC1.addModifier(Modifier.Values.FINAL.name())
@@ -371,14 +371,14 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         fileC.addType(typeC)
 
         File file19 = File.builder().name("Test19.java").relPath("Test19.java").type(FileType.SOURCE).start(1).end(31).create()
-        Type type19 = Class.builder().name("Test19").accessibility(Accessibility.PUBLIC).start(29).end(31).create()
+        Type type19 = Type.builder().type(Type.CLASS).name("Test19").accessibility(Accessibility.PUBLIC).start(29).end(31).create()
         file19.addType(type19)
         proj.addFile(file19)
         ns2.addType(type19)
         ns2.addFile(file19)
 
         File file20 = File.builder().name("Test20.java").relPath("Test20.java").type(FileType.SOURCE).start(1).end(37).create()
-        Type type20 = Class.builder().name("Test20").accessibility(Accessibility.PUBLIC).start(35).end(37).create()
+        Type type20 = Type.builder().type(Type.CLASS).name("Test20").accessibility(Accessibility.PUBLIC).start(35).end(37).create()
         file20.addType(type20)
         file20.addImport(imp)
         proj.addFile(file20)
@@ -386,14 +386,14 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         ns2.addFile(file20)
 
         File file21 = File.builder().name("Test21.java").relPath("Test21.java").type(FileType.SOURCE).start(1).end(35).create()
-        Type type21 = Class.builder().name("Test21").accessibility(Accessibility.PUBLIC).start(32).end(34).create()
+        Type type21 = Type.builder().type(Type.CLASS).name("Test21").accessibility(Accessibility.PUBLIC).start(32).end(34).create()
         file21.addType(type21)
         proj.addFile(file21)
         ns2.addType(type21)
         ns2.addFile(file21)
 
         File file22 = File.builder().name("Test22.java").relPath("Test22.java").type(FileType.SOURCE).start(1).end(37).create()
-        Type type22 = Class.builder().name("Test22").accessibility(Accessibility.PUBLIC).start(35).end(37).create()
+        Type type22 = Type.builder().type(Type.CLASS).name("Test22").accessibility(Accessibility.PUBLIC).start(35).end(37).create()
         file22.addType(type22)
         file22.addImport(imp)
         proj.addFile(file22)
@@ -401,7 +401,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         ns2.addFile(file22)
 
         File file23 = File.builder().name("Test23.java").relPath("Test23.java").type(FileType.SOURCE).start(1).end(43).create()
-        Type type23 = Class.builder().name("Test23").accessibility(Accessibility.PUBLIC).start(35).end(43).create()
+        Type type23 = Type.builder().type(Type.CLASS).name("Test23").accessibility(Accessibility.PUBLIC).start(35).end(43).create()
         Method m231 = Method.builder().name("aMethod23").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(40).end(42).create()
         type23.addMember(m231)
         file23.addType(type23)
@@ -411,7 +411,7 @@ abstract class BaseSourceTransformSpec extends DBSpec {
         ns2.addFile(file23)
 
         File file24 = File.builder().name("Test24.java").relPath("Test24.java").type(FileType.SOURCE).start(1).end(45).create()
-        Type type24 = Class.builder().name("Test24").accessibility(Accessibility.PUBLIC).start(35).end(43).create()
+        Type type24 = Type.builder().type(Type.CLASS).name("Test24").accessibility(Accessibility.PUBLIC).start(35).end(43).create()
         Method m241 = Method.builder().name("aMethod24").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(40).end(42).create()
         type24.addMember(m241)
         file24.addType(type24)

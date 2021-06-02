@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.relation
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Field
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
@@ -41,8 +41,8 @@ class DeleteAssociationTest extends BaseSourceTransformSpec {
         // given
         File fromFile = File.findFirst("name = ?", "Test14.java")
         File toFile = File.findFirst("name = ?", "Test15.java")
-        Type from = Class.findFirst("name = ?", "Test14")
-        Type to = Class.findFirst("name = ?", "Test15")
+        Type from = Type.findFirst("name = ?", "Test14")
+        Type to = Type.findFirst("name = ?", "Test15")
         DeleteAssociation fixture = new DeleteAssociation(fromFile, from, toFile, to)
         java.io.File toActual = new java.io.File(toFile.getFullPath())
         java.io.File fromActual = new java.io.File(fromFile.getFullPath())
@@ -80,8 +80,8 @@ public class Test15 {
         // given
         File fromFile = File.findFirst("name = ?", "Test14.java")
         File toFile = File.findFirst("name = ?", "Test15.java")
-        Type from = Class.findFirst("name = ?", "Test14")
-        Type to = Class.findFirst("name = ?", "Test15")
+        Type from = Type.findFirst("name = ?", "Test14")
+        Type to = Type.findFirst("name = ?", "Test15")
         makeUniDirectional(from, to)
         DeleteAssociation fixture = new DeleteAssociation(fromFile, from, toFile, to)
         java.io.File toActual = new java.io.File(toFile.getFullPath())
@@ -122,8 +122,8 @@ public class Test15 {
         // given
         File fromFile = File.findFirst("name = ?", "Test14.java")
         File toFile = File.findFirst("name = ?", "Test15.java")
-        Type from = Class.findFirst("name = ?", "Test14")
-        Type to = Class.findFirst("name = ?", "Test15")
+        Type from = Type.findFirst("name = ?", "Test14")
+        Type to = Type.findFirst("name = ?", "Test15")
         makeUniDirectional(to, from)
         DeleteAssociation fixture = new DeleteAssociation(fromFile, from, toFile, to)
         java.io.File toActual = new java.io.File(toFile.getFullPath())

@@ -36,7 +36,7 @@ class RenameMemberTest extends BaseSourceTransformSpec {
     void "test execute on method"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         Member member = Method.findFirst("name = ?", "main")
         RenameMember fixture = new RenameMember(file, type, member, member.getName())
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -69,7 +69,7 @@ public class Test1 implements Test2 {
     void "test execute on field"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         Member member = Field.findFirst("name = ?", "name")
         RenameMember fixture = new RenameMember(file, type, member, member.getName())
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -102,7 +102,7 @@ public class Test1 implements Test2 {
     void "test execute on literal"() {
         // given
         File file = File.findFirst("name = ?", "Test3.java")
-        Type type = Enum.findFirst("name = ?", "Test3")
+        Type type = Type.findFirst("name = ?", "Test3")
         Member member = Literal.findFirst("name = ?", "LITERAL1")
         RenameMember fixture = new RenameMember(file, type, member, member.getName())
         java.io.File actual = new java.io.File(file.getFullPath())

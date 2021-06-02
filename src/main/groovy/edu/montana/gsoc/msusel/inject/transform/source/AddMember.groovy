@@ -131,7 +131,7 @@ abstract class AddMember extends BasicSourceTransform {
      * @param Enum The Enum to be modified
      * @return line number where a new enum literal can be inserted
      */
-    int findEnumItemInsertionPoint(Enum Enum) {
+    int findEnumItemInsertionPoint(Type Enum) {
         return 0
     }
 

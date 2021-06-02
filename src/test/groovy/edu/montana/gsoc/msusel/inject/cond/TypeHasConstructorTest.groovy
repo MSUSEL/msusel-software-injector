@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Constructor
 import edu.isu.isuese.datamodel.Type
 import org.javalite.activejdbc.test.DBSpec
@@ -42,7 +42,7 @@ class TypeHasConstructorTest extends DBSpec {
 
     @Before
     void setUp() throws Exception {
-        type = Class.builder().name("Test").compKey("Test").create()
+        type = Type.builder().type(Type.CLASS).name("Test").compKey("Test").create()
         cons = Constructor.creator().name("Test").compKey("Test:Test").create()
         fixture = new TypeHasConstructor(type, cons)
     }

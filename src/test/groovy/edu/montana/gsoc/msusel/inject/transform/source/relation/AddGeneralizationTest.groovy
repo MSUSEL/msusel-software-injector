@@ -26,11 +26,10 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.relation
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
-import org.junit.Assert
 import org.junit.Test
 
 class AddGeneralizationTest extends BaseSourceTransformSpec {
@@ -39,8 +38,8 @@ class AddGeneralizationTest extends BaseSourceTransformSpec {
     void "test execute no abstract methods"() {
         // given
         File file = File.findFirst("name = ?", "Test13.java")
-        Type type = Class.findFirst("name = ?", "Test13")
-        Type gen = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test13")
+        Type gen = Type.findFirst("name = ?", "Test1")
         AddGeneralization fixture = new AddGeneralization(file, type, gen)
         java.io.File actual = new java.io.File(file.getFullPath())
 
@@ -65,8 +64,8 @@ public class Test13 extends Test1 {
     void "test execute with abstract methods"() {
         // given
         File file = File.findFirst("name = ?", "Test13.java")
-        Type type = Class.findFirst("name = ?", "Test13")
-        Type gen = Class.findFirst("name = ?", "Test12")
+        Type type = Type.findFirst("name = ?", "Test13")
+        Type gen = Type.findFirst("name = ?", "Test12")
         AddGeneralization fixture = new AddGeneralization(file, type, gen)
         java.io.File actual = new java.io.File(file.getFullPath())
 

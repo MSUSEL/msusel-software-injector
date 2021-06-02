@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Method
 import edu.isu.isuese.datamodel.Type
@@ -39,7 +39,7 @@ class DeleteMethodTest extends BaseSourceTransformSpec {
     void "test execute multiple first"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         Method method = Method.findFirst("name = ?", "method")
         DeleteMethod fixture = new DeleteMethod(file, type, method)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -69,7 +69,7 @@ public class Test1 implements Test2 {
     void "test execute multiple last"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         Method method = Method.findFirst("name = ?", "main")
         DeleteMethod fixture = new DeleteMethod(file, type, method)
         java.io.File actual = new java.io.File(file.getFullPath())

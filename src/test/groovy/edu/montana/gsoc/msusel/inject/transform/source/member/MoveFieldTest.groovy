@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Field
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
@@ -41,8 +41,8 @@ class MoveFieldTest extends BaseSourceTransformSpec {
         // given
         File fromFile = File.findFirst("name = ?", "Test10.java")
         File toFile = File.findFirst("name = ?", "Test11.java")
-        Type fromType = Class.findFirst("name = ?", "Test10")
-        Type toType = Class.findFirst("name = ?", "Test11")
+        Type fromType = Type.findFirst("name = ?", "Test10")
+        Type toType = Type.findFirst("name = ?", "Test11")
         Field field = Field.findFirst("name = ?", "COUNT")
         MoveField fixture = new MoveField(fromFile, fromType, toFile, toType, field)
         java.io.File fromActual = new java.io.File(fromFile.getFullPath())

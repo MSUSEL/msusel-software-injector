@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
 import org.javalite.activejdbc.test.DBSpec
@@ -54,7 +54,7 @@ class TypeExistsTest extends DBSpec {
     @Test
     void "test check when file contains type"() {
         // given
-        Type t = Class.builder().name("Test").compKey("Test").create();
+        Type t = Type.builder().type(Type.CLASS).name("Test").compKey("Test").create();
         file.addType(t)
 
         // when

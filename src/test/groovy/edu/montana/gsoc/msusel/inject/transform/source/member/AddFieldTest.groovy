@@ -36,7 +36,7 @@ class AddFieldTest extends BaseSourceTransformSpec {
     void "test execute no other fields"() {
         // given
         File file = File.findFirst("name = ?", "Test11.java")
-        Type type = Class.findFirst("name = ?", "Test11")
+        Type type = Type.findFirst("name = ?", "Test11")
         Field field = Field.builder().name("test").compKey("test").accessibility(Accessibility.PRIVATE).type(TypeRef.createPrimitiveTypeRef("int")).create()
         AddField fixture = new AddField(file, type, field)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -71,7 +71,7 @@ public class Test11 implements Test2 {
     void "test execute other fields"() {
         // given
         File file = File.findFirst("name = ?", "Test10.java")
-        Type type = Class.findFirst("name = ?", "Test10")
+        Type type = Type.findFirst("name = ?", "Test10")
         Field field = Field.builder().name("test").compKey("test").accessibility(Accessibility.PRIVATE).type(TypeRef.createPrimitiveTypeRef("int")).create()
         AddField fixture = new AddField(file, type, field)
         java.io.File actual = new java.io.File(file.getFullPath())

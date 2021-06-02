@@ -27,7 +27,6 @@
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
 import edu.isu.isuese.datamodel.Accessibility
-import edu.isu.isuese.datamodel.Class
 import edu.isu.isuese.datamodel.Modifier
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
@@ -39,7 +38,7 @@ class AddFieldModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute happy path"() {
         // given
         String name = "fieldX"
-        Type fldType = Class.findFirst("name = ?", "TypeX")
+        Type fldType = Type.findFirst("name = ?", "TypeX")
         Accessibility access = Accessibility.PRIVATE
 
         // when
@@ -54,7 +53,7 @@ class AddFieldModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute happy path modifiers"() {
         // given
         String name = "fieldX"
-        Type fldType = Class.findFirst("name = ?", "TypeX")
+        Type fldType = Type.findFirst("name = ?", "TypeX")
         Accessibility access = Accessibility.PRIVATE
 
         // when
@@ -69,7 +68,7 @@ class AddFieldModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute name is null"() {
         // given
         String name = null
-        Type fldType = Class.findFirst("name = ?", "TypeX")
+        Type fldType = Type.findFirst("name = ?", "TypeX")
         Accessibility access = Accessibility.PRIVATE
 
         // when
@@ -81,7 +80,7 @@ class AddFieldModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute name is empty"() {
         // given
         String name = ""
-        Type fldType = Class.findFirst("name = ?", "TypeX")
+        Type fldType = Type.findFirst("name = ?", "TypeX")
         Accessibility access = Accessibility.PRIVATE
 
         // when
@@ -93,7 +92,7 @@ class AddFieldModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute type has field"() {
         // given
         String name = "fieldZ"
-        Type fldType = Class.findFirst("name = ?", "TypeX")
+        Type fldType = Type.findFirst("name = ?", "TypeX")
         Accessibility access = Accessibility.PRIVATE
 
         // when
@@ -117,7 +116,7 @@ class AddFieldModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute access is null"() {
         // given
         String name = "fieldX"
-        Type fldType = Class.findFirst("name = ?", "TypeX")
+        Type fldType = Type.findFirst("name = ?", "TypeX")
         Accessibility access = null
 
         // when

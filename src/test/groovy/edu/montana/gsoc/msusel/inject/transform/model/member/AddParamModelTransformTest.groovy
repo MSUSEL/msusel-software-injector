@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.member
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Method
 import edu.isu.isuese.datamodel.Modifier
 import edu.isu.isuese.datamodel.Type
@@ -39,7 +39,7 @@ class AddParamModelTransformTest extends MemberModelTransformBaseTest {
     void "test execute happy path"() {
         // given
         String name = "paramX"
-        Type type = Class.findFirst("name = ?", "TypeC")
+        Type type = Type.findFirst("name = ?", "TypeC")
 
         // when
         fixture = new AddParamModelTransform(method, name, type)
@@ -53,7 +53,7 @@ class AddParamModelTransformTest extends MemberModelTransformBaseTest {
     void "test execute happy path with modifiers"() {
         // given
         String name = "paramX"
-        Type type = Class.findFirst("name = ?", "TypeC")
+        Type type = Type.findFirst("name = ?", "TypeC")
 
         // when
         fixture = new AddParamModelTransform(method, name, type, Modifier.forName("final"))
@@ -68,7 +68,7 @@ class AddParamModelTransformTest extends MemberModelTransformBaseTest {
     void "test execute name is null"() {
         // given
         String name = null
-        Type type = Class.findFirst("name = ?", "TypeC")
+        Type type = Type.findFirst("name = ?", "TypeC")
 
         // when
         fixture = new AddParamModelTransform(method, name, type)
@@ -79,7 +79,7 @@ class AddParamModelTransformTest extends MemberModelTransformBaseTest {
     void "test execute name is empty"() {
         // given
         String name = ""
-        Type type = Class.findFirst("name = ?", "TypeC")
+        Type type = Type.findFirst("name = ?", "TypeC")
 
         // when
         fixture = new AddParamModelTransform(method, name, type)
@@ -101,7 +101,7 @@ class AddParamModelTransformTest extends MemberModelTransformBaseTest {
     void "test execute name is same as existing param"() {
         // given
         String name = "x"
-        Type type = Class.findFirst("name = ?", "TypeC")
+        Type type = Type.findFirst("name = ?", "TypeC")
 
         // when
         fixture = new AddParamModelTransform(method, name, type)
@@ -112,7 +112,7 @@ class AddParamModelTransformTest extends MemberModelTransformBaseTest {
     void "test execute member is not a method"() {
         // given
         String name = "x"
-        Type type = Class.findFirst("name = ?", "TypeC")
+        Type type = Type.findFirst("name = ?", "TypeC")
 
         // when
         fixture = new AddParamModelTransform(field, name, type)

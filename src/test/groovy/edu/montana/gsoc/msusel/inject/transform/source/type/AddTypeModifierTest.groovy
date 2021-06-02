@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.type
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Modifier
 import edu.isu.isuese.datamodel.Type
@@ -40,7 +40,7 @@ class AddTypeModifierTest extends BaseSourceTransformSpec {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
         java.io.File actual = new java.io.File(file.getFullPath())
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         Modifier mod = Modifier.forName("ABSTRACT")
         type.addModifier(mod)
         AddTypeModifier fixture = new AddTypeModifier(file, type, mod)
@@ -74,7 +74,7 @@ public abstract class Test1 implements Test2 {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
         java.io.File actual = new java.io.File(file.getFullPath())
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         Modifier mod = Modifier.forName("FINAL")
         AddTypeModifier fixture = new AddTypeModifier(file, type, mod)
 

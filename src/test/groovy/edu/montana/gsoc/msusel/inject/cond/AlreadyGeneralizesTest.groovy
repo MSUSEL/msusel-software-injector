@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Type
 import org.javalite.activejdbc.test.DBSpec
 import org.junit.After
@@ -42,8 +42,8 @@ class AlreadyGeneralizesTest extends DBSpec {
 
     @Before
     void setUp() throws Exception {
-        type = Class.builder().name("Test").compKey("Test").start(1).create()
-        gen = Class.builder().name("General").compKey("General").create()
+        type = Type.builder().type(Type.CLASS).name("Test").compKey("Test").start(1).create()
+        gen = Type.builder().type(Type.CLASS).name("General").compKey("General").create()
 
         fixture = new AlreadyGeneralizes(type, strGen)
     }

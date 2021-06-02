@@ -36,7 +36,7 @@ class AddMethodTest extends BaseSourceTransformSpec {
     void execute() {
         // given
         File file = File.findFirst("name = ?", "Test11.java")
-        Type type = Class.findFirst("name = ?", "Test11")
+        Type type = Type.findFirst("name = ?", "Test11")
         Method method = Method.builder().name("test").accessibility(Accessibility.PUBLIC).compKey("test").type(TypeRef.createPrimitiveTypeRef("void")).create()
         method.addParameter(Parameter.builder().name("x").type(TypeRef.createPrimitiveTypeRef("int")).create())
         method.addModifier("static")

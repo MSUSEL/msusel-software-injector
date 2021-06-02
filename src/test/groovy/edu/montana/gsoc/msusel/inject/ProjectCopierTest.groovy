@@ -84,7 +84,7 @@ class ProjectCopierTest extends DBSpec {
 
         File file1 = File.builder().name("testdata/testproj/src/main/java/test/test/Test1.java").relPath("Test1.java").type(FileType.SOURCE).start(1).end(16).create()
         Import imp = Import.builder().name("java.util.*").start(3).end(3).create()
-        Type type = Class.builder().name("Test1").accessibility(Accessibility.PUBLIC).start(5).end(16).create()
+        Type type = Type.builder().type(Type.CLASS).name("Test1").accessibility(Accessibility.PUBLIC).start(5).end(16).create()
         Method m1 = Method.builder().name("method").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(9).end(11).create()
         Method m2 = Method.builder().name("main").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(13).end(15).create()
         Field f1 = Field.builder().name("name").type(TypeRef.createPrimitiveTypeRef("String")).accessibility(Accessibility.PRIVATE).start(7).end(7).create()
@@ -98,7 +98,7 @@ class ProjectCopierTest extends DBSpec {
         ns2.addFile(file1)
 
         File file2 = File.builder().name("testdata/testproj/src/main/java/test/test/Test2.java").relPath("Test2.java").type(FileType.SOURCE).create()
-        Type type2 = Interface.builder().name("Test2").accessibility(Accessibility.PUBLIC).start(3).end(6).create()
+        Type type2 = Type.builder().type(Type.INTERFACE).name("Test2").accessibility(Accessibility.PUBLIC).start(3).end(6).create()
         Method m3 = Method.builder().name("method").type(TypeRef.createPrimitiveTypeRef("void")).accessibility(Accessibility.PUBLIC).start(5).end(5).create()
         m3.addParameter(Parameter.builder().name("param").type(TypeRef.createPrimitiveTypeRef("Test3")).create())
         m3.addModifier(Modifier.forName("ABSTRACT"))
@@ -109,7 +109,7 @@ class ProjectCopierTest extends DBSpec {
         ns2.addFile(file2)
 
         File file3 = File.builder().name("testdata/testproj/src/main/java/test/test/Test3.java").relPath("Test3.java").type(FileType.SOURCE).create()
-        Enum type3 = Enum.builder().name("Test3").accessibility(Accessibility.PUBLIC).start(1).end(6).create()
+        Type type3 = Type.builder().type(Type.ENUM).name("Test3").accessibility(Accessibility.PUBLIC).start(1).end(6).create()
         Literal lit1 = Literal.builder().name("LITERAL1").compKey().start(3).end(3).create()
         Literal lit2 = Literal.builder().name("LITERAL2").compKey().start(4).end(4).create()
         Literal lit3 = Literal.builder().name("LITERAL3").compKey().start(5).end(5).create()

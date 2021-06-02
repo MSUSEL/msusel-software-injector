@@ -26,8 +26,9 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.type
 
-import com.google.common.collect.Sets
-import edu.isu.isuese.datamodel.*
+
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.source.BasicSourceTransform
 import groovy.transform.builder.Builder
 import groovy.util.logging.Log4j2
@@ -69,14 +70,14 @@ class AddType extends BasicSourceTransform {
     @Override
     void buildContent() {
         text = ""
-        switch (type) {
-            case Class:
+        switch (type.getType()) {
+            case Type.CLASS:
                 text = createTemplate("class")
                 break
-            case Enum:
+            case Type.ENUM:
                 text = createTemplate("enum")
                 break
-            case Interface:
+            case Type.INTERFACE:
                 text = createTemplate("interface")
                 break
         }

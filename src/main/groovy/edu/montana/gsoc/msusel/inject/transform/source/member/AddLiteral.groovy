@@ -26,9 +26,10 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
-import edu.isu.isuese.datamodel.Enum
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Literal
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.source.BasicSourceTransform
 
 /**
@@ -37,7 +38,7 @@ import edu.montana.gsoc.msusel.inject.transform.source.BasicSourceTransform
  */
 class AddLiteral extends BasicSourceTransform {
 
-    Enum type
+    Type type
     Literal literal
 
     int delta
@@ -48,7 +49,7 @@ class AddLiteral extends BasicSourceTransform {
      * Constructs a new BasicSourceTransform
      * @param file the file to be modified
      */
-    AddLiteral(File file, Enum type, Literal literal) {
+    AddLiteral(File file, Type type, Literal literal) {
         super(file)
         this.type = type
         this.literal = literal

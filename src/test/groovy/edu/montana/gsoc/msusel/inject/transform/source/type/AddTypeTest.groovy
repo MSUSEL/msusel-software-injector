@@ -27,7 +27,6 @@
 package edu.montana.gsoc.msusel.inject.transform.source.type
 
 import edu.isu.isuese.datamodel.Accessibility
-import edu.isu.isuese.datamodel.Class
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
@@ -39,7 +38,7 @@ class AddTypeTest extends BaseSourceTransformSpec {
     void execute() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.builder().name("Test5").compKey("Test5").accessibility(Accessibility.PUBLIC).start(1).end(1).create()
+        Type type = Type.builder().name("Test5").compKey("Test5").accessibility(Accessibility.PUBLIC).start(1).end(1).create()
         file.addType(type)
         java.io.File actual = new java.io.File(file.getFullPath())
         AddType fixture = new AddType(file, type)
@@ -82,7 +81,7 @@ public class Test5 {
     void "execute default access"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.builder().name("Test5").compKey("Test5").accessibility(Accessibility.DEFAULT).start(1).end(1).create()
+        Type type = Type.builder().name("Test5").compKey("Test5").accessibility(Accessibility.DEFAULT).start(1).end(1).create()
         file.addType(type)
         java.io.File actual = new java.io.File(file.getFullPath())
         AddType fixture = new AddType(file, type)

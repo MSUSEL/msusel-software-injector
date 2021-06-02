@@ -37,7 +37,7 @@ class TypeTransformTest extends BaseSourceTransformSpec {
     void "kind for class"() {
         // given
         File file = File.builder().name("test").create()
-        Type type = Class.builder().name("test").create()
+        Type type = Type.builder().name("test").create()
         file.addType(type)
         TypeTransform fixture = new RenameType(file, type, "newtest")
 
@@ -52,7 +52,7 @@ class TypeTransformTest extends BaseSourceTransformSpec {
     void "kind for interface"() {
         // given
         File file = File.builder().name("test").create()
-        Type type = Interface.builder().name("test").create()
+        Type type = Type.builder().type(Type.INTERFACE).name("test").create()
         file.addType(type)
         TypeTransform fixture = new RenameType(file, type, "newtest")
 
@@ -67,7 +67,7 @@ class TypeTransformTest extends BaseSourceTransformSpec {
     void "kind for enum"() {
         // given
         File file = File.builder().name("test").create()
-        Type type = Enum.builder().name("test").create()
+        Type type = Type.builder().type(Type.ENUM).name("test").create()
         file.addType(type)
         TypeTransform fixture = new RenameType(file, type, "newtest")
 

@@ -27,7 +27,6 @@
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
 import edu.isu.isuese.datamodel.Accessibility
-import edu.isu.isuese.datamodel.Class
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import org.junit.Test
@@ -38,7 +37,7 @@ class AddMethodModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute happy path"() {
         // given
         String name = "methodX"
-        Type methodType = Class.findFirst("name = ?", "TypeX")
+        Type methodType = Type.findFirst("name = ?", "TypeX")
         Accessibility access = Accessibility.PUBLIC
 
         // when
@@ -53,7 +52,7 @@ class AddMethodModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute name is null"() {
         // given
         String name = null
-        Type methodType = Class.findFirst("name = ?", "TypeX")
+        Type methodType = Type.findFirst("name = ?", "TypeX")
         Accessibility access = Accessibility.PUBLIC
 
         // when
@@ -65,7 +64,7 @@ class AddMethodModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute name is empty"() {
         // given
         String name = ""
-        Type methodType = Class.findFirst("name = ?", "TypeX")
+        Type methodType = Type.findFirst("name = ?", "TypeX")
         Accessibility access = Accessibility.PUBLIC
 
         // when
@@ -77,7 +76,7 @@ class AddMethodModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute type has method"() {
         // given
         String name = "methodZ"
-        Type methodType = Class.findFirst("name = ?", "TypeX")
+        Type methodType = Type.findFirst("name = ?", "TypeX")
         Accessibility access = Accessibility.PUBLIC
 
         // when
@@ -101,7 +100,7 @@ class AddMethodModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute access is null"() {
         // given
         String name = "methodX"
-        Type methodType = Class.findFirst("name = ?", "TypeX")
+        Type methodType = Type.findFirst("name = ?", "TypeX")
         Accessibility access = null
 
         // when

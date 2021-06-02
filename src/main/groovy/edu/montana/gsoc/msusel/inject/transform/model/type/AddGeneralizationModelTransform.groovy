@@ -26,8 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Class
-import edu.isu.isuese.datamodel.Interface
+
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.model.TypeModelTransform
@@ -52,7 +51,7 @@ class AddGeneralizationModelTransform extends TypeModelTransform {
         if (!gen)
             throw new ModelTransformPreconditionsNotMetException()
         // 2. either both type and gen are classes or both are interfaces
-        if (!(type instanceof Class && gen instanceof Class) && !(type instanceof Interface && gen instanceof Interface))
+        if (!(type.getType() == Type.CLASS && gen.getType() == Type.CLASS) && !(type.getType() == Type.INTERFACE && gen.getType() == Type.INTERFACE))
             throw new ModelTransformPreconditionsNotMetException()
         // 3. type does not already extend something
         if (!type.getGeneralizedBy().isEmpty())

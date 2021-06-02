@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.member
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Field
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Method
@@ -46,7 +46,7 @@ abstract class MemberModelTransformBaseTest extends BaseSourceTransformSpec {
     protected void localSetup() {
         super.localSetup()
         file = File.findFirst("name = ?", "TypeC.java")
-        type = Class.findFirst("name = ?", "TypeC")
+        type = Type.findFirst("name = ?", "TypeC")
         method = Method.findFirst("name = ?", "methodC1")
         field = Field.findFirst("name = ?", "cX")
     }

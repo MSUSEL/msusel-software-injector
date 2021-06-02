@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Interface
+
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import org.junit.Test
@@ -36,7 +36,7 @@ class AddRealizationModelTransformTest extends TypeModelTransformBaseTest {
     @Test
     void "test execute happy path"() {
         // given
-        Type real = Interface.findFirst("name = ?", "TypeYY")
+        Type real = Type.findFirst("name = ?", "TypeYY")
 
         // when
         fixture = new AddRealizationModelTransform(type, real)
@@ -59,7 +59,7 @@ class AddRealizationModelTransformTest extends TypeModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute already realizing type"() {
         // given
-        Type real = Interface.findFirst("name = ?", "TypeY")
+        Type real = Type.findFirst("name = ?", "TypeY")
 
         // when
         fixture = new AddRealizationModelTransform(type, real)

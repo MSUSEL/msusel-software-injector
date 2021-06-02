@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.member
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Method
 import edu.isu.isuese.datamodel.Parameter
 import edu.isu.isuese.datamodel.Type
@@ -39,7 +39,7 @@ class AddParameterUseModelTransformTest extends MemberModelTransformBaseTest {
     @Test
     void "test execute happy path"() {
         // given
-        Type use = Class.findFirst("name = ?", "TypeZ")
+        Type use = Type.findFirst("name = ?", "TypeZ")
         fixture = new AddParameterUseModelTransform(method, use)
 
         // when
@@ -54,7 +54,7 @@ class AddParameterUseModelTransformTest extends MemberModelTransformBaseTest {
     void "test execute member is null"() {
         // given
         method = null
-        Type use = Class.findFirst("name = ?", "TypeZ")
+        Type use = Type.findFirst("name = ?", "TypeZ")
         fixture = new AddParameterUseModelTransform(method, use)
 
         // when
@@ -74,7 +74,7 @@ class AddParameterUseModelTransformTest extends MemberModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute member is not a method"() {
         // given
-        Type use = Class.findFirst("name = ?", "TypeZ")
+        Type use = Type.findFirst("name = ?", "TypeZ")
         fixture = new AddParameterUseModelTransform(field, use)
 
         // when
@@ -85,7 +85,7 @@ class AddParameterUseModelTransformTest extends MemberModelTransformBaseTest {
     void "test execute method already has param with name"() {
         // given
         method.addParameter(Parameter.builder().name("typeZ").type(TypeRef.createPrimitiveTypeRef("int")).create())
-        Type use = Class.findFirst("name = ?", "TypeZ")
+        Type use = Type.findFirst("name = ?", "TypeZ")
         fixture = new AddParameterUseModelTransform(method, use)
 
         // when

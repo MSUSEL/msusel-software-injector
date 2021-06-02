@@ -27,7 +27,6 @@
 package edu.montana.gsoc.msusel.inject.transform.source.type
 
 import edu.isu.isuese.datamodel.Accessibility
-import edu.isu.isuese.datamodel.Class
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
@@ -39,7 +38,7 @@ class DeleteTypeTest extends BaseSourceTransformSpec {
     void "test execute with a single type in file"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         DeleteType fixture = new DeleteType(file, type)
         java.io.File actual = new java.io.File(file.getFullPath())
 
@@ -59,12 +58,12 @@ import java.util.*;""")
     void "test execute with multiple types in file"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         DeleteType fixture = new DeleteType(file, type)
         java.io.File actual = new java.io.File(file.getFullPath())
         createMultipleTypeFileFirst(actual)
         file.refresh()
-        Type type2 = Class.findFirst("name = ?", "Test5")
+        Type type2 = Type.findFirst("name = ?", "Test5")
 
         // when
         fixture.execute()
@@ -90,11 +89,11 @@ public class Test5 {
     void "test execute with multiple types in file to remove is second"() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         java.io.File actual = new java.io.File(file.getFullPath())
         createMultipleTypeFileSecond(actual)
         file.refresh()
-        Type type2 = Class.findFirst("name = ?", "Test5")
+        Type type2 = Type.findFirst("name = ?", "Test5")
         type.refresh()
         DeleteType fixture = new DeleteType(file, type)
 
@@ -121,10 +120,10 @@ public class Test5 {
     private createMultipleTypeFileFirst(java.io.File actual) {
         File file = File.findFirst("name = ?", "Test1.java")
         file.setEnd(file.getEnd() + 4)
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         type.setStart(type.getStart() + 4)
         type.setEnd(type.getEnd() + 4)
-        Type type2 = Class.builder().name("Test5").compKey("Test5").accessibility(Accessibility.PUBLIC).start(18).end(20).create()
+        Type type2 = Type.builder().name("Test5").compKey("Test5").accessibility(Accessibility.PUBLIC).start(18).end(20).create()
         file.addType(type2)
         type.getParentNamespace().addType(type2)
         actual.text = """\
@@ -154,10 +153,10 @@ public class Test5 {
     private createMultipleTypeFileSecond(java.io.File actual) {
         File file = File.findFirst("name = ?", "Test1.java")
         file.setEnd(21)
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         type.setStart(type.getStart() + 4)
         type.setEnd(type.getEnd() + 4)
-        Type type2 = Class.builder().name("Test5").compKey("Test5").accessibility(Accessibility.PUBLIC).start(5).end(7).create()
+        Type type2 = Type.builder().name("Test5").compKey("Test5").accessibility(Accessibility.PUBLIC).start(5).end(7).create()
         file.addType(type2)
         actual.text = """\
 package test.test;

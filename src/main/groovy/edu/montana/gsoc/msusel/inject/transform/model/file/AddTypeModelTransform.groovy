@@ -26,7 +26,11 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.file
 
-import edu.isu.isuese.datamodel.*
+
+import edu.isu.isuese.datamodel.Accessibility
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Modifier
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.FileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.source.type.AddType
@@ -72,21 +76,24 @@ class AddTypeModelTransform extends FileModelTransform {
         // Execute Transform
         switch (typeName) {
             case "class":
-                type = Class.builder()
+                type = Type.builder()
+                        .type(Type.CLASS)
                         .name(name)
                         .compKey(file.getParentNamespace().getNsKey() + ":" + name)
                         .accessibility(access)
                         .create()
                 break
             case "interface":
-                type = Interface.builder()
+                type = Type.builder()
+                        .type(Type.INTERFACE)
                         .name(name)
                         .accessibility(access)
                         .compKey(file.getParentNamespace().getNsKey() + ":" + name)
                         .create()
                 break
             case "enum":
-                type = Enum.builder()
+                type = Type.builder()
+                        .type(Type.ENUM)
                         .name(name)
                         .accessibility(access)
                         .compKey(file.getParentNamespace().getNsKey() + ":" + name)

@@ -26,23 +26,13 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source
 
-import edu.isu.isuese.datamodel.Accessibility
-import edu.isu.isuese.datamodel.Class
-import edu.isu.isuese.datamodel.Field
-import edu.isu.isuese.datamodel.File
-import edu.isu.isuese.datamodel.FileType
-import edu.isu.isuese.datamodel.Interface
-import edu.isu.isuese.datamodel.Method
-import edu.isu.isuese.datamodel.Namespace
-import edu.isu.isuese.datamodel.Type
-import edu.isu.isuese.datamodel.TypeRef
+import edu.isu.isuese.datamodel.*
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
 import edu.montana.gsoc.msusel.inject.transform.model.file.AddTypeModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.member.AddFieldUseModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.namespace.AddFileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddMethodModelTransform
-import edu.montana.gsoc.msusel.inject.transform.source.member.AddMethod
 import edu.montana.gsoc.msusel.inject.transform.source.member.CreateEncapsulatedField
 import junitparams.JUnitParamsRunner
 import junitparams.Parameters
@@ -78,7 +68,7 @@ class ComplicatedTransformsTest  extends BaseSourceTransformSpec {
         the(type.getStart()).shouldBeEqual(35)
         the(type.getEnd()).shouldBeEqual(37)
 
-        Type fieldType = Class.findFirst("name = ?", "Test1")
+        Type fieldType = Type.findFirst("name = ?", "Test1")
         AddFieldModelTransform addField = new AddFieldModelTransform(type, fieldName, fieldType, Accessibility.PRIVATE)
         addField.execute()
         Field field = addField.getField()
@@ -160,10 +150,10 @@ public class TestX {
         // Given
         Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test.test")
         File file = File.findFirst("name = ?", "Test23.java")
-        Type type = Class.findFirst("name = ?", "Test23")
+        Type type = Type.findFirst("name = ?", "Test23")
         Method method = Method.findFirst("name = ?", "aMethod23")
         String fieldName = "typeX"
-        Type fieldType = Class.findFirst("name = ?", "Test1")
+        Type fieldType = Type.findFirst("name = ?", "Test1")
 
         the(file.getStart()).shouldBeEqual(1)
         the(file.getEnd()).shouldBeEqual(43)
@@ -343,7 +333,7 @@ public class TestX {
         // Given
         Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test.test")
         File file = File.findFirst("name = ?", "Test23.java")
-        Type type = Class.findFirst("name = ?", "Test23")
+        Type type = Type.findFirst("name = ?", "Test23")
         Method method = Method.findFirst("name = ?", "aMethod23")
         String fieldName = "test"
         TypeRef fieldType = TypeRef.createPrimitiveTypeRef("int")
@@ -514,7 +504,7 @@ public class TestX {
         // Given
         Namespace ns = Namespace.findFirst("nsKey = ?", "testdata:testproj:1.0:test.test")
         File file = File.findFirst("name = ?", "Test24.java")
-        Type type = Class.findFirst("name = ?", "Test24")
+        Type type = Type.findFirst("name = ?", "Test24")
         String fieldName = "test"
         TypeRef fieldType = TypeRef.createPrimitiveTypeRef("int")
 
@@ -673,7 +663,7 @@ public class Test24 {
         setter.refresh()
         field.refresh()
 
-        AddMethodModelTransform trans = new AddMethodModelTransform(type, "test1", (Type) Class.findFirst("name = ?", "TypeZ"), Accessibility.PUBLIC)
+        AddMethodModelTransform trans = new AddMethodModelTransform(type, "test1", (Type) Type.findFirst("name = ?", "TypeZ"), Accessibility.PUBLIC)
         trans.execute()
         trans = new AddMethodModelTransform(type, "test2", TypeRef.createPrimitiveTypeRef("void"), Accessibility.PUBLIC)
         trans.execute()
@@ -690,7 +680,7 @@ public class Test24 {
         trans = new AddMethodModelTransform(type, "test8", TypeRef.createPrimitiveTypeRef("void"), Accessibility.PUBLIC)
         trans.execute()
 
-        AddFieldModelTransform afmt = new AddFieldModelTransform(type, "newField", Interface.findFirst("name = ?", "TypeY"), Accessibility.PRIVATE)
+        AddFieldModelTransform afmt = new AddFieldModelTransform(type, "newField", Type.findFirst("name = ?", "TypeY"), Accessibility.PRIVATE)
         afmt.execute()
 
         AddFieldUseModelTransform afumt = new AddFieldUseModelTransform(method, afmt.field)

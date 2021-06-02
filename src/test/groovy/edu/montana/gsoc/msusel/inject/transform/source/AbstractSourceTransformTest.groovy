@@ -26,13 +26,12 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Import
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
 import edu.montana.gsoc.msusel.inject.transform.source.structural.RenameFile
-import org.junit.Assert
 import org.junit.Test
 
 class AbstractSourceTransformTest extends BaseSourceTransformSpec {
@@ -43,7 +42,7 @@ class AbstractSourceTransformTest extends BaseSourceTransformSpec {
         File file = File.builder().name("test").start(1).end(10).create()
         Import imp1 = Import.builder().name("import0").start(1).end(2).create()
         Import imp2 = Import.builder().name("import1").start(3).end(3).create()
-        Type type = Class.builder().name("test").start(4).end(10).create()
+        Type type = Type.builder().type(Type.CLASS).name("test").start(4).end(10).create()
         file.addType(type)
         file.addImport(imp1)
         file.addImport(imp2)
@@ -72,7 +71,7 @@ class AbstractSourceTransformTest extends BaseSourceTransformSpec {
         File file = File.builder().name("test").start(1).end(10).create()
         Import imp1 = Import.builder().name("import0").start(1).end(2).create()
         Import imp2 = Import.builder().name("import1").start(3).end(3).create()
-        Type type = Class.builder().name("test").start(4).end(10).create()
+        Type type = Type.builder().type(Type.CLASS).name("test").start(4).end(10).create()
         file.addType(type)
         file.addImport(imp1)
         file.addImport(imp2)

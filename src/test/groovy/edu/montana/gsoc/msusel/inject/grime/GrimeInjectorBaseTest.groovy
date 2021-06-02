@@ -26,23 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-import edu.isu.isuese.datamodel.Accessibility
-import edu.isu.isuese.datamodel.Class
-import edu.isu.isuese.datamodel.Field
-import edu.isu.isuese.datamodel.File
-import edu.isu.isuese.datamodel.FileType
-import edu.isu.isuese.datamodel.Method
-import edu.isu.isuese.datamodel.Module
-import edu.isu.isuese.datamodel.Namespace
-import edu.isu.isuese.datamodel.Pattern
-import edu.isu.isuese.datamodel.PatternInstance
-import edu.isu.isuese.datamodel.Project
-import edu.isu.isuese.datamodel.Role
-import edu.isu.isuese.datamodel.RoleBinding
-import edu.isu.isuese.datamodel.RoleType
-import edu.isu.isuese.datamodel.System
-import edu.isu.isuese.datamodel.Type
-import edu.isu.isuese.datamodel.TypeRef
+import edu.isu.isuese.datamodel.*
 import org.javalite.activejdbc.test.DBSpec
 import org.junit.After
 import org.junit.Before
@@ -112,14 +96,14 @@ abstract class GrimeInjectorBaseTest extends DBSpec {
         sys.addProject(proj)
 
         File fileA = File.builder().name("TypeA.java").relPath("TypeA.java").type(FileType.SOURCE).start(1).end(8).create()
-        typeA = Class.builder().name("TypeA").accessibility(Accessibility.PUBLIC).start(3).end(8).create()
+        typeA = Type.builder().type(Type.CLASS).name("TypeA").accessibility(Accessibility.PUBLIC).start(3).end(8).create()
         fileA.addType(typeA)
         ns4.addFile(fileA)
         ns4.addType(typeA)
         proj.addFile(fileA)
 
         File fileB = File.builder().name("TypeB.java").relPath("TypeB.java").type(FileType.SOURCE).start(1).end(7).create()
-        typeB = Class.builder().name("TypeB").accessibility(Accessibility.PUBLIC).start(3).end(7).create()
+        typeB = Type.builder().type(Type.CLASS).name("TypeB").accessibility(Accessibility.PUBLIC).start(3).end(7).create()
         typeB.addModifier("ABSTRACT")
         fileB.addType(typeB)
         ns2.addFile(fileB)
@@ -127,42 +111,42 @@ abstract class GrimeInjectorBaseTest extends DBSpec {
         ns2.addType(typeB)
 
         File fileC = File.builder().name("TypeC.java").relPath("TypeC.java").type(FileType.SOURCE).start(1).end(8).create()
-        typeC = Class.builder().name("TypeC").accessibility(Accessibility.PUBLIC).start(3).end(8).create()
+        typeC = Type.builder().type(Type.CLASS).name("TypeC").accessibility(Accessibility.PUBLIC).start(3).end(8).create()
         fileC.addType(typeC)
         ns5.addFile(fileC)
         ns5.addType(typeC)
         proj.addFile(fileC)
 
         File fileD = File.builder().name("TypeD.java").relPath("TypeD.java").type(FileType.SOURCE).start(1).end(7).create()
-        typeD = Class.builder().name("TypeD").accessibility(Accessibility.PUBLIC).start(3).end(7).create()
+        typeD = Type.builder().type(Type.CLASS).name("TypeD").accessibility(Accessibility.PUBLIC).start(3).end(7).create()
         fileD.addType(typeD)
         ns2.addFile(fileD)
         proj.addFile(fileD)
         ns2.addType(typeD)
 
         File fileE = File.builder().name("TypeE.java").relPath("TypeE.java").type(FileType.SOURCE).start(1).end(7).create()
-        typeE = Class.builder().name("TypeE").accessibility(Accessibility.PUBLIC).start(3).end(7).create()
+        typeE = Type.builder().type(Type.CLASS).name("TypeE").accessibility(Accessibility.PUBLIC).start(3).end(7).create()
         fileE.addType(typeE)
         ns2.addFile(fileE)
         ns2.addType(typeE)
         proj.addFile(fileE)
 
         File fileF = File.builder().name("TypeF.java").relPath("TypeF.java").type(FileType.SOURCE).start(1).end(7).create()
-        typeF = Class.builder().name("TypeF").accessibility(Accessibility.PUBLIC).start(3).end(7).create()
+        typeF = Type.builder().type(Type.CLASS).name("TypeF").accessibility(Accessibility.PUBLIC).start(3).end(7).create()
         fileF.addType(typeF)
         ns1.addFile(fileF)
         ns1.addType(typeF)
         proj.addFile(fileF)
 
         File fileG = File.builder().name("TypeG.java").relPath("TypeG.java").type(FileType.SOURCE).start(1).end(7).create()
-        typeG = Class.builder().name("TypeG").accessibility(Accessibility.PUBLIC).start(3).end(7).create()
+        typeG = Type.builder().type(Type.CLASS).name("TypeG").accessibility(Accessibility.PUBLIC).start(3).end(7).create()
         fileG.addType(typeG)
         ns2.addFile(fileG)
         ns2.addType(typeG)
         proj.addFile(fileG)
 
         File fileH = File.builder().name("TypeH.java").relPath("TypeH.java").type(FileType.SOURCE).start(1).end(5).create()
-        typeH = Class.builder().name("TypeH").accessibility(Accessibility.PUBLIC).start(3).end(5).create()
+        typeH = Type.builder().type(Type.CLASS).name("TypeH").accessibility(Accessibility.PUBLIC).start(3).end(5).create()
         fileH.addType(typeH)
         ns3.addFile(fileH)
         proj.addFile(fileH)

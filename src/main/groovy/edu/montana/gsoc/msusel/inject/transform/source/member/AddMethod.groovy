@@ -26,7 +26,11 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
-import edu.isu.isuese.datamodel.*
+
+import edu.isu.isuese.datamodel.Accessibility
+import edu.isu.isuese.datamodel.File
+import edu.isu.isuese.datamodel.Method
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.source.AddMember
 import groovy.transform.builder.Builder
 
@@ -133,7 +137,7 @@ class AddMethod extends AddMember {
         updateImports()
 
         if (this.method.isAbstract()) {
-            if (type instanceof Interface) {
+            if (type.getType() == Type.INTERFACE) {
                 type.getRealizedBy().each {
                     implementAbstractMethod(it, type, method)
                 }

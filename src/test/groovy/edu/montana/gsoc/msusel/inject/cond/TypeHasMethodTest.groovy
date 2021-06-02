@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Method
 import edu.isu.isuese.datamodel.Type
 import org.javalite.activejdbc.test.DBSpec
@@ -43,7 +43,7 @@ class TypeHasMethodTest extends DBSpec {
 
     @Before
     void setUp() throws Exception {
-        type = Class.builder().name("Test").compKey("Test").create()
+        type = Type.builder().type(Type.CLASS).name("Test").compKey("Test").create()
         method = Method.builder().name("Method").compKey("Test:Method").create()
         name = method.name
         fixture = new TypeHasMethod(type, method)

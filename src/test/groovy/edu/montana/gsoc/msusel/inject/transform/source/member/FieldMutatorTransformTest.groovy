@@ -38,7 +38,7 @@ class FieldMutatorTransformTest extends BaseSourceTransformSpec {
     void execute() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         Field field = Field.findFirst("name = ?", "name")
         AddFieldSetter fixture = new AddFieldSetter(file, type, field)
         java.io.File actual = new java.io.File(file.getFullPath())

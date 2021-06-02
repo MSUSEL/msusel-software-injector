@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.relation
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
@@ -39,8 +39,8 @@ class AddAssociationTest extends BaseSourceTransformSpec {
         // given
         File fromFile = File.findFirst("name = ?", "Test1.java")
         File toFile = File.findFirst("name = ?", "Test9.java")
-        Type fromType = Class.findFirst("name = ?", "Test1")
-        Type toType = Class.findFirst("name = ?", "Test9")
+        Type fromType = Type.findFirst("name = ?", "Test1")
+        Type toType = Type.findFirst("name = ?", "Test9")
         String toName = "test1"
         String fromName = "test9"
         boolean bidirect = true

@@ -36,7 +36,7 @@ class AddConstructorTest extends BaseSourceTransformSpec {
     void execute() {
         // given
         File file = File.findFirst("name = ?", "Test11.java")
-        Type type = Class.findFirst("name = ?", "Test11")
+        Type type = Type.findFirst("name = ?", "Test11")
         Constructor cnst = Constructor.creator().name("Test11").compKey("Test11").accessibility(Accessibility.PUBLIC).create()
         String body = ""
         AddConstructor fixture = new AddConstructor(file, type, cnst, body)

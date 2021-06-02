@@ -27,7 +27,6 @@
 package edu.montana.gsoc.msusel.inject.transform.source.type
 
 import edu.isu.isuese.datamodel.Accessibility
-import edu.isu.isuese.datamodel.Class
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
@@ -39,7 +38,7 @@ class ChangeTypeAccessibilityTest extends BaseSourceTransformSpec {
     void execute() {
         // given
         File file = File.findFirst("name = ?", "Test1.java")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         type.setAccessibility(Accessibility.PRIVATE)
         ChangeTypeAccessibility fixture = new ChangeTypeAccessibility(file, type, Accessibility.PUBLIC)
         java.io.File actual = new java.io.File(file.getFullPath())

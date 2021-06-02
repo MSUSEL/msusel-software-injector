@@ -36,7 +36,7 @@ class AddMethodParameterTest extends BaseSourceTransformSpec {
     void execute() {
         // given
         File file = File.findFirst("name = ?", "Test10.java")
-        Type type = Class.findFirst("name = ?", "Test10")
+        Type type = Type.findFirst("name = ?", "Test10")
         Method method = Method.findFirst("name = ?", "method4")
         Parameter param = Parameter.builder().name("paramX").type(TypeRef.createPrimitiveTypeRef("int")).create()
         method.addParameter(param)

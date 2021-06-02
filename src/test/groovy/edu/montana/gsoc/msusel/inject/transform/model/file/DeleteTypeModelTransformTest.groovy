@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.file
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import org.junit.Test
@@ -36,7 +36,7 @@ class DeleteTypeModelTransformTest extends FileModelTransformBaseTest {
     @Test
     void "test execute happy path"() {
         // given
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
 
         // when
         fixture = new DeleteTypeModelTransform(file, type)
@@ -59,7 +59,7 @@ class DeleteTypeModelTransformTest extends FileModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute file does not contain type"() {
         // given
-        Type type = Class.findFirst("name = ?", "Test2")
+        Type type = Type.findFirst("name = ?", "Test2")
 
         // when
         fixture = new DeleteTypeModelTransform(file, type)

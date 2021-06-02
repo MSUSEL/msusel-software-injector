@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Enum
+
 import edu.isu.isuese.datamodel.Literal
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
@@ -50,7 +50,7 @@ class AddLiteralModelTransform extends TypeModelTransform {
     @Override
     void verifyPreconditions() {
         // 0. Type is an Enum
-        if ((!type instanceof Enum))
+        if (type.getType() != Type.ENUM)
             throw new ModelTransformPreconditionsNotMetException()
         // 1. name is not null or empty
         if (!name)
@@ -66,7 +66,7 @@ class AddLiteralModelTransform extends TypeModelTransform {
         literal = Literal.builder().name(name).compKey(name).create()
 
         // Generate Source Transform
-        new AddLiteral(type.getParentFile(), (Enum) type, literal).execute()
+        new AddLiteral(type.getParentFile(), type, literal).execute()
     }
 
     @Override

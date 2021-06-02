@@ -26,12 +26,12 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Enum
+
 import edu.isu.isuese.datamodel.Literal
 import edu.isu.isuese.datamodel.Type
-import edu.montana.gsoc.msusel.inject.transform.source.member.MoveLiteral
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.model.TypeModelTransform
+import edu.montana.gsoc.msusel.inject.transform.source.member.MoveLiteral
 
 /**
  * @author Isaac Griffith
@@ -74,7 +74,7 @@ class MoveLiteralModelTransform extends TypeModelTransform {
         newParent.addMember(literal)
         literal.updateKey()
         // Generate Source Transform
-        new MoveLiteral(type.getParentFile(), (Enum) type, newParent.getParentFile(), (Enum) newParent, literal).execute() // TODO Fix this
+        new MoveLiteral(type.getParentFile(), type, newParent.getParentFile(), newParent, literal).execute() // TODO Fix this
     }
 
     @Override

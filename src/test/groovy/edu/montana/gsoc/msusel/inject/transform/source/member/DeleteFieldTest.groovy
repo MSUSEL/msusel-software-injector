@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Field
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
@@ -39,7 +39,7 @@ class DeleteFieldTest extends BaseSourceTransformSpec {
     void "test execute single line field"() {
         // given
         Field field = Field.findFirst("name = ?", "name")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         File file = File.findFirst("name = ?", "Test1.java")
         DeleteField fixture = new DeleteField(file, type, field)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -72,7 +72,7 @@ public class Test1 implements Test2 {
     void "test execute multi line field"() {
         // given
         Field field = Field.findFirst("name = ?", "name")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         File file = File.findFirst("name = ?", "Test1.java")
         DeleteField fixture = new DeleteField(file, type, field)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -105,7 +105,7 @@ public class Test1 implements Test2 {
     void "test execute single line multi field first"() {
         // given
         Field field = Field.findFirst("name = ?", "name9")
-        Type type = Class.findFirst("name = ?", "Test9")
+        Type type = Type.findFirst("name = ?", "Test9")
         File file = File.findFirst("name = ?", "Test9.java")
         DeleteField fixture = new DeleteField(file, type, field)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -135,7 +135,7 @@ public class Test9 implements Test2 {
     void "test execute single line multi field last"() {
         // given
         Field field = Field.findFirst("name = ?", "other")
-        Type type = Class.findFirst("name = ?", "Test9")
+        Type type = Type.findFirst("name = ?", "Test9")
         File file = File.findFirst("name = ?", "Test9.java")
         DeleteField fixture = new DeleteField(file, type, field)
         java.io.File actual = new java.io.File(file.getFullPath())

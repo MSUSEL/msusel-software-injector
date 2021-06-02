@@ -26,9 +26,10 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
-import edu.isu.isuese.datamodel.Enum
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Literal
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.source.AddMember
 
 /**
@@ -37,8 +38,8 @@ import edu.montana.gsoc.msusel.inject.transform.source.AddMember
  */
 class MoveLiteral extends AddMember {
 
-    Enum from
-    Enum to
+    Type from
+    Type to
     Literal literal
     File toFile
 
@@ -49,7 +50,7 @@ class MoveLiteral extends AddMember {
      * Constructs a new BasicSourceTransform
      * @param file the file to be modified
      */
-    MoveLiteral(File file, Enum from, File toFile, Enum to, Literal literal) {
+    MoveLiteral(File file, Type from, File toFile, Type to, Literal literal) {
         super(file)
         this.from = from
         this.to = to

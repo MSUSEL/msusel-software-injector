@@ -26,12 +26,9 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.relation
 
-import edu.isu.isuese.datamodel.Class
 import edu.isu.isuese.datamodel.File
-import edu.isu.isuese.datamodel.Interface
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
-import org.junit.Assert
 import org.junit.Test
 
 class AddRealizationTest extends BaseSourceTransformSpec {
@@ -40,8 +37,8 @@ class AddRealizationTest extends BaseSourceTransformSpec {
     void "test execute without other interfaces"() {
         // given
         File file = File.findFirst("name = ?", "Test13.java")
-        Type type = Class.findFirst("name = ?", "Test13")
-        Type real = Interface.findFirst("name = ?", "Test2")
+        Type type = Type.findFirst("name = ?", "Test13")
+        Type real = Type.findFirst("name = ?", "Test2")
         AddRealization fixture = new AddRealization(file, type, real)
         java.io.File actual = new java.io.File(file.getFullPath())
 
@@ -71,8 +68,8 @@ public class Test13 implements Test2 {
         // given
         File file = File.findFirst("name = ?", "Test13.java")
         updateFileText(file, "implements TestX")
-        Type type = Class.findFirst("name = ?", "Test13")
-        Type real = Interface.findFirst("name = ?", "Test2")
+        Type type = Type.findFirst("name = ?", "Test13")
+        Type real = Type.findFirst("name = ?", "Test2")
         AddRealization fixture = new AddRealization(file, type, real)
         java.io.File actual = new java.io.File(file.getFullPath())
 
@@ -102,8 +99,8 @@ public class Test13 implements TestX, Test2 {
         // given
         File file = File.findFirst("name = ?", "Test13.java")
         updateFileText(file, "extends TestX")
-        Type type = Class.findFirst("name = ?", "Test13")
-        Type real = Interface.findFirst("name = ?", "Test2")
+        Type type = Type.findFirst("name = ?", "Test13")
+        Type real = Type.findFirst("name = ?", "Test2")
         AddRealization fixture = new AddRealization(file, type, real)
         java.io.File actual = new java.io.File(file.getFullPath())
 

@@ -37,7 +37,7 @@ class ChangeMemberTypeTest extends BaseSourceTransformSpec {
         // given
         File file = File.findFirst("name = ?", "Test10.java")
         TypedMember member = Field.findFirst("name = ?", "COUNT")
-        Type type = Class.findFirst("name = ?", "TypeZ")
+        Type type = Type.findFirst("name = ?", "TypeZ")
         TypeRef typeRef = type.createTypeRef()
         ChangeMemberType fixture = new ChangeMemberType(file, member, typeRef)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -67,7 +67,7 @@ public class Test10 implements Test2 {
         // given
         File file = File.findFirst("name = ?", "Test10.java")
         TypedMember member = Method.findFirst("name = ?", "method4")
-        Type type = Class.findFirst("name = ?", "TypeZ")
+        Type type = Type.findFirst("name = ?", "TypeZ")
         TypeRef typeRef = type.createTypeRef()
         ChangeMemberType fixture = new ChangeMemberType(file, member, typeRef)
         java.io.File actual = new java.io.File(file.getFullPath())

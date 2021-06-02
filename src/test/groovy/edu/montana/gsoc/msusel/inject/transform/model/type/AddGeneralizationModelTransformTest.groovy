@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import org.junit.Test
@@ -36,8 +36,8 @@ class AddGeneralizationModelTransformTest extends TypeModelTransformBaseTest {
     @Test
     void "test execute happy path"() {
         // given
-        Type gen = Class.findFirst("name = ?", "TypeXY")
-        type = Class.findFirst("name = ?", "TypeX")
+        Type gen = Type.findFirst("name = ?", "TypeXY")
+        type = Type.findFirst("name = ?", "TypeX")
 
         // when
         fixture = new AddGeneralizationModelTransform(type, gen)
@@ -51,7 +51,7 @@ class AddGeneralizationModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute type is null"() {
         // given
         Type gen = null
-        type = Class.findFirst("name = ?", "TypeX")
+        type = Type.findFirst("name = ?", "TypeX")
 
         // when
         fixture = new AddGeneralizationModelTransform(type, gen)
@@ -61,7 +61,7 @@ class AddGeneralizationModelTransformTest extends TypeModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute generalizes type"() {
         // given
-        Type gen = Class.findFirst("name = ?", "TypeX")
+        Type gen = Type.findFirst("name = ?", "TypeX")
 
         // when
         fixture = new AddGeneralizationModelTransform(type, gen)

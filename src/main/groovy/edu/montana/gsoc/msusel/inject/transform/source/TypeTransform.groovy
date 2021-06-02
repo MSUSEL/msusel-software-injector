@@ -46,12 +46,12 @@ abstract class TypeTransform extends BasicSourceTransform {
     }
 
     protected String kind() {
-        switch(type) {
-            case Class:
+        switch(type.getType()) {
+            case Type.CLASS:
                 return "class"
-            case Interface:
+            case Type.INTERFACE:
                 return "interface"
-            case Enum:
+            case Type.ENUM:
                 return "enum"
             default:
                 return ""

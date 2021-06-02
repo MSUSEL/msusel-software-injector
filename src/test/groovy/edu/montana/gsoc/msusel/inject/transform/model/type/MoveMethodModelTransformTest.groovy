@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Method
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
@@ -38,7 +38,7 @@ class MoveMethodModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute happy path"() {
         // given
         Method method = Method.findFirst("name = ?", "methodZ")
-        Type parent = Class.findFirst("name = ?", "TypeXY")
+        Type parent = Type.findFirst("name = ?", "TypeXY")
 
         // when
         fixture = new MoveMethodModelTransform(type, method, parent)
@@ -53,7 +53,7 @@ class MoveMethodModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute method is null"() {
         // given
         Method method = null
-        Type parent = Class.findFirst("name = ?", "TypeXY")
+        Type parent = Type.findFirst("name = ?", "TypeXY")
 
         // when
         fixture = new MoveMethodModelTransform(type, method, parent)
@@ -75,7 +75,7 @@ class MoveMethodModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute type does not contain method"() {
         // given
         Method method = Method.findFirst("name = ?", "method")
-        Type parent = Class.findFirst("name = ?", "TypeXY")
+        Type parent = Type.findFirst("name = ?", "TypeXY")
 
         // when
         fixture = new MoveMethodModelTransform(type, method, parent)

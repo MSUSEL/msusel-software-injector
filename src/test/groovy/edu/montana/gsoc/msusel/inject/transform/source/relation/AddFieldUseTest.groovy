@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.relation
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Field
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Method
@@ -41,7 +41,7 @@ class AddFieldUseTest extends BaseSourceTransformSpec {
     void "test execute with static field"() {
         // given
         File file = File.findFirst("name = ?", "Test16.java")
-        Type type = Class.findFirst("name = ?", "Test16")
+        Type type = Type.findFirst("name = ?", "Test16")
         Field field = type.getFieldWithName("yz")
         Method method = Method.findFirst("name = ?", "testXY")
         AddFieldUse fixture = new AddFieldUse(file, type, field, method)
@@ -87,7 +87,7 @@ public class Test16 {
     void "test execute with field from same type"() {
         // given
         File file = File.findFirst("name = ?", "Test16.java")
-        Type type = Class.findFirst("name = ?", "Test16")
+        Type type = Type.findFirst("name = ?", "Test16")
         Field field = type.getFieldWithName("xy")
         Method method = type.getMethodWithName("testXY")
         AddFieldUse fixture = new AddFieldUse(file, type, field, method)
@@ -133,7 +133,7 @@ public class Test16 {
     void "test execute with field where method declares local var"() {
         // given
         File file = File.findFirst("name = ?", "Test16.java")
-        Type type = Class.findFirst("name = ?", "Test16")
+        Type type = Type.findFirst("name = ?", "Test16")
         Field field = Field.findFirst("name = ?", "bb")
         Method method = Method.findFirst("name = ?", "testXX")
         AddFieldUse fixture = new AddFieldUse(file, type, field, method)
@@ -179,7 +179,7 @@ public class Test16 {
     void "test execute with field where method declares param"() {
         // given
         File file = File.findFirst("name = ?", "Test16.java")
-        Type type = Class.findFirst("name = ?", "Test16")
+        Type type = Type.findFirst("name = ?", "Test16")
         Field field = Field.findFirst("name = ?", "zz")
         Method method = Method.findFirst("name = ?", "testYY")
         AddFieldUse fixture = new AddFieldUse(file, type, field, method)
@@ -225,7 +225,7 @@ public class Test16 {
     void "test execute with field where type declares field"() {
         // given
         File file = File.findFirst("name = ?", "Test16.java")
-        Type type = Class.findFirst("name = ?", "Test16")
+        Type type = Type.findFirst("name = ?", "Test16")
         Field field = Field.findFirst("name = ?", "bb")
         Method method = Method.findFirst("name = ?", "testZZ")
         AddFieldUse fixture = new AddFieldUse(file, type, field, method)
@@ -271,7 +271,7 @@ public class Test16 {
     void "test execute with field where none of the above"() {
         // given
         File file = File.findFirst("name = ?", "Test16.java")
-        Type type = Class.findFirst("name = ?", "Test16")
+        Type type = Type.findFirst("name = ?", "Test16")
         Field field = Field.findFirst("name = ?", "zz")
         Method method = Method.findFirst("name = ?", "testZZ")
         AddFieldUse fixture = new AddFieldUse(file, type, field, method)

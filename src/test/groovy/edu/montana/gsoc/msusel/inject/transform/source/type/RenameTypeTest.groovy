@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.type
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
@@ -37,7 +37,7 @@ class RenameTypeTest extends BaseSourceTransformSpec {
     @Test
     void execute() {
         // given
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         File parent = File.findFirst("name = ?", "Test1.java")
         RenameType fixture = new RenameType(parent, type, "Test1")
         java.io.File file = new java.io.File(parent.getFullPath())

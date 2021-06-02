@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.relation
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
@@ -37,8 +37,8 @@ class DeleteGeneralizationTest extends BaseSourceTransformSpec {
     @Test
     void execute() {
         // given
-        Type src = Class.findFirst("name = ?", "Test7")
-        Type gen = Class.findFirst("name = ?", "Test1")
+        Type src = Type.findFirst("name = ?", "Test7")
+        Type gen = Type.findFirst("name = ?", "Test1")
         File file = File.findFirst("name = ?", "Test7.java")
         DeleteGeneralization fixture = new DeleteGeneralization(file, src, gen)
         java.io.File actual = new java.io.File(file.getFullPath())

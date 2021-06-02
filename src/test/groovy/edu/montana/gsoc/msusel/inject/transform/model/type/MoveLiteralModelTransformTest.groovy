@@ -26,11 +26,11 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Enum
+
 import edu.isu.isuese.datamodel.Literal
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
-import org.junit.Test;
+import org.junit.Test
 
 class MoveLiteralModelTransformTest extends TypeModelTransformBaseTest {
 
@@ -38,7 +38,7 @@ class MoveLiteralModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute happy path"() {
         // given
         Literal literal = Literal.findFirst("name = ?", "LITERALA")
-        Type parent = Enum.findFirst("name = ?", "TypeB")
+        Type parent = Type.findFirst("name = ?", "TypeB")
 
         // when
         fixture = new MoveLiteralModelTransform(enm, literal, parent)
@@ -53,7 +53,7 @@ class MoveLiteralModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute field is null"() {
         // given
         Literal literal = null
-        Type parent = Enum.findFirst("name = ?", "TypeB")
+        Type parent = Type.findFirst("name = ?", "TypeB")
 
         // when
         fixture = new MoveLiteralModelTransform(enm, literal, parent)
@@ -75,7 +75,7 @@ class MoveLiteralModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute type does not contain field"() {
         // given
         Literal literal = Literal.findFirst("name = ?", "LITERAL1")
-        Type parent = Enum.findFirst("name = ?", "TypeB")
+        Type parent = Type.findFirst("name = ?", "TypeB")
 
         // when
         fixture = new MoveLiteralModelTransform(enm, literal, parent)

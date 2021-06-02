@@ -26,9 +26,10 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
-import edu.isu.isuese.datamodel.Enum
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Literal
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.source.BasicSourceTransform
 
 /**
@@ -38,7 +39,7 @@ import edu.montana.gsoc.msusel.inject.transform.source.BasicSourceTransform
 class DeleteLiteral extends BasicSourceTransform {
 
     Literal literal
-    Enum type
+    Type type
 
     int oldLength
 
@@ -46,7 +47,7 @@ class DeleteLiteral extends BasicSourceTransform {
      * Constructs a new BasicSourceTransform
      * @param file the file to be modified
      */
-    DeleteLiteral(File file, Enum type, Literal literal) {
+    DeleteLiteral(File file, Type type, Literal literal) {
         super(file)
         this.type = type
         this.literal = literal

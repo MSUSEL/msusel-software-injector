@@ -26,10 +26,9 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.member
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Method
 import edu.isu.isuese.datamodel.Modifier
-import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import org.junit.Test
 

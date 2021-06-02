@@ -156,7 +156,7 @@ abstract class GrimeInjector implements SourceInjector {
      */
     RelationType selectPersistentRel(Type src, Type dest) {
         log.info "Selecting Persistent Relationship"
-        if (src instanceof Class && dest instanceof Class) {
+        if (src.getType() == Type.CLASS && dest.getType() == Type.CLASS) {
             if (src.isGeneralizedBy(dest) || src.getGeneralizedBy()) {
                 if (src.isAssociatedTo(dest)) {
                     return null

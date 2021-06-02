@@ -39,7 +39,7 @@ class MoveTypeTest extends BaseSourceTransformSpec {
         srcFileMultipleTypes(from)
         File to = File.findFirst("name = ?", "Test2.java")
         destFileSingleType(to)
-        Type type = Class.findFirst("name = ?", "Test5")
+        Type type = Type.findFirst("name = ?", "Test5")
         MoveType fixture = new MoveType(type, from, to)
         java.io.File fromActual = new java.io.File(from.getFullPath())
         java.io.File toActual = new java.io.File(to.getFullPath())
@@ -87,7 +87,7 @@ public class Test5 {
         srcFileSingleType(from)
         File to = File.findFirst("name = ?", "Test2.java")
         destFileSingleType(to)
-        Type type = Class.findFirst("name = ?", "Test5")
+        Type type = Type.findFirst("name = ?", "Test5")
         MoveType fixture = new MoveType(type, from, to)
         java.io.File fromActual = new java.io.File(from.getFullPath())
         java.io.File toActual = new java.io.File(to.getFullPath())
@@ -122,7 +122,7 @@ public class Test5 {
         srcFileMultipleTypes(from)
         File to = File.findFirst("name = ?", "Test2.java")
         destFileNoType(to)
-        Type type = Class.findFirst("name = ?", "Test5")
+        Type type = Type.findFirst("name = ?", "Test5")
         MoveType fixture = new MoveType(type, from, to)
         java.io.File fromActual = new java.io.File(from.getFullPath())
         java.io.File toActual = new java.io.File(to.getFullPath())
@@ -165,7 +165,7 @@ public class Test5 {
         srcFileSingleType(from)
         File to = File.findFirst("name = ?", "Test2.java")
         destFileNoType(to)
-        Type type = Class.findFirst("name = ?", "Test5")
+        Type type = Type.findFirst("name = ?", "Test5")
         MoveType fixture = new MoveType(type, from, to)
         java.io.File fromActual = new java.io.File(from.getFullPath())
         java.io.File toActual = new java.io.File(to.getFullPath())
@@ -212,7 +212,7 @@ public class Test5 {
 
 }
 """
-        Type type = Class.builder()
+        Type type = Type.builder()
                 .name("Test5")
                 .compKey("Test5")
                 .accessibility(Accessibility.PUBLIC)
@@ -236,7 +236,7 @@ public class Test5 {
 
 }
 """
-        Type type = Class.builder()
+        Type type = Type.builder()
                 .name("Test5")
                 .compKey("Test5")
                 .accessibility(Accessibility.PUBLIC)
@@ -244,7 +244,7 @@ public class Test5 {
                 .end(7)
                 .create()
         file.addType(type)
-        file.removeType(Class.findFirst("name = ?", "Test1"))
+        file.removeType(Type.findFirst("name = ?", "Test1"))
         type.updateKey()
         file.setEnd(20)
         file.save()
@@ -267,7 +267,7 @@ public interface Test2 {
         actual.text = """\
 package test.test;
 """
-        file.removeType(Interface.findFirst("name = ?", "Test2"))
+        file.removeType(Type.findFirst("name = ?", "Test2"))
         file.setEnd(2)
         file.save()
     }

@@ -26,9 +26,10 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
-import edu.isu.isuese.datamodel.Enum
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Literal
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
 import org.junit.Test
 
@@ -39,7 +40,7 @@ class AddLiteralTest extends BaseSourceTransformSpec {
         // given
         adjustToEmpty(false)
         File file = File.findFirst("name = ?", "Test8.java")
-        Enum type = Enum.findFirst("name = ?", "Test8")
+        Type type = Type.findFirst("name = ?", "Test8")
         Literal literal = Literal.builder().name("TEST").compKey("TEST").create()
         AddLiteral fixture = new AddLiteral(file, type, literal)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -63,7 +64,7 @@ public enum Test8 {
         // given
         adjustToEmpty(false)
         File file = File.findFirst("name = ?", "Test8.java")
-        Enum type = Enum.findFirst("name = ?", "Test8")
+        Type type = Type.findFirst("name = ?", "Test8")
         Literal literal = Literal.builder().name("TEST").compKey("TEST").create()
         AddLiteral fixture = new AddLiteral(file, type, literal)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -87,7 +88,7 @@ public enum Test8 {
         // given
         adjustInLine(true)
         File file = File.findFirst("name = ?", "Test8.java")
-        Enum type = Enum.findFirst("name = ?", "Test8")
+        Type type = Type.findFirst("name = ?", "Test8")
         Literal literal = Literal.builder().name("TEST").compKey("TEST").create()
         AddLiteral fixture = new AddLiteral(file, type, literal)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -110,7 +111,7 @@ public enum Test8 {
         // given
         adjustInLine(false)
         File file = File.findFirst("name = ?", "Test8.java")
-        Enum type = Enum.findFirst("name = ?", "Test8")
+        Type type = Type.findFirst("name = ?", "Test8")
         Literal literal = Literal.builder().name("TEST").compKey("TEST").create()
         AddLiteral fixture = new AddLiteral(file, type, literal)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -133,7 +134,7 @@ public enum Test8 {
         // given
         adjustMultiLine(true)
         File file = File.findFirst("name = ?", "Test8.java")
-        Enum type = Enum.findFirst("name = ?", "Test8")
+        Type type = Type.findFirst("name = ?", "Test8")
         Literal literal = Literal.builder().name("TEST").compKey("TEST").create()
         AddLiteral fixture = new AddLiteral(file, type, literal)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -159,7 +160,7 @@ public enum Test8 {
         // given
         adjustMultiLine(false)
         File file = File.findFirst("name = ?", "Test8.java")
-        Enum type = Enum.findFirst("name = ?", "Test8")
+        Type type = Type.findFirst("name = ?", "Test8")
         Literal literal = Literal.builder().name("TEST").compKey("TEST").create()
         AddLiteral fixture = new AddLiteral(file, type, literal)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -183,7 +184,7 @@ public enum Test8 {
     private void adjustMultiLine(boolean semi) {
         File file = File.findFirst("name = ?","Test8.java")
         file.setEnd(8)
-        Enum type = Enum.findFirst("name = ?","Test8")
+        Type type = Type.findFirst("name = ?","Test8")
         type.setStart(3)
         type.setEnd(8)
         Literal lit1 = Literal.findFirst("name = ?", "LITERAL4")
@@ -214,7 +215,7 @@ public enum Test8 {
     private void adjustInLine(boolean semi) {
         File file = File.findFirst("name = ?","Test8.java")
         file.setEnd(6)
-        Enum type = Enum.findFirst("name = ?","Test8")
+        Type type = Type.findFirst("name = ?","Test8")
         type.setStart(3)
         type.setEnd(6)
         Literal lit1 = Literal.findFirst("name = ?", "LITERAL4")
@@ -243,7 +244,7 @@ public enum Test8 {
     private void adjustToEmpty(boolean inline) {
         File file = File.findFirst("name = ?","Test8.java")
         file.setEnd(5)
-        Enum type = Enum.findFirst("name = ?","Test8")
+        Type type = Type.findFirst("name = ?","Test8")
         type.setStart(3)
         type.setEnd(5)
         Literal lit1 = Literal.findFirst("name = ?", "LITERAL4")

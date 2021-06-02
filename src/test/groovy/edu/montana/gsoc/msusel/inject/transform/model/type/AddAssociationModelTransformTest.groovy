@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Interface
+
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import org.junit.Test
@@ -36,7 +36,7 @@ class AddAssociationModelTransformTest extends TypeModelTransformBaseTest {
     @Test
     void "test execute happy path"() {
         // given
-        Type assoc = Interface.findFirst("name = ?", "TypeY")
+        Type assoc = Type.findFirst("name = ?", "TypeY")
         String fromName = "from"
         String toName = "to"
         boolean bidirect = true
@@ -65,7 +65,7 @@ class AddAssociationModelTransformTest extends TypeModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute toName is null"() {
         // given
-        Type assoc = Interface.findFirst("name = ?", "TypeY")
+        Type assoc = Type.findFirst("name = ?", "TypeY")
         String fromName = "from"
         String toName = null
         boolean bidirect = true
@@ -78,7 +78,7 @@ class AddAssociationModelTransformTest extends TypeModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute toName is empty"() {
         // given
-        Type assoc = Interface.findFirst("name = ?", "TypeY")
+        Type assoc = Type.findFirst("name = ?", "TypeY")
         String fromName = "from"
         String toName = ""
         boolean bidirect = true
@@ -91,7 +91,7 @@ class AddAssociationModelTransformTest extends TypeModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute fromName is null"() {
         // given
-        Type assoc = Interface.findFirst("name = ?", "TypeY")
+        Type assoc = Type.findFirst("name = ?", "TypeY")
         String fromName = null
         String toName = "to"
         boolean bidirect = true
@@ -104,7 +104,7 @@ class AddAssociationModelTransformTest extends TypeModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute fromName is empty"() {
         // given
-        Type assoc = Interface.findFirst("name = ?", "TypeY")
+        Type assoc = Type.findFirst("name = ?", "TypeY")
         String fromName = ""
         String toName = "to"
         boolean bidirect = true

@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.structural
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Import
 import edu.isu.isuese.datamodel.Type
@@ -50,7 +50,7 @@ class DeleteImportTest extends BaseSourceTransformSpec {
 
         // then
         the(actual.text).shouldNotContain(imp.getName())
-        Type t = Class.findFirst("name = ?", "Test1")
+        Type t = Type.findFirst("name = ?", "Test1")
         the(t.start).shouldEqual(4)
     }
 }

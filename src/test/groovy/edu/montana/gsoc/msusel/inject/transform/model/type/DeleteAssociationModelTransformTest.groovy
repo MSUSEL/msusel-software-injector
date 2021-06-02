@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import org.junit.Test
@@ -36,7 +36,7 @@ class DeleteAssociationModelTransformTest extends TypeModelTransformBaseTest {
     @Test
     void "test execute happy path"() {
         // given
-        Type assoc = Class.findFirst("name = ?", "TypeXY")
+        Type assoc = Type.findFirst("name = ?", "TypeXY")
 
         // when
         fixture = new DeleteAssociationModelTransform(type, assoc)
@@ -59,7 +59,7 @@ class DeleteAssociationModelTransformTest extends TypeModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute not associated to type"() {
         // given
-        Type assoc = Class.findFirst("name = ?", "TypeYY")
+        Type assoc = Type.findFirst("name = ?", "TypeYY")
 
         // when
         fixture = new DeleteAssociationModelTransform(type, assoc)

@@ -36,7 +36,7 @@ class DeleteMemberModifierTest extends BaseSourceTransformSpec {
     void "test execute multiple on field first"() {
         // given
         File file = File.findFirst("name = ?", "Test10.java")
-        Type type = Class.findFirst("name = ?", "Test10")
+        Type type = Type.findFirst("name = ?", "Test10")
         Member member = Field.findFirst("name = ?", "COUNT")
         Modifier mod = Modifier.forName("volatile")
         DeleteMemberModifier fixture = new DeleteMemberModifier(file, type, member, mod)
@@ -66,7 +66,7 @@ public class Test10 implements Test2 {
     void "test execute multiple on field middle"() {
         // given
         File file = File.findFirst("name = ?", "Test10.java")
-        Type type = Class.findFirst("name = ?", "Test10")
+        Type type = Type.findFirst("name = ?", "Test10")
         Member member = Field.findFirst("name = ?", "COUNT")
         Modifier mod = Modifier.forName("static")
         DeleteMemberModifier fixture = new DeleteMemberModifier(file, type, member, mod)
@@ -96,7 +96,7 @@ public class Test10 implements Test2 {
     void "test execute multiple on field last"() {
         // given
         File file = File.findFirst("name = ?", "Test10.java")
-        Type type = Class.findFirst("name = ?", "Test10")
+        Type type = Type.findFirst("name = ?", "Test10")
         Member member = Field.findFirst("name = ?", "COUNT")
         Modifier mod = Modifier.forName("final")
         DeleteMemberModifier fixture = new DeleteMemberModifier(file, type, member, mod)
@@ -126,7 +126,7 @@ public class Test10 implements Test2 {
     void "test execute single on method"() {
         // given
         File file = File.findFirst("name = ?", "Test10.java")
-        Type type = Class.findFirst("name = ?", "Test10")
+        Type type = Type.findFirst("name = ?", "Test10")
         Member member = Method.findFirst("name = ?", "method4")
         Modifier mod = Modifier.forName("static")
         DeleteMemberModifier fixture = new DeleteMemberModifier(file, type, member, mod)

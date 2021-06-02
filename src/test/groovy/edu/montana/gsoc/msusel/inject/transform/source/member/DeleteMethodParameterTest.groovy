@@ -36,7 +36,7 @@ class DeleteMethodParameterTest extends BaseSourceTransformSpec {
     void "test execute delete first param"() {
         // given
         File file = File.findFirst("name = ?", "Test11.java")
-        Type type = Class.findFirst("name = ?", "Test11")
+        Type type = Type.findFirst("name = ?", "Test11")
         Method method = Method.findFirst("name = ?", "paramsTest")
         Parameter param = Parameter.findFirst("name = ?", "param1")
         DeleteMethodParameter fixture = new DeleteMethodParameter(file, type, method, param)
@@ -64,7 +64,7 @@ public class Test11 implements Test2 {
     void "test execute delete middle param"() {
         // given
         File file = File.findFirst("name = ?", "Test11.java")
-        Type type = Class.findFirst("name = ?", "Test11")
+        Type type = Type.findFirst("name = ?", "Test11")
         Method method = Method.findFirst("name = ?", "paramsTest")
         Parameter param = Parameter.findFirst("name = ?", "param2")
         DeleteMethodParameter fixture = new DeleteMethodParameter(file, type, method, param)
@@ -92,7 +92,7 @@ public class Test11 implements Test2 {
     void "test execute delete last param"() {
         // given
         File file = File.findFirst("name = ?", "Test11.java")
-        Type type = Class.findFirst("name = ?", "Test11")
+        Type type = Type.findFirst("name = ?", "Test11")
         Method method = Method.findFirst("name = ?", "paramsTest")
         Parameter param = Parameter.findFirst("name = ?", "param3")
         DeleteMethodParameter fixture = new DeleteMethodParameter(file, type, method, param)
@@ -120,7 +120,7 @@ public class Test11 implements Test2 {
     void "test execute delete single"() {
         // given
         File file = File.findFirst("name = ?", "Test10.java")
-        Type type = Class.findFirst("name = ?", "Test10")
+        Type type = Type.findFirst("name = ?", "Test10")
         Method method = Method.findFirst("name = ?", "method4")
         Parameter param = Parameter.findFirst("name = ?", "param")
         DeleteMethodParameter fixture = new DeleteMethodParameter(file, type, method, param)

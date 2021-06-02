@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.file
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
@@ -37,7 +37,7 @@ class MoveTypeModelTransformTest extends FileModelTransformBaseTest {
     @Test
     void "test execute happy path"() {
         // given
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         File newParent = File.findFirst("name = ?", "Test2.java")
 
         // when
@@ -63,7 +63,7 @@ class MoveTypeModelTransformTest extends FileModelTransformBaseTest {
     @Test(expected = ModelTransformPreconditionsNotMetException.class)
     void "test execute file is null"() {
         // given
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         File newParent = null
 
         // when

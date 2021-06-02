@@ -26,9 +26,10 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
-import edu.isu.isuese.datamodel.Enum
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Literal
+import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
 import org.junit.Test
 
@@ -38,7 +39,7 @@ class DeleteLiteralTest extends BaseSourceTransformSpec {
     void "test execute last literal"() {
         // given
         Literal literal = Literal.findFirst("name = ?", "LITERAL3")
-        Enum type = Enum.findFirst("name = ?", "Test3")
+        Type type = Type.findFirst("name = ?", "Test3")
         File file = File.findFirst("name = ?", "Test3.java")
         DeleteLiteral fixture = new DeleteLiteral(file, type, literal)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -61,7 +62,7 @@ public enum Test3 {
     void "test execute middle literal"() {
         // given
         Literal literal = Literal.findFirst("name = ?", "LITERAL2")
-        Enum type = Enum.findFirst("name = ?", "Test3")
+        Type type = Type.findFirst("name = ?", "Test3")
         File file = File.findFirst("name = ?", "Test3.java")
         DeleteLiteral fixture = new DeleteLiteral(file, type, literal)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -84,7 +85,7 @@ public enum Test3 {
     void "test execute single line literal"() {
         // given
         Literal literal = Literal.findFirst("name = ?", "LITERAL5")
-        Enum type = Enum.findFirst("name = ?", "Test8")
+        Type type = Type.findFirst("name = ?", "Test8")
         File file = File.findFirst("name = ?", "Test8.java")
         DeleteLiteral fixture = new DeleteLiteral(file, type, literal)
         java.io.File actual = new java.io.File(file.getFullPath())
@@ -108,7 +109,7 @@ public class Test8 {
     void "test execute single line literal end"() {
         // given
         Literal literal = Literal.findFirst("name = ?", "LITERAL6")
-        Enum type = Enum.findFirst("name = ?", "Test8")
+        Type type = Type.findFirst("name = ?", "Test8")
         File file = File.findFirst("name = ?", "Test8.java")
         DeleteLiteral fixture = new DeleteLiteral(file, type, literal)
         java.io.File actual = new java.io.File(file.getFullPath())

@@ -26,12 +26,12 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Enum
+
 import edu.isu.isuese.datamodel.Literal
 import edu.isu.isuese.datamodel.Type
-import edu.montana.gsoc.msusel.inject.transform.source.member.DeleteLiteral
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.model.TypeModelTransform
+import edu.montana.gsoc.msusel.inject.transform.source.member.DeleteLiteral
 
 /**
  * @author Isaac Griffith
@@ -49,7 +49,7 @@ class DeleteLiteralModelTransform extends TypeModelTransform {
     @Override
     void verifyPreconditions() {
         // 0. type instanceof enum
-        if (!(type instanceof Enum))
+        if (type.getType() != Type.ENUM)
             throw new ModelTransformPreconditionsNotMetException()
         // 1. literal is not null
         if (!literal)
@@ -65,7 +65,7 @@ class DeleteLiteralModelTransform extends TypeModelTransform {
         type.removeMember(literal)
         literal.thaw()
         // Generate Source Transform
-        new DeleteLiteral(type.getParentFile(), (Enum) type, literal).execute()
+        new DeleteLiteral(type.getParentFile(), type, literal).execute()
     }
 
     @Override

@@ -233,8 +233,8 @@ abstract class AbstractSourceTransform implements SourceTransform {
     }
 
     def implementAbstractMethods(Type type, Type parent) {
-        if (type.isAbstract() && !(type instanceof Interface)) {
-            if (parent instanceof Interface) {
+        if (type.isAbstract() && type.getType() != Type.INTERFACE) {
+            if (parent.getType() == Type.INTERFACE) {
                 parent.getAllMethods().each { m ->
                     Random rand = new Random()
                     if (rand.nextDouble() <= 0.25d)
@@ -253,7 +253,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
                     }
                 }
             }
-        } else if (type instanceof Interface) {
+        } else if (type.getType() == Type.INTERFACE) {
             parent.getAllMethods().each { m ->
                 if (m.isAbstract()) {
                     pushToSubclasses(type, m)
@@ -273,8 +273,8 @@ abstract class AbstractSourceTransform implements SourceTransform {
     }
 
     def implementAbstractMethod(Type type, Type parent, Method m) {
-        if (type.isAbstract() && !(type instanceof Interface)) {
-            if (parent instanceof Interface) {
+        if (type.isAbstract() && type.getType() != Type.INTERFACE) {
+            if (parent.getType() == Type.INTERFACE) {
                 Random rand = new Random()
                 if (rand.nextDouble() <= 0.25d)
                     copyAndImplement(type, m)
@@ -289,7 +289,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
                         pushToSubclasses(type, m)
                 }
             }
-        } else if (type instanceof Interface) {
+        } else if (type.getType() == Type.INTERFACE) {
             if (m.isAbstract()) {
                 pushToSubclasses(type, m)
             }
@@ -321,7 +321,7 @@ abstract class AbstractSourceTransform implements SourceTransform {
     }
 
     def pushToSubclasses(Type type, Method m) {
-        if (type instanceof Interface) {
+        if (type.getType() == Type.INTERFACE) {
             type.getRealizedBy().each {
                 copyAndImplement(it, m)
             }

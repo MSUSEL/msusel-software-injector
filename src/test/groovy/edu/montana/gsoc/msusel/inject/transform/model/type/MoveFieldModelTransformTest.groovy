@@ -26,11 +26,11 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Field
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
-import org.junit.Test;
+import org.junit.Test
 
 class MoveFieldModelTransformTest extends TypeModelTransformBaseTest {
 
@@ -38,7 +38,7 @@ class MoveFieldModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute happy path"() {
         // given
         Field field = Field.findFirst("name = ?", "fieldZ")
-        Type parent = Class.findFirst("name = ?", "TypeXY")
+        Type parent = Type.findFirst("name = ?", "TypeXY")
 
         // when
         fixture = new MoveFieldModelTransform(type, field, parent)
@@ -53,7 +53,7 @@ class MoveFieldModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute field is null"() {
         // given
         Field field = null
-        Type parent = Class.findFirst("name = ?", "TypeXY")
+        Type parent = Type.findFirst("name = ?", "TypeXY")
 
         // when
         fixture = new MoveFieldModelTransform(type, field, parent)
@@ -75,7 +75,7 @@ class MoveFieldModelTransformTest extends TypeModelTransformBaseTest {
     void "test execute type does not contain field"() {
         // given
         Field field = Field.findFirst("name = ?", "xy")
-        Type parent = Class.findFirst("name = ?", "TypeXY")
+        Type parent = Type.findFirst("name = ?", "TypeXY")
 
         // when
         fixture = new MoveFieldModelTransform(type, field, parent)

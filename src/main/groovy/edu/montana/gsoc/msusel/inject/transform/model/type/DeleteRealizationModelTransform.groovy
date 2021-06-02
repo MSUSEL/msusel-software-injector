@@ -26,12 +26,11 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Class
-import edu.isu.isuese.datamodel.Interface
+
 import edu.isu.isuese.datamodel.Type
-import edu.montana.gsoc.msusel.inject.transform.source.relation.DeleteRealization
 import edu.montana.gsoc.msusel.inject.transform.model.ModelTransformPreconditionsNotMetException
 import edu.montana.gsoc.msusel.inject.transform.model.TypeModelTransform
+import edu.montana.gsoc.msusel.inject.transform.source.relation.DeleteRealization
 
 /**
  * @author Isaac Griffith
@@ -52,7 +51,7 @@ class DeleteRealizationModelTransform extends TypeModelTransform {
         if (!real)
             throw new ModelTransformPreconditionsNotMetException()
         // 2. type is a class and real is an interface
-        if (!(type instanceof Class) || !(real instanceof Interface))
+        if (!(type.getType() == Type.CLASS) || !(real.getType() == Type.INTERFACE))
             throw new ModelTransformPreconditionsNotMetException()
         // 3. type realizes real
         if (!type.getRealizes().contains(real))

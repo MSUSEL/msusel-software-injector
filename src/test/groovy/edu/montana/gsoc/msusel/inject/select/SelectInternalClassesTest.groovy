@@ -26,18 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.select
 
-import edu.isu.isuese.datamodel.Class
-import edu.isu.isuese.datamodel.Component
-import edu.isu.isuese.datamodel.File
-import edu.isu.isuese.datamodel.Module
-import edu.isu.isuese.datamodel.Namespace
-import edu.isu.isuese.datamodel.PatternInstance
-import edu.isu.isuese.datamodel.Project
-import edu.isu.isuese.datamodel.Reference
-import edu.isu.isuese.datamodel.Role
-import edu.isu.isuese.datamodel.RoleBinding
-import edu.isu.isuese.datamodel.RoleType
-import edu.isu.isuese.datamodel.Type
+import edu.isu.isuese.datamodel.*
 import org.javalite.activejdbc.test.DBSpec
 import org.junit.After
 import org.junit.Before
@@ -63,8 +52,8 @@ class SelectInternalClassesTest extends DBSpec {
         parent = PatternInstance.builder().instKey("Test").create()
         fixture = new SelectInternalClasses(1)
 
-        type1 = Class.builder().name("Test1").compKey("Test1").create()
-        type2 = Class.builder().name("Test2").compKey("Test2").create()
+        type1 = Type.builder().type(Type.CLASS).name("Test1").compKey("Test1").create()
+        type2 = Type.builder().type(Type.CLASS).name("Test2").compKey("Test2").create()
         binding = Role.builder().roleKey("Test").name("Test").type(RoleType.CLASSIFIER).create()
         file.addType(type1)
         ns.addType(type1)

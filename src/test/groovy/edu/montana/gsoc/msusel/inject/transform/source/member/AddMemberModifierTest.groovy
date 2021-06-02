@@ -36,7 +36,7 @@ class AddMemberModifierTest extends BaseSourceTransformSpec {
     void "test execute on field"() {
         // given
         File file = File.findFirst("name = ?", "Test10.java")
-        Type type = Class.findFirst("name = ?", "Test10")
+        Type type = Type.findFirst("name = ?", "Test10")
         Member member = Field.findFirst("name = ?", "COUNT")
         Modifier mod = Modifier.forName("transient")
         AddMemberModifier fixture = new AddMemberModifier(file, type, member, mod)
@@ -65,7 +65,7 @@ public class Test10 implements Test2 {
     void "test execute on method"() {
         // given
         File file = File.findFirst("name = ?", "Test10.java")
-        Type type = Class.findFirst("name = ?", "Test10")
+        Type type = Type.findFirst("name = ?", "Test10")
         Member member = Method.findFirst("name = ?", "method4")
         Modifier mod = Modifier.forName("final")
         AddMemberModifier fixture = new AddMemberModifier(file, type, member, mod)

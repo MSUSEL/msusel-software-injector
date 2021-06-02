@@ -26,16 +26,14 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.PatternInstance
 import edu.isu.isuese.datamodel.Type
 import junitparams.JUnitParamsRunner
 import junitparams.Parameters
 import org.junit.Assert
-import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
 
 @RunWith(JUnitParamsRunner.class)
 class ModularGrimeInjectorTest extends GrimeInjectorBaseTest {
@@ -75,9 +73,9 @@ class ModularGrimeInjectorTest extends GrimeInjectorBaseTest {
     @Test
     void selectExternClass() {
         // given
-        def types = [Class.findFirst("name = ?", "TypeF"),
-                     Class.findFirst("name = ?", "TypeG"),
-                     Class.findFirst("name = ?", "TypeH")]
+        def types = [Type.findFirst("name = ?", "TypeF"),
+                     Type.findFirst("name = ?", "TypeG"),
+                     Type.findFirst("name = ?", "TypeH")]
 
         // when
         def result = fixture.selectOrCreateExternClass()
@@ -119,8 +117,8 @@ class ModularGrimeInjectorTest extends GrimeInjectorBaseTest {
     ])
     void selectPersistentRel(String src, String dest) {
         // given
-        Type srcType = Class.findFirst("name = ?", src)
-        Type destType = Class.findFirst("name = ?", dest)
+        Type srcType = Type.findFirst("name = ?", src)
+        Type destType = Type.findFirst("name = ?", dest)
 
         // when
         RelationType result = fixture.selectPersistentRel(srcType, destType)
@@ -136,8 +134,8 @@ class ModularGrimeInjectorTest extends GrimeInjectorBaseTest {
     ])
     void selectTemporaryRel(String src, String dest) {
         // given
-        Type srcType = Class.findFirst("name = ?", src)
-        Type destType = Class.findFirst("name = ?", dest)
+        Type srcType = Type.findFirst("name = ?", src)
+        Type destType = Type.findFirst("name = ?", dest)
 
         // when
         RelationType result = fixture.selectTemporaryRel(srcType, destType)

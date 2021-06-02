@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.grime
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Method
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectionFailedException
@@ -73,7 +73,7 @@ class ClassGrimeInjectorTest extends GrimeInjectorBaseTest {
     @Test
     void "test selectOrCreateMethod happy path for existing methods"() {
         // given
-        Type type = Class.findFirst("name = ?", "TypeA")
+        Type type = Type.findFirst("name = ?", "TypeA")
 
         // when
         Method method = fixture.selectOrCreateMethod(type, [])
@@ -86,7 +86,7 @@ class ClassGrimeInjectorTest extends GrimeInjectorBaseTest {
     @Test
     void "test selectOrCreateMethod happy path with no existing methods"() {
         // given
-        Type type = Class.findFirst("name = ?", "TypeA")
+        Type type = Type.findFirst("name = ?", "TypeA")
         Method known = Method.findFirst("name = ?", "methodA")
 
         // when
@@ -109,7 +109,7 @@ class ClassGrimeInjectorTest extends GrimeInjectorBaseTest {
     @Test(expected = InjectionFailedException.class)
     void "test selectOrCreateMethod with null list"() {
         // given
-        Type type = Class.findFirst("name = ?", "TypeA")
+        Type type = Type.findFirst("name = ?", "TypeA")
 
 
         // when
@@ -119,7 +119,7 @@ class ClassGrimeInjectorTest extends GrimeInjectorBaseTest {
     @Test
     void "test selectPatternMethod happy path"() {
         // given
-        Type type = Class.findFirst("name = ?", "TypeA")
+        Type type = Type.findFirst("name = ?", "TypeA")
 
         // when
         Method method = fixture.selectOrCreatePatternMethod(type)
@@ -132,7 +132,7 @@ class ClassGrimeInjectorTest extends GrimeInjectorBaseTest {
     @Test
     void "test selectPatternMethod happy path with no existing methods"() {
         // given
-        Type type = Class.findFirst("name = ?", "TypeB")
+        Type type = Type.findFirst("name = ?", "TypeB")
 
         // when
         Method method = fixture.selectOrCreatePatternMethod(type)

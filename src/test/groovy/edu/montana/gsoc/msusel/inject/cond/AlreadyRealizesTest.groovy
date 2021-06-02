@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.cond
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.Type
 import org.javalite.activejdbc.test.DBSpec
 import org.junit.After
@@ -42,8 +42,8 @@ class AlreadyRealizesTest extends DBSpec {
 
     @Before
     void setUp() throws Exception {
-        node = Class.builder().name("Test").compKey("Test").start(1).create()
-        real = Class.builder().name("Inter").compKey("Inter").create()
+        node = Type.builder().type(Type.CLASS).name("Test").compKey("Test").start(1).create()
+        real = Type.builder().type(Type.CLASS).name("Inter").compKey("Inter").create()
 
         fixture = new AlreadyRealizes(node, strReal)
 

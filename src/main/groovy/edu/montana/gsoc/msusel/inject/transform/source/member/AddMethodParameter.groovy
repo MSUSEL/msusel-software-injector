@@ -26,12 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.member
 
-import edu.isu.isuese.datamodel.File
-import edu.isu.isuese.datamodel.Interface
-import edu.isu.isuese.datamodel.Method
-import edu.isu.isuese.datamodel.Modifier
-import edu.isu.isuese.datamodel.Parameter
-import edu.isu.isuese.datamodel.Type
+import edu.isu.isuese.datamodel.*
 import edu.montana.gsoc.msusel.inject.transform.model.member.AddParamModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.BasicSourceTransform
 import groovy.transform.builder.Builder
@@ -98,7 +93,7 @@ class AddMethodParameter extends BasicSourceTransform {
         updateImports()
 
         if (method.isAbstract()) {
-            if (type instanceof Interface) {
+            if (type.getType() == Type.INTERFACE) {
                 type.getRealizedBy().each {
                     addParamToImplementingMethods(it, method.getName(), param)
                 }
@@ -117,7 +112,7 @@ class AddMethodParameter extends BasicSourceTransform {
             apmt.execute()
         }
 
-        if (type instanceof Interface) {
+        if (type.getType() == Type.INTERFACE) {
             type.getRealizedBy().each {
                 addParamToImplementingMethods(it, methodName, param)
             }

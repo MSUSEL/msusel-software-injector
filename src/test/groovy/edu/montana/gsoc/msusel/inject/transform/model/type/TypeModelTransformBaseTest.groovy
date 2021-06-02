@@ -26,8 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.model.type
 
-import edu.isu.isuese.datamodel.Class
-import edu.isu.isuese.datamodel.Enum
+
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.transform.BaseSourceTransformSpec
 import edu.montana.gsoc.msusel.inject.transform.model.TypeModelTransform
@@ -41,7 +40,7 @@ abstract class TypeModelTransformBaseTest extends BaseSourceTransformSpec {
     @Override
     protected void localSetup() {
         super.localSetup()
-        type = Class.findFirst("name = ?", "TypeZ")
-        enm = Enum.findFirst("name = ?", "TypeA")
+        type = Type.findFirst("name = ?", "TypeZ")
+        enm = Type.findFirst("name = ?", "TypeA")
     }
 }

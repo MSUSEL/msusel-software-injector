@@ -26,7 +26,7 @@
  */
 package edu.montana.gsoc.msusel.inject.transform.source.type
 
-import edu.isu.isuese.datamodel.Class
+
 import edu.isu.isuese.datamodel.File
 import edu.isu.isuese.datamodel.Modifier
 import edu.isu.isuese.datamodel.Type
@@ -41,7 +41,7 @@ class DeleteTypeModifierTest extends BaseSourceTransformSpec {
         File file = File.findFirst("name = ?", "Test1.java")
         java.io.File actual = new java.io.File(file.getFullPath())
         modifyFile(actual, "abstract")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         type.addModifier(Modifier.forName("ABSTRACT"))
         DeleteTypeModifier fixture = new DeleteTypeModifier(file, type, Modifier.forName("ABSTRACT"))
 
@@ -74,7 +74,7 @@ public class Test1 implements Test2 {
         File file = File.findFirst("name = ?", "Test1.java")
         java.io.File actual = new java.io.File(file.getFullPath())
         modifyFile(actual, "static final")
-        Type type = Class.findFirst("name = ?", "Test1")
+        Type type = Type.findFirst("name = ?", "Test1")
         type.addModifier(Modifier.forName("STATIC"))
         type.addModifier(Modifier.forName("FINAL"))
         DeleteTypeModifier fixture = new DeleteTypeModifier(file, type, Modifier.forName("STATIC"))

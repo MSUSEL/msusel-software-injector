@@ -37,7 +37,7 @@ class CreateEncapsulatedFieldTest extends BaseSourceTransformSpec {
     void execute() {
         // given
         File file = File.findFirst("name = ?", "Test11.java")
-        Type type = Class.findFirst("name = ?", "Test11")
+        Type type = Type.findFirst("name = ?", "Test11")
         TypeRef fieldType = TypeRef.createPrimitiveTypeRef("int")
         String name = "test"
         Modifier[] mods = [Modifier.forName("static"), Modifier.forName("transient")]
