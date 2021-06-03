@@ -37,7 +37,7 @@ class TypeTransformTest extends BaseSourceTransformSpec {
     void "kind for class"() {
         // given
         File file = File.builder().name("test").create()
-        Type type = Type.builder().name("test").create()
+        Type type = Type.builder().type(Type.CLASS).name("test").create()
         file.addType(type)
         TypeTransform fixture = new RenameType(file, type, "newtest")
 
@@ -82,7 +82,7 @@ class TypeTransformTest extends BaseSourceTransformSpec {
     void "kind for other"() {
         // given
         File file = File.builder().name("test").create()
-        Type type = UnknownType.builder().name("test").create()
+        Type type = Type.builder().type(Type.UNKNOWN).name("test").create()
         TypeTransform fixture = new RenameType(file, type, "newtest")
 
         // when
