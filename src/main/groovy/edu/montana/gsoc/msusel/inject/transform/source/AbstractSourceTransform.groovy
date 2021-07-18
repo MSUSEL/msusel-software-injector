@@ -167,8 +167,10 @@ abstract class AbstractSourceTransform implements SourceTransform {
         String nsOne = one.getFullName()
         String nsTwo = two.getFullName()
 
-        nsOne = nsOne.substring(0, nsOne.lastIndexOf("."))
-        nsTwo = nsTwo.substring(0, nsTwo.lastIndexOf("."))
+        if (nsOne.contains("."))
+            nsOne = nsOne.substring(0, nsOne.lastIndexOf("."))
+        if (nsTwo.contains("."))
+            nsTwo = nsTwo.substring(0, nsTwo.lastIndexOf("."))
 
         return nsOne == nsTwo
     }
@@ -176,7 +178,8 @@ abstract class AbstractSourceTransform implements SourceTransform {
     boolean shareSameNamespace(Type one, String typeName) {
         String nsOne = one.getFullName()
 
-        nsOne = nsOne.substring(0, nsOne.lastIndexOf("."))
+        if (nsOne.contains("."))
+            nsOne = nsOne.substring(0, nsOne.lastIndexOf("."))
         if (typeName.contains(".")) {
             typeName = typeName.substring(0, typeName.lastIndexOf("."))
 
@@ -191,8 +194,6 @@ abstract class AbstractSourceTransform implements SourceTransform {
      * @param imports List of strings representing imports to add
      */
     void addImports(List<String> imports) {
-
-
         file.imports.each {
             imports.removeAll(it.getName())
         }

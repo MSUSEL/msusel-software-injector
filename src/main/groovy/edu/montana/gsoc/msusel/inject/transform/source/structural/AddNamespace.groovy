@@ -74,7 +74,7 @@ class AddNamespace extends StructuralCreateTransform {
     @Override
     void transformStructure() {
         if (base) {
-            File nsPath = new File(base, namespace.getRelPath().replaceAll(/\./, "/"))
+            File nsPath = new File(base, namespace.getRelPath().replace(".", File.separator))
             nsPath.mkdirs()
         }
     }

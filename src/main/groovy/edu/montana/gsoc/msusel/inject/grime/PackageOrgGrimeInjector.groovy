@@ -333,7 +333,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
     }
 
     private static void addEdge(MutableGraph<Namespace> graph, Namespace from, Namespace to) {
-        if (from != to && !graph.hasEdgeConnecting(from, to))
+        if (from && to && from != to && !graph.hasEdgeConnecting(from, to))
             graph.putEdge(from, to)
     }
 }

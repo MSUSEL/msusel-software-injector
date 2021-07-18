@@ -49,7 +49,7 @@ class AddFileModelTransform extends NamespaceModelTransform {
     AddFileModelTransform(Namespace ns, String path, FileType type) {
         super(ns)
         this.relPath = path
-        this.path = Paths.get(ns.getFullPath(type, 0)).toAbsolutePath().toString() + "/" + path
+        this.path = Paths.get(ns.getFullPath(type, 0)).toAbsolutePath().toString() + java.io.File.separator + path
         this.type = type
     }
 
