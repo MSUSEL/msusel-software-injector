@@ -40,28 +40,40 @@ class Director {
     def inject(ConfigObject config) {
         Project proj = Project.findFirst("projKey = ?", (String) config.where.projectKey)
 
-        ProjectCopier copier = new ProjectCopier()
-        proj = copier.execute(proj)
+        String projKey = config.where.projectKey
+        String[] comps = projKey.split(/:/)
+        comps[1] = comps[1] + "_copy"
+        projKey = comps.join(":")
 
-        Pattern pattern = Pattern.findFirst("patternKey = ?", (String) config.where.patternKey)
-        String[] instKey = config.where.patternInst.split(/:/)
-        instKey[1] = instKey[1] + "_copy"
-        PatternInstance inst = PatternInstance.findFirst("instKey = ?", (String) instKey.join(":"))
+        if (!Project.findFirst("projKey = ?", projKey)) {
 
-        SourceInjector injector = selectInjector(inst, config)
-        int min = config.what.min
-        int max = config.what.max
+            ProjectCopier copier = new ProjectCopier()
+            proj = copier.execute(proj)
 
-        Random rand = new Random()
-        if (max > min) {
-            int number = rand.nextInt(max - min) + min
-            number.times {
-                injector.inject()
+            Pattern pattern = Pattern.findFirst("patternKey = ?", (String) config.where.patternKey)
+            String[] instKey = config.where.patternInst.split(/:/)
+            instKey[1] = instKey[1] + "_copy"
+            PatternInstance inst = PatternInstance.findFirst("instKey = ?", (String) instKey.join(":"))
+
+            SourceInjector injector = selectInjector(inst, config)
+            int min = config.what.min
+            int max = config.what.max
+
+            Random rand = new Random()
+            if (max > min) {
+                int number = rand.nextInt(max - min) + min
+                number.times {
+                    injector.inject()
+                }
             }
-        }
 
-        return [ "Key2" : proj.projectKey,
-                 "Path2" : proj.getFullPath() ]
+            return ["Key2" : proj.projectKey,
+                    "Path2": proj.getFullPath()]
+        } else {
+            Project p = Project.findFirst("projKey = ?", projKey)
+            return ["Key2" : p.projectKey,
+                    "Path2": p.getFullPath()]
+        }
     }
 
     SourceInjector selectInjector(PatternInstance inst, ConfigObject config) {

@@ -199,8 +199,14 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         def destTypes = destNs.getAllTypes()
 
         for (Type t : srcTypes) {
+            Set<Type> types = new HashSet<>()
+            types.addAll(t.getAssociatedTo())
+            types.addAll(t.getRealizes())
+            types.addAll(t.getUseTo())
+            types.addAll(t.getGeneralizedBy())
+
             for (Type o : destTypes) {
-                if (t.getAssociatedTo().contains(o) || t.getRealizes().contains(o) || t.getUseTo().contains(o) || t.getGeneralizedBy().contains(o))
+                if (types.contains(o))
                     return true
             }
         }
