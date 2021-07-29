@@ -73,9 +73,11 @@ class UpdateImports extends BasicSourceTransform {
 
         file.refresh()
         file.getImports().each {
-            String str = "import ${it.name};"
-            if (!imps.contains(str))
-                imps << str
+            if (!it.getName().endsWith("String")) {
+                String str = "import ${it.name};"
+                if (!imps.contains(str))
+                    imps << str
+            }
         }
 
         if (neither)
