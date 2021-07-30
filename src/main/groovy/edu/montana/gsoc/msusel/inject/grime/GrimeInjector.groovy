@@ -278,7 +278,7 @@ abstract class GrimeInjector implements SourceInjector {
         List<Method> methods = type.getAllMethods()
         methods.removeAll(selected)
         if (forParamInject)
-            methods.removeAll {it.isOverriding() || it.isAbstract() }
+            methods.removeAll {it.isOverriding() || it.isAbstract() || it instanceof Constructor || it instanceof Destructor }
 
         if (!methods.isEmpty()) {
             Collections.shuffle(methods)
