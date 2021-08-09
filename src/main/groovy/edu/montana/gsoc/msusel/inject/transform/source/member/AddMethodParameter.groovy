@@ -69,7 +69,7 @@ class AddMethodParameter extends BasicSourceTransform {
         if (start == end)
             text = lines[start]
         else
-            text = lines[start..end].join("\n")
+            text = lines[start..(end - 1)].join("\n")
     }
 
     @Override
