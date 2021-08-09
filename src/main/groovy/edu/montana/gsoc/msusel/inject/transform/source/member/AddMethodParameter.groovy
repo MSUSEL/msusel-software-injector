@@ -30,11 +30,13 @@ import edu.isu.isuese.datamodel.*
 import edu.montana.gsoc.msusel.inject.transform.model.member.AddParamModelTransform
 import edu.montana.gsoc.msusel.inject.transform.source.BasicSourceTransform
 import groovy.transform.builder.Builder
+import groovy.util.logging.Log4j2
 
 /**
  * @author Isaac Griffith
  * @version 1.3.0
  */
+@Log4j2
 class AddMethodParameter extends BasicSourceTransform {
 
     Type type
@@ -60,6 +62,9 @@ class AddMethodParameter extends BasicSourceTransform {
 
         start = method.getStart() - 1
         end = method.getEnd() - 1
+        log.info "Method: ${this.method.name}"
+        log.info "Method start: $start"
+        log.info "Method end: $end"
 
         if (start == end)
             text = lines[start]
