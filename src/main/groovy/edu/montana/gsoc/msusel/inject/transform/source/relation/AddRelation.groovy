@@ -58,7 +58,7 @@ abstract class AddRelation extends BasicSourceTransform {
 
         if (!content.isEmpty()) {
             if (content.last().trim() == "}") {
-                if (content[-2].trim().startsWith("return "))
+                if (content.size() >= 2 && content[-2].trim().startsWith("return "))
                     return (method.end - 1) - 1
                 else
                     return (method.end - 1)
