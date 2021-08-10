@@ -27,6 +27,7 @@
 package edu.montana.gsoc.msusel.inject.transform
 
 import edu.isu.isuese.datamodel.*
+import org.javalite.activejdbc.InitException
 import org.javalite.activejdbc.test.DBSpec
 import org.junit.After
 import org.junit.Before
@@ -35,9 +36,11 @@ abstract class BaseSourceTransformSpec extends DBSpec {
 
     @Before
     void setup() {
-        createModel()
-        createDirectoryStructure()
-        localSetup()
+        try {
+            createModel()
+            createDirectoryStructure()
+            localSetup()
+        } catch(InitException ex) {}
     }
 
     @After

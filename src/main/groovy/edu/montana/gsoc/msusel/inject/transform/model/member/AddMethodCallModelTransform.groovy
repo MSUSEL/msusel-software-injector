@@ -53,6 +53,8 @@ class AddMethodCallModelTransform extends MemberModelTransform {
         // 2. method is not null
         if (!method)
             throw new ModelTransformPreconditionsNotMetException()
+        if ((method as Method).isAbstract())
+            throw new ModelTransformPreconditionsNotMetException()
     }
 
     @Override

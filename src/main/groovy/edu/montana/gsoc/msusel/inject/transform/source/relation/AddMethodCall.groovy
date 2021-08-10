@@ -44,6 +44,8 @@ class AddMethodCall extends AddRelation {
     Type calleeOwner
     Type callerOwner
 
+    int delta
+
     /**
      * Constructs a new AddMethodCall transform
      * @param file the file to be modified
@@ -74,26 +76,17 @@ class AddMethodCall extends AddRelation {
     @Override
     void buildContent() {
         if (callee.hasModifier("static")) {
-            text = "        ${calleeOwner.name}.${callee.name}(${params(callee)});\n"
+            text = "        ${calleeOwner.name}.${callee.name}(${params(callee)});"
         } else if (sameContainingType(callerOwner, calleeOwner)) {
-            text = "        this.${callee.name}(${params(callee)});\n"
+            text = "        this.${callee.name}(${params(callee)});"
         } else {
-            if (hasLocalVar(caller, calleeOwner)) {
-                String var = selectVariable(caller, calleeOwner)
-                text = "        ${var}.${callee.name}(${params(callee)});\n"
-            } else if (hasParam(caller, calleeOwner)) {
-                Parameter p = selectParameter(caller, calleeOwner)
-                text = "        ${p.name}.${callee.name}(${params(callee)});\n"
-            } else if (hasField(callerOwner, calleeOwner)) {
-                Field f = selectField(callerOwner, calleeOwner)
-                text = "        ${f.name}.${callee.name}(${params(callee)});\n"
-            } else {
-                StringBuilder builder = new StringBuilder()
-                builder << "        ${calleeOwner.name} ${calleeOwner.name.toLowerCase()} = new ${calleeOwner.name}();\n"
-                builder << "        ${calleeOwner.name.toLowerCase()}.${callee.name}(${params(callee)});\n"
-                text = builder.toString()
-            }
+            StringBuilder builder = new StringBuilder()
+            builder << "        ${calleeOwner.name} ${calleeOwner.name.toLowerCase()} = new ${calleeOwner.name}();\n"
+            builder << "        ${calleeOwner.name.toLowerCase()}.${callee.name}(${params(callee)});"
+            text = builder.toString()
         }
+        println "Text:"
+        println text
     }
 
     /**
@@ -103,11 +96,26 @@ class AddMethodCall extends AddRelation {
     void injectContent() {
         java.io.File ops = new java.io.File(file.getFullPath())
         def lines = ops.readLines()
-        int orig = lines.size()
-        lines.add(start, text)
-        String other = lines.join("\n")
-        lines = other.split("\n")
-        end = lines.size() - orig
+
+        callee.refresh()
+        caller.refresh()
+        file.refresh()
+
+        List<String> oldContent = lines[(caller.getStart() - 1)..(caller.getEnd() - 1)]
+        String oc = oldContent.join("\n")
+
+        def pattern = ~/(?s).*\{(?<content>.*)}/
+        def matcher = oc =~ pattern
+        if (matcher.matches()) {
+            String actualContent = matcher.group("content")
+            List<String> oldLines = actualContent.split("\n")
+            oldLines.add(0, text)
+            oldLines.add(0,"\n")
+            String nc = oc.replace(actualContent, oldLines.join("\n"))
+            List<String> newContent = nc.split("\n")
+            delta = newContent.size() - oldContent.size()
+            ops.text = lines.join("\n").replace(oc, nc)
+        }
     }
 
     /**
@@ -115,9 +123,18 @@ class AddMethodCall extends AddRelation {
      */
     @Override
     void updateModel() {
+        updateContainingAndAllFollowing(caller.getStart() + 1, delta)
+
         caller.callsMethod(callee)
         addUseDep(callerOwner, calleeOwner)
-        updateContainingAndAllFollowing(start, end)
+
+        int oldEnd = caller.getEnd()
+
+        caller.refresh()
+        if (caller.getEnd() - oldEnd != delta)
+            caller.setEnd(caller.getEnd() + delta)
+        caller.refresh()
+
         updateImports()
     }
 
@@ -127,12 +144,12 @@ class AddMethodCall extends AddRelation {
      * @return A string of the actual parameters to the method call, uses null for object, 0 or 0.0 for numbers, '' for char, and false for boolean
      */
     String params(Method methodNode) {
-        StringBuilder builder = new StringBuilder()
+        List<String> builder = []
 
         methodNode.params.each {
-            switch (it.type) {
-                case TypeRef:
-                    switch (it.type.typeName) {
+            if (it.getType()) {
+                if (it.getType().getType() == TypeRefType.Primitive) {
+                    switch (it.getType().typeName) {
                         case "int":
                         case "byte":
                         case "short":
@@ -150,15 +167,15 @@ class AddMethodCall extends AddRelation {
                             builder << "true"
                             break
                     }
-                    break
-                default:
+                } else {
                     builder << "null"
-            }
-            if (it != methodNode.params.last()) {
-                builder << ", "
+                }
+            } else {
+                builder << "null"
             }
         }
 
-        builder.toString()
+        println "Params: ${builder.join(', ')}"
+        return builder.join(", ")
     }
 }
