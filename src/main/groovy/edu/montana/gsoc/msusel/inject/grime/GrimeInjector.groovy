@@ -108,15 +108,15 @@ abstract class GrimeInjector implements SourceInjector {
 
     Type createType(Namespace ns = null) {
         log.info "Creating Type"
-        int genIndex = generatedIndex++
         if (!ns)
             ns = findPatternNamespaces().get(0)
 
         Type type = null
-//        boolean exception
-//        do {
-//            exception = false
-//            try {
+        boolean exception
+        do {
+            exception = false
+            int genIndex = generatedIndex++
+            try {
                 AddFileModelTransform addFile = new AddFileModelTransform(ns, "GenExternalType${genIndex}.java", FileType.SOURCE)
                 addFile.execute()
                 addFile.file.refresh()
@@ -127,10 +127,10 @@ abstract class GrimeInjector implements SourceInjector {
                 ns.addType(type)
                 type.updateKey()
                 type.refresh()
-//            } catch (ModelTransformPreconditionsNotMetException ex) {
-//                exception = true
-//            }
-//        } while (exception)
+            } catch (ModelTransformPreconditionsNotMetException ex) {
+                exception = true
+            }
+        } while (exception)
 
         type
     }
