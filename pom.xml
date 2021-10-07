@@ -16,7 +16,6 @@
     <url>https://github.com/MSUSEL/msusel-software-injector</url>
 
     <properties>
-        <activejdbc.version>2.3</activejdbc.version>
         <environments>development,development.test</environments>
         <siteRepoName>msusel-software-injector</siteRepoName>
         <siteOwner>MSUSEL</siteOwner>
