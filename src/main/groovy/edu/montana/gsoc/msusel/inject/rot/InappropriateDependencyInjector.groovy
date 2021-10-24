@@ -53,4 +53,8 @@ class InappropriateDependencyInjector extends RotInjector {
     void inject() {
 
     }
+
+    void inject(String ... params) {
+
+    }
 }

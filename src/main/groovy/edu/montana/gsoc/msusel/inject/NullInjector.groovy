@@ -41,4 +41,8 @@ class NullInjector implements SourceInjector {
     void inject() {
 
     }
+
+    void inject(String ... params) {
+
+    }
 }

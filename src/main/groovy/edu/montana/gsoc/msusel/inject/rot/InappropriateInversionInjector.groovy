@@ -54,4 +54,8 @@ class InappropriateInversionInjector extends RotInjector {
     void inject() {
 
     }
+
+    void inject(String ... params) {
+
+    }
 }
