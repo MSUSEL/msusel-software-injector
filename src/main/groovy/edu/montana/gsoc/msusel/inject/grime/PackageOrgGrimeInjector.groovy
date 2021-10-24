@@ -113,6 +113,30 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
         log.info "Injection Complete"
     }
 
+    void inject(String ... params) {
+        log.info "Starting Injection"
+        Type type = pattern.getParentProject().findTypeByQualifiedName(params[0])
+        Type dest = null
+        Namespace other
+
+        MutableGraph<Namespace> graph = createGraph(pattern.getParentProject())
+
+        if (!dest) {
+            if (closure) other = selectOrCreateUnreachableNamespace(graph, type.getParentNamespace())
+            else other = selectOrCreateReachableNamespace(graph, type.getParentNamespace())
+
+            dest = selectOrCreateExternalClass(other)
+        }
+
+        if (other && dest) {
+            RelationType rel = selectRelationship(type, dest, rand.nextBoolean())
+            createRelationship(rel, type, dest)
+        }
+
+        createFinding(internal, closure, type)
+        log.info "Injection Complete"
+    }
+
     void createFinding(boolean internal, boolean closure, Type type) {
         log.info "Creating Finding"
         affectedEntities << type.getCompKey()
@@ -294,6 +318,21 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
 
     }
 
+    Type selectOrCreateExternalClass(Namespace ns, String name) {
+        log.info "Selecting/Creating External Class"
+        Type type = ns.getTypeByName(name)
+
+        if (!type) {
+            AddFileModelTransform addFile = new AddFileModelTransform(ns, "${name}.java", FileType.SOURCE)
+            addFile.execute()
+            AddTypeModelTransform addType = new AddTypeModelTransform(addFile.file, name, Accessibility.PUBLIC, "class")
+            addType.execute()
+            addType.type
+        } else {
+            type
+        }
+    }
+
     static MutableGraph<Namespace> createGraph(Project p) {
         log.info "Creating Graph"
         MutableGraph<Namespace> graph = GraphBuilder.undirected().build()
@@ -333,7 +372,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
     }
 
     private static void addEdge(MutableGraph<Namespace> graph, Namespace from, Namespace to) {
-        if (from && to &&   from != to && !graph.hasEdgeConnecting(from, to))
+        if (from && to && from != to && !graph.hasEdgeConnecting(from, to))
             graph.putEdge(from, to)
     }
 }

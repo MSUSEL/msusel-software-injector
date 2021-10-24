@@ -80,6 +80,36 @@ class ModularGrimeInjector extends GrimeInjector {
         Type dest = null
         RelationType rel = null
 
+        (rel, src, dest) = selectComponents(src, dest, rel)
+
+        performInjection(rel, src, dest)
+        log.info "Injection Complete"
+    }
+
+    @Override
+    void inject(String... params) {
+        log.info "Starting Controlled Injection"
+
+        Type src = pattern.getParentProject().findTypeByQualifiedName(params[0])
+        Type dest = pattern.getParentProject().findTypeByQualifiedName(params[1])
+
+        if (dest == null) {
+            if (external && !efferent) dest = createExternClass(params[1])
+            else dest = createPatternClass(params[1])
+        }
+
+        RelationType rel = selectRelationship(src, dest, persistent)
+        performInjection(rel, src, dest)
+
+        log.info "Controlled Injection Complete"
+    }
+
+    private void performInjection(RelationType rel, Type src, Type dest) {
+        createRelationship(rel, src, dest)
+        createFinding(persistent, external, efferent, src)
+    }
+
+    private List selectComponents(Type src, Type dest, RelationType rel) {
         while (!src && !dest) {
             if (external) {
                 if (efferent) {
@@ -98,10 +128,7 @@ class ModularGrimeInjector extends GrimeInjector {
             if (!rel)
                 src = dest = null
         }
-
-        createRelationship(rel, src, dest)
-        createFinding(persistent, external, efferent, src)
-        log.info "Injection Complete"
+        [rel, src, dest]
     }
 
     void createFinding(boolean persistent, boolean external, boolean efferent, Type type) {
@@ -147,10 +174,21 @@ class ModularGrimeInjector extends GrimeInjector {
 
             if (types.isEmpty()) {
                 return createType()
-            }
-            else
+            } else
                 return types[rand.nextInt(types.size())]
         }
         return null
+    }
+
+    Type createExternClass(String name) {
+        createType(name)
+    }
+
+    Type createPatternClass(String name) {
+        log.info "Creating Pattern Class"
+
+        Type type = createPatternType(name)
+        affectedEntities << type.getCompKey()
+        type
     }
 }

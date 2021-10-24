@@ -112,21 +112,43 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         log.info "Injection Complete"
     }
 
+    @Override
+    void inject(String ... params) {
+        log.info "Starting Injection"
+        Namespace ns1 = pattern.getParentProject().findNamespace(params[0])
+        Namespace ns2 = pattern.getParentProject().findNamespace(params[1])
+
+        if (internal && !ns2) {
+            ns2 = selectPatternNamespace()
+            if (!ns2)
+                (ns1, ns2) = splitNamespace(ns1, true)
+        } else ns2 = createExternNamespace(params[1])
+
+        RelationType rel = selectRelationship (ns1, ns2, persistent)
+
+        if (cyclical) {
+            createCyclicalDependency(ns1, ns2, rel)
+        } else {
+            addInstability(ns1, ns2, rel)
+        }
+
+        createFinding(persistent, internal, cyclical, ns1)
+        log.info "Injection Complete"
+    }
+
     void createFinding(boolean persistent, boolean internal, boolean cyclical, Namespace ns) {
         log.info "Creating Finding"
         if (persistent) {
             if (internal) {
                 if (cyclical) {
                     Finding.of(GrimeInjectorConstants.grimeTypes["MPICG"]).injected().on(ns)
-                }
-                else {
+                } else {
                     Finding.of(GrimeInjectorConstants.grimeTypes["MPIUG"]).injected().on(ns)
                 }
             } else {
                 if (cyclical) {
                     Finding.of(GrimeInjectorConstants.grimeTypes["MPECG"]).injected().on(ns)
-                }
-                else {
+                } else {
                     Finding.of(GrimeInjectorConstants.grimeTypes["MPEUG"]).injected().on(ns)
                 }
             }
@@ -134,15 +156,13 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
             if (internal) {
                 if (cyclical) {
                     Finding.of(GrimeInjectorConstants.grimeTypes["MTICG"]).injected().on(ns)
-                }
-                else {
+                } else {
                     Finding.of(GrimeInjectorConstants.grimeTypes["MTIUG"]).injected().on(ns)
                 }
             } else {
                 if (cyclical) {
                     Finding.of(GrimeInjectorConstants.grimeTypes["MTECG"]).injected().on(ns)
-                }
-                else {
+                } else {
                     Finding.of(GrimeInjectorConstants.grimeTypes["MTEUG"]).injected().on(ns)
                 }
             }
@@ -303,6 +323,19 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
             ns.refresh()
             ns
         }
+    }
+
+    Namespace createExternNamespace(String name) {
+        log.info "Creating External Namespace"
+        Project project = pattern.getParentProject()
+
+        Module mod = project.getModules().first()
+        AddNamespaceToModuleModelTransform trans = new AddNamespaceToModuleModelTransform(mod, name)
+        trans.execute()
+        Namespace ns = trans.ns
+        ns.saveIt()
+        ns.refresh()
+        ns
     }
 
     /**

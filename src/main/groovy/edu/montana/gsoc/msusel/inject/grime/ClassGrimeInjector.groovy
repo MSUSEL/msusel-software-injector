@@ -96,7 +96,7 @@ class ClassGrimeInjector extends GrimeInjector {
 
         if (pair) {
 //            while (!method2 && method2 != method1) {
-                method2 = selectOrCreateMethod(type, [method1])
+            method2 = selectOrCreateMethod(type, [method1])
 //            }
         }
 
@@ -117,6 +117,31 @@ class ClassGrimeInjector extends GrimeInjector {
         if (pair)
             createFinding(direct, internal, pair, method2)
         log.info "Injection Complete"
+    }
+
+    @Override
+    void inject(String ... params) {
+        Type type = pattern.getParentProject().findTypeByQualifiedName(params[0])
+        Method method1 = type.findMethodBySignature(params[1])
+        Method method2 = type.findMethodBySignature(params[2])
+        Component dest = type.findMethodBySignature(params[3])
+        if (!dest) dest = type.getFieldWithName(params[3])
+
+        if (pair && !method2) {
+            method2 = createMethod(type, extractMethodName(params[2]))
+            if (direct) createFieldUse(method2, (dest as Field))
+            else createMethodCall(type, method2, (dest as Method))
+        }
+
+        createFinding(direct, internal, pair, method1)
+        if (pair)
+            createFinding(direct, internal, pair, method2)
+    }
+
+    private String extractMethodName(String key) {
+        if (key.contains("#")) key = key.split(/#/)[1]
+        if (key.contains("(")) key = key.split(/\(/)[0]
+        return key
     }
 
     void createFinding(boolean direct, boolean internal, boolean pair, Method method) {

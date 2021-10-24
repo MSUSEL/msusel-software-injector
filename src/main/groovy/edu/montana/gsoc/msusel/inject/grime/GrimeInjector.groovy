@@ -70,7 +70,6 @@ abstract class GrimeInjector implements SourceInjector {
 
     /**
      * Selects a type from the pattern instance, as the focus for the injection event
-     * @param alreadySelected list of already selected classes
      * @return Type into which grime will be injected
      */
     Type selectOrCreatePatternClass() {
@@ -97,6 +96,18 @@ abstract class GrimeInjector implements SourceInjector {
     Type createPatternType(Namespace ns = null) {
         log.info "Creating Pattern Type"
         Type type = createType(ns)
+        Role role = pattern.getRoles().find {
+            it.getType() == RoleType.CLASSIFIER
+        }
+        pattern.getParentPattern().addRole(role)
+        pattern.addRoleBinding(RoleBinding.of(role, type.createReference()))
+
+        type
+    }
+
+    Type createPatternType(String name) {
+        log.info "Creating Pattern Type"
+        Type type = createType(null, name)
         Role role = pattern.getRoles().find {
             it.getType() == RoleType.CLASSIFIER
         }
@@ -135,6 +146,27 @@ abstract class GrimeInjector implements SourceInjector {
         type
     }
 
+    Type createType(Namespace ns = null, String name) {
+        log.info "Creating Type"
+        if (!ns)
+            ns = findPatternNamespaces().get(0)
+
+        Type type = null
+
+        AddFileModelTransform addFile = new AddFileModelTransform(ns, "${name}.java", FileType.SOURCE)
+        addFile.execute()
+        addFile.file.refresh()
+        AddTypeModelTransform addType = new AddTypeModelTransform(addFile.file, name, Accessibility.PUBLIC, "class")
+        addType.execute()
+        addFile.file.refresh()
+        type = addType.type
+        ns.addType(type)
+        type.updateKey()
+        type.refresh()
+
+        type
+    }
+
     /**
      * Selects a relationship type to be used for the grime injection
      * @return Relationship type
@@ -165,8 +197,7 @@ abstract class GrimeInjector implements SourceInjector {
                 }
             } else if (src.isAssociatedTo(dest)) {
                 return RelationType.GEN
-            }
-            else {
+            } else {
                 return RelationType.ASSOC
             }
         } else {
@@ -178,8 +209,7 @@ abstract class GrimeInjector implements SourceInjector {
                 }
             } else if (src.isAssociatedTo(dest)) {
                 return RelationType.REAL
-            }
-            else {
+            } else {
                 if (rand.nextBoolean())
                     return RelationType.REAL
                 else
@@ -278,7 +308,7 @@ abstract class GrimeInjector implements SourceInjector {
         List<Method> methods = type.getAllMethods()
         methods.removeAll(selected)
         if (forParamInject)
-            methods.removeAll {it.isOverriding() || it.isAbstract() || it instanceof Constructor || it instanceof Destructor }
+            methods.removeAll { it.isOverriding() || it.isAbstract() || it instanceof Constructor || it instanceof Destructor }
 
         if (!methods.isEmpty()) {
             Collections.shuffle(methods)

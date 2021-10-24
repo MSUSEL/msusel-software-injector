@@ -36,7 +36,12 @@ interface SourceInjector {
 
     /**
      * Method defining the logic for the injection of a source code artifact or series of artifacts
-     * @param context The Current InjectionContext providing access to the injection system components
      */
     void inject()
+
+    /**
+     * Method defining the logic for the controlled injection of a source code artifact or series of artifacts
+     * @param info the parameters controlling the injection
+     */
+    void inject(String ... info)
 }
