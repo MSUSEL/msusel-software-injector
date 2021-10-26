@@ -127,6 +127,8 @@ class ClassGrimeInjector extends GrimeInjector {
 
         Type type = pattern.getParentProject().findTypeByQualifiedName(params[0])
         log.info "Type found: $type"
+        type.save()
+        type.refresh()
         String name
         int numParam
         (name, numParam) = extractMethodInfo(params[1])
