@@ -127,14 +127,19 @@ class ClassGrimeInjector extends GrimeInjector {
 
         Type type = pattern.getParentProject().findTypeByQualifiedName(params[0])
         log.info "Type found: $type"
-        Method method1 = type.findMethodBySignature(params[1])
+        String name
+        int numParam
+        (name, numParam) = extractMethodInfo(params[1])
+        Method method1 = type.getMethodWithNameAndNumParams(name, numParam)
         log.info "Method1 found: $method1"
-        Method method2 = type.findMethodBySignature(params[2])
+        (name, numParam) = extractMethodInfo(params[2])
+        Method method2 = type.getMethodWithNameAndNumParams(name, numParam)
         log.info "Method2 found: $method2"
         Component dest
         log.info "dest found: $dest"
         if (params.length == 4) {
-            dest = type.findMethodBySignature(params[3])
+            (name, numParam) = extractMethodInfo(params[3])
+            dest = type.getMethodWithNameAndNumParams(name, numParam)
             if (!dest) dest = type.getFieldWithName(params[3])
         } else {
             dest = method2
@@ -313,5 +318,17 @@ class ClassGrimeInjector extends GrimeInjector {
     def createMethodCall(Type type, Method callee, Method call) {
         log.info "Creating Method Call"
         new AddMethodCallModelTransform(callee, call).execute()
+    }
+
+    def extractMethodInfo(String s) {
+        String[] comps = s.split(/\(/)
+        String name = comps[0]
+        String paramList = comps[1]
+        paramList = paramList.replace(")", "")
+        int numParam = 0
+        if (!paramList.isBlank() && !paramList.isEmpty()) {
+            numParam = paramList.split(/,/).size()
+        }
+        [name, numParam]
     }
 }
