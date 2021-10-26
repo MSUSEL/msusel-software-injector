@@ -63,6 +63,7 @@ class ProjectCopier {
         original.getParentSystem().addProject(copy)
         original.getParentSystem().updateKeys()
 
+        copy.save()
         copy.refresh()
 
         return copy

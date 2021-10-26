@@ -121,16 +121,31 @@ class ClassGrimeInjector extends GrimeInjector {
 
     @Override
     void inject(String ... params) {
+        Project proj = pattern.getParentProject();
+        proj.save()
+        proj.refresh()
+
         Type type = pattern.getParentProject().findTypeByQualifiedName(params[0])
+        log.info "Type found: $type"
         Method method1 = type.findMethodBySignature(params[1])
+        log.info "Method1 found: $method1"
         Method method2 = type.findMethodBySignature(params[2])
-        Component dest = type.findMethodBySignature(params[3])
-        if (!dest) dest = type.getFieldWithName(params[3])
+        log.info "Method2 found: $method2"
+        Component dest
+        log.info "dest found: $dest"
+        if (params.length == 4) {
+            dest = type.findMethodBySignature(params[3])
+            if (!dest) dest = type.getFieldWithName(params[3])
+        } else {
+            dest = method2
+        }
 
         if (pair && !method2) {
             method2 = createMethod(type, extractMethodName(params[2]))
             if (direct) createFieldUse(method2, (dest as Field))
             else createMethodCall(type, method2, (dest as Method))
+        } else {
+            createMethodCall(type, method1, method2)
         }
 
         createFinding(direct, internal, pair, method1)
