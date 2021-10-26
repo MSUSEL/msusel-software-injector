@@ -43,21 +43,21 @@ class ProjectCopier {
      * Creates a duplicate of the provided project both in the database and in the physical directory structure.
      * @param proj Project to be copied
      */
-    Project execute(Project proj) {
+    Project execute(Project proj, String newKey = null, String newRelPath = null) {
         if (!proj)
             throw new InjectionFailedException()
 
-        Project copy = copyModelComponents(proj)
+        Project copy = copyModelComponents(proj, newKey, newRelPath)
         updateSecondaryLinks(proj, copy)
         copyPhysicalFiles(proj, copy)
 
         return copy
     }
 
-    private Project copyModelComponents(Project original) {
+    private Project copyModelComponents(Project original, String newKey = null, String newRelPath = null) {
         // 1. for each component starting with Project recurse down the tree to copy the item calling the copy method
-        String newKey = "${original.getName()}_copy"
-        String newRelPath = "${original.getRelPath()}_copy"
+        newKey = newKey ?: "${original.getName()}_copy"
+        newRelPath = newRelPath ?: "${original.getRelPath()}_copy"
         Project copy = original.copy(newKey, newRelPath)
 
         original.getParentSystem().addProject(copy)
