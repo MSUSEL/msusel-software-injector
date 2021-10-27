@@ -277,19 +277,20 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
             // Add Namespace
             Namespace newNs
             ModelTransform addNs
-            if (!ns.getParentProject().getModules().isEmpty()) {
+            if (!ns.getParentProject().getModules().isEmpty())
                 addNs = new AddNamespaceToModuleModelTransform(ns.getParentProject().getModules().first(), "exgeneratedns${generatedIndex++}")
-                newNs = (addNs as AddNamespaceToModuleModelTransform).ns
-            } else {
+            else
                 addNs = new AddNamespaceToProjectModelTransform(ns.getParentProject(), "exgeneratedns${generatedIndex++}")
-                newNs = (addNs as AddNamespaceToProjectModelTransform).ns
-            }
             addNs.execute()
+            if (addNs instanceof AddNamespaceToModuleModelTransform)
+                newNs = (addNs as AddNamespaceToModuleModelTransform).ns
+            else
+                newNs = (addNs as AddNamespaceToProjectModelTransform).ns
             Type externalType = selectOrCreateExternalClass(newNs)
             Type internalType = selectOrCreateInternalClass(ns)
             AddFieldModelTransform addField = new AddFieldModelTransform(internalType, "connector${generatedIndex++}", externalType, Accessibility.PRIVATE)
             addField.execute()
-            addNs.ns
+            newNs
         } else {
             Collections.shuffle(list)
             (Namespace) list[0]
