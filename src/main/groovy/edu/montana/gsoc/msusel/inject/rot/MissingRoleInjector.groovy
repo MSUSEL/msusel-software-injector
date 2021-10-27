@@ -28,6 +28,7 @@ package edu.montana.gsoc.msusel.inject.rot
 
 
 import edu.isu.isuese.datamodel.PatternInstance
+import edu.isu.isuese.datamodel.Project
 import groovy.transform.builder.Builder
 
 /**
@@ -56,7 +57,7 @@ class MissingRoleInjector extends RotInjector {
 
     }
 
-    void inject(String ... params) {
+    void inject(Project proj, String ... params) {
 
     }
 }

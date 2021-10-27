@@ -26,6 +26,8 @@
  */
 package edu.montana.gsoc.msusel.inject
 
+import edu.isu.isuese.datamodel.Project
+
 /**
  * A base injector which does simply nothing, following the NullObject pattern.
  *
@@ -42,7 +44,7 @@ class NullInjector implements SourceInjector {
 
     }
 
-    void inject(String ... params) {
+    void inject(Project proj, String ... params) {
 
     }
 }
