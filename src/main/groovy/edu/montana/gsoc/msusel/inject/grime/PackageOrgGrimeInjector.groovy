@@ -115,9 +115,13 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
         log.info "Injection Complete"
     }
 
-    void inject(String ... params) {
+    @Override
+    void inject(Project proj, String ... params) {
         log.info "Starting Injection"
-        Type type = pattern.getParentProject().findTypeByQualifiedName(params[0])
+        proj.save()
+        proj.refresh()
+        pattern = proj.getPatternInstances().first()
+        Type type = proj.findTypeByQualifiedName(params[0])
         Type dest = null
         Namespace other
 
@@ -288,7 +292,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
                 newNs = (addNs as AddNamespaceToProjectModelTransform).ns
             Type externalType = selectOrCreateExternalClass(newNs)
             Type internalType = selectOrCreateInternalClass(ns)
-            AddFieldModelTransform addField = new AddFieldModelTransform(internalType, "gen_connector${generatedIndex++}", externalType, Accessibility.PRIVATE)
+            AddFieldModelTransform addField = new AddFieldModelTransform(internalType, "connector${generatedIndex++}", externalType, Accessibility.PRIVATE)
             addField.execute()
             newNs
         } else {

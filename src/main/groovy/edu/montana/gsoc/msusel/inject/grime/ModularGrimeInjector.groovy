@@ -29,6 +29,7 @@ package edu.montana.gsoc.msusel.inject.grime
 import com.google.common.collect.Lists
 import edu.isu.isuese.datamodel.Finding
 import edu.isu.isuese.datamodel.PatternInstance
+import edu.isu.isuese.datamodel.Project
 import edu.isu.isuese.datamodel.Type
 import groovy.transform.builder.Builder
 import groovy.util.logging.Log4j2
@@ -87,11 +88,13 @@ class ModularGrimeInjector extends GrimeInjector {
     }
 
     @Override
-    void inject(String... params) {
+    void inject(Project proj, String... params) {
         log.info "Starting Controlled Injection"
-
-        Type src = pattern.getParentProject().findTypeByQualifiedName(params[0])
-        Type dest = pattern.getParentProject().findTypeByQualifiedName(params[1])
+        proj.save()
+        proj.refresh()
+        pattern = proj.getPatternInstances().first()
+        Type src = proj.findTypeByQualifiedName(params[0])
+        Type dest = proj.findTypeByQualifiedName(params[1])
 
         if (dest == null) {
             if (external && !efferent) dest = createExternClass(params[1])
@@ -168,8 +171,8 @@ class ModularGrimeInjector extends GrimeInjector {
      */
     Type selectOrCreateExternClass() {
         log.info "Selecting/Creating External Class"
-        if (!pattern.getParentProjects().isEmpty()) {
-            List<Type> types = Lists.newArrayList(pattern.getParentProjects().first().getAllTypes())
+        if (!pattern.getParentProject()) {
+            List<Type> types = Lists.newArrayList(pattern.getParentProject().getAllTypes())
             types.removeAll(pattern.getTypes())
 
             if (types.isEmpty()) {

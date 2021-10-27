@@ -114,10 +114,13 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
     }
 
     @Override
-    void inject(String ... params) {
+    void inject(Project proj, String ... params) {
         log.info "Starting Injection"
-        Namespace ns1 = pattern.getParentProject().findNamespace(params[0])
-        Namespace ns2 = pattern.getParentProject().findNamespace(params[1])
+        proj.save()
+        proj.refresh()
+        pattern = proj.getPatternInstances().first()
+        Namespace ns1 = proj.findNamespace(params[0])
+        Namespace ns2 = proj.findNamespace(params[1])
 
         if (internal && !ns2) {
             ns2 = selectPatternNamespace()

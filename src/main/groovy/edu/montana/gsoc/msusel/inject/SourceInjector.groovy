@@ -26,6 +26,8 @@
  */
 package edu.montana.gsoc.msusel.inject
 
+import edu.isu.isuese.datamodel.Project
+
 /**
  * Base interface defining the contract of a SourceInjector
  *
@@ -41,7 +43,8 @@ interface SourceInjector {
 
     /**
      * Method defining the logic for the controlled injection of a source code artifact or series of artifacts
+     * @param proj The project into which injection will occur
      * @param info the parameters controlling the injection
      */
-    void inject(String ... info)
+    void inject(Project proj, String ... info)
 }

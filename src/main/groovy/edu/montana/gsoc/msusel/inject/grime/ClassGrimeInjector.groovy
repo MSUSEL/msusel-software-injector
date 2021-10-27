@@ -120,10 +120,10 @@ class ClassGrimeInjector extends GrimeInjector {
     }
 
     @Override
-    void inject(String ... params) {
-        Project proj = pattern.getParentProject();
+    void inject(Project proj, String ... params) {
         proj.save()
         proj.refresh()
+        pattern = proj.getPatternInstances().first()
 
         Type type = pattern.getParentProject().findTypeByQualifiedName(params[0])
         log.info "Type found: $type"
