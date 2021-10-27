@@ -151,18 +151,20 @@ abstract class GrimeInjector implements SourceInjector {
         if (!ns)
             ns = findPatternNamespaces().get(0)
 
-        Type type = null
+        Type type = ns.getTypeByName(name)
 
-        AddFileModelTransform addFile = new AddFileModelTransform(ns, "${name}.java", FileType.SOURCE)
-        addFile.execute()
-        addFile.file.refresh()
-        AddTypeModelTransform addType = new AddTypeModelTransform(addFile.file, name, Accessibility.PUBLIC, "class")
-        addType.execute()
-        addFile.file.refresh()
-        type = addType.type
-        ns.addType(type)
-        type.updateKey()
-        type.refresh()
+        if (!type) {
+            AddFileModelTransform addFile = new AddFileModelTransform(ns, "${name}.java", FileType.SOURCE)
+            addFile.execute()
+            addFile.file.refresh()
+            AddTypeModelTransform addType = new AddTypeModelTransform(addFile.file, name, Accessibility.PUBLIC, "class")
+            addType.execute()
+            addFile.file.refresh()
+            type = addType.type
+            ns.addType(type)
+            type.updateKey()
+            type.refresh()
+        }
 
         type
     }
