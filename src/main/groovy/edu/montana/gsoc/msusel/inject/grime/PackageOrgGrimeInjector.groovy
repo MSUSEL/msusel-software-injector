@@ -288,7 +288,7 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
                 newNs = (addNs as AddNamespaceToProjectModelTransform).ns
             Type externalType = selectOrCreateExternalClass(newNs)
             Type internalType = selectOrCreateInternalClass(ns)
-            AddFieldModelTransform addField = new AddFieldModelTransform(internalType, "connector${generatedIndex++}", externalType, Accessibility.PRIVATE)
+            AddFieldModelTransform addField = new AddFieldModelTransform(internalType, "gen_connector${generatedIndex++}", externalType, Accessibility.PRIVATE)
             addField.execute()
             newNs
         } else {
