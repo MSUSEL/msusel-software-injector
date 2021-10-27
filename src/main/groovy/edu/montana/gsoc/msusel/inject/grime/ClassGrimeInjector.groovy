@@ -124,6 +124,8 @@ class ClassGrimeInjector extends GrimeInjector {
         proj.save()
         proj.refresh()
         pattern = proj.getPatternInstances().first()
+        pattern.save()
+        pattern.refresh()
 
         Type type = pattern.getParentProject().findTypeByQualifiedName(params[0])
         log.info "Type found: $type"

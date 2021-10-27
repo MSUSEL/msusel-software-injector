@@ -93,6 +93,8 @@ class ModularGrimeInjector extends GrimeInjector {
         proj.save()
         proj.refresh()
         pattern = proj.getPatternInstances().first()
+        pattern.save()
+        pattern.refresh()
         Type src = proj.findTypeByQualifiedName(params[0])
         Type dest = proj.findTypeByQualifiedName(params[1])
         src.save()

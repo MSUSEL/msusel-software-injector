@@ -121,6 +121,8 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
         proj.save()
         proj.refresh()
         pattern = proj.getPatternInstances().first()
+        pattern.save()
+        pattern.refresh()
         Type type = proj.findTypeByQualifiedName(params[0])
         type.save()
         type.refresh()
