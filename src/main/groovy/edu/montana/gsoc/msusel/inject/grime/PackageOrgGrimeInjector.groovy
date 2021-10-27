@@ -36,9 +36,11 @@ import edu.isu.isuese.datamodel.PatternInstance
 import edu.isu.isuese.datamodel.Project
 import edu.isu.isuese.datamodel.Type
 import edu.montana.gsoc.msusel.inject.InjectionFailedException
+import edu.montana.gsoc.msusel.inject.transform.model.ModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.file.AddTypeModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.module.AddNamespaceToModuleModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.namespace.AddFileModelTransform
+import edu.montana.gsoc.msusel.inject.transform.model.project.AddNamespaceToProjectModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.type.AddFieldModelTransform
 import groovy.transform.builder.Builder
 import groovy.util.logging.Log4j2
@@ -274,9 +276,16 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
         if (!list) {
             // Add Namespace
             Namespace newNs
-            AddNamespaceToModuleModelTransform addNs = new AddNamespaceToModuleModelTransform(ns.getParentProject().getModules().first(), "exgeneratedns${generatedIndex++}")
+            ModelTransform addNs
+            if (!ns.getParentProject().getModules().isEmpty()) {
+                addNs = new AddNamespaceToModuleModelTransform(ns.getParentProject().getModules().first(), "exgeneratedns${generatedIndex++}")
+                newNs = (addNs as AddNamespaceToModuleModelTransform).ns
+            } else {
+                addNs = new AddNamespaceToProjectModelTransform(ns.getParentProject(), "exgeneratedns${generatedIndex++}")
+                newNs = (addNs as AddNamespaceToProjectModelTransform).ns
+            }
             addNs.execute()
-            Type externalType = selectOrCreateExternalClass(addNs.ns)
+            Type externalType = selectOrCreateExternalClass(newNs)
             Type internalType = selectOrCreateInternalClass(ns)
             AddFieldModelTransform addField = new AddFieldModelTransform(internalType, "connector${generatedIndex++}", externalType, Accessibility.PRIVATE)
             addField.execute()

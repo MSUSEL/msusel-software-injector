@@ -29,6 +29,7 @@ package edu.montana.gsoc.msusel.inject.transform.source.structural
 import edu.isu.isuese.datamodel.FileType
 import edu.isu.isuese.datamodel.Module
 import edu.isu.isuese.datamodel.Namespace
+import edu.isu.isuese.datamodel.Project
 import groovy.transform.builder.Builder
 
 /**
@@ -65,6 +66,8 @@ class AddNamespace extends StructuralCreateTransform {
             base = getModuleFile((Module) to)
         } else if (to instanceof Namespace) {
             base = getNamespaceFile((Namespace) to)
+        } else if (to instanceof Project) {
+            base = getProjectFile((Project) to)
         }
     }
 
@@ -87,6 +90,11 @@ class AddNamespace extends StructuralCreateTransform {
 
     private File getNamespaceFile(Namespace other) {
         File dir = new File(other.getFullPath(FileType.SOURCE, 0))
+        return dir
+    }
+
+    private File getProjectFile(Project proj) {
+        File dir = new File(proj.getSrcPath())
         return dir
     }
 }
