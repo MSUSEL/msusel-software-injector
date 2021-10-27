@@ -33,6 +33,7 @@ import edu.montana.gsoc.msusel.inject.transform.model.file.AddTypeModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.module.AddNamespaceToModuleModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.namespace.AddFileModelTransform
 import edu.montana.gsoc.msusel.inject.transform.model.namespace.SplitNamespaceModelTransform
+import edu.montana.gsoc.msusel.inject.transform.model.project.AddNamespaceToProjectModelTransform
 import groovy.transform.builder.Builder
 import groovy.util.logging.Log4j2
 import org.apache.commons.lang3.tuple.Pair
@@ -329,11 +330,13 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         log.info "Creating External Namespace"
         Project project = pattern.getParentProject()
 
-        Module mod = project.getModules().first()
-        AddNamespaceToModuleModelTransform trans = new AddNamespaceToModuleModelTransform(mod, name)
-        trans.execute()
-        Namespace ns = trans.ns
-        ns.saveIt()
+        Namespace ns = project.findNamespace(name)
+        if (!ns) {
+            AddNamespaceToProjectModelTransform trans = new AddNamespaceToProjectModelTransform(project, name)
+            trans.execute()
+            ns = trans.ns
+            ns.saveIt()
+        }
         ns.refresh()
         ns
     }
