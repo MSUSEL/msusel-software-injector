@@ -129,14 +129,22 @@ class ClassGrimeInjector extends GrimeInjector {
         log.info "Type found: $type"
         type.save()
         type.refresh()
+
         String name
         int numParam
         (name, numParam) = extractMethodInfo(params[1])
         Method method1 = type.getMethodWithNameAndNumParams(name, numParam)
         log.info "Method1 found: $method1"
+
         (name, numParam) = extractMethodInfo(params[2])
         Method method2 = type.getMethodWithNameAndNumParams(name, numParam)
         log.info "Method2 found: $method2"
+
+        if (!method1 && method2) {
+            method1 = method2
+            method2 = null
+        }
+
         Component dest
         log.info "dest found: $dest"
         if (params.length == 4) {

@@ -121,12 +121,14 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         pattern = proj.getPatternInstances().first()
         Namespace ns1 = proj.findNamespace(params[0])
         Namespace ns2 = proj.findNamespace(params[1])
+        ns1.save()
+        ns1.refresh()
 
         if (internal && !ns2) {
             ns2 = selectPatternNamespace()
             if (!ns2)
                 (ns1, ns2) = splitNamespace(ns1, true)
-        } else ns2 = createExternNamespace(params[1])
+        } else ns2 = createExternNamespace(proj, params[1])
 
         RelationType rel = selectRelationship (ns1, ns2, persistent)
 
@@ -329,10 +331,8 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         }
     }
 
-    Namespace createExternNamespace(String name) {
+    Namespace createExternNamespace(Project project, String name) {
         log.info "Creating External Namespace"
-        Project project = pattern.getParentProject()
-
         Namespace ns = project.findNamespace(name)
         if (!ns) {
             AddNamespaceToProjectModelTransform trans = new AddNamespaceToProjectModelTransform(project, name)
@@ -340,6 +340,7 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
             ns = trans.ns
             ns.saveIt()
         }
+        ns.save()
         ns.refresh()
         ns
     }

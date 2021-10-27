@@ -95,10 +95,15 @@ class ModularGrimeInjector extends GrimeInjector {
         pattern = proj.getPatternInstances().first()
         Type src = proj.findTypeByQualifiedName(params[0])
         Type dest = proj.findTypeByQualifiedName(params[1])
+        src.save()
+        src.refresh()
 
         if (dest == null) {
             if (external && !efferent) dest = createExternClass(params[1])
             else dest = createPatternClass(params[1])
+        } else {
+            dest.refresh()
+            dest.save()
         }
 
         RelationType rel = selectRelationship(src, dest, persistent)

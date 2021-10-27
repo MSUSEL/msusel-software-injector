@@ -122,10 +122,12 @@ class PackageOrgGrimeInjector extends OrgGrimeInjector {
         proj.refresh()
         pattern = proj.getPatternInstances().first()
         Type type = proj.findTypeByQualifiedName(params[0])
+        type.save()
+        type.refresh()
         Type dest = null
         Namespace other
 
-        MutableGraph<Namespace> graph = createGraph(pattern.getParentProject())
+        MutableGraph<Namespace> graph = createGraph(proj)
 
         if (!dest) {
             if (closure) other = selectOrCreateUnreachableNamespace(graph, type.getParentNamespace())
