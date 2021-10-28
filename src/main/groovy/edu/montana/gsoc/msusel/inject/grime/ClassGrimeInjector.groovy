@@ -165,7 +165,7 @@ class ClassGrimeInjector extends GrimeInjector {
             }
             else dest = type.getFieldWithName(params[3])
         } else {
-            (params[2].contains("(")) {
+            if (params[2].contains("(")) {
                 (name, numParam) = extractMethodInfo(params[2])
                 dest = type.getMethodWithNameAndNumParams(name, numParam)
             }
