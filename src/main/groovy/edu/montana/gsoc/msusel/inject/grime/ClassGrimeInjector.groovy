@@ -58,6 +58,8 @@ class ClassGrimeInjector extends GrimeInjector {
      */
     protected boolean pair
 
+    private static int genIndex = 1
+
     /**
      * Constructs a new ClassGrimeInjector for the given pattern and parameterized by the given flags
      * @param pattern Pattern instance to be injected with class grime
@@ -163,20 +165,24 @@ class ClassGrimeInjector extends GrimeInjector {
             }
             else dest = type.getFieldWithName(params[3])
         } else {
-            dest = method2
+            (params[2].contains("(")) {
+                (name, numParam) = extractMethodInfo(params[2])
+                dest = type.getMethodWithNameAndNumParams(name, numParam)
+            }
+            else dest = type.getFieldWithName(params[2])
         }
 
         if (pair && !method2) {
             (name, numParam) = extractMethodInfo(params[2])
             method2 = createMethod(type, name, numParam)
             if (direct) {
-                if (!dest) dest = createField(type, "genField", selectType(type))
+                if (!dest) dest = createField(type, "genField${genIndex++}", selectType(type))
                 createFieldUse(method2, (dest as Field))
             }
             else createMethodCall(type, method2, (dest as Method))
         } else {
             if (direct) {
-                if (!dest) dest = createField(type, "genField", selectType(type))
+                if (!dest) dest = createField(type, "genField${genIndex++}", selectType(type))
                 createFieldUse(method1, (dest as Field))
             }
             else createMethodCall(type, method1, (dest as Method))
