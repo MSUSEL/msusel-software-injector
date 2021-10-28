@@ -172,7 +172,8 @@ class ClassGrimeInjector extends GrimeInjector {
             if (direct) createFieldUse(method2, (dest as Field))
             else createMethodCall(type, method2, (dest as Method))
         } else {
-            createMethodCall(type, method1, method2)
+            if (direct) createFieldUse(method1, (dest as Field))
+            else createMethodCall(type, method1, (dest as Method))
         }
 
         createFinding(direct, internal, pair, method1)
