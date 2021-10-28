@@ -138,9 +138,12 @@ class ClassGrimeInjector extends GrimeInjector {
         Method method1 = type.getMethodWithNameAndNumParams(name, numParam)
         log.info "Method1 found: $method1"
 
-        (name, numParam) = extractMethodInfo(params[2])
-        Method method2 = type.getMethodWithNameAndNumParams(name, numParam)
-        log.info "Method2 found: $method2"
+        Method method2 = null
+        if (params[2].contains("(")) {
+            (name, numParam) = extractMethodInfo(params[2])
+            method2 = type.getMethodWithNameAndNumParams(name, numParam)
+            log.info "Method2 found: $method2"
+        }
 
         if (!method1 && method2) {
             String temp = params[1]
