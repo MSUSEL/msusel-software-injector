@@ -150,9 +150,11 @@ class ClassGrimeInjector extends GrimeInjector {
         Component dest
         log.info "dest found: $dest"
         if (params.length == 4) {
-            (name, numParam) = extractMethodInfo(params[3])
-            dest = type.getMethodWithNameAndNumParams(name, numParam)
-            if (!dest) dest = type.getFieldWithName(params[3])
+            if (params[3].contains("(")) {
+                (name, numParam) = extractMethodInfo(params[3])
+                dest = type.getMethodWithNameAndNumParams(name, numParam)
+            }
+            else dest = type.getFieldWithName(params[3])
         } else {
             dest = method2
         }
