@@ -31,12 +31,14 @@ import edu.isu.isuese.datamodel.Module
 import edu.isu.isuese.datamodel.Namespace
 import edu.isu.isuese.datamodel.Project
 import edu.isu.isuese.datamodel.Type
+import groovy.util.logging.Log4j2
 import org.apache.commons.io.FileUtils
 
 /**
  * @author Isaac Griffith
  * @version 1.3.0
  */
+@Log4j2
 class ProjectCopier {
 
     /**
@@ -47,6 +49,7 @@ class ProjectCopier {
         if (!proj)
             throw new InjectionFailedException()
 
+        log.info "New Key: $newKey"
         Project copy = copyModelComponents(proj, newKey, newRelPath)
         updateSecondaryLinks(proj, copy)
         copyPhysicalFiles(proj, copy)
