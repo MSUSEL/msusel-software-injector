@@ -169,10 +169,16 @@ class ClassGrimeInjector extends GrimeInjector {
         if (pair && !method2) {
             (name, numParam) = extractMethodInfo(params[2])
             method2 = createMethod(type, name, numParam)
-            if (direct) createFieldUse(method2, (dest as Field))
+            if (direct) {
+                if (!dest) dest = createField(type, "genField", selectType(type))
+                createFieldUse(method2, (dest as Field))
+            }
             else createMethodCall(type, method2, (dest as Method))
         } else {
-            if (direct) createFieldUse(method1, (dest as Field))
+            if (direct) {
+                if (!dest) dest = createField(type, "genField", selectType(type))
+                createFieldUse(method1, (dest as Field))
+            }
             else createMethodCall(type, method1, (dest as Method))
         }
 
