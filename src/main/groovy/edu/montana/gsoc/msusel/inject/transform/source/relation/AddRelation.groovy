@@ -56,17 +56,16 @@ abstract class AddRelation extends BasicSourceTransform {
         FileOperations ops = FileOperations.getOps(file)
         List<String> content = ops.contentRegion(method)
 
+        int index = 0
         if (!content.isEmpty()) {
-            int index = 0
             for (int i = 0; i < content.size(); i++) {
                 if (content[i].trim().endsWith("{")) {
                     index = i + 1
                     break
                 }
             }
-
-            return index
         }
+        return index
     }
 
     /**
