@@ -143,6 +143,10 @@ class ClassGrimeInjector extends GrimeInjector {
         log.info "Method2 found: $method2"
 
         if (!method1 && method2) {
+            String temp = params[1]
+            params[1] = params[2]
+            params[2] = temp
+            
             method1 = method2
             method2 = null
         }
