@@ -287,9 +287,9 @@ abstract class GrimeInjector implements SourceInjector {
      * @param methodName name of the new method
      * @return the newly created method
      */
-    protected static Method createMethod(Type type, String methodName) {
+    protected static Method createMethod(Type type, String methodName, int numParams = 0) {
         log.info "Creating Method"
-        AddPrimitiveMethodModelTransform trans = new AddPrimitiveMethodModelTransform(type, methodName, "void", Accessibility.PUBLIC)
+        AddPrimitiveMethodModelTransform trans = new AddPrimitiveMethodModelTransform(type, methodName, "void", Accessibility.PUBLIC, numParams)
         trans.execute()
         return trans.getMethod()
     }

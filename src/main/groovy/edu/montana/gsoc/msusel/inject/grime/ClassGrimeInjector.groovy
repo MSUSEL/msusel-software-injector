@@ -146,7 +146,7 @@ class ClassGrimeInjector extends GrimeInjector {
             String temp = params[1]
             params[1] = params[2]
             params[2] = temp
-            
+
             method1 = method2
             method2 = null
         }
@@ -164,7 +164,8 @@ class ClassGrimeInjector extends GrimeInjector {
         }
 
         if (pair && !method2) {
-            method2 = createMethod(type, extractMethodName(params[2]))
+            (name, numParam) = extractMethodInfo(params[2])
+            method2 = createMethod(type, name, numParam)
             if (direct) createFieldUse(method2, (dest as Field))
             else createMethodCall(type, method2, (dest as Method))
         } else {

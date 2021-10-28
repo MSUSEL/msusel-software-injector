@@ -46,13 +46,15 @@ class AddPrimitiveMethodModelTransform extends TypeModelTransform {
     Accessibility access
     Modifier[] mods
     Method method
+    int numParams
 
-    AddPrimitiveMethodModelTransform(Type type, String name, String methodType, Accessibility access, Modifier ... mods) {
+    AddPrimitiveMethodModelTransform(Type type, String name, String methodType, Accessibility access, int numParams = 0, Modifier ... mods) {
         super(type)
         this.name = name
         this.methodType = methodType
         this.access = access
         this.mods = mods
+        this.numParams = numParams
     }
 
     @Override
@@ -67,7 +69,7 @@ class AddPrimitiveMethodModelTransform extends TypeModelTransform {
         if (!access)
             throw new ModelTransformPreconditionsNotMetException()
         // 4. type does not have a method of the same name
-        if (type.getAllMethods().find { it.name == name })
+        if (type.hasMethodWithNameAndNumParams(name, numParams))
             throw new ModelTransformPreconditionsNotMetException()
     }
 
