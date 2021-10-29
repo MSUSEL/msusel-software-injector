@@ -180,8 +180,11 @@ class ClassGrimeInjector extends GrimeInjector {
                 createFieldUse(method2, (dest as Field))
             }
             else {
-                if (dest instanceof Field)
-                    dest = createGetter(type, (dest as Field))
+                if (dest instanceof Field) {
+                    if (type.hasMethodWithName("get${dest.name.capitalize()}" as String))
+                        dest = type.getMethodWithName("get${dest.name.capitalize()}" as String)
+                    else dest = createGetter(type, (dest as Field))
+                }
                 createMethodCall(type, method2, (dest as Method))
             }
         } else {
@@ -190,8 +193,11 @@ class ClassGrimeInjector extends GrimeInjector {
                 createFieldUse(method1, (dest as Field))
             }
             else {
-                if (dest instanceof Field)
-                    dest = createGetter(type, (dest as Field))
+                if (dest instanceof Field) {
+                    if (type.hasMethodWithName("get${dest.name.capitalize()}" as String))
+                        dest = type.getMethodWithName("get${dest.name.capitalize()}" as String)
+                    else dest = createGetter(type, (dest as Field))
+                }
                 createMethodCall(type, method1, (dest as Method))
             }
         }
