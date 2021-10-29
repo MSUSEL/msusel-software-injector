@@ -179,7 +179,11 @@ class ClassGrimeInjector extends GrimeInjector {
                 if (!dest) dest = createField(type, "genField${genIndex++}", selectType(type))
                 createFieldUse(method2, (dest as Field))
             }
-            else createMethodCall(type, method2, (dest as Method))
+            else {
+                if (dest instanceof Field)
+                    dest = createGetter(type, (dest as Field))
+                createMethodCall(type, method2, (dest as Method))
+            }
         } else {
             if (direct) {
                 if (!dest) dest = createField(type, "genField${genIndex++}", selectType(type))
