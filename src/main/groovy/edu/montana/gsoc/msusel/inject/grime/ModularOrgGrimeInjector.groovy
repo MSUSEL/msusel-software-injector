@@ -122,6 +122,8 @@ class ModularOrgGrimeInjector extends OrgGrimeInjector {
         pattern.save()
         pattern.refresh()
         Namespace ns1 = proj.findNamespace(params[0])
+        if (!ns1)
+            ns1 = selectPatternNamespace()[0]
         Namespace ns2 = proj.findNamespace(params[1])
         ns1.save()
         ns1.refresh()
