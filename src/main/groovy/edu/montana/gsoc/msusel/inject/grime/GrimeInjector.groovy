@@ -210,11 +210,21 @@ abstract class GrimeInjector implements SourceInjector {
                     return RelationType.ASSOC
                 }
             } else if (src.isAssociatedTo(dest)) {
-                return RelationType.REAL
-            } else {
-                if (rand.nextBoolean())
+                if (dest.getType() == Type.INTERFACE)
                     return RelationType.REAL
+                else if (!src.getGeneralizedBy())
+                    return RelationType.GEN
                 else
+                    return RelationType.ASSOC
+            } else {
+                if (rand.nextBoolean()) {
+                    if (dest.getType() == Type.INTERFACE)
+                        return RelationType.REAL
+                    else if (!src.getGeneralizedBy())
+                        return RelationType.GEN
+                    else
+                        return RelationType.ASSOC
+                } else
                     return RelationType.ASSOC
             }
         }
