@@ -192,41 +192,27 @@ abstract class GrimeInjector implements SourceInjector {
         log.info "Selecting Persistent Relationship"
         if (src.getType() == Type.CLASS && dest.getType() == Type.CLASS) {
             if (src.isGeneralizedBy(dest) || src.getGeneralizedBy()) {
-                if (src.isAssociatedTo(dest)) {
-                    return null
-                } else {
-                    return RelationType.ASSOC
-                }
+                return RelationType.ASSOC
             } else if (src.isAssociatedTo(dest)) {
                 return RelationType.GEN
             } else {
                 return RelationType.ASSOC
             }
-        } else {
+        } else if (src.getType() == Type.CLASS && dest.getType() == Type.INTERFACE) {
             if (src.isRealizing(dest)) {
-                if (src.isAssociatedTo(dest)) {
-                    return null
-                } else {
-                    return RelationType.ASSOC
-                }
+                return RelationType.ASSOC
             } else if (src.isAssociatedTo(dest)) {
-                if (dest.getType() == Type.INTERFACE)
-                    return RelationType.REAL
-                else if (!src.getGeneralizedBy())
-                    return RelationType.GEN
-                else
-                    return RelationType.ASSOC
+                return RelationType.REAL
             } else {
-                if (rand.nextBoolean()) {
-                    if (dest.getType() == Type.INTERFACE)
-                        return RelationType.REAL
-                    else if (!src.getGeneralizedBy())
-                        return RelationType.GEN
-                    else
-                        return RelationType.ASSOC
-                } else
-                    return RelationType.ASSOC
+                return RelationType.ASSOC
             }
+        } else if (src.getType() == Type.INTERFACE && dest.getType() == Type.INTERFACE) {
+            if (src.getGeneralizedBy())
+                return RelationType.ASSOC
+            else
+                return RelationType.REAL
+        } else {
+            return RelationType.ASSOC
         }
     }
 
